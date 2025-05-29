@@ -2,6 +2,8 @@ namespace Runner.Commands;
 
 using DotMake.CommandLine;
 
+using JetBrains.Annotations;
+
 [CliCommand(Children =
 [
     typeof(HelloWorldCommand),
@@ -9,7 +11,9 @@ using DotMake.CommandLine;
     typeof(ListUsersCommand),
     typeof(CreateOrganizationCommand),
     typeof(ListOrganizationsCommand),
+    typeof(AddUserToOrganizationCommand),
 ])]
+[UsedImplicitly]
 internal class TopCommands
 {
     public void Run(CliContext context)

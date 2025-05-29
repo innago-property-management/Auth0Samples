@@ -39,4 +39,7 @@ internal static partial class LoggerMessages
 
     [LoggerMessage(LogLevel.Information, "{Message}")]
     internal static partial void Hello(this ILogger<HelloWorldCommand> logger, string message);
+    
+    [LoggerMessage(LogLevel.Information, "Added user {UserId} to organization {OrgId}")]
+    internal static partial void UserAddedToOrganization(this ILogger<AddUserToOrganizationCommand> logger, string userId, string orgId);
 }

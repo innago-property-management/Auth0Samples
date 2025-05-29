@@ -38,4 +38,14 @@ internal partial class Auth0Client
 
         return organizations;
     }
+
+    public Task AddUserToOrganization(string userId, string orgId, CancellationToken cancellationToken)
+    {
+        OrganizationAddMembersRequest request = new()
+        {
+            Members = [userId],
+        };
+
+        return client.Organizations.AddMembersAsync(orgId, request, cancellationToken);
+    }
 }

@@ -10,4 +10,6 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::3AD205AC-497B-423F-B14E-1D684D80BA6C::net9.0::UnitTests.Placeholder.PlaceholderTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	
+	</wpf:ResourceDictionary>
