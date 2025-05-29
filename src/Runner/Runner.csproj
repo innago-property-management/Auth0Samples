@@ -15,8 +15,8 @@
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <TrimmerSingleWarn>false</TrimmerSingleWarn>
         <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-        <PackageProjectUrl></PackageProjectUrl>
-        <RepositoryUrl></RepositoryUrl>
+        <PackageProjectUrl>https://github.com/innago-property-management/Auth0Samples/src/Runner</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/innago-property-management/Auth0Samples</RepositoryUrl>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>Innago.Demo.Auth0Samples</PackageId>
