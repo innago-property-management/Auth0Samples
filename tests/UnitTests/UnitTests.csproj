@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <RuntimeIdentifiers>win-x64;osx-x64;osx-arm64</RuntimeIdentifiers>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoFixture" Version="*" />
+        <PackageReference Include="coverlet.msbuild" Version="*">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAssertions" Version="*" />
+        <PackageReference Include="FluentAssertions.Analyzers" Version="*">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="JetBrains.Annotations" Version="*" />
+        <PackageReference Include="JUnitTestLogger" Version="*" />
+        <PackageReference Include="JunitXml.TestLogger" Version="*" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="*" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="*" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*" />
+        <PackageReference Include="Moq" Version="*" />
+        <PackageReference Include="Moq.Analyzers" Version="*">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="*">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Net.Http" Version="*" />
+        <PackageReference Include="System.Text.RegularExpressions" Version="*" />
+        <PackageReference Include="xunit" Version="*" />
+        <PackageReference Include="xunit.categories" Version="*" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="*">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="*">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>    
+
+</Project>
