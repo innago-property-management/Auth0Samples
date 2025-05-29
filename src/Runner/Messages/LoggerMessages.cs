@@ -2,6 +2,8 @@ namespace Runner;
 
 using Auth0.ManagementApi.Models;
 
+using Commands;
+
 using Microsoft.Extensions.Logging;
 
 internal static partial class LoggerMessages

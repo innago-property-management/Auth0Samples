@@ -1,4 +1,4 @@
-namespace Runner;
+namespace Runner.Client;
 
 using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;

@@ -1,10 +1,10 @@
-namespace Runner;
+namespace Runner.Client;
 
 using System.Text.RegularExpressions;
 
+using Abstractions;
+
 using Auth0.ManagementApi;
-using Auth0.ManagementApi.Models;
-using Auth0.ManagementApi.Paging;
 
 using Bogus;
 

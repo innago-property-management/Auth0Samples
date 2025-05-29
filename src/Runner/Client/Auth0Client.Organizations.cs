@@ -1,13 +1,13 @@
-namespace Runner;
+namespace Runner.Client;
 
 using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;
 
 internal partial class Auth0Client
 {
-    public Task<Organization> CreateOrganization(CancellationToken cancellationToken)
+    public Task<Organization> CreateOrganization(string? name = null, CancellationToken cancellationToken = default)
     {
-        string name = Faker.Company.CompanyName();
+        name ??= Faker.Company.CompanyName();
         string orgName = CleanName(name);
 
         OrganizationCreateRequest request = new()

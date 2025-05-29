@@ -1,4 +1,4 @@
-namespace Runner;
+namespace Runner.Commands;
 
 using DotMake.CommandLine;
 
