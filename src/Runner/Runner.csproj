@@ -45,4 +45,13 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Auth0Client.Organizations.cs">
+        <DependentUpon>Auth0Client.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Auth0Client.Users.cs">
+        <DependentUpon>Auth0Client.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

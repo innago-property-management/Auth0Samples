@@ -8,6 +8,7 @@ using DotMake.CommandLine;
     typeof(CreateUserCommand),
     typeof(ListUsersCommand),
     typeof(CreateOrganizationCommand),
+    typeof(ListOrganizationsCommand),
 ])]
 internal class TopCommands
 {

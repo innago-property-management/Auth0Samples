@@ -4,13 +4,15 @@ using Auth0.ManagementApi.Models;
 
 using DotMake.CommandLine;
 
+using Microsoft.Extensions.Logging;
+
 [CliCommand]
-internal class ListUsersCommand(IAuth0Client client)
+internal class ListUsersCommand(IAuth0Client client, ILogger<ListUsersCommand> logger)
 {
     public async Task RunAsync(CliContext context)
     {
         List<User> users = (await client.ListUsers(context.CancellationToken).ConfigureAwait(false)).ToList();
 
-        users.ForEach(user => Console.WriteLine($"{user.UserId}\t{user.Email}\t{user.FullName}\t{user.LastLogin:O}"));
+        users.ForEach(user => logger.User(user.UserId, user.Email, user.FullName, user.LastLogin));
     }
 }

@@ -2,11 +2,13 @@ namespace Runner;
 
 using DotMake.CommandLine;
 
+using Microsoft.Extensions.Logging;
+
 [CliCommand(Aliases = ["hello"])]
-internal class HelloWorldCommand
+internal class HelloWorldCommand(ILogger<HelloWorldCommand> logger)
 {
     public void Run()
     {
-        Console.WriteLine("Hello World!");
+        logger.Hello("Hello World!");
     }
 }
