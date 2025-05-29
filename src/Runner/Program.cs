@@ -7,9 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Runner;
+using Runner.Abstractions;
+using Runner.Commands;
 
 using Serilog;
+
+using Auth0Client = Runner.Client.Auth0Client;
 
 IHostBuilder builder = Host.CreateDefaultBuilder();
 

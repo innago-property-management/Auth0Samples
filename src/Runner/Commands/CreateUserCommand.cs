@@ -1,4 +1,6 @@
-namespace Runner;
+namespace Runner.Commands;
+
+using Abstractions;
 
 using Auth0.ManagementApi.Models;
 
