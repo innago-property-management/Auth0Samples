@@ -1,0 +1,17 @@
+name: Merge Checks
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    tags-ignore:
+      - "*"
+jobs:
+  merge-checks:
+    if: github.ref != 'refs/heads/main'
+    uses: innago-property-management/Oui-DELIVER/.github/workflows/merge-checks.yml@main
+    secrets: 
+      githubToken: ${{ secrets.CLASSIC_PACKAGE_PULL }}
+    with:
+      allowed_licenses_path: './.github/actions/check-licenses-action/allowed-licenses.json'
+      ignored_packages_path: './.github/actions/check-licenses-action/ignored-packages.json'      

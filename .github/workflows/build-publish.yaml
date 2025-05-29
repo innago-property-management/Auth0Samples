@@ -1,0 +1,23 @@
+name: build-publish
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "*" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+jobs:
+  build:
+    uses: innago-property-management/Oui-DELIVER/.github/workflows/build-publish.yml@main
+    secrets:
+      githubToken: ${{ secrets.ORG_NUGET_PUSH }}
+      cosignKey: ${{ secrets.COSIGN_KEY }}
+      cosignPassword: ${{ secrets.COSIGN_PASSWORD }}
+    permissions:
+      attestations: write
+      packages: write
+      pull-requests: write
+      id-token: write
+      contents: read
+    

@@ -1,0 +1,8 @@
+[
+  "Bogus",
+  "FluentAssertions",
+  "JUnitTestLogger",
+  "Serilog.Sinks.Grafana.Loki",
+  "SonarAnalyzer.CSharp",
+  "xunit.categories"
+]
