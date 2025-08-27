@@ -1,0 +1,58 @@
+using Innago.Security.IdpServiceFacade;
+using Innago.Security.IdpServiceFacade.Services;
+
+using Prometheus;
+
+using Serilog;
+using Serilog.Formatting.Compact;
+using Serilog.Sinks.OpenTelemetry;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
+    .SetLogLevelsFromConfig(builder.Configuration)
+    .WriteTo.Console(new RenderedCompactJsonFormatter())
+    .WriteTo.OpenTelemetry(options =>
+    {
+        string authority = new Uri(builder.Configuration["openTelemetry:endpoint"] ?? throw new InvalidOperationException()).GetLeftPart(UriPartial.Authority);
+        options.Endpoint = $"{authority}/v1/logs";
+        options.Protocol = OtlpProtocol.HttpProtobuf;
+    })
+    .Enrich.FromLogContext()
+    .Enrich.WithMachineName()
+    .Enrich.WithEnvironmentVariable("POD_NAME")
+    .Enrich.WithClientIp()
+    .Enrich.WithCorrelationId()
+    .Enrich.WithRequestHeader("x-user-id")
+    .Enrich.WithRequestHeader("x-organization-id")
+    .Enrich.WithRequestHeader("x-user-email-address")
+    .Enrich.WithRequestHeader("X-Forwarded-For")
+    .Enrich.WithRequestHeader("X-B3-TraceId")
+    .Enrich.WithRequestHeader("X-B3-SpanId")
+    .Enrich.WithRequestHeader("X-B3-ParentSpanId");
+
+Log.Logger = loggerConfiguration.CreateLogger();
+
+builder.Services.ConfigureServices(builder.Configuration);
+
+WebApplication app = builder.Build();
+
+app.UseRouting();
+app.UseGrpcMetrics();
+app.UseHttpMetrics();
+app.UseForwardedHeaders();
+app.UseSerilogRequestLogging();
+
+app.MapGrpcService<UserService>();
+
+app.MapGrpcHealthChecksService();
+
+app.MapGrpcReflectionService();
+app.MapMetrics("/metricsz");
+app.MapHealthChecks("/healthz");
+
+app.MapGet("/",
+    () =>
+        "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
+await app.RunAsync().ConfigureAwait(false);

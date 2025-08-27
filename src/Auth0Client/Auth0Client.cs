@@ -1,4 +1,4 @@
-namespace Runner.Client;
+namespace Auth0Client;
 
 using System.Text.RegularExpressions;
 
@@ -6,13 +6,9 @@ using Abstractions;
 
 using Auth0.ManagementApi;
 
-using Bogus;
-
-internal partial class Auth0Client(IManagementApiClient client) : IAuth0Client
+public partial class Auth0Client(IManagementApiClient client) : IAuth0Client
 {
     private const string Auth0DatabaseName = "Username-Password-Authentication";
-
-    private static Faker Faker { get; } = new();
 
     [GeneratedRegex("[^a-z0-9\\-_]+")]
     private static partial Regex Auth0NameCleaner();

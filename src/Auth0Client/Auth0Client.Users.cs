@@ -1,24 +1,30 @@
-namespace Runner.Client;
+namespace Auth0Client;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Abstractions;
 
 using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;
 
-internal partial class Auth0Client
+public partial class Auth0Client
 {
-    public Task<User> CreateUser(CancellationToken cancellationToken)
+    public async Task<(User user, string password)> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
     {
         UserCreateRequest request = new()
         {
-            Email = Faker.Person.Email,
-            FirstName = Faker.Person.FirstName,
-            LastName = Faker.Person.LastName,
+            Email = userCreateInfo.Email,
+            FirstName = userCreateInfo.FirstName,
+            LastName = userCreateInfo.LastName,
             EmailVerified = false,
             VerifyEmail = false,
-            Password = $"{Faker.Internet.Password(16)}-Aa1!",
+            Password = userCreateInfo.Password,
             Connection = Auth0Client.Auth0DatabaseName,
         };
 
-        return client.Users.CreateAsync(request, cancellationToken);
+        return (await client.Users.CreateAsync(request, cancellationToken), userCreateInfo.Password);
     }
 
     public async Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken)
@@ -42,7 +48,7 @@ internal partial class Auth0Client
         do
         {
             PaginationInfo paginationInfo = new(pageNo, perPage, true);
-            IPagedList<User>? pagedList = await client.Users.GetAllAsync(request, paginationInfo, cancellationToken).ConfigureAwait(false);
+            IPagedList<User> pagedList = await client.Users.GetAllAsync(request, paginationInfo, cancellationToken).ConfigureAwait(false);
 
             users.AddRange(pagedList);
 

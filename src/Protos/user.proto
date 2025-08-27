@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdpServiceFacade";
+
+package user;
+
+// The user service definition.
+service User {
+  // Initiates a password reset
+  rpc InitiatePasswordReset (UserRequest) returns (UserReply);
+  rpc InitiateForcedLogin (UserRequest) returns (UserReply);
+  rpc InitiateLockout (UserRequest) returns (UserReply);
+  rpc MarkAsSuspicious (UserRequest) returns (UserReply);
+  rpc MarkAsFraud (UserRequest) returns (UserReply);
+  rpc InitiateLegalHold (UserRequest) returns (UserReply);
+  rpc AssignRole (UserRoleRequest) returns (UserReply);
+  rpc RemoveRole (UserRoleRequest) returns (UserReply);
+}
+
+// The request message containing the user's email.
+message UserRequest {
+  string email = 1;
+}
+
+message UserRoleRequest {
+  string email = 1;
+  string role = 2;
+}
+
+// The response message containing the outcome.
+message UserReply {
+  bool ok = 1;
+  string error = 2;
+}

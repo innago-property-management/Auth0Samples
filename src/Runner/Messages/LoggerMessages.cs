@@ -8,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 internal static partial class LoggerMessages
 {
-    private static Action<ILogger, string, Exception?> UserCreatedDefinition =>
-        LoggerMessage.Define<string>(
+    private static Action<ILogger, string, string?, Exception?> UserCreatedDefinition =>
+        LoggerMessage.Define<string, string?>(
             LogLevel.Information,
             new EventId(),
-            "User created with id: {Id}");
+            "User created with id: {Id} and {Password}");
 
     private static Action<ILogger, string, Exception?>
         OrganizationCreatedDefinition =>
@@ -21,9 +21,9 @@ internal static partial class LoggerMessages
             new EventId(),
             "Organization created with id: {Id}");
 
-    internal static void UserCreated(this ILogger<CreateUserCommand> logger, User user)
+    internal static void UserCreated(this ILogger<CreateUserCommand> logger, User user, string? password = null)
     {
-        UserCreatedDefinition(logger, user.UserId, null);
+        UserCreatedDefinition(logger, user.UserId, password, null);
     }
 
     internal static void OrganizationCreated(this ILogger<CreateOrganizationCommand> logger, Organization organization)

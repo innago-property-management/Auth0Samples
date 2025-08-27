@@ -16,7 +16,8 @@ internal class CreateOrganizationCommand(IAuth0Client client, ILogger<CreateOrga
     
     public async Task RunAsync(CliContext context)
     {
-        Organization organization = await client.CreateOrganization(this.Name, context.CancellationToken).ConfigureAwait(false);
+        OrganizationCreateInfo info = new(this.Name!);
+        Organization organization = await client.CreateOrganization(info, context.CancellationToken).ConfigureAwait(false);
 
         logger.OrganizationCreated(organization);
     }

@@ -1,4 +1,6 @@
-﻿using Auth0Net.DependencyInjection;
+﻿using Abstractions;
+
+using Auth0Net.DependencyInjection;
 using Auth0Net.DependencyInjection.Cache;
 
 using DotMake.CommandLine;
@@ -7,12 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Runner.Abstractions;
 using Runner.Commands;
 
 using Serilog;
-
-using Auth0Client = Runner.Client.Auth0Client;
 
 IHostBuilder builder = Host.CreateDefaultBuilder();
 
@@ -28,7 +27,7 @@ builder.ConfigureServices((context, services) =>
     services.AddSingleton(context.Configuration);
     services.AddAuth0AuthenticationClient(ConfigureAuth0);
     services.AddAuth0ManagementClient().AddManagementAccessToken();
-    services.AddTransient<IAuth0Client, Auth0Client>();
+    services.AddTransient<IAuth0Client, Auth0Client.Auth0Client>();
 
     return;
 
