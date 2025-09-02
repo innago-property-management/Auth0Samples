@@ -23,6 +23,8 @@ internal static partial class ProgramConfiguration
         void Implementation(TracerProviderBuilder builder)
         {
             builder.AddSource(serviceName)
+                .AddSource(IdpServiceFacadeTracer.Source.Name)
+                .AddSource(Auth0Client.Auth0ClientTracer.Source.Name)
                 .AddGrpcCoreInstrumentation()
                 .AddAspNetCoreInstrumentation();
 
