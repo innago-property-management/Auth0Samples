@@ -1,5 +1,6 @@
 namespace Auth0Client;
 
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,9 +10,13 @@ using Abstractions;
 using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;
 
+using Innago.Shared.TryHelpers;
+
+using MorseCode.ITask;
+
 public partial class Auth0Client
 {
-    public async Task<(User user, string password)> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
+    public async Task<User> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
     {
         UserCreateRequest request = new()
         {
@@ -24,7 +29,7 @@ public partial class Auth0Client
             Connection = Auth0Client.Auth0DatabaseName,
         };
 
-        return (await client.Users.CreateAsync(request, cancellationToken), userCreateInfo.Password);
+        return await client.Users.CreateAsync(request, cancellationToken);
     }
 
     public async Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken)
@@ -58,5 +63,22 @@ public partial class Auth0Client
         } while (hasMore);
 
         return users;
+    }
+
+    public async ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken)
+    {
+        PasswordChangeTicketRequest request = new()
+        {
+            Email = email,
+            ConnectionId = Auth0Client.Auth0ConnectionName,
+        };
+
+        Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!).ConfigureAwait(false);
+
+        return new OkError
+        {
+            OK = result.HasSucceeded,
+            Error = ((Exception?)result)?.Message,
+        };
     }
 }

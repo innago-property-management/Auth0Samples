@@ -8,7 +8,8 @@
 
     <ItemGroup>
       <PackageReference Include="Auth0.ManagementApi" Version="7.40.0" />
-      <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
+      <PackageReference Include="Innago.Shared.TryHelpers" Version="1.1.0" />
+      <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
       <PackageReference Include="MorseCode.ITask" Version="2.0.3" />
     </ItemGroup>
 

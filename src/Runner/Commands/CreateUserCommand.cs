@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 [CliCommand]
 internal class CreateUserCommand(IAuth0Client client, ILogger<CreateUserCommand> logger)
 {
-    [CliOption(Description = "The first name.", Required = true)]
+    [CliOption(Description = "The email.", Required = true)]
     public string Email { get; set; } = null!;
 
     [CliOption(Description = "The first name.", Required = true)]
@@ -26,8 +26,8 @@ internal class CreateUserCommand(IAuth0Client client, ILogger<CreateUserCommand>
     public async Task RunAsync(CliContext context)
     {
         UserCreateInfo info = new(this.FirstName, this.LastName, this.Email, this.Password);
-        (User user, string password) = await client.CreateUser(info, context.CancellationToken).ConfigureAwait(false);
+        User user = await client.CreateUser(info, context.CancellationToken).ConfigureAwait(false);
 
-        logger.UserCreated(user, password);
+        logger.UserCreated(user);
     }
 }

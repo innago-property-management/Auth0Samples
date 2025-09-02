@@ -29,7 +29,7 @@ internal static partial class ProgramConfiguration
             builder.AddOtlpExporter(options =>
             {
                 options.Protocol = OtlpExportProtocol.HttpProtobuf;
-                options.Endpoint = new Uri(configuration["OtlpEndpointUri"] ?? throw new InvalidOperationException("missing otlp endpoint"));
+                options.Endpoint = new Uri(configuration["opentelemetry:endpoint"] ?? throw new InvalidOperationException("missing otlp endpoint"));
             });
 
             if (configuration["ASPNETCORE_ENVIRONMENT"] == "Development")

@@ -5,6 +5,7 @@ using Prometheus;
 
 using Serilog;
 using Serilog.Formatting.Compact;
+using Serilog.Sinks.Grafana.Loki;
 using Serilog.Sinks.OpenTelemetry;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,13 @@ LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
     .Enrich.WithRequestHeader("X-B3-TraceId")
     .Enrich.WithRequestHeader("X-B3-SpanId")
     .Enrich.WithRequestHeader("X-B3-ParentSpanId");
+
+if (builder.Environment.IsDevelopment())
+{
+    string uri = builder.Configuration["serilog:writeTo:1:args:uri"] ?? throw new InvalidOperationException();
+    string serviceName = builder.Configuration["MY_POD_SERVICE_ACCOUNT"] ?? throw new InvalidOperationException();
+    loggerConfiguration.WriteTo.GrafanaLoki(uri, propertiesAsLabels: ["app"], labels: [new LokiLabel { Key = "app", Value = serviceName }]);
+}
 
 Log.Logger = loggerConfiguration.CreateLogger();
 

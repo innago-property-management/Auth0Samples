@@ -9,6 +9,7 @@ using Auth0.ManagementApi;
 public partial class Auth0Client(IManagementApiClient client) : IAuth0Client
 {
     private const string Auth0DatabaseName = "Username-Password-Authentication";
+    private const string Auth0ConnectionName = "con_4BTwKBI5S3zH7d2T";
 
     [GeneratedRegex("[^a-z0-9\\-_]+")]
     private static partial Regex Auth0NameCleaner();

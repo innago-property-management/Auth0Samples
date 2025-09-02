@@ -10,6 +10,6 @@ internal class UserService(IUserService externalService) : User.UserBase
 {
     public override Task<UserReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
-        return base.InitiatePasswordReset(request, context);
+        return externalService.ResetPassword(request.Email, CancellationToken.None).ToUserReply();
     }
 }
