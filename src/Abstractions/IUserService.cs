@@ -1,4 +1,4 @@
-﻿namespace Abstractions;
+namespace Abstractions;
 
 using System.Threading;
 
@@ -9,4 +9,5 @@ public interface IUserService
     ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken);
 
     ITask<OkError> MarkUserAsSuspicious(string email, CancellationToken cancellationToken);
+    ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken);
 }
