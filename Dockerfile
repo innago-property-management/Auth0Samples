@@ -36,7 +36,8 @@ RUN dotnet publish ./IdpServiceFacade/IdpServiceFacade.csproj \
     --output /app \
     --self-contained false \
     --arch $TARGETARCH \
-    -p:SKIP_OPENAPI_GENERATION=true
+    -p:SKIP_OPENAPI_GENERATION=true \
+    -p:NoWarn=RS0016,RS0041
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS app
  
