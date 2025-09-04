@@ -6,10 +6,18 @@ using Abstractions;
 
 using Auth0.ManagementApi;
 
-public partial class Auth0Client(IManagementApiClient client, IOptions<Auth0Settings> settings) : IAuth0Client
+public partial class Auth0Client : IAuth0Client
 {
-    private readonly string Auth0DatabaseName = settings.Value.DatabaseName;
-    private readonly string Auth0ConnectionName = settings.Value.ConnectionName; 
+    private static string Auth0DatabaseName;
+    private static string Auth0ConnectionName;
+    private readonly IManagementApiClient client;
+
+    public Auth0Client(IManagementApiClient client, IOptions<Auth0Settings> settings)
+    {
+        this.client = client;
+        Auth0DatabaseName = settings.Value.DatabaseName;
+        Auth0ConnectionName = settings.Value.ConnectionName;
+    }
 
     [GeneratedRegex("[^a-z0-9\\-_]+")]
     private static partial Regex Auth0NameCleaner();
