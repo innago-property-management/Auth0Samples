@@ -12,12 +12,12 @@
 
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="*" />
-        <PackageReference Include="coverlet.msbuild" Version="*">
+        <PackageReference Include="AwesomeAssertions" Version="9.1.0" />
+        <PackageReference Include="AwesomeAssertions.Analyzers" Version="9.0.3">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FluentAssertions" Version="*" />
-        <PackageReference Include="FluentAssertions.Analyzers" Version="*">
+        <PackageReference Include="coverlet.msbuild" Version="*">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

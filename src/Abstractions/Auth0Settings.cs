@@ -1,7 +1,5 @@
 namespace Abstractions;
 
-using System.Diagnostics.CodeAnalysis;
-
 /// <summary>
 /// Contains configuration settings for Auth0 authentication and authorization.
 /// </summary>

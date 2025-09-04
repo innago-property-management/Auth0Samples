@@ -1,0 +1,75 @@
+Abstractions.Auth0Settings
+Abstractions.Auth0Settings.Auth0Settings() -> void
+Abstractions.Auth0Settings.ClientId.get -> string!
+Abstractions.Auth0Settings.ClientId.set -> void
+Abstractions.Auth0Settings.ClientSecret.get -> string!
+Abstractions.Auth0Settings.ClientSecret.set -> void
+Abstractions.Auth0Settings.ConnectionName.get -> string!
+Abstractions.Auth0Settings.ConnectionName.set -> void
+Abstractions.Auth0Settings.DatabaseName.get -> string!
+Abstractions.Auth0Settings.DatabaseName.set -> void
+Abstractions.Auth0Settings.Domain.get -> string!
+Abstractions.Auth0Settings.Domain.set -> void
+Abstractions.IAuth0Client
+Abstractions.IAuth0Client.AddUserToOrganization(string! userId, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Abstractions.IAuth0Client.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.Organization!>!
+Abstractions.IAuth0Client.CreateUser(Abstractions.UserCreateInfo! userCreateInfo, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
+Abstractions.IAuth0Client.ListOrganizations(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.ManagementApi.Models.Organization!>!>!
+Abstractions.IAuth0Client.ListUsers(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.ManagementApi.Models.User!>!>!
+Abstractions.IUserService
+Abstractions.IUserService.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.MarkUserAsFraud(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.MarkUserAsSuspicious(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.ToggleMFA(string! email, bool enable, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.OkError
+Abstractions.OkError.<Clone>$() -> Abstractions.OkError!
+Abstractions.OkError.Deconstruct(out bool OK, out string? Error) -> void
+Abstractions.OkError.Equals(Abstractions.OkError? other) -> bool
+Abstractions.OkError.Error.get -> string?
+Abstractions.OkError.Error.init -> void
+Abstractions.OkError.OK.get -> bool
+Abstractions.OkError.OK.init -> void
+Abstractions.OkError.OkError(bool OK = true, string? Error = null) -> void
+Abstractions.OrganizationCreateInfo
+Abstractions.OrganizationCreateInfo.Deconstruct(out string! Name) -> void
+Abstractions.OrganizationCreateInfo.Name.get -> string!
+Abstractions.OrganizationCreateInfo.Name.init -> void
+Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(Abstractions.OrganizationCreateInfo! original) -> void
+Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(string! Name) -> void
+Abstractions.UserCreateInfo
+Abstractions.UserCreateInfo.Deconstruct(out string! FirstName, out string! LastName, out string! Email, out string! Password) -> void
+Abstractions.UserCreateInfo.Email.get -> string!
+Abstractions.UserCreateInfo.Email.init -> void
+Abstractions.UserCreateInfo.FirstName.get -> string!
+Abstractions.UserCreateInfo.FirstName.init -> void
+Abstractions.UserCreateInfo.LastName.get -> string!
+Abstractions.UserCreateInfo.LastName.init -> void
+Abstractions.UserCreateInfo.Password.get -> string!
+Abstractions.UserCreateInfo.Password.init -> void
+Abstractions.UserCreateInfo.UserCreateInfo(Abstractions.UserCreateInfo! original) -> void
+Abstractions.UserCreateInfo.UserCreateInfo(string! FirstName, string! LastName, string! Email, string! Password) -> void
+override Abstractions.OkError.Equals(object? obj) -> bool
+override Abstractions.OkError.GetHashCode() -> int
+override Abstractions.OkError.ToString() -> string!
+override Abstractions.OrganizationCreateInfo.Equals(object? obj) -> bool
+override Abstractions.OrganizationCreateInfo.GetHashCode() -> int
+override Abstractions.OrganizationCreateInfo.ToString() -> string!
+override Abstractions.UserCreateInfo.Equals(object? obj) -> bool
+override Abstractions.UserCreateInfo.GetHashCode() -> int
+override Abstractions.UserCreateInfo.ToString() -> string!
+static Abstractions.OkError.implicit operator Abstractions.OkError!(Innago.Shared.TryHelpers.Result result) -> Abstractions.OkError!
+static Abstractions.OkError.operator !=(Abstractions.OkError? left, Abstractions.OkError? right) -> bool
+static Abstractions.OkError.operator ==(Abstractions.OkError? left, Abstractions.OkError? right) -> bool
+static Abstractions.OrganizationCreateInfo.operator !=(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
+static Abstractions.OrganizationCreateInfo.operator ==(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
+static Abstractions.UserCreateInfo.operator !=(Abstractions.UserCreateInfo? left, Abstractions.UserCreateInfo? right) -> bool
+static Abstractions.UserCreateInfo.operator ==(Abstractions.UserCreateInfo? left, Abstractions.UserCreateInfo? right) -> bool
+virtual Abstractions.OrganizationCreateInfo.<Clone>$() -> Abstractions.OrganizationCreateInfo!
+virtual Abstractions.OrganizationCreateInfo.EqualityContract.get -> System.Type!
+virtual Abstractions.OrganizationCreateInfo.Equals(Abstractions.OrganizationCreateInfo? other) -> bool
+virtual Abstractions.OrganizationCreateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Abstractions.UserCreateInfo.<Clone>$() -> Abstractions.UserCreateInfo!
+virtual Abstractions.UserCreateInfo.EqualityContract.get -> System.Type!
+virtual Abstractions.UserCreateInfo.Equals(Abstractions.UserCreateInfo? other) -> bool
+virtual Abstractions.UserCreateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
