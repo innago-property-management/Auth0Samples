@@ -9,7 +9,7 @@
         <InvariantGlobalization>true</InvariantGlobalization>
         <LangVersion>Latest</LangVersion>
         <Nullable>enable</Nullable>
-        <PublishAot>true</PublishAot>
+        <PublishAot>false</PublishAot>
         <RootNamespace>Innago.Security.IdpServiceFacade</RootNamespace>
         <RuntimeIdentifiers>win-x64;osx-x64;osx-arm64;linux-x64</RuntimeIdentifiers>
         <TreatWarningAsErrors>true</TreatWarningAsErrors>
@@ -26,6 +26,7 @@
     
     <PropertyGroup Condition=" '$(CI)' == 'true' ">
         <DisableDefaultDocumentation>true</DisableDefaultDocumentation>
+        <NoWarn>RS0041;RS0016</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

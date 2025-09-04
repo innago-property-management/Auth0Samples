@@ -18,7 +18,8 @@ RUN --mount=type=secret,id=nuget_password,target=/run/secrets/nuget_password \
             --store-password-in-clear-text \
             "$NUGET_SOURCE_URL"; \
     fi
- 
+
+COPY ./.editorconfig .
 COPY src .
 
 WORKDIR /src
@@ -36,8 +37,7 @@ RUN dotnet publish ./IdpServiceFacade/IdpServiceFacade.csproj \
     --output /app \
     --self-contained false \
     --arch $TARGETARCH \
-    -p:SKIP_OPENAPI_GENERATION=true \
-    -p:NoWarn=RS0016,RS0041
+    -p:SKIP_OPENAPI_GENERATION=true
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS app
  
