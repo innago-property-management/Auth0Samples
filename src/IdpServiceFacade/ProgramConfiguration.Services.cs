@@ -35,8 +35,6 @@ internal static partial class ProgramConfiguration
 
         services.AddGrpcHealthChecks();
 
-        ////services.AddScoped<IUserIdService, UserIdService>();
-
         string serviceName = configuration["openTelemetry:ServiceName"] ?? throw new InvalidOperationException("missing service name");
 
         services.AddOpenTelemetry()
@@ -55,9 +53,8 @@ internal static partial class ProgramConfiguration
         services.AddAuth0ManagementClient().AddManagementAccessToken();
 
         services.AddScoped<IUserService, Auth0Client>();
-        services.Configure<Auth0Settings>(
-        configuration.GetSection("Auth0")
-        );
+
+        services.AddOptions<Auth0Settings>().BindConfiguration("Auth0");
 
         return;
 

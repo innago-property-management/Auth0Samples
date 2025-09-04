@@ -1,10 +1,10 @@
-namespace Runner;
+namespace Runner.Messages;
 
 using Auth0.ManagementApi.Models;
 
-using Commands;
-
 using Microsoft.Extensions.Logging;
+
+using Commands;
 
 internal static partial class LoggerMessages
 {

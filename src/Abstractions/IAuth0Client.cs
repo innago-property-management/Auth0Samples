@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 using Auth0.ManagementApi.Models;
 
-using Innago.Shared.TryHelpers;
-
 public interface IAuth0Client : IUserService
 {
     Task AddUserToOrganization(string userId, string orgId, CancellationToken cancellationToken);

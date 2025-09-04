@@ -185,3 +185,4 @@ tab_width = 2
 
 [src/IdpServiceFacade/*/*/net9.0/Protos/*.cs]
 dotnet_diagnostic.RS0041.severity = none
+dotnet_diagnostic.RS0016.severity = none

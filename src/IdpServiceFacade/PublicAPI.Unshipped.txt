@@ -38,12 +38,14 @@ IdpServiceFacade.UserRequest.UserRequest() -> void
 IdpServiceFacade.UserRoleRequest
 IdpServiceFacade.UserRoleRequest.CalculateSize() -> int
 IdpServiceFacade.UserRoleRequest.UserRoleRequest() -> void
+Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer
 override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
 override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
 override IdpServiceFacade.UserReply.GetHashCode() -> int
 override IdpServiceFacade.UserRequest.GetHashCode() -> int
 override IdpServiceFacade.UserRoleRequest.GetHashCode() -> int
+static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -> System.Diagnostics.ActivitySource!
 ~IdpServiceFacade.OrganizationReply.Clone() -> IdpServiceFacade.OrganizationReply
 ~IdpServiceFacade.OrganizationReply.Equals(IdpServiceFacade.OrganizationReply other) -> bool
 ~IdpServiceFacade.OrganizationReply.Error.get -> string

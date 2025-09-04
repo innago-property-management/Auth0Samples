@@ -8,7 +8,7 @@ using MorseCode.ITask;
 
 internal static class UserReplyHelpers
 {
-    public static UserReply ToUserReply(this OkError result)
+    private static UserReply ToUserReply(this OkError result)
     {
         return new UserReply
         {

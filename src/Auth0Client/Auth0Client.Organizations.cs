@@ -9,6 +9,9 @@ using Abstractions;
 using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;
 
+using JetBrains.Annotations;
+
+[PublicAPI]
 public partial class Auth0Client
 {
     public Task<Role> CreateRole(string description, string name, CancellationToken cancellationToken)

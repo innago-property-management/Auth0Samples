@@ -2,9 +2,9 @@ namespace Abstractions;
 
 public class Auth0Settings
 {
-    public string Domain { get; set; } = default!;
-    public string ClientId { get; set; } = default!;
-    public string ClientSecret { get; set; } = default!;
-    public string DatabaseName { get; set; } = default!;
-    public string ConnectionName { get; set; } = default!;
+    public string Domain { get; set; } = null!;
+    public string ClientId { get; set; } = null!;
+    public string ClientSecret { get; set; } = null!;
+    public string DatabaseName { get; set; } = null!;
+    public string ConnectionName { get; set; } = null!;
 }

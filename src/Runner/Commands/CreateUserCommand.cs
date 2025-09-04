@@ -6,6 +6,8 @@ using Auth0.ManagementApi.Models;
 
 using DotMake.CommandLine;
 
+using Messages;
+
 using Microsoft.Extensions.Logging;
 
 [CliCommand]

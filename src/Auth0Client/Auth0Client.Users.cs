@@ -17,6 +17,8 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
+using JetBrains.Annotations;
+
 public partial class Auth0Client
 {
     public async Task<User> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
@@ -31,7 +33,7 @@ public partial class Auth0Client
             EmailVerified = false,
             VerifyEmail = false,
             Password = userCreateInfo.Password,
-            Connection = Auth0Client.auth0DatabaseName,
+            Connection = this.auth0DatabaseName,
         };
 
         return await client.Users.CreateAsync(request, cancellationToken);
@@ -43,7 +45,7 @@ public partial class Auth0Client
 
         GetUsersRequest request = new()
         {
-            Connection = Auth0Client.auth0DatabaseName,
+            Connection = this.auth0DatabaseName,
             Sort = "user_id:1",
             Query = "user_id:*",
             Fields = "user_id,email,name,last_login",
@@ -51,11 +53,11 @@ public partial class Auth0Client
             SearchEngine = "v3",
         };
 
-        var pageNo = 0;
+        int pageNo = 0;
         const int perPage = 100;
         bool hasMore;
         List<User> users = [];
-        var usersProcessed = 0;
+        int usersProcessed = 0;
 
         do
         {
@@ -79,10 +81,11 @@ public partial class Auth0Client
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
-            ConnectionId = Auth0Client.auth0ConnectionName,
+            ConnectionId = this.auth0ConnectionName,
         };
 
-        Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!).ConfigureAwait(false);
+        Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!)
+            .ConfigureAwait(false);
 
         return new OkError
         {
@@ -150,16 +153,19 @@ public partial class Auth0Client
     public async ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken)
     {
         OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new TwoFactorEnabled(enable), cancellationToken);
-        if(!userMetadataUpdated.OK)
+
+        if (!userMetadataUpdated.OK)
         {
             return userMetadataUpdated;
         }
+
         return await this.RemoveAuthenticationMethods(email, cancellationToken);
     }
 
     private async ITask<OkError> RemoveAuthenticationMethods(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
         Result<IList<User>?> getUsersResult = await TryHelpers
             .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
             .ConfigureAwait(false);
@@ -170,9 +176,10 @@ public partial class Auth0Client
         {
             return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
         }
+
         async Task<OkError> DeleteAuthenticationMethods(IList<User?> users)
         {
-            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
+            return await (users.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
 
             Task<OkError> MoreThanOneUserFound()
             {
@@ -184,13 +191,17 @@ public partial class Auth0Client
 
             async Task<OkError> OnTrue()
             {
-                User user = users!.First();
-                string userId = user!.UserId;
-                Result updateResult = await TryHelpers.TryAsync(() => client.Users.DeleteAuthenticationMethodsAsync(userId, cancellationToken)!).ConfigureAwait(false);
-                return new(OK: updateResult.HasSucceeded, Error: ((Exception?)updateResult)?.Message);
+                User user = users.First()!;
+                string userId = user.UserId;
+
+                Result updateResult = await TryHelpers.TryAsync(() => client.Users.DeleteAuthenticationMethodsAsync(userId, cancellationToken))
+                    .ConfigureAwait(false);
+
+                return new OkError(OK: updateResult.HasSucceeded, Error: ((Exception?)updateResult)?.Message);
             }
         }
     }
+
     private async ITask<OkError> UpdateUserMetadata(string email, dynamic metadata, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
@@ -241,6 +252,8 @@ public partial class Auth0Client
         }
     }
 
+    [UsedImplicitly]
     private record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
-    private record TwoFactorEnabled([property: JsonPropertyName("two_factor_enabled")] bool? twoFactorEnabled = false);
+
+    private record TwoFactorEnabled([property: JsonPropertyName("two_factor_enabled")] bool? Enabled = false);
 }

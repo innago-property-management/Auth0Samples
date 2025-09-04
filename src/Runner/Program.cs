@@ -21,8 +21,6 @@ builder.UseSerilog((context, provider, loggerConfig) =>
 
 builder.ConfigureAppConfiguration((_, configurationBuilder) => { configurationBuilder.AddUserSecrets<Program>(); });
 
-
-
 builder.ConfigureServices((context, services) =>
 {
     services.AddLogging();
