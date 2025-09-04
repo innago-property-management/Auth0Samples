@@ -26,7 +26,7 @@
     
     <PropertyGroup Condition=" '$(CI)' == 'true' ">
         <DisableDefaultDocumentation>true</DisableDefaultDocumentation>
-        <NoWarn>RS0041;RS0016</NoWarn>
+        <NoWarn>RS0041,RS0016</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
