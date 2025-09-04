@@ -35,7 +35,7 @@ RUN dotnet publish ./IdpServiceFacade/IdpServiceFacade.csproj \
     --configuration Release \
     --output /app \
     --self-contained false \
-    /p:NoWarn=RS0041 \
+    /p:NoWarn=RS* \
     --arch $TARGETARCH \
     -p:SKIP_OPENAPI_GENERATION=true
 
