@@ -12,6 +12,8 @@
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserBase](User/UserBase/index.md 'IdpServiceFacade\.User\.UserBase') | Base class for server\-side implementations of User |
+| [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |
+| [UserMFARequest](UserMFARequest/index.md 'IdpServiceFacade\.UserMFARequest') | |
 | [UserReflection](UserReflection/index.md 'IdpServiceFacade\.UserReflection') | Holder for reflection information generated from Protos/user\.proto |
 | [UserReply](UserReply/index.md 'IdpServiceFacade\.UserReply') | The response message containing the outcome\. |
 | [UserRequest](UserRequest/index.md 'IdpServiceFacade\.UserRequest') | The request message containing the user's email\. |

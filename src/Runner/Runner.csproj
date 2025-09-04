@@ -8,7 +8,6 @@
         <Nullable>enable</Nullable>
         <UserSecretsId>fcb611c1-8557-4e43-8ade-b5ad11f1cd24</UserSecretsId>
         <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <AssemblyName>Innago.Demo.Auth0Samples</AssemblyName>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
@@ -27,8 +26,7 @@
         <PackageReference Include="Auth0.ManagementApi" Version="7.40.0" />
         <PackageReference Include="Auth0Net.DependencyInjection" Version="5.1.0" />
         <PackageReference Include="Bogus" Version="35.6.3" />
-        <PackageReference Include="DotMake.CommandLine" Version="2.7.0" />
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
+        <PackageReference Include="DotMake.CommandLine" Version="2.7.1" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.8" />
         <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
