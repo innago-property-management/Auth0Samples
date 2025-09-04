@@ -16,6 +16,7 @@ service User {
   rpc ChangePassword (UserChangePasswordRequest) returns (UserReply);
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
+  rpc ToggleMfa (UserMFARequest) returns (UserReply);
 }
 
 // The request message containing the user's email.
@@ -37,4 +38,9 @@ message UserChangePasswordRequest {
 message UserReply {
   bool ok = 1;
   string error = 2;
+}
+
+message UserMFARequest {
+  string email = 1;
+  bool enable = 2;
 }

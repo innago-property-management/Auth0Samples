@@ -37,12 +37,10 @@ internal static partial class ProgramConfiguration
 
         ////services.AddScoped<IUserIdService, UserIdService>();
 
-        string serviceName = configuration["MY_POD_SERVICE_ACCOUNT"] ?? throw new InvalidOperationException("missing service name");
-
-        string version = configuration["MY_APP_VERSION"] ?? "0.0.1";
+        string serviceName = configuration["openTelemetry:ServiceName"] ?? throw new InvalidOperationException("missing service name");
 
         services.AddOpenTelemetry()
-            .ConfigureResource(builder => builder.AddService(serviceName, version))
+            .ConfigureResource(builder => builder.AddService(serviceName))
             .WithTracing(ConfigureTracing(serviceName, configuration))
             .WithMetrics(ConfigureOtelMetrics(serviceName));
 
@@ -57,12 +55,17 @@ internal static partial class ProgramConfiguration
         services.AddAuth0ManagementClient().AddManagementAccessToken();
 
         services.AddScoped<IUserService, Auth0Client>();
+        services.Configure<Auth0Settings>(
+        configuration.GetSection("Auth0")
+        );
+
+        return;
 
         void ConfigureAuth0(Auth0Configuration config)
         {
-            config.ClientId = configuration["client_id"];
-            config.ClientSecret = configuration["client_secret"];
-            config.Domain = configuration["domain"] ?? throw new InvalidOperationException("missing auth0 domain");
+            config.ClientId = configuration["Auth0:ClientId"];
+            config.ClientSecret = configuration["Auth0:ClientSecret"];
+            config.Domain = configuration["Auth0:Domain"] ?? throw new InvalidOperationException("missing auth0 domain");
         }
     }
 }
