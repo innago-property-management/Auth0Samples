@@ -21,4 +21,6 @@ jobs:
       id-token: write
       contents: write
       actions: read
-    
+    with:
+      imageName: auth0samples
+      argoCdRepoName: "${{ github.repository_owner }}/argocd-shared"
