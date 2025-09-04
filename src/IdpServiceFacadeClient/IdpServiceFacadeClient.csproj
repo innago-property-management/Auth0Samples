@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>Innago.Security.IdpClient</AssemblyName>
+        <RootNamespace>Innago.Security.IdpClient</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Innago.Security.IdpClient</Title>
+        <Copyright>2025 Innago</Copyright>
+        <PackageProjectUrl>https://github.com/innago-property-management/Auth0Samples/src/IdpServiceFacadeClient/IdpServiceFacadeClient.csproj</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/innago-property-management/Auth0Samples</RepositoryUrl>
+        <PackageReadMeFile>README.md</PackageReadMeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DocumentationFile>bin\Debug\netstandard2.0\IdpServiceFacadeClient.xml</DocumentationFile>
+        <DefaultDocumentationFolder>docs</DefaultDocumentationFolder>
+        <DefaultDocumentationFileNameFactory>DirectoryName</DefaultDocumentationFileNameFactory>
+        <NoWarn>1701;1702;RS0041</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(CI)' == 'true' ">
+        <DisableDefaultDocumentation>true</DisableDefaultDocumentation>
+        <NoWarn>RS0041,RS0016</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <NoWarn>1701;1702;RS0041</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Protobuf Include="..\IdpServiceFacade\Protos\organization.proto" Link="Protos\organization.proto" GrpcServices="Client"/>
+        <Protobuf Include="..\IdpServiceFacade\Protos\user.proto" Link="Protos\user.proto" GrpcServices="Client"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DefaultDocumentation" Version="1.2.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.72.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2"/>
+        <PackageReference Include="microsoft.codeanalysis.bannedapianalyzers" Version="5.0.0-1.25277.114">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="5.0.0-1.25277.114">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <None Remove="PublicAPI.Unshipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+        <Content Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+</Project>
