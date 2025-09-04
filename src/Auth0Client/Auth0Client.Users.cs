@@ -31,7 +31,7 @@ public partial class Auth0Client
             EmailVerified = false,
             VerifyEmail = false,
             Password = userCreateInfo.Password,
-            Connection = Auth0Client.Auth0DatabaseName,
+            Connection = Auth0Client.auth0DatabaseName,
         };
 
         return await client.Users.CreateAsync(request, cancellationToken);
@@ -43,7 +43,7 @@ public partial class Auth0Client
 
         GetUsersRequest request = new()
         {
-            Connection = Auth0Client.Auth0DatabaseName,
+            Connection = Auth0Client.auth0DatabaseName,
             Sort = "user_id:1",
             Query = "user_id:*",
             Fields = "user_id,email,name,last_login",
@@ -79,7 +79,7 @@ public partial class Auth0Client
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
-            ConnectionId = Auth0Client.Auth0ConnectionName,
+            ConnectionId = Auth0Client.auth0ConnectionName,
         };
 
         Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!).ConfigureAwait(false);

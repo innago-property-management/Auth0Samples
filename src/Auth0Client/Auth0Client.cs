@@ -8,15 +8,15 @@ using Auth0.ManagementApi;
 
 public partial class Auth0Client : IAuth0Client
 {
-    private static string Auth0DatabaseName;
-    private static string Auth0ConnectionName;
+    private static string auth0DatabaseName;
+    private static string auth0ConnectionName;
     private readonly IManagementApiClient client;
 
     public Auth0Client(IManagementApiClient client, IOptions<Auth0Settings> settings)
     {
         this.client = client;
-        Auth0DatabaseName = settings.Value.DatabaseName;
-        Auth0ConnectionName = settings.Value.ConnectionName;
+        auth0DatabaseName = settings.Value.DatabaseName;
+        auth0ConnectionName = settings.Value.ConnectionName;
     }
 
     [GeneratedRegex("[^a-z0-9\\-_]+")]

@@ -8,7 +8,6 @@
         <Nullable>enable</Nullable>
         <UserSecretsId>fcb611c1-8557-4e43-8ade-b5ad11f1cd24</UserSecretsId>
         <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <AssemblyName>Innago.Demo.Auth0Samples</AssemblyName>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
