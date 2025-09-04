@@ -4,5 +4,7 @@
   "JUnitTestLogger",
   "Serilog.Sinks.Grafana.Loki",
   "SonarAnalyzer.CSharp",
-  "xunit.categories"
+  "xunit.categories",
+  "Innago.Shared.TryHelpers",
+  "Microsoft.VisualStudio.Azure.Containers.Tools.Targets"
 ]

@@ -2,6 +2,8 @@ namespace Runner.Commands;
 
 using DotMake.CommandLine;
 
+using Messages;
+
 using Microsoft.Extensions.Logging;
 
 [CliCommand(Aliases = ["hello"])]

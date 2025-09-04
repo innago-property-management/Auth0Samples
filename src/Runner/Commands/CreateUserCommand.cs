@@ -6,14 +6,29 @@ using Auth0.ManagementApi.Models;
 
 using DotMake.CommandLine;
 
+using Messages;
+
 using Microsoft.Extensions.Logging;
 
 [CliCommand]
 internal class CreateUserCommand(IAuth0Client client, ILogger<CreateUserCommand> logger)
 {
+    [CliOption(Description = "The email.", Required = true)]
+    public string Email { get; set; } = null!;
+
+    [CliOption(Description = "The first name.", Required = true)]
+    public string FirstName { get; set; } = null!;
+
+    [CliOption(Description = "The first name.", Required = true)]
+    public string LastName { get; set; } = null!;
+
+    [CliOption(Description = "The first name.", Required = true)]
+    public string Password { get; set; } = null!;
+
     public async Task RunAsync(CliContext context)
     {
-        User user = await client.CreateUser(context.CancellationToken).ConfigureAwait(false);
+        UserCreateInfo info = new(this.FirstName, this.LastName, this.Email, this.Password);
+        User user = await client.CreateUser(info, context.CancellationToken).ConfigureAwait(false);
 
         logger.UserCreated(user);
     }

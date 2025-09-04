@@ -1,5 +1,7 @@
 namespace Runner.Commands;
 
+using System.Diagnostics.CodeAnalysis;
+
 using DotMake.CommandLine;
 
 using JetBrains.Annotations;
@@ -14,6 +16,9 @@ using JetBrains.Annotations;
     typeof(AddUserToOrganizationCommand),
 ])]
 [UsedImplicitly]
+[PublicAPI]
+[SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Global")]
+[SuppressMessage("Performance", "CA1822:Mark members as static")]
 internal class TopCommands
 {
     public void Run(CliContext context)

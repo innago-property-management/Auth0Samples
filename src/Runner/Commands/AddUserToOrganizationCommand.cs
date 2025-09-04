@@ -4,6 +4,8 @@ using Abstractions;
 
 using DotMake.CommandLine;
 
+using Messages;
+
 using Microsoft.Extensions.Logging;
 
 [CliCommand]

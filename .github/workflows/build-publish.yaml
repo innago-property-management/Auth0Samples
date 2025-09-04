@@ -19,5 +19,8 @@ jobs:
       packages: write
       pull-requests: write
       id-token: write
-      contents: read
-    
+      contents: write
+      actions: read
+    with:
+      imageName: auth0samples
+      argoCdRepoName: "${{ github.repository_owner }}/argocd-shared"

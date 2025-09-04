@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdpServiceFacade";
+
+package organization;
+
+service Organization {
+  rpc InviteUser (OrgUserRequest) returns (OrganizationReply);
+  rpc InitiateLockout (OrgRequest) returns (OrganizationReply);
+  rpc MarkAsSuspicious (OrgRequest) returns (OrganizationReply);
+  rpc MarkAsFraud (OrgRequest) returns (OrganizationReply);
+  rpc InitiateLegalHold (OrgRequest) returns (OrganizationReply);
+}
+
+message OrgRequest {
+  string orgEmail = 1;
+}
+
+message OrgUserRequest {
+  string orgEmail = 1;
+  string userEmail = 2;
+}
+
+message OrganizationReply {
+  bool ok = 1;
+  string error = 2;
+}
