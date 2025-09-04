@@ -1,15 +1,15 @@
 namespace Auth0Client;
 
 using System.Text.RegularExpressions;
-
+using Microsoft.Extensions.Options;
 using Abstractions;
 
 using Auth0.ManagementApi;
 
-public partial class Auth0Client(IManagementApiClient client) : IAuth0Client
+public partial class Auth0Client(IManagementApiClient client, IOptions<Auth0Settings> settings) : IAuth0Client
 {
-    private const string Auth0DatabaseName = "Username-Password-Authentication";
-    private const string Auth0ConnectionName = "con_4BTwKBI5S3zH7d2T"; // TODO move this to config
+    private readonly string Auth0DatabaseName = settings.Value.DatabaseName;
+    private readonly string Auth0ConnectionName = settings.Value.ConnectionName; 
 
     [GeneratedRegex("[^a-z0-9\\-_]+")]
     private static partial Regex Auth0NameCleaner();
