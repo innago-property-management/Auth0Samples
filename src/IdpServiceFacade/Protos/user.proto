@@ -13,6 +13,7 @@ service User {
   rpc MarkAsSuspicious (UserRequest) returns (UserReply);
   rpc MarkAsFraud (UserRequest) returns (UserReply);
   rpc InitiateLegalHold (UserRequest) returns (UserReply);
+  rpc ChangePassword (UserChangePasswordRequest) returns (UserReply);
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
 }
@@ -25,6 +26,11 @@ message UserRequest {
 message UserRoleRequest {
   string email = 1;
   string role = 2;
+}
+
+message UserChangePasswordRequest {
+  string email = 1;
+  string password = 2;
 }
 
 // The response message containing the outcome.
