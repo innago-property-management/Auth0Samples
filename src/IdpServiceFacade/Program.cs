@@ -1,6 +1,6 @@
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
-
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
 
 using Serilog;
@@ -84,8 +84,8 @@ app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
 app.MapMetrics("/metricsz");
-app.MapHealthChecks("/healthz");
-
+app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
+app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") }); 
 app.MapGet("/",
     () =>
         "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
