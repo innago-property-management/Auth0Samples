@@ -57,7 +57,8 @@ app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
 app.MapMetrics("/metricsz");
-app.MapHealthChecks("/healthz");
+app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
+app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") }); 
 
 app.MapGet("/",
     () =>
