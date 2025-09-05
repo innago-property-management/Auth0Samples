@@ -35,8 +35,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="..\IdpServiceFacade\Protos\organization.proto" Link="Protos\organization.proto" GrpcServices="Client"/>
-        <Protobuf Include="..\IdpServiceFacade\Protos\user.proto" Link="Protos\user.proto" GrpcServices="Client"/>
+        <Protobuf Include="..\IdpServiceFacade\Protos\organization.proto" Link="Protos\organization.proto" GrpcServices="Client" />
+        <Protobuf Include="..\IdpServiceFacade\Protos\user.proto" Link="Protos\user.proto" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>
@@ -50,7 +50,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
         <PackageReference Include="microsoft.codeanalysis.bannedapianalyzers" Version="5.0.0-1.25277.114">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -66,9 +66,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
-        <None Remove="PublicAPI.Unshipped.txt"/>
-        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="PublicAPI.Unshipped.txt" />
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
         <Content Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 

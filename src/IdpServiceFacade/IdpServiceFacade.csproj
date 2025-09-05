@@ -90,7 +90,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+        <AdditionalFiles Include="PublicAPI.Shipped.txt">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </AdditionalFiles>
         <None Remove="PublicAPI.Unshipped.txt" />
         <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
     </ItemGroup>
