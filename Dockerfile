@@ -58,4 +58,4 @@ ENV DOTNET_EnableDiagnostics_Debugger=0
 ENV DOTNET_EnableDiagnostics_Profiler=1
 ENV ASPNETCORE_HOSTBUILDER_RELOADCONFIGONCHANGE="false"
 
-ENTRYPOINT ["dotnet", "IdpServiceFacade.dll"]
+ENTRYPOINT ["dotnet", "Innago.Security.IdpServiceFacade.dll"]
