@@ -1,6 +1,6 @@
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
-
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
 
 using Serilog;
