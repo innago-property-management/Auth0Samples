@@ -46,9 +46,7 @@
 
     <ItemGroup>
         <None Remove="PublicAPI.Shipped.txt"/>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </AdditionalFiles>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
         <None Remove="PublicAPI.Unshipped.txt"/>
         <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
     </ItemGroup>
