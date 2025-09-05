@@ -29,4 +29,4 @@ RUN dotnet publish "./IdpServiceFacade.csproj" -c $BUILD_CONFIGURATION -o /app/p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Innago.Security.IdpServiceFacade.dll"]
+ENTRYPOINT ["dotnet", "IdpServiceFacade.dll"]
