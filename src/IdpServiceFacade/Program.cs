@@ -44,7 +44,7 @@ Log.Logger = loggerConfiguration.CreateLogger();
 builder.Services.ConfigureServices(builder.Configuration);
 
 WebApplication app = builder.Build();
-
+ 
 app.UseRouting();
 app.UseGrpcMetrics();
 app.UseHttpMetrics();
