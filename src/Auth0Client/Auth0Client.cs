@@ -8,6 +8,11 @@ using Abstractions;
 
 using Auth0.ManagementApi;
 
+/// <summary>
+/// Provides functionality for interacting with Auth0 authentication services.
+/// </summary>
+/// <param name="client">The Auth0 management API client.</param>
+/// <param name="settings">The Auth0 configuration settings.</param>
 public partial class Auth0Client(IManagementApiClient client, IOptions<Auth0Settings> settings) : IAuth0Client
 {
     private readonly string auth0DatabaseName = settings.Value.DatabaseName;

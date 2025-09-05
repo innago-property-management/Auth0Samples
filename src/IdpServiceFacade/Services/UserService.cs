@@ -26,6 +26,14 @@ internal class UserService(IUserService externalService) : User.UserBase
         return externalService.MarkUserAsSuspicious(request.Email, context.CancellationToken).ToUserReply();
     }
 
+    public override Task<UserReply> MarkAsFraud(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity =
+            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.MarkUserAsFraud(request.Email, context.CancellationToken).ToUserReply();
+    }
+
     public override Task<UserReply> ToggleMfa(UserMFARequest request, ServerCallContext context)
     {
         using Activity? activity =

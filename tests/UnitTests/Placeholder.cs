@@ -1,6 +1,6 @@
 namespace UnitTests;
 
-using FluentAssertions;
+using AwesomeAssertions;
 
 public class Placeholder
 {
