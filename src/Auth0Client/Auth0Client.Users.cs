@@ -252,6 +252,68 @@ public partial class Auth0Client
         }
     }
 
+    public ITask<OkError> BlockUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserBlockStatus(email, true, cancellationToken);
+    }
+
+    public ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserBlockStatus(email, false, cancellationToken);
+    }
+
+    private async ITask<OkError> UpdateUserBlockStatus(string email, bool blocked, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(UpdateUserBlock, GetUsersError)!;
+
+        static Task<OkError> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
+        }
+
+        async Task<OkError> UpdateUserBlock(IList<User>? users)
+        {
+            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
+
+            Task<OkError> MoreThanOneUserFound()
+            {
+                const string? error = "more than one user found";
+                // ReSharper disable once AccessToDisposedClosure
+                activity?.AddException(new Exception(error));
+                return Task.FromResult(new OkError(Error: error));
+            }
+
+            async Task<OkError> OnTrue()
+            {
+                User user = users!.First();
+                string id = user.UserId;
+
+                UserUpdateRequest request = new()
+                {
+                    Blocked = blocked,
+                };
+
+                Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
+
+                return updateResult.Map<Result>(_ => Result.Success,
+                    exception =>
+                    {
+                        // ReSharper disable once AccessToDisposedClosure
+                        activity?.AddException(exception!);
+                        return exception!;
+                    });
+            }
+        }
+    }
+
     [UsedImplicitly]
     private record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
 

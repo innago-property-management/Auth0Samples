@@ -41,4 +41,20 @@ internal class UserService(IUserService externalService) : User.UserBase
 
         return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
     }
+
+    public override Task<UserReply> BlockUser(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.BlockUser(request.Email, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<UserReply> UnblockUser(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.UnblockUser(request.Email, context.CancellationToken).ToUserReply();
+    }
 }
