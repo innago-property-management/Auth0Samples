@@ -61,7 +61,7 @@ app.MapGrpcHealthChecksService();
 app.MapGrpcReflectionService();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapGrpcService<IUserService>().EnableGrpcWeb();
+    _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb();
 });
 app.MapMetrics("/metricsz");
 app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
