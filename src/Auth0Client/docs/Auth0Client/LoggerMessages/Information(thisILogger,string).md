@@ -1,6 +1,6 @@
-### [Auth0Client](../index.md 'Auth0Client').[LogerMessages](index.md 'Auth0Client\.LogerMessages')
+### [Auth0Client](../index.md 'Auth0Client').[LoggerMessages](index.md 'Auth0Client\.LoggerMessages')
 
-## LogerMessages\.Information\(this ILogger, string\) Method
+## LoggerMessages\.Information\(this ILogger, string\) Method
 
 Logs "\{Message\}" at "Information" level\.
 
@@ -9,10 +9,10 @@ internal static void Information(this Microsoft.Extensions.Logging.ILogger logge
 ```
 #### Parameters
 
-<a name='Auth0Client.LogerMessages.Information(thisMicrosoft.Extensions.Logging.ILogger,string).logger'></a>
+<a name='Auth0Client.LoggerMessages.Information(thisMicrosoft.Extensions.Logging.ILogger,string).logger'></a>
 
 `logger` [Microsoft\.Extensions\.Logging\.ILogger](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.ilogger 'Microsoft\.Extensions\.Logging\.ILogger')
 
-<a name='Auth0Client.LogerMessages.Information(thisMicrosoft.Extensions.Logging.ILogger,string).message'></a>
+<a name='Auth0Client.LoggerMessages.Information(thisMicrosoft.Extensions.Logging.ILogger,string).message'></a>
 
 `message` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')

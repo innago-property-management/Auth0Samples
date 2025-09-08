@@ -43,7 +43,7 @@ public partial class Auth0Client(
         Result<TenantSettings?> result =
             await TryHelpers.TryAsync(() => client.TenantSettings.GetAsync(cancellationToken: cancellationToken)!).ConfigureAwait(false);
 
-        result.IfFailed(exception => logger.Error(exception));
+        result.Match(ts => logger.Information(ts!.FriendlyName), logger.Error);
 
         return result.Map(_ => true, _ => false);
     }
