@@ -1,9 +1,5 @@
-using Abstractions;
-
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
-
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 using Prometheus;
 
@@ -25,7 +21,7 @@ LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
     })
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
-    .Enrich.WithEnvironmentVariable("POD_NAME")
+    .Enrich.WithEnvironmentVariable("MY_POD_NAME")
     .Enrich.WithClientIp()
     .Enrich.WithCorrelationId()
     .Enrich.WithRequestHeader("x-user-id")
@@ -51,7 +47,7 @@ WebApplication app = builder.Build();
 
 app.UseRouting();
 app.UseGrpcMetrics();
-app.UseGrpcWeb();
+////app.UseGrpcWeb();
 app.UseHttpMetrics();
 app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
@@ -61,7 +57,7 @@ app.MapGrpcService<UserService>();
 app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
-app.UseEndpoints(endpoints => { _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb(); });
+//// app.UseEndpoints(endpoints => { _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb(); });
 app.MapMetrics("/metricsz");
 app.MapHealthChecks("/healthz");
 
