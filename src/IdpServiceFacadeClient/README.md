@@ -106,3 +106,20 @@ grpcurl -d '{"email": "zzz@yopmail.com", "keys": [ {"key":"organizationuid"}]}' 
 }
 
 ```
+
+## Required Scopes
+
+- create:user_attribute_profiles
+- create:user_custom_blocks
+- create:user_tickets
+- create:users
+- create:users_app_metadata
+- read:tenant_settings
+- read:user_attribute_profiles
+- read:user_custom_blocks
+- read:user_idp_tokens
+- read:users
+- read:users_app_metadata
+- update:user_attribute_profiles
+- update:users
+- update:users_app_metadata
