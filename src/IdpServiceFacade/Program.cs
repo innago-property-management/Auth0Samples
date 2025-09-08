@@ -50,6 +50,8 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
     serverOptions.ListenAnyIP(5009, listenOptions =>
     {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
+
         listenOptions.UseHttps(httpsOptions =>
         {
             try
@@ -67,7 +69,6 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 Log.Logger = loggerConfiguration.CreateLogger();
-
 builder.Services.ConfigureServices(builder.Configuration);
 
 WebApplication app = builder.Build();
