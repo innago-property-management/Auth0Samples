@@ -41,14 +41,14 @@ if (builder.Environment.IsDevelopment())
 
 Log.Logger = loggerConfiguration.CreateLogger();
 
-builder.Services.ConfigureServices(builder.Configuration);
+builder.Services.ConfigureServices(builder.Configuration, Log.Logger);
 
 WebApplication app = builder.Build();
 
 app.UseRouting();
 app.UseGrpcMetrics();
-////app.UseGrpcWeb();
 app.UseHttpMetrics();
+
 app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
 
@@ -57,7 +57,6 @@ app.MapGrpcService<UserService>();
 app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
-//// app.UseEndpoints(endpoints => { _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb(); });
 app.MapMetrics("/metricsz");
 app.MapHealthChecks("/healthz");
 
