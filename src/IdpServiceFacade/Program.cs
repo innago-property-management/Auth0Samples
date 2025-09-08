@@ -1,6 +1,9 @@
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
+
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+
 using Prometheus;
 
 using Serilog;
@@ -62,6 +65,11 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
             }
         });
 
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+    });
+    serverOptions.ListenAnyIP(5008, listenOptions =>
+    {
+        // gRPC over plaintext (no TLS)
         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
     });
 });
