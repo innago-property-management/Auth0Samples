@@ -49,7 +49,7 @@ RUN addgroup --gid 10001 notroot \
 
 WORKDIR /app
 COPY --from=build /app .
-
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 USER notroot:notroot
 ENV ASPNETCORE_URLS="http://+:8080"
 ENV DOTNET_EnableDiagnostics=1
