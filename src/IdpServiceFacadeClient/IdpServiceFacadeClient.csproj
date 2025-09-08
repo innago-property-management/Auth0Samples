@@ -66,9 +66,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt">
-          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </AdditionalFiles>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
         <None Remove="PublicAPI.Unshipped.txt" />
         <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
         <Content Include="README.md" Pack="true" PackagePath="\" />

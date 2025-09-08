@@ -12,15 +12,21 @@ using MorseCode.ITask;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
+using System.Linq;
 
 public partial class Auth0Client
 {
+    /// <summary>
+    /// Creates a new user in Auth0.
+    /// </summary>
+    /// <param name="userCreateInfo">The information required to create the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the created user.</returns>
     public async Task<User> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
@@ -39,6 +45,11 @@ public partial class Auth0Client
         return await client.Users.CreateAsync(request, cancellationToken);
     }
 
+    /// <summary>
+    /// Retrieves a list of all users from Auth0.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the list of users.</returns>
     public async Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
@@ -74,6 +85,12 @@ public partial class Auth0Client
         return users;
     }
 
+    /// <summary>
+    /// Initiates a password reset for the specified user.
+    /// </summary>
+    /// <param name="email">The email address of the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the password reset request.</returns>
     public async ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
@@ -94,12 +111,37 @@ public partial class Auth0Client
         };
     }
 
+    /// <summary>
+    /// Marks a user as suspicious in Auth0.
+    /// </summary>
+    /// <param name="email">The email address of the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the operation.</returns>
     public ITask<OkError> MarkUserAsSuspicious(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
         return this.UpdateUserMetadata(email, new FraudStatus(Suspicious: true), cancellationToken);
     }
 
+    /// <summary>
+    /// Marks a user as fraudulent in Auth0.
+    /// </summary>
+    /// <param name="email">The email address of the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the operation.</returns>
+    public ITask<OkError> MarkUserAsFraud(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserMetadata(email, new FraudStatus(Fraudulent: true), cancellationToken);
+    }
+
+    /// <summary>
+    /// Changes the password for the specified user.
+    /// </summary>
+    /// <param name="email">The email address of the user.</param>
+    /// <param name="newPassword">The new password to set.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the password change.</returns>
     public async ITask<OkError> ChangePassword(string email, string newPassword, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
@@ -129,7 +171,7 @@ public partial class Auth0Client
 
             async Task<OkError> OnTrue()
             {
-                User user = users!.First();
+                User user = users![0];
                 string id = user.UserId;
 
                 UserUpdateRequest request = new()
@@ -150,6 +192,13 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    /// Enables or disables Multi-Factor Authentication for the specified user.
+    /// </summary>
+    /// <param name="email">The email address of the user.</param>
+    /// <param name="enable">True to enable MFA, false to disable it.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the MFA toggle.</returns>
     public async ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken)
     {
         OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new TwoFactorEnabled(enable), cancellationToken);
@@ -191,7 +240,7 @@ public partial class Auth0Client
 
             async Task<OkError> OnTrue()
             {
-                User user = users.First()!;
+                User user = users[0]!;
                 string userId = user.UserId;
 
                 Result updateResult = await TryHelpers.TryAsync(() => client.Users.DeleteAuthenticationMethodsAsync(userId, cancellationToken))
@@ -231,7 +280,7 @@ public partial class Auth0Client
 
             async Task<OkError> OnTrue()
             {
-                User user = users!.First();
+                User user = users![0];
                 string id = user.UserId;
 
                 UserUpdateRequest request = new()
@@ -315,7 +364,7 @@ public partial class Auth0Client
     }
 
     [UsedImplicitly]
-    private record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
+    private sealed record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
 
-    private record TwoFactorEnabled([property: JsonPropertyName("two_factor_enabled")] bool? Enabled = false);
+    private sealed record TwoFactorEnabled([property: JsonPropertyName("two_factor_enabled")] bool? Enabled = false);
 }
