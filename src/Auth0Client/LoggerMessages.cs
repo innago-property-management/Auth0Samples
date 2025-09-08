@@ -4,7 +4,7 @@ using System;
 
 using Microsoft.Extensions.Logging;
 
-internal static partial class LogerMessages
+internal static partial class LoggerMessages
 {
     private static readonly Action<ILogger, string?, Exception?> ErrorDefinition =
         LoggerMessage.Define<string?>(LogLevel.Error, new EventId(0), "Error: {ErrorMessage}");
@@ -13,4 +13,10 @@ internal static partial class LogerMessages
     {
         ErrorDefinition(logger, exception?.Message, exception);
     }
+
+    [LoggerMessage(LogLevel.Information, "{Message}")]
+    internal static partial void Information(this ILogger logger, string message);
+
+    [LoggerMessage(LogLevel.Debug, "{Message}")]
+    internal static partial void Debug(this ILogger logger, string message);
 }
