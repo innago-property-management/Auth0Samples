@@ -1,3 +1,5 @@
+using Abstractions;
+
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
 
@@ -82,6 +84,7 @@ WebApplication app = builder.Build();
  
 app.UseRouting();
 app.UseGrpcMetrics();
+app.UseGrpcWeb();
 app.UseHttpMetrics();
 app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
@@ -91,6 +94,10 @@ app.MapGrpcService<UserService>();
 app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
+app.UseEndpoints(endpoints =>
+{
+    _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb();
+});
 app.MapMetrics("/metricsz");
 app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
 app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") }); 
