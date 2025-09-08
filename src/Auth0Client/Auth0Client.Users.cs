@@ -342,7 +342,7 @@ public partial class Auth0Client
 
             async Task<OkError> OnTrue()
             {
-                User user = users!.First();
+                User user = users![0];
                 string id = user.UserId;
 
                 UserUpdateRequest request = new()
