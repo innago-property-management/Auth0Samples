@@ -8,6 +8,8 @@ using Abstractions;
 
 using Grpc.Core;
 
+using MorseCode.ITask;
+
 internal class UserService(IUserService externalService) : User.UserBase
 {
     public override Task<UserReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
@@ -49,6 +51,16 @@ internal class UserService(IUserService externalService) : User.UserBase
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
         return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<UserMetadataReply> GetUserMetadata(UserMetadataRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        ITask<IReadOnlyDictionary<string, string?>?> f = externalService.GetUserMetadata(request.Email, request.Keys?.Key.ToArray(), context.CancellationToken);
+
+        return f.ToUserMetadataReply();
     }
 
     public override Task<UserReply> BlockUser(UserRequest request, ServerCallContext context)

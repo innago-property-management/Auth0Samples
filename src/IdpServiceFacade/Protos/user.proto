@@ -19,6 +19,7 @@ service User {
   rpc UnblockUser (UserRequest) returns (UserReply);
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
+  rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
 }
 
 // The request message containing the user's email.
@@ -45,4 +46,17 @@ message UserMFARequest {
 message UserReply {
   bool ok = 1;
   string error = 2;
+}
+
+message UserMetadataRequest {
+   string email = 1;
+   optional KeysWrapper keys = 2;
+}
+
+message KeysWrapper {
+  repeated string key = 1;
+}
+
+message UserMetadataReply {
+   map<string,string> metadata = 1;
 }

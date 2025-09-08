@@ -4,7 +4,6 @@ using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
 
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 using Prometheus;
 
@@ -12,8 +11,6 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
 using Serilog.Sinks.OpenTelemetry;
-
-using System.Security.Cryptography.X509Certificates;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +42,8 @@ if (builder.Environment.IsDevelopment())
     string serviceName = builder.Configuration["MY_POD_SERVICE_ACCOUNT"] ?? throw new InvalidOperationException();
     loggerConfiguration.WriteTo.GrafanaLoki(uri, propertiesAsLabels: ["app"], labels: [new LokiLabel { Key = "app", Value = serviceName }]);
 }
+/*
+ * kestrel should be configured via env variables ILO code
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
@@ -77,12 +76,19 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
     });
 });
+- name: ASPNETCORE_URLS
+  value: "https://*:8443;http://*:8080"
+- name: kestrel__certificates__default__path
+  value: /app/certs/tls.crt
+- name: kestrel__certificates__default__keyPath
+  value: /app/certs/tls.key
+*/
 
 Log.Logger = loggerConfiguration.CreateLogger();
 builder.Services.ConfigureServices(builder.Configuration);
 
 WebApplication app = builder.Build();
- 
+
 app.UseRouting();
 app.UseGrpcMetrics();
 app.UseGrpcWeb();
@@ -95,13 +101,11 @@ app.MapGrpcService<UserService>();
 app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb();
-});
+app.UseEndpoints(endpoints => { _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb(); });
 app.MapMetrics("/metricsz");
 app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
-app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") }); 
+app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") });
+
 app.MapGet("/",
     () =>
         "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
