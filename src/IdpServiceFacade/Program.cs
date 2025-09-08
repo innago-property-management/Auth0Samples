@@ -42,16 +42,6 @@ if (builder.Environment.IsDevelopment())
     string serviceName = builder.Configuration["MY_POD_SERVICE_ACCOUNT"] ?? throw new InvalidOperationException();
     loggerConfiguration.WriteTo.GrafanaLoki(uri, propertiesAsLabels: ["app"], labels: [new LokiLabel { Key = "app", Value = serviceName }]);
 }
-/*
- * kestrel should be configured via env variables ILO code
-
-- name: ASPNETCORE_URLS
-  value: "https://*:8443;http://*:8080"
-- name: kestrel__certificates__default__path
-  value: /app/certs/tls.crt
-- name: kestrel__certificates__default__keyPath
-  value: /app/certs/tls.key
-*/
 
 Log.Logger = loggerConfiguration.CreateLogger();
 

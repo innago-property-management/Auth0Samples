@@ -1,12 +1,17 @@
 namespace Auth0Client;
 
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Options;
 
 using Abstractions;
 
 using Auth0.ManagementApi;
+using Auth0.ManagementApi.Models;
+
+using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Logging;
 
@@ -30,5 +35,14 @@ public partial class Auth0Client(
     private static string CleanName(string name)
     {
         return Auth0NameCleaner().Replace(name.ToLowerInvariant().Trim(), "_");
+    }
+
+    /// <inheritdoc />
+    public async Task<bool> HealthCheck(CancellationToken cancellationToken)
+    {
+        Result<TenantSettings?> result =
+            await TryHelpers.TryAsync(() => client.TenantSettings.GetAsync(cancellationToken: cancellationToken)!).ConfigureAwait(false);
+
+        return result.Map(_ => true, _ => false);
     }
 }

@@ -24,7 +24,11 @@ internal static partial class ProgramConfiguration
         services.AddGrpc();
         services.AddGrpcReflection();
 
-        services.AddHealthChecks().ForwardToPrometheus();
+        services.AddScoped<IAuth0Client, Auth0Client>();
+
+        services.AddHealthChecks()
+            .AddCheck<Auth0HealthCheck>(nameof(Auth0HealthCheck), tags: ["live", "ready"])
+            .ForwardToPrometheus();
 
         services.Configure<ForwardedHeadersOptions>(options =>
         {

@@ -13,4 +13,10 @@ internal static partial class LogerMessages
     {
         ErrorDefinition(logger, exception?.Message, exception);
     }
+
+    [LoggerMessage(LogLevel.Information, "{Message}")]
+    internal static partial void Information(this ILogger logger, string message);
+
+    [LoggerMessage(LogLevel.Debug, "{Message}")]
+    internal static partial void Debug(this ILogger logger, string message);
 }

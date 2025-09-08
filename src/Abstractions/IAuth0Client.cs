@@ -49,4 +49,11 @@ public interface IAuth0Client : IUserService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the list of users.</returns>
     Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Performs a health check on the Auth0 service to verify its availability.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation, containing a boolean indicating the health status of the Auth0 service.</returns>
+    Task<bool> HealthCheck(CancellationToken cancellationToken);
 }
