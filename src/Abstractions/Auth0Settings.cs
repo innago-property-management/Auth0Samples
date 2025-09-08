@@ -1,10 +1,32 @@
 namespace Abstractions;
 
+/// <summary>
+/// Contains configuration settings for Auth0 authentication and authorization.
+/// </summary>
 public class Auth0Settings
 {
-    public string Domain { get; set; } = null!;
-    public string ClientId { get; set; } = null!;
-    public string ClientSecret { get; set; } = null!;
-    public string DatabaseName { get; set; } = null!;
-    public string ConnectionName { get; set; } = null!;
+    /// <summary>
+    /// Gets or sets the Auth0 domain URL.
+    /// </summary>
+    public required string Domain { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Auth0 client identifier.
+    /// </summary>
+    public required string ClientId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Auth0 client secret.
+    /// </summary>
+    public required string ClientSecret { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Auth0 database.
+    /// </summary>
+    public required string DatabaseName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Auth0 connection.
+    /// </summary>
+    public required string ConnectionName { get; set; }
 }

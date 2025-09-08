@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -59,6 +59,7 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
         <PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.71.0" />
         <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.71.0" />
+        <PackageReference Include="Grpc.AspNetCore.Web" Version="2.71.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
         <PackageReference Include="microsoft.codeanalysis.bannedapianalyzers" Version="5.0.0-1.25277.114">
             <PrivateAssets>all</PrivateAssets>
@@ -90,9 +91,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="PublicAPI.Shipped.txt">
-          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </AdditionalFiles>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt" />
         <None Remove="PublicAPI.Unshipped.txt" />
         <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
     </ItemGroup>

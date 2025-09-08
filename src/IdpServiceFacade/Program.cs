@@ -1,5 +1,10 @@
+using Abstractions;
+
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
+
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 using Prometheus;
 
@@ -66,6 +71,11 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
     });
+    serverOptions.ListenAnyIP(5008, listenOptions =>
+    {
+        // gRPC over plaintext (no TLS)
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+    });
 });
 
 Log.Logger = loggerConfiguration.CreateLogger();
@@ -75,6 +85,7 @@ WebApplication app = builder.Build();
  
 app.UseRouting();
 app.UseGrpcMetrics();
+app.UseGrpcWeb();
 app.UseHttpMetrics();
 app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
@@ -84,9 +95,13 @@ app.MapGrpcService<UserService>();
 app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
+app.UseEndpoints(endpoints =>
+{
+    _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb();
+});
 app.MapMetrics("/metricsz");
-app.MapHealthChecks("/healthz");
-
+app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
+app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") }); 
 app.MapGet("/",
     () =>
         "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
