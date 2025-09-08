@@ -51,7 +51,7 @@ WORKDIR /app
 COPY --from=build /app .
 RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 USER notroot:notroot
-ENV ASPNETCORE_URLS="http://+:8080"
+ENV ASPNETCORE_URLS="http://+:8080;https://+:8443"
 ENV DOTNET_EnableDiagnostics=1
 ENV DOTNET_EnableDiagnostics_IPC=0
 ENV DOTNET_EnableDiagnostics_Debugger=0
