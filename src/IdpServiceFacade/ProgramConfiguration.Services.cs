@@ -27,7 +27,7 @@ internal static partial class ProgramConfiguration
         services.AddScoped<IAuth0Client, Auth0Client>();
 
         services.AddHealthChecks()
-            .AddCheck<Auth0HealthCheck>(nameof(Auth0HealthCheck), tags: ["live", "ready"])
+            .AddCheck<Auth0HealthCheck>(nameof(Auth0HealthCheck))
             .ForwardToPrometheus();
 
         services.Configure<ForwardedHeadersOptions>(options =>
