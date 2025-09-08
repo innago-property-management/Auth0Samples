@@ -4,6 +4,7 @@
 
 | Classes | |
 | :--- | :--- |
+| [KeysWrapper](KeysWrapper/index.md 'IdpServiceFacade\.KeysWrapper') | |
 | [Organization](Organization/index.md 'IdpServiceFacade\.Organization') | |
 | [Organization\.OrganizationBase](Organization/OrganizationBase/index.md 'IdpServiceFacade\.Organization\.OrganizationBase') | Base class for server\-side implementations of Organization |
 | [OrganizationReflection](OrganizationReflection/index.md 'IdpServiceFacade\.OrganizationReflection') | Holder for reflection information generated from Protos/organization\.proto |
@@ -13,6 +14,8 @@
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserBase](User/UserBase/index.md 'IdpServiceFacade\.User\.UserBase') | Base class for server\-side implementations of User |
 | [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |
+| [UserMetadataReply](UserMetadataReply/index.md 'IdpServiceFacade\.UserMetadataReply') | |
+| [UserMetadataRequest](UserMetadataRequest/index.md 'IdpServiceFacade\.UserMetadataRequest') | |
 | [UserMFARequest](UserMFARequest/index.md 'IdpServiceFacade\.UserMFARequest') | |
 | [UserReflection](UserReflection/index.md 'IdpServiceFacade\.UserReflection') | Holder for reflection information generated from Protos/user\.proto |
 | [UserReply](UserReply/index.md 'IdpServiceFacade\.UserReply') | The response message containing the outcome\. |

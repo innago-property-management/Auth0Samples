@@ -1,5 +1,6 @@
 namespace Abstractions;
 
+using System.Collections.Generic;
 using System.Threading;
 
 using MorseCode.ITask;
@@ -51,4 +52,16 @@ public interface IUserService
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
     ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves metadata for a user identified by the provided email.
+    /// </summary>
+    /// <param name="email">The email address of the user whose metadata is to be retrieved.</param>
+    /// <param name="keys">A collection of keys specifying which metadata fields to fetch. If null, all metadata will be retrieved.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>
+    /// A task that resolves to an <see cref="IReadOnlyDictionary{String, String}" /> containing the user's metadata,
+    /// or null if no metadata exists.
+    /// </returns>
+    ITask<IReadOnlyDictionary<string, string?>?> GetUserMetadata(string email, IEnumerable<string>? keys, CancellationToken cancellationToken);
 }

@@ -17,6 +17,7 @@ service User {
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
   rpc ToggleMfa (UserMFARequest) returns (UserReply);
+  rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
 }
 
 // The request message containing the user's email.
@@ -43,4 +44,17 @@ message UserReply {
 message UserMFARequest {
   string email = 1;
   bool enable = 2;
+}
+
+message UserMetadataRequest {
+   string email = 1;
+   optional KeysWrapper keys = 2;
+}
+
+message KeysWrapper {
+  repeated string key = 1;
+}
+
+message UserMetadataReply {
+   map<string,string> metadata = 1;
 }

@@ -23,4 +23,23 @@ internal static class UserReplyHelpers
 
         return result.ToUserReply();
     }
+
+    private static UserMetadataReply ToUserMetadataReply(this IReadOnlyDictionary<string, string?> metadata)
+    {
+        UserMetadataReply retVal = new();
+
+        foreach ((string key, string? value) in metadata)
+        {
+            retVal.Metadata.Add(key,value);
+        }
+
+        return retVal;
+    }
+
+    public static async Task<UserMetadataReply> ToUserMetadataReply(this ITask<IReadOnlyDictionary<string, string?>?> task)
+    {
+        IReadOnlyDictionary<string, string?>? metadata = await task.ConfigureAwait(false) ?? new Dictionary<string, string?>();
+
+        return metadata.ToUserMetadataReply();
+    }
 }

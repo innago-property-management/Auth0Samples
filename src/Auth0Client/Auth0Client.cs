@@ -8,12 +8,18 @@ using Abstractions;
 
 using Auth0.ManagementApi;
 
+using Microsoft.Extensions.Logging;
+
 /// <summary>
 /// Provides functionality for interacting with Auth0 authentication services.
 /// </summary>
 /// <param name="client">The Auth0 management API client.</param>
 /// <param name="settings">The Auth0 configuration settings.</param>
-public partial class Auth0Client(IManagementApiClient client, IOptions<Auth0Settings> settings) : IAuth0Client
+/// <param name="logger">The logger.</param>
+public partial class Auth0Client(
+    IManagementApiClient client,
+    IOptions<Auth0Settings> settings,
+    ILogger<Auth0Client> logger) : IAuth0Client
 {
     private readonly string auth0DatabaseName = settings.Value.DatabaseName;
     private readonly string auth0ConnectionName = settings.Value.ConnectionName;
