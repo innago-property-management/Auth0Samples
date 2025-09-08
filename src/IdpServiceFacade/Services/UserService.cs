@@ -12,6 +12,7 @@ internal class UserService(IUserService externalService) : User.UserBase
 {
     public override Task<UserReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
+        Console.WriteLine($"InitiatePasswordReset called with request {request.Email}");
         using Activity? activity =
             IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
