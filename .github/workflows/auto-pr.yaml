@@ -12,3 +12,4 @@ jobs:
     uses: innago-property-management/Oui-DELIVER/.github/workflows/auto-pr.yml@main
     secrets:
       token: ${{ secrets.SEMVER_TOKEN }}
+      auto_pr_private_key: ${{ secrets.AUTO_PR_APP_PRIVATE_KEY }}
