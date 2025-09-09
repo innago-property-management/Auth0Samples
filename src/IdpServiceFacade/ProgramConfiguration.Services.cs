@@ -17,14 +17,18 @@ using Serilog;
 
 internal static partial class ProgramConfiguration
 {
-    internal static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+    internal static void ConfigureServices(this IServiceCollection services, IConfiguration configuration, ILogger logger)
     {
-        services.AddSerilog();
+        services.AddSerilog(logger);
 
         services.AddGrpc();
         services.AddGrpcReflection();
 
-        services.AddHealthChecks().ForwardToPrometheus();
+        services.AddScoped<IAuth0Client, Auth0Client>();
+
+        services.AddHealthChecks()
+            .AddCheck<Auth0HealthCheck>(nameof(Auth0HealthCheck))
+            .ForwardToPrometheus();
 
         services.Configure<ForwardedHeadersOptions>(options =>
         {

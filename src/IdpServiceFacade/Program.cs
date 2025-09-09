@@ -1,10 +1,5 @@
-using Abstractions;
-
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
-
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 using Prometheus;
 
@@ -12,8 +7,6 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
 using Serilog.Sinks.OpenTelemetry;
-
-using System.Security.Cryptography.X509Certificates;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +21,7 @@ LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
     })
     .Enrich.FromLogContext()
     .Enrich.WithMachineName()
-    .Enrich.WithEnvironmentVariable("POD_NAME")
+    .Enrich.WithEnvironmentVariable("MY_POD_NAME")
     .Enrich.WithClientIp()
     .Enrich.WithCorrelationId()
     .Enrich.WithRequestHeader("x-user-id")
@@ -79,14 +72,15 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 Log.Logger = loggerConfiguration.CreateLogger();
-builder.Services.ConfigureServices(builder.Configuration);
+
+builder.Services.ConfigureServices(builder.Configuration, Log.Logger);
 
 WebApplication app = builder.Build();
- 
+
 app.UseRouting();
 app.UseGrpcMetrics();
-app.UseGrpcWeb();
 app.UseHttpMetrics();
+
 app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
 
@@ -95,13 +89,9 @@ app.MapGrpcService<UserService>();
 app.MapGrpcHealthChecksService();
 
 app.MapGrpcReflectionService();
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapGrpcService<IUserService>().EnableGrpcWeb();
-});
 app.MapMetrics("/metricsz");
-app.MapHealthChecks("/healthz/live", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("live") });
-app.MapHealthChecks("/healthz/ready", new HealthCheckOptions { Predicate = registration => registration.Tags.Contains("ready") }); 
+app.MapHealthChecks("/healthz");
+
 app.MapGet("/",
     () =>
         "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");

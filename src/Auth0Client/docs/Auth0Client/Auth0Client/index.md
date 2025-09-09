@@ -14,7 +14,7 @@ Implements [Abstractions\.IAuth0Client](https://learn.microsoft.com/en-us/dotnet
 
 | Constructors | |
 | :--- | :--- |
-| [Auth0Client\(IManagementApiClient, IOptions&lt;Auth0Settings&gt;\)](Auth0Client(IManagementApiClient,IOptions_Auth0Settings_).md 'global::Auth0Client\.Auth0Client\.Auth0Client\(Auth0\.ManagementApi\.IManagementApiClient, Microsoft\.Extensions\.Options\.IOptions\<Abstractions\.Auth0Settings\>\)') | Provides functionality for interacting with Auth0 authentication services\. |
+| [Auth0Client\(IManagementApiClient, IOptions&lt;Auth0Settings&gt;, ILogger&lt;Auth0Client&gt;\)](Auth0Client(IManagementApiClient,IOptions_Auth0Settings_,ILogger_Auth0Client_).md 'global::Auth0Client\.Auth0Client\.Auth0Client\(Auth0\.ManagementApi\.IManagementApiClient, Microsoft\.Extensions\.Options\.IOptions\<Abstractions\.Auth0Settings\>, Microsoft\.Extensions\.Logging\.ILogger\<global::Auth0Client\.Auth0Client\>\)') | Provides functionality for interacting with Auth0 authentication services\. |
 
 | Methods | |
 | :--- | :--- |
@@ -24,6 +24,8 @@ Implements [Abstractions\.IAuth0Client](https://learn.microsoft.com/en-us/dotnet
 | [CreateOrganization\(OrganizationCreateInfo, CancellationToken\)](CreateOrganization(OrganizationCreateInfo,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateOrganization\(Abstractions\.OrganizationCreateInfo, System\.Threading\.CancellationToken\)') | Creates a new organization in Auth0\. |
 | [CreateRole\(string, string, CancellationToken\)](CreateRole(string,string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateRole\(string, string, System\.Threading\.CancellationToken\)') | Creates a new role in Auth0\. |
 | [CreateUser\(UserCreateInfo, CancellationToken\)](CreateUser(UserCreateInfo,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateUser\(Abstractions\.UserCreateInfo, System\.Threading\.CancellationToken\)') | Creates a new user in Auth0\. |
+| [GetUserMetadata\(string, IEnumerable&lt;string&gt;, CancellationToken\)](GetUserMetadata(string,IEnumerable_string_,CancellationToken).md 'global::Auth0Client\.Auth0Client\.GetUserMetadata\(string, System\.Collections\.Generic\.IEnumerable\<string\>, System\.Threading\.CancellationToken\)') | Retrieves metadata for a user identified by the provided email\. |
+| [HealthCheck\(CancellationToken\)](HealthCheck(CancellationToken).md 'global::Auth0Client\.Auth0Client\.HealthCheck\(System\.Threading\.CancellationToken\)') | Performs a health check on the Auth0 service to verify its availability\. |
 | [ListOrganizations\(CancellationToken\)](ListOrganizations(CancellationToken).md 'global::Auth0Client\.Auth0Client\.ListOrganizations\(System\.Threading\.CancellationToken\)') | Retrieves a list of all organizations from Auth0\. |
 | [ListUsers\(CancellationToken\)](ListUsers(CancellationToken).md 'global::Auth0Client\.Auth0Client\.ListUsers\(System\.Threading\.CancellationToken\)') | Retrieves a list of all users from Auth0\. |
 | [MarkUserAsFraud\(string, CancellationToken\)](MarkUserAsFraud(string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.MarkUserAsFraud\(string, System\.Threading\.CancellationToken\)') | Marks a user as fraudulent in Auth0\. |

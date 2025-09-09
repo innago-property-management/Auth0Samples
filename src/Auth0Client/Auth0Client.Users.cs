@@ -12,12 +12,15 @@ using MorseCode.ITask;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
 using System.Linq;
+
+using Newtonsoft.Json.Linq;
 
 public partial class Auth0Client
 {
@@ -214,6 +217,51 @@ public partial class Auth0Client
         }
 
         return await this.RemoveAuthenticationMethods(email, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, string?>?> GetUserMetadata(
+        string email,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
+        keys = keys?.ToList();
+
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_metadata", cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(OnSuccess, OnError!)!;
+
+        Task<IReadOnlyDictionary<string, string?>?> OnSuccess(IList<User>? users)
+        {
+            return (users?.Count == 1).Map(GetMetadata, SingleMatchNotFound)!;
+
+            static Task<IReadOnlyDictionary<string, string?>?> SingleMatchNotFound()
+            {
+                return Task.FromResult<IReadOnlyDictionary<string, string?>?>(null);
+            }
+
+            Task<IReadOnlyDictionary<string, string?>?> GetMetadata()
+            {
+                var userMetadata = (IDictionary<string, JToken?>?)users?[0].UserMetadata;
+
+                IReadOnlyDictionary<string, string?>? flattened = userMetadata?
+                    .Where(pair => keys == null || keys.Contains(pair.Key))
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value?.ToString())
+                    .AsReadOnly();
+
+                return Task.FromResult(flattened);
+            }
+        }
+
+        Task<IReadOnlyDictionary<string, string?>?>? OnError(Exception exception)
+        {
+            logger.Error(exception);
+            return Task.FromException<IReadOnlyDictionary<string, string?>?>(exception);
+        }
     }
 
     private async ITask<OkError> RemoveAuthenticationMethods(string email, CancellationToken cancellationToken)
