@@ -310,7 +310,6 @@ IdpServiceFacade.UserResponse.Blocked.set -> void
 ~IdpServiceFacade.UserResponse.Identities.get -> Google.Protobuf.Collections.RepeatedField<IdpServiceFacade.Identity>
 '~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
 ~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
-~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
 IdpServiceFacade.UserId
 IdpServiceFacade.Identity
@@ -401,6 +400,6 @@ override IdpServiceFacade.UserResponse.GetHashCode() -> int
 ~override IdpServiceFacade.UserResponse.ToString() -> string
 IdpServiceFacade.UserResponse.CalculateSize() -> int
 ~IdpServiceFacade.UserResponse.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 static UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
 static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
+Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string!>!
