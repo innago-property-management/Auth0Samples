@@ -1,7 +1,7 @@
+using Abstractions;
+
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
-
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 using Prometheus;
 
@@ -9,10 +9,6 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
 using Serilog.Sinks.OpenTelemetry;
-
-using System.Security.Cryptography.X509Certificates;
-
-using Abstractions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -44,38 +40,6 @@ if (builder.Environment.IsDevelopment())
     string serviceName = builder.Configuration["MY_POD_SERVICE_ACCOUNT"] ?? throw new InvalidOperationException();
     loggerConfiguration.WriteTo.GrafanaLoki(uri, propertiesAsLabels: ["app"], labels: [new LokiLabel { Key = "app", Value = serviceName }]);
 }
-
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(8080, listenOptions =>
-    {
-        listenOptions.Protocols =  HttpProtocols.Http1;
-    });
-
-    serverOptions.ListenAnyIP(5009, listenOptions =>
-    {
-        listenOptions.Protocols =  HttpProtocols.Http1AndHttp2;
-
-        listenOptions.UseHttps(httpsOptions =>
-        {
-            try
-            {
-                httpsOptions.ServerCertificate = X509Certificate2.CreateFromPemFile("/etc/ssl/certs/tls.crt", "/etc/ssl/certs/tls.key");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[TLS ERROR] Failed to load certificate: {ex.Message}");
-            }
-        });
-
-        listenOptions.Protocols =  HttpProtocols.Http2;
-    });
-    serverOptions.ListenAnyIP(5008, listenOptions =>
-    {
-        // gRPC over plaintext (no TLS)
-        listenOptions.Protocols =  HttpProtocols.Http2;
-    });
-});
 
 Log.Logger = loggerConfiguration.CreateLogger();
 builder.Services.AddScoped<IAuth0Client, Auth0Client.Auth0Client>();
