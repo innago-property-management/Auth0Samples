@@ -308,7 +308,7 @@ IdpServiceFacade.UserResponse.Blocked.set -> void
 ~virtual IdpServiceFacade.User.UserClient.GetUser(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserResponse
 ~virtual IdpServiceFacade.User.UserClient.GetUser(IdpServiceFacade.UserId request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserResponse
 ~IdpServiceFacade.UserResponse.Identities.get -> Google.Protobuf.Collections.RepeatedField<IdpServiceFacade.Identity>
-'~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
+~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
 ~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
 const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
 IdpServiceFacade.UserId
@@ -403,3 +403,24 @@ IdpServiceFacade.UserResponse.CalculateSize() -> int
 static UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
 static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
 Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string!>!
+IdpServiceFacade.InitiatePasswordResetReply
+const IdpServiceFacade.InitiatePasswordResetReply.TokenFieldNumber = 1 -> int
+~virtual IdpServiceFacade.User.UserClient.InitiatePasswordReset(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.InitiatePasswordResetReply
+~virtual IdpServiceFacade.User.UserClient.InitiatePasswordReset(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.InitiatePasswordResetReply
+~virtual IdpServiceFacade.User.UserClient.InitiatePasswordResetAsync(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.InitiatePasswordResetReply>
+~virtual IdpServiceFacade.User.UserClient.InitiatePasswordResetAsync(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.InitiatePasswordResetReply>
+~static IdpServiceFacade.InitiatePasswordResetReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.InitiatePasswordResetReply>
+~static IdpServiceFacade.InitiatePasswordResetReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~IdpServiceFacade.InitiatePasswordResetReply.InitiatePasswordResetReply(IdpServiceFacade.InitiatePasswordResetReply other) -> void
+~IdpServiceFacade.InitiatePasswordResetReply.Clone() -> IdpServiceFacade.InitiatePasswordResetReply
+~IdpServiceFacade.InitiatePasswordResetReply.Token.get -> string
+~IdpServiceFacade.InitiatePasswordResetReply.Token.set -> void
+~override IdpServiceFacade.InitiatePasswordResetReply.Equals(object other) -> bool
+~IdpServiceFacade.InitiatePasswordResetReply.Equals(IdpServiceFacade.InitiatePasswordResetReply other) -> bool
+override IdpServiceFacade.InitiatePasswordResetReply.GetHashCode() -> int
+~override IdpServiceFacade.InitiatePasswordResetReply.ToString() -> string
+~IdpServiceFacade.InitiatePasswordResetReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.InitiatePasswordResetReply.CalculateSize() -> int
+~IdpServiceFacade.InitiatePasswordResetReply.MergeFrom(IdpServiceFacade.InitiatePasswordResetReply other) -> void
+~IdpServiceFacade.InitiatePasswordResetReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+
