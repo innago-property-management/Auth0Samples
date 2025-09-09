@@ -7,7 +7,11 @@ using Auth0.ManagementApi.Paging;
 
 using Innago.Shared.TryHelpers;
 
+using JetBrains.Annotations;
+
 using MorseCode.ITask;
+
+using Newtonsoft.Json.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -16,11 +20,6 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-
-using JetBrains.Annotations;
-using System.Linq;
-
-using Newtonsoft.Json.Linq;
 
 public partial class Auth0Client
 {
