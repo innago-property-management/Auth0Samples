@@ -299,6 +299,8 @@ public partial class Auth0Client
             return null;
         }
 
+        searchTerm = searchTerm.SanitizeSearchTerm();
+
         string searchCriteria = $"{Auth0Client.FirstName}:{searchTerm}* or {Auth0Client.Email}:{searchTerm}* or {Auth0Client.LastName}:{searchTerm}*";
 
         IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
