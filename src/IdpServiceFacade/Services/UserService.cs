@@ -14,6 +14,7 @@ internal class UserService(IUserService externalService) : User.UserBase
 {
     public override Task<UserReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
+        Console.WriteLine($"InitiatePasswordReset called with request {request.Email}");
         using Activity? activity =
             IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
@@ -36,7 +37,7 @@ internal class UserService(IUserService externalService) : User.UserBase
         return externalService.MarkUserAsFraud(request.Email, context.CancellationToken).ToUserReply();
     }
 
-    public override Task<UserReply> ToggleMfa(UserMFARequest request, ServerCallContext context)
+    public override Task<UserReply> DisableAllMfa(UserMFARequest request, ServerCallContext context)
     {
         using Activity? activity =
             IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
@@ -50,6 +51,22 @@ internal class UserService(IUserService externalService) : User.UserBase
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
         return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<UserReply> BlockUser(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.BlockUser(request.Email, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<UserReply> UnblockUser(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.UnblockUser(request.Email, context.CancellationToken).ToUserReply();
     }
 
     public override Task<UserMetadataReply> GetUserMetadata(UserMetadataRequest request, ServerCallContext context)

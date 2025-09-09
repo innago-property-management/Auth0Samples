@@ -7,7 +7,11 @@ using Auth0.ManagementApi.Paging;
 
 using Innago.Shared.TryHelpers;
 
+using JetBrains.Annotations;
+
 using MorseCode.ITask;
+
+using Newtonsoft.Json.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -16,10 +20,6 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-
-using JetBrains.Annotations;
-
-using Newtonsoft.Json.Linq;
 
 public partial class Auth0Client
 {
@@ -95,6 +95,8 @@ public partial class Auth0Client
     /// <returns>A task that represents the asynchronous operation, containing the result of the password reset request.</returns>
     public async ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken)
     {
+        Console.WriteLine($"InitiatePasswordReset called with request {email} step 1");
+
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
         PasswordChangeTicketRequest request = new()
@@ -102,15 +104,18 @@ public partial class Auth0Client
             Email = email,
             ConnectionId = this.auth0ConnectionName,
         };
+        Console.WriteLine($"InitiatePasswordReset called with request {email} step 2");
 
         Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
 
-        return new OkError
+        var response = new OkError
         {
             OK = result.HasSucceeded,
             Error = ((Exception?)result)?.Message,
         };
+        Console.WriteLine($"InitiatePasswordReset response: {response.OK}, {response.Error}");
+        return response;
     }
 
     /// <summary>
@@ -333,6 +338,68 @@ public partial class Auth0Client
                 UserUpdateRequest request = new()
                 {
                     UserMetadata = metadata,
+                };
+
+                Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
+
+                return updateResult.Map<Result>(_ => Result.Success,
+                    exception =>
+                    {
+                        // ReSharper disable once AccessToDisposedClosure
+                        activity?.AddException(exception!);
+                        return exception!;
+                    });
+            }
+        }
+    }
+
+    public ITask<OkError> BlockUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserBlockStatus(email, true, cancellationToken);
+    }
+
+    public ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserBlockStatus(email, false, cancellationToken);
+    }
+
+    private async ITask<OkError> UpdateUserBlockStatus(string email, bool blocked, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(UpdateUserBlock, GetUsersError)!;
+
+        static Task<OkError> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
+        }
+
+        async Task<OkError> UpdateUserBlock(IList<User>? users)
+        {
+            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
+
+            Task<OkError> MoreThanOneUserFound()
+            {
+                const string? error = "more than one user found";
+                // ReSharper disable once AccessToDisposedClosure
+                activity?.AddException(new Exception(error));
+                return Task.FromResult(new OkError(Error: error));
+            }
+
+            async Task<OkError> OnTrue()
+            {
+                User user = users![0];
+                string id = user.UserId;
+
+                UserUpdateRequest request = new()
+                {
+                    Blocked = blocked,
                 };
 
                 Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);

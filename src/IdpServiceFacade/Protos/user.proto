@@ -16,8 +16,10 @@ service User {
   rpc ChangePassword (UserChangePasswordRequest) returns (UserReply);
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
-  rpc ToggleMfa (UserMFARequest) returns (UserReply);
+  rpc DisableAllMfa (UserMFARequest) returns (UserReply);
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
+  rpc BlockUser(UserRequest) returns (UserReply);
+  rpc UnblockUser(UserRequest) returns (UserReply);
 }
 
 // The request message containing the user's email.
