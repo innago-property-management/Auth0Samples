@@ -6,6 +6,8 @@ using global::IdpServiceFacade;
 
 using MorseCode.ITask;
 
+using User = Auth0.ManagementApi.Models.User;
+
 internal static class UserReplyHelpers
 {
     public static async Task<UserMetadataReply> ToUserMetadataReply(this ITask<IReadOnlyDictionary<string, string?>?> task)
@@ -20,6 +22,23 @@ internal static class UserReplyHelpers
         OkError result = await task.ConfigureAwait(false);
 
         return result.ToUserReply();
+    }
+
+    public static async Task<UserSearchResponse> ToUserSearchResponse(this Task<IEnumerable<User>> task)
+    {
+        return (await task.ConfigureAwait(false)).ToUserSearchResponse();
+    }
+
+    private static UserSearchResponse ToUserSearchResponse(this IEnumerable<User> users)
+    {
+        UserSearchResponse response = new();
+
+        foreach (User user in users)
+        {
+            response.Users.Add(user.ToGetUserResponse());
+        }
+
+        return response;
     }
 
     private static UserMetadataReply ToUserMetadataReply(this IReadOnlyDictionary<string, string?> metadata)
@@ -43,9 +62,10 @@ internal static class UserReplyHelpers
         };
     }
 
-    public static async Task<InitiatePasswordResetReply> ToInitiatePasswordResetReply(this ITask<String> task)
+    public static async Task<InitiatePasswordResetReply> ToInitiatePasswordResetReply(this ITask<string?> task)
     {
-        var resetTokenResult = await task.ConfigureAwait(false);
+        string? resetTokenResult = await task.ConfigureAwait(false);
+
         return new InitiatePasswordResetReply
         {
             Token = resetTokenResult,

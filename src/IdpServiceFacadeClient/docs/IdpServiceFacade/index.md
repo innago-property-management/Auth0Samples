@@ -23,3 +23,5 @@
 | [UserRequest](UserRequest/index.md 'IdpServiceFacade\.UserRequest') | The request message containing the user's email\. |
 | [UserResponse](UserResponse/index.md 'IdpServiceFacade\.UserResponse') | |
 | [UserRoleRequest](UserRoleRequest/index.md 'IdpServiceFacade\.UserRoleRequest') | |
+| [UserSearchResponse](UserSearchResponse/index.md 'IdpServiceFacade\.UserSearchResponse') | |
+| [UsersSearchRequest](UsersSearchRequest/index.md 'IdpServiceFacade\.UsersSearchRequest') | |
