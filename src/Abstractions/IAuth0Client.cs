@@ -56,4 +56,12 @@ public interface IAuth0Client : IUserService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation, containing a boolean indicating the health status of the Auth0 service.</returns>
     Task<bool> HealthCheck(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Gets a user by their id.
+    /// </summary>
+    /// <param name="oruUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<User> GetUser(string oruUid, CancellationToken cancellationToken);
 }

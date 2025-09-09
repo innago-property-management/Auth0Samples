@@ -46,6 +46,13 @@ public partial class Auth0Client
 
         return await client.Users.CreateAsync(request, cancellationToken);
     }
+    
+    public async Task<User> GetUser(string oruUid, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
+        string id = "auth0|" + oruUid;
+        return await client.Users.GetAsync(id,null, true, cancellationToken);
+    }
 
     /// <summary>
     /// Retrieves a list of all users from Auth0.

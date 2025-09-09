@@ -12,6 +12,8 @@ using Serilog.Sinks.OpenTelemetry;
 
 using System.Security.Cryptography.X509Certificates;
 
+using Abstractions;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
@@ -76,7 +78,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 Log.Logger = loggerConfiguration.CreateLogger();
-
+builder.Services.AddScoped<IAuth0Client, Auth0Client.Auth0Client>();
 builder.Services.ConfigureServices(builder.Configuration, Log.Logger);
 
 WebApplication app = builder.Build();
