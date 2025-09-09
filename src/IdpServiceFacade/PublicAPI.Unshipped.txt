@@ -143,3 +143,92 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.MarkAsFraud(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.MarkAsSuspicious(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
+static UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
+UserResponseHelper
+UserResponseHelpers
+'const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int'
+const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
+
+IdpServiceFacade.UserId
+
+IdpServiceFacade.Identity
+
+const IdpServiceFacade.Identity.UserIdFieldNumber = 1 -> int
+
+IdpServiceFacade.UserResponse
+
+const IdpServiceFacade.UserResponse.EmailVerifiedFieldNumber = 2 -> int
+
+const IdpServiceFacade.UserResponse.EmailFieldNumber = 1 -> int
+
+const IdpServiceFacade.UserResponse.PhoneNumberFieldNumber = 3 -> int
+
+const IdpServiceFacade.UserResponse.PhoneVerifiedFieldNumber = 4 -> int
+
+const IdpServiceFacade.UserResponse.UserMetadataFieldNumber = 5 -> int
+
+const IdpServiceFacade.UserResponse.UsernameFieldNumber = 6 -> int
+
+const IdpServiceFacade.UserResponse.NicknameFieldNumber = 7 -> int
+
+const IdpServiceFacade.UserResponse.GivenNameFieldNumber = 8 -> int
+
+const IdpServiceFacade.UserResponse.NameFieldNumber = 9 -> int
+
+const IdpServiceFacade.UserResponse.FamilyNameFieldNumber = 10 -> int
+
+const IdpServiceFacade.UserResponse.PictureFieldNumber = 11 -> int
+
+const IdpServiceFacade.UserResponse.BlockedFieldNumber = 12 -> int
+
+const IdpServiceFacade.UserResponse.IdentitiesFieldNumber = 13 -> int
+
+const IdpServiceFacade.UserResponse.LastIpFieldNumber = 14 -> int
+
+const IdpServiceFacade.UserResponse.LastLoginFieldNumber = 15 -> int
+
+const IdpServiceFacade.UserResponse.UserIdFieldNumber = 16 -> int
+
+~static IdpServiceFacade.Identity.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.Identity>
+
+~static IdpServiceFacade.Identity.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+
+IdpServiceFacade.Identity.Identity() -> void
+
+~IdpServiceFacade.Identity.Identity(IdpServiceFacade.Identity other) -> void
+
+~IdpServiceFacade.Identity.Clone() -> IdpServiceFacade.Identity
+
+~IdpServiceFacade.Identity.UserId.get -> string
+
+~IdpServiceFacade.Identity.UserId.set -> void
+
+~override IdpServiceFacade.Identity.Equals(object other) -> bool
+
+~static IdpServiceFacade.UserId.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserId>
+
+~static IdpServiceFacade.UserId.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+
+~static IdpServiceFacade.UserResponse.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+
+IdpServiceFacade.UserId.UserId() -> void
+
+~IdpServiceFacade.UserId.UserId(IdpServiceFacade.UserId other) -> void
+
+~IdpServiceFacade.UserId.Clone() -> IdpServiceFacade.UserId
+
+~static IdpServiceFacade.UserResponse.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserResponse>
+
+~IdpServiceFacade.UserId.Id.get -> string
+
+~IdpServiceFacade.UserId.Id.set -> void
+
+~override IdpServiceFacade.UserId.Equals(object other) -> bool
+
+IdpServiceFacade.UserResponse.UserResponse() -> void
+
+~IdpServiceFacade.UserResponse.UserResponse(IdpServiceFacade.UserResponse other) -> void
+
+~IdpServiceFacade.UserResponse.Clone() -> IdpServiceFacade.UserResponse
+
+~IdpServiceFacade.UserResponse.Email.get -> string

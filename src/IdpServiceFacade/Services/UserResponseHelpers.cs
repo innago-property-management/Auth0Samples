@@ -8,6 +8,11 @@ using User = Auth0.ManagementApi.Models.User;
 
 public static class UserResponseHelpers
 {
+    /// <summary>
+    /// Converts auth0 user to grpc repsonse
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     public static UserResponse ToGetUserResponse(this User user)
     {
         if (user == null)
