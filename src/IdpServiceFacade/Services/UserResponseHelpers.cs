@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Identity = IdpServiceFacade.Identity;
 using User = Auth0.ManagementApi.Models.User;
 
+namespace Innago.Security.IdpServiceFacade.Services;
 public static class UserResponseHelpers
 {
     /// <summary>

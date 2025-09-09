@@ -297,9 +297,20 @@ override IdpServiceFacade.UserRoleRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
-UserResponseHelper
-UserResponseHelpers
-'const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int'
+~IdpServiceFacade.UserResponse.Picture.set -> void
+IdpServiceFacade.UserResponse.Blocked.set -> void
+~IdpServiceFacade.UserResponse.LastIp.get -> string
+~IdpServiceFacade.UserResponse.LastIp.set -> void
+~IdpServiceFacade.UserResponse.LastLogin.get -> string
+~IdpServiceFacade.UserResponse.LastLogin.set -> void
+~IdpServiceFacade.UserResponse.UserId.get -> string
+~IdpServiceFacade.UserResponse.MergeFrom(IdpServiceFacade.UserResponse other) -> void
+~virtual IdpServiceFacade.User.UserClient.GetUser(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserResponse
+~virtual IdpServiceFacade.User.UserClient.GetUser(IdpServiceFacade.UserId request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserResponse
+~IdpServiceFacade.UserResponse.Identities.get -> Google.Protobuf.Collections.RepeatedField<IdpServiceFacade.Identity>
+'~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
+~virtual IdpServiceFacade.User.UserClient.GetUserAsync(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponse>
+~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
 IdpServiceFacade.UserId
 IdpServiceFacade.Identity
@@ -375,7 +386,6 @@ IdpServiceFacade.UserResponse.ClearGivenName() -> void
 ~IdpServiceFacade.UserResponse.Picture.get -> string
 ~IdpServiceFacade.UserResponse.FamilyName.get -> string
 IdpServiceFacade.UserResponse.Blocked.get -> bool
-~virtual IdpServiceFacade.User.UserClient.GetUser(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threadin
 ~IdpServiceFacade.UserResponse.UserId.set -> void
 ~override IdpServiceFacade.UserResponse.Equals(object other) -> bool
 ~IdpServiceFacade.Identity.Equals(IdpServiceFacade.Identity other) -> bool
@@ -390,7 +400,7 @@ override IdpServiceFacade.UserResponse.GetHashCode() -> int
 ~IdpServiceFacade.UserResponse.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~override IdpServiceFacade.UserResponse.ToString() -> string
 IdpServiceFacade.UserResponse.CalculateSize() -> int
-~IdpFacade.UserResponse.MergeFrom(IdpServiceFacade.UserResponse other) -> void
 ~IdpServiceFacade.UserResponse.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserR
+~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 static UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
+static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
