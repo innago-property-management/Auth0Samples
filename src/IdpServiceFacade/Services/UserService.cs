@@ -100,4 +100,9 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
         }
     }
+
+    public override Task<UserSearchResponse> GetUsers(UsersSearchRequest request, ServerCallContext context)
+    {
+        return auth0Client.ListUsers(request.Text, context.CancellationToken).ToUserSearchResponse();
+    }
 }

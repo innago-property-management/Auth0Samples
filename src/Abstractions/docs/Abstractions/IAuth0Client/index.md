@@ -19,4 +19,4 @@ Implements [IUserService](../IUserService/index.md 'Abstractions\.IUserService')
 | [GetUser\(string, CancellationToken\)](GetUser(string,CancellationToken).md 'Abstractions\.IAuth0Client\.GetUser\(string, System\.Threading\.CancellationToken\)') | Gets a user by their id\. |
 | [HealthCheck\(CancellationToken\)](HealthCheck(CancellationToken).md 'Abstractions\.IAuth0Client\.HealthCheck\(System\.Threading\.CancellationToken\)') | Performs a health check on the Auth0 service to verify its availability\. |
 | [ListOrganizations\(CancellationToken\)](ListOrganizations(CancellationToken).md 'Abstractions\.IAuth0Client\.ListOrganizations\(System\.Threading\.CancellationToken\)') | Retrieves a list of all organizations\. |
-| [ListUsers\(CancellationToken\)](ListUsers(CancellationToken).md 'Abstractions\.IAuth0Client\.ListUsers\(System\.Threading\.CancellationToken\)') | Retrieves a list of all users\. |
+| [ListUsers\(string, CancellationToken\)](ListUsers(string,CancellationToken).md 'Abstractions\.IAuth0Client\.ListUsers\(string, System\.Threading\.CancellationToken\)') | Retrieves a list of all users\. |

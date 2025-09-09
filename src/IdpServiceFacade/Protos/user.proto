@@ -23,6 +23,7 @@ service User {
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
   rpc GetUser (UserId) returns (UserResponse);
+  rpc GetUsers (UsersSearchRequest) returns (UserSearchResponse);
 }
 
 // The request message containing the user's email.
@@ -52,8 +53,8 @@ message UserReply {
 }
 
 message UserMetadataRequest {
-   string email = 1;
-   optional KeysWrapper keys = 2;
+  string email = 1;
+  optional KeysWrapper keys = 2;
 }
 
 message KeysWrapper {
@@ -61,7 +62,7 @@ message KeysWrapper {
 }
 
 message UserMetadataReply {
-   map<string,string> metadata = 1;
+  map<string, string> metadata = 1;
 }
 
 
@@ -93,5 +94,13 @@ message UserId{
 }
 
 message InitiatePasswordResetReply {
-   string token = 1;
+  string token = 1;
+}
+
+message UsersSearchRequest {
+  string text = 1;
+}
+
+message UserSearchResponse{
+  repeated UserResponse users = 1;
 }

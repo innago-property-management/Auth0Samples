@@ -107,6 +107,18 @@ grpcurl -d '{"email": "zzz@yopmail.com", "keys": [ {"key":"organizationuid"}]}' 
 
 ```
 
+### User Search
+
+```bash
+grpcurl -d '{"text": "family_name:t* or given_name:t* or email:t* or nickname:t*"}' localhost:7122 user.User.GetUsers
+
+grpcurl -d '{"text": "user_metadata.phone_number:\"+12163933566\""}' localhost:7122 user.User.GetUsers
+```
+
+```json
+
+```
+
 ## Required Scopes
 
 - create:user_attribute_profiles

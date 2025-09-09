@@ -63,9 +63,10 @@ public partial class Auth0Client
     /// <summary>
     /// Retrieves a list of all users from Auth0.
     /// </summary>
+    /// <param name="luceneQuery"></param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the list of users.</returns>
-    public async Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken)
+    public async Task<IEnumerable<User>> ListUsers(string luceneQuery = "user_id:*", CancellationToken cancellationToken = default)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
@@ -73,8 +74,7 @@ public partial class Auth0Client
         {
             Connection = this.auth0DatabaseName,
             Sort = "user_id:1",
-            Query = "user_id:*",
-            Fields = "user_id,email,name,last_login",
+            Query = luceneQuery,
             IncludeFields = true,
             SearchEngine = "v3",
         };
