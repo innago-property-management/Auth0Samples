@@ -126,10 +126,10 @@ public partial class Auth0Client
 
         Task<string> OnSuccess(Ticket? ticket)
         {
-            return Task.FromResult(ticket.Value);
+            return Task.FromResult(ticket?.Value ?? string.Empty);
         }
 
-        Task<string>? OnError(Exception exception)
+        Task<string>? OnError(Exception? exception)
         {
             logger.Error(exception);
             return Task.FromException<string>(exception);

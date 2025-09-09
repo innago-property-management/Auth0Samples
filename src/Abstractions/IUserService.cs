@@ -42,7 +42,7 @@ public interface IUserService
     /// <param name="email">The email address of the user requesting a password reset.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="string" /> token that can be used to reset password</returns>
-    ITask<string> ResetPassword(string email, CancellationToken cancellationToken);
+    ITask<string?> ResetPassword(string email, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Enables or disables Multi-Factor Authentication (MFA) for a user.

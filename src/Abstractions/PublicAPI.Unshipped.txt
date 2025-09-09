@@ -77,4 +77,4 @@ virtual Abstractions.UserCreateInfo.<Clone>$() -> Abstractions.UserCreateInfo!
 virtual Abstractions.UserCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.UserCreateInfo.Equals(Abstractions.UserCreateInfo? other) -> bool
 virtual Abstractions.UserCreateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
-Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string!>!
+Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string?>!
