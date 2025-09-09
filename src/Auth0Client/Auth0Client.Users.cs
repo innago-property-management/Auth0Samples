@@ -294,7 +294,7 @@ public partial class Auth0Client
         IEnumerable<string>? keys,
         CancellationToken cancellationToken)
     {
-        if (searchTerm.Length < Auth0Client.MinSearchLength)
+        if (searchTerm.Trim().Length < Auth0Client.MinSearchLength)
         {
             return null;
         }
