@@ -97,6 +97,7 @@ public partial class Auth0Client
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
+        Console.WriteLine($"ResetPassword step 1 email : {email}");
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
@@ -105,12 +106,16 @@ public partial class Auth0Client
 
         Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
+        Console.WriteLine($"ResetPassword step 2 email : {email}");
 
-        return new OkError
+        var response = new OkError
         {
             OK = result.HasSucceeded,
             Error = ((Exception?)result)?.Message,
         };
+        Console.WriteLine($"ResetPassword step 3 ok : {response.OK}, error : {response.Error}");
+        return response;
+
     }
 
     /// <summary>
