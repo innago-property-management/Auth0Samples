@@ -50,12 +50,12 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ListenAnyIP(8080, listenOptions =>
     {
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+        listenOptions.Protocols =  HttpProtocols.Http1;
     });
 
     serverOptions.ListenAnyIP(5009, listenOptions =>
     {
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
+        listenOptions.Protocols =  HttpProtocols.Http1AndHttp2;
 
         listenOptions.UseHttps(httpsOptions =>
         {
@@ -69,12 +69,12 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
             }
         });
 
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+        listenOptions.Protocols =  HttpProtocols.Http2;
     });
     serverOptions.ListenAnyIP(5008, listenOptions =>
     {
         // gRPC over plaintext (no TLS)
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+        listenOptions.Protocols =  HttpProtocols.Http2;
     });
 });
 
