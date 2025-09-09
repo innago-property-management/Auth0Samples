@@ -53,8 +53,17 @@ internal static partial class ProgramConfiguration
             options.SerializerOptions.TypeInfoResolver = AppJsonSerializerContext.Default;
         });
 
-        services.AddAuth0AuthenticationClient(ConfigureAuth0);
-        services.AddAuth0ManagementClient().AddManagementAccessToken();
+        services.AddAuth0AuthenticationClient(ConfigureAuth0).ConfigurePrimaryHttpMessageHandler(() =>
+            new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            });       
+
+        services.AddAuth0ManagementClient().AddManagementAccessToken().ConfigurePrimaryHttpMessageHandler(() =>
+            new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            });
 
         services.AddScoped<IUserService, Auth0Client>();
 

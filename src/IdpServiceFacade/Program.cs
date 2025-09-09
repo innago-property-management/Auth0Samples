@@ -1,8 +1,7 @@
+using Abstractions;
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
-
 using Prometheus;
-
 using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
@@ -40,7 +39,7 @@ if (builder.Environment.IsDevelopment())
 }
 
 Log.Logger = loggerConfiguration.CreateLogger();
-
+builder.Services.AddScoped<IAuth0Client, Auth0Client.Auth0Client>();
 builder.Services.ConfigureServices(builder.Configuration, Log.Logger);
 
 WebApplication app = builder.Build();

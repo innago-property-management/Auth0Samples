@@ -14,7 +14,7 @@
 Initiates a password reset
 
 ```csharp
-public virtual IdpServiceFacade.UserReply InitiatePasswordReset(IdpServiceFacade.UserRequest request, CallOptions options);
+public virtual IdpServiceFacade.InitiatePasswordResetReply InitiatePasswordReset(IdpServiceFacade.UserRequest request, CallOptions options);
 ```
 #### Parameters
 
@@ -31,7 +31,7 @@ The request to send to the server\.
 The options for the call\.
 
 #### Returns
-[UserReply](../../UserReply/index.md 'IdpServiceFacade\.UserReply')  
+[InitiatePasswordResetReply](../../InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply')  
 The response received from the server\.
 
 <a name='IdpServiceFacade.User.UserClient.InitiatePasswordReset(IdpServiceFacade.UserRequest,Metadata,System.Nullable_System.DateTime_,System.Threading.CancellationToken)'></a>
@@ -41,7 +41,7 @@ The response received from the server\.
 Initiates a password reset
 
 ```csharp
-public virtual IdpServiceFacade.UserReply InitiatePasswordReset(IdpServiceFacade.UserRequest request, Metadata headers=null, System.Nullable<System.DateTime> deadline=null, System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
+public virtual IdpServiceFacade.InitiatePasswordResetReply InitiatePasswordReset(IdpServiceFacade.UserRequest request, Metadata headers=null, System.Nullable<System.DateTime> deadline=null, System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
 ```
 #### Parameters
 
@@ -70,5 +70,5 @@ An optional deadline for the call\. The call will be cancelled if deadline is hi
 An optional token for canceling the call\.
 
 #### Returns
-[UserReply](../../UserReply/index.md 'IdpServiceFacade\.UserReply')  
+[InitiatePasswordResetReply](../../InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply')  
 The response received from the server\.

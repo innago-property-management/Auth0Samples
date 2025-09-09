@@ -41,8 +41,8 @@ public interface IUserService
     /// </summary>
     /// <param name="email">The email address of the user requesting a password reset.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
-    ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken);
+    /// <returns>An <see cref="string" /> token that can be used to reset password</returns>
+    ITask<string?> ResetPassword(string email, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Enables or disables Multi-Factor Authentication (MFA) for a user.
@@ -52,6 +52,22 @@ public interface IUserService
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
     ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken);
+
+    /// <summary>
+    ///     Blocks a user based on their email address, preventing them from accessing the system.
+    /// </summary>
+    /// <param name="email">The email address of the user to block.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    ITask<OkError> BlockUser(string email, CancellationToken cancellationToken);
+
+    /// <summary>
+    ///     Unblocks a user based on their email address, restoring their access to the system.
+    /// </summary>
+    /// <param name="email">The email address of the user to unblock.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken);
 
     /// <summary>
     /// Retrieves metadata for a user identified by the provided email.

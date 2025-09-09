@@ -34,6 +34,9 @@ internal static partial class LoggerMessages
     [LoggerMessage(LogLevel.Information, "{Id}: {Name}")]
     internal static partial void Organization(this ILogger<ListOrganizationsCommand> logger, string id, string name);
     
+    [LoggerMessage(LogLevel.Information, "{Id}")]
+    internal static partial void GetUser(this ILogger<GetUserCommand> logger, string id);
+    
     [LoggerMessage(LogLevel.Information, "{Id}\t {Email}\t{Name}\t{LastLogin:O}")]
     internal static partial void User(this ILogger<ListUsersCommand> logger, string id, string email, string name, DateTime? lastLogin);
 
