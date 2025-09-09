@@ -84,8 +84,32 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         try
         {
             using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
-            var result =  await auth0Client.GetUser(request.Id, context.CancellationToken);
+            var result = await auth0Client.GetUser(request.Id, context.CancellationToken);
             return result.ToGetUserResponse();
+        }
+        catch (OperationCanceledException ex)
+        {
+            throw new RpcException(new Status(StatusCode.Cancelled, "Request was cancelled"), ex.Message);
+        }
+        catch (Exception ex)
+        {
+            // Log with activity if you want
+            Console.WriteLine(ex);
+
+            throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
+        }
+    }
+
+    public override async Task<UserResponseList> GetUsers(UserIds request, ServerCallContext context)
+    {
+        try
+        {
+            using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
+            var result = await auth0Client.GetUsers(request.Ids.ToArray(), context.CancellationToken);
+            var responseList = new UserResponseList();
+            responseList.UserResponseList_.AddRange(result.Select(u => u.ToGetUserResponse()));
+
+            return responseList;
         }
         catch (OperationCanceledException ex)
         {

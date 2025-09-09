@@ -6,7 +6,7 @@
 Initiates a password reset process for a user identified by their email address\.
 
 ```csharp
-ITask<string> ResetPassword(string email, System.Threading.CancellationToken cancellationToken);
+ITask<string?> ResetPassword(string email, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
