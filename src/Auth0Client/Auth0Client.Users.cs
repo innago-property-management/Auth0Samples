@@ -47,11 +47,17 @@ public partial class Auth0Client
         return await client.Users.CreateAsync(request, cancellationToken);
     }
     
+    /// <summary>
+    /// Get a user
+    /// </summary>
+    /// <param name="oruUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<User> GetUser(string oruUid, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
         string id = "auth0|" + oruUid;
-        return await client.Users.GetAsync(id,null, true, cancellationToken);
+        return await client.Users.GetAsync(id, null!, true, cancellationToken);
     }
 
     /// <summary>

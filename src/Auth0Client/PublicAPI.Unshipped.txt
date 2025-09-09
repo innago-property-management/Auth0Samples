@@ -17,3 +17,4 @@ Auth0Client.Auth0Client.ToggleMFA(string! email, bool enable, System.Threading.C
 Auth0Client.Auth0Client.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0ClientTracer
 static readonly Auth0Client.Auth0ClientTracer.Source -> System.Diagnostics.ActivitySource!
+Auth0Client.Auth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
