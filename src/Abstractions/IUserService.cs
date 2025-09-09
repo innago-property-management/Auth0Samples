@@ -80,4 +80,16 @@ public interface IUserService
     /// or null if no metadata exists.
     /// </returns>
     ITask<IReadOnlyDictionary<string, string?>?> GetUserMetadata(string email, IEnumerable<string>? keys, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves metadata for users whose name or email matches the given search term.
+    /// </summary>
+    /// <param name="searchTerm">The partial name or email fragment to search for matching users.</param>
+    /// <param name="keys">The optional list of metadata keys to retrieve for each user. If null, all metadata is returned.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A dictionary where the keys are user identifiers, and the values are dictionaries containing the requested metadata. Returns null if no users match the search term.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameOrEmailFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
 }

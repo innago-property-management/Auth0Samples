@@ -85,7 +85,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         try
         {
             using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
-            var result = await auth0Client.GetUser(request.Id, context.CancellationToken);
+            Auth0.ManagementApi.Models.User result = await auth0Client.GetUser(request.Id, context.CancellationToken);
             return result.ToGetUserResponse();
         }
         catch (OperationCanceledException ex)
@@ -104,5 +104,12 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     public override Task<UserSearchResponse> GetUsers(UsersSearchRequest request, ServerCallContext context)
     {
         return auth0Client.ListUsers(request.Text, context.CancellationToken).ToUserSearchResponse();
+    }
+
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragment(UsersMetadataByNameOrEmailFragmentRequest request, ServerCallContext context)
+    {
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client.GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
     }
 }
