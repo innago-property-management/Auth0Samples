@@ -43,9 +43,10 @@ internal static class UserReplyHelpers
         };
     }
 
-    public static async Task<InitiatePasswordResetReply> ToInitiatePasswordResetReply(this ITask<String> task)
+    public static async Task<InitiatePasswordResetReply> ToInitiatePasswordResetReply(this ITask<string?> task)
     {
-        var resetTokenResult = await task.ConfigureAwait(false);
+        string? resetTokenResult = await task.ConfigureAwait(false);
+
         return new InitiatePasswordResetReply
         {
             Token = resetTokenResult,

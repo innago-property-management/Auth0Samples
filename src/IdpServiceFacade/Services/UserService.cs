@@ -15,6 +15,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
         Console.WriteLine($"InitiatePasswordReset called with request {request.Email}");
+
         using Activity? activity =
             IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
@@ -84,7 +85,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         try
         {
             using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
-            var result =  await auth0Client.GetUser(request.Id, context.CancellationToken);
+            var result = await auth0Client.GetUser(request.Id, context.CancellationToken);
             return result.ToGetUserResponse();
         }
         catch (OperationCanceledException ex)

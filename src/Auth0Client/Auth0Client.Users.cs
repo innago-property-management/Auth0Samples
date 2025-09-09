@@ -46,7 +46,7 @@ public partial class Auth0Client
 
         return await client.Users.CreateAsync(request, cancellationToken);
     }
-    
+
     /// <summary>
     /// Get a user
     /// </summary>
@@ -113,15 +113,18 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
         Console.WriteLine($"ResetPassword step 1 email : {email}");
+
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
             ConnectionId = this.auth0ConnectionName,
         };
+
         Console.WriteLine($"InitiatePasswordReset called with request {email} step 2");
 
         Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
+
         Console.WriteLine($"ResetPassword step 2 email : {email}");
 
         return await result.Map(OnSuccess, OnError)!;
@@ -373,12 +376,24 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    /// Blocks a user by their email address.
+    /// </summary>
+    /// <param name="email">The email address of the user to block.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the block action.</returns>
     public ITask<OkError> BlockUser(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
         return this.UpdateUserBlockStatus(email, true, cancellationToken);
     }
 
+    /// <summary>
+    /// Unblocks a user in the Auth0 system.
+    /// </summary>
+    /// <param name="email">The email address of the user to unblock.</param>
+    /// <param name="cancellationToken">A token to cancel the unblock operation.</param>
+    /// <returns>An asynchronous task containing the result of the unblock operation.</returns>
     public ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);

@@ -3,8 +3,8 @@ syntax = "proto3";
 option csharp_namespace = "IdpServiceFacade";
 
 package user;
-import "google/protobuf/timestamp.proto";
-import "google/protobuf/struct.proto";
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/struct.proto";
 
 // The user service definition.
 service User {
