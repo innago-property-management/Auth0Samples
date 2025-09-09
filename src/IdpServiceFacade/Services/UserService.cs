@@ -12,13 +12,13 @@ using MorseCode.ITask;
 
 internal class UserService(IUserService externalService) : User.UserBase
 {
-    public override Task<UserReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
+    public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
         Console.WriteLine($"InitiatePasswordReset called with request {request.Email}");
         using Activity? activity =
             IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
-        return externalService.ResetPassword(request.Email, context.CancellationToken).ToUserReply();
+        return externalService.ResetPassword(request.Email, context.CancellationToken).ToInitiatePasswordResetReply();
     }
 
     public override Task<UserReply> MarkAsSuspicious(UserRequest request, ServerCallContext context)

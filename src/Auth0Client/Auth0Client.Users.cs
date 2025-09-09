@@ -93,7 +93,7 @@ public partial class Auth0Client
     /// <param name="email">The email address of the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the result of the password reset request.</returns>
-    public async ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken)
+    public async ITask<string?> ResetPassword(string email, CancellationToken cancellationToken)
     {
         Console.WriteLine($"InitiatePasswordReset called with request {email} step 1");
 
@@ -109,13 +109,18 @@ public partial class Auth0Client
         Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
 
-        var response = new OkError
+        return await result.Map(OnSuccess, OnError)!;
+
+        Task<string> OnSuccess(Ticket? ticket)
         {
-            OK = result.HasSucceeded,
-            Error = ((Exception?)result)?.Message,
-        };
-        Console.WriteLine($"InitiatePasswordReset response: {response.OK}, {response.Error}");
-        return response;
+            return Task.FromResult(ticket.Value);
+        }
+
+        Task<string>? OnError(Exception exception)
+        {
+            logger.Error(exception);
+            return Task.FromException<string>(exception);
+        }
     }
 
     /// <summary>

@@ -6,7 +6,7 @@
 Initiates a password reset process for a user identified by their email address\.
 
 ```csharp
-ITask<Abstractions.OkError> ResetPassword(string email, System.Threading.CancellationToken cancellationToken);
+ITask<string> ResetPassword(string email, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
@@ -24,4 +24,4 @@ The token to monitor for cancellation requests\.
 
 #### Returns
 [MorseCode\.ITask\.ITask](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask 'MorseCode\.ITask\.ITask')  
-An [OkError](../OkError/index.md 'Abstractions\.OkError') object indicating success or containing an error message if the operation fails\.
+An [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String') token that can be used to reset password

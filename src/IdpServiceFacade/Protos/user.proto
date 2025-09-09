@@ -7,7 +7,7 @@ package user;
 // The user service definition.
 service User {
   // Initiates a password reset
-  rpc InitiatePasswordReset (UserRequest) returns (UserReply);
+  rpc InitiatePasswordReset (UserRequest) returns (InitiatePasswordResetReply);
   rpc InitiateForcedLogin (UserRequest) returns (UserReply);
   rpc InitiateLockout (UserRequest) returns (UserReply);
   rpc MarkAsSuspicious (UserRequest) returns (UserReply);
@@ -59,4 +59,8 @@ message KeysWrapper {
 
 message UserMetadataReply {
    map<string,string> metadata = 1;
+}
+
+message InitiatePasswordResetReply {
+   string token = 1;
 }

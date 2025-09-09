@@ -4,6 +4,7 @@
 
 | Classes | |
 | :--- | :--- |
+| [InitiatePasswordResetReply](InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply') | |
 | [KeysWrapper](KeysWrapper/index.md 'IdpServiceFacade\.KeysWrapper') | |
 | [Organization](Organization/index.md 'IdpServiceFacade\.Organization') | |
 | [Organization\.OrganizationBase](Organization/OrganizationBase/index.md 'IdpServiceFacade\.Organization\.OrganizationBase') | Base class for server\-side implementations of Organization |
