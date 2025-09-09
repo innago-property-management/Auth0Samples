@@ -302,87 +302,99 @@ UserResponseHelper
 UserResponseHelpers
 'const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int'
 const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
-
 IdpServiceFacade.UserId
-
 IdpServiceFacade.Identity
-
 const IdpServiceFacade.Identity.UserIdFieldNumber = 1 -> int
-
 IdpServiceFacade.UserResponse
-
 const IdpServiceFacade.UserResponse.EmailVerifiedFieldNumber = 2 -> int
-
 const IdpServiceFacade.UserResponse.EmailFieldNumber = 1 -> int
-
 const IdpServiceFacade.UserResponse.PhoneNumberFieldNumber = 3 -> int
-
 const IdpServiceFacade.UserResponse.PhoneVerifiedFieldNumber = 4 -> int
-
 const IdpServiceFacade.UserResponse.UserMetadataFieldNumber = 5 -> int
-
 const IdpServiceFacade.UserResponse.UsernameFieldNumber = 6 -> int
-
 const IdpServiceFacade.UserResponse.NicknameFieldNumber = 7 -> int
-
 const IdpServiceFacade.UserResponse.GivenNameFieldNumber = 8 -> int
-
 const IdpServiceFacade.UserResponse.NameFieldNumber = 9 -> int
-
 const IdpServiceFacade.UserResponse.FamilyNameFieldNumber = 10 -> int
-
 const IdpServiceFacade.UserResponse.PictureFieldNumber = 11 -> int
-
 const IdpServiceFacade.UserResponse.BlockedFieldNumber = 12 -> int
-
 const IdpServiceFacade.UserResponse.IdentitiesFieldNumber = 13 -> int
-
 const IdpServiceFacade.UserResponse.LastIpFieldNumber = 14 -> int
-
 const IdpServiceFacade.UserResponse.LastLoginFieldNumber = 15 -> int
-
 const IdpServiceFacade.UserResponse.UserIdFieldNumber = 16 -> int
-
 ~static IdpServiceFacade.Identity.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.Identity>
-
 ~static IdpServiceFacade.Identity.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-
 IdpServiceFacade.Identity.Identity() -> void
-
 ~IdpServiceFacade.Identity.Identity(IdpServiceFacade.Identity other) -> void
-
 ~IdpServiceFacade.Identity.Clone() -> IdpServiceFacade.Identity
-
 ~IdpServiceFacade.Identity.UserId.get -> string
-
 ~IdpServiceFacade.Identity.UserId.set -> void
-
 ~override IdpServiceFacade.Identity.Equals(object other) -> bool
-
 ~static IdpServiceFacade.UserId.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserId>
-
 ~static IdpServiceFacade.UserId.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-
 ~static IdpServiceFacade.UserResponse.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-
 IdpServiceFacade.UserId.UserId() -> void
-
 ~IdpServiceFacade.UserId.UserId(IdpServiceFacade.UserId other) -> void
-
 ~IdpServiceFacade.UserId.Clone() -> IdpServiceFacade.UserId
-
 ~static IdpServiceFacade.UserResponse.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserResponse>
-
 ~IdpServiceFacade.UserId.Id.get -> string
-
 ~IdpServiceFacade.UserId.Id.set -> void
-
 ~override IdpServiceFacade.UserId.Equals(object other) -> bool
-
 IdpServiceFacade.UserResponse.UserResponse() -> void
-
 ~IdpServiceFacade.UserResponse.UserResponse(IdpServiceFacade.UserResponse other) -> void
-
 ~IdpServiceFacade.UserResponse.Clone() -> IdpServiceFacade.UserResponse
-
 ~IdpServiceFacade.UserResponse.Email.get -> string
+override IdpServiceFacade.UserId.GetHashCode() -> int
+~IdpServiceFacade.UserId.Equals(IdpServiceFacade.UserId other) -> bool
+~override IdpServiceFacade.UserId.ToString() -> string
+~IdpServiceFacade.UserId.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.UserId.CalculateSize() -> int
+~IdpServiceFacade.UserId.MergeFrom(IdpServiceFacade.UserId other) -> void
+~IdpServiceFacade.UserId.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UserResponse.Email.set -> void
+IdpServiceFacade.UserResponse.EmailVerified.get -> bool
+IdpServiceFacade.UserResponse.EmailVerified.set -> void
+~IdpServiceFacade.UserResponse.PhoneNumber.get -> string
+~IdpServiceFacade.UserResponse.PhoneNumber.set -> void
+IdpServiceFacade.UserResponse.PhoneVerified.get -> bool
+IdpServiceFacade.UserResponse.PhoneVerified.set -> void
+~IdpServiceFacade.UserResponse.UserMetadata.get -> string
+~IdpServiceFacade.UserResponse.UserMetadata.set -> void
+~IdpServiceFacade.UserResponse.Username.get -> string
+~IdpServiceFacade.UserResponse.Nickname.get -> string
+~IdpServiceFacade.UserResponse.Username.set -> void
+~IdpServiceFacade.UserResponse.Nickname.set -> void
+IdpServiceFacade.UserResponse.HasNickname.get -> bool
+IdpServiceFacade.UserResponse.ClearNickname() -> void
+~IdpServiceFacade.UserResponse.GivenName.get -> string
+IdpServiceFacade.UserResponse.HasGivenName.get -> bool
+IdpServiceFacade.UserResponse.ClearGivenName() -> void
+~IdpServiceFacade.UserResponse.Name.get -> string
+~IdpServiceFacade.UserResponse.GivenName.set -> void
+~IdpServiceFacade.UserResponse.Name.set -> void
+~IdpServiceFacade.UserResponse.FamilyName.set -> void
+~IdpServiceFacade.UserResponse.Picture.get -> string
+~IdpServiceFacade.UserResponse.FamilyName.get -> string
+IdpServiceFacade.UserResponse.Blocked.get -> bool
+~virtual IdpServiceFacade.User.UserClient.GetUser(IdpServiceFacade.UserId request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threadin
+~IdpServiceFacade.UserResponse.UserId.set -> void
+~override IdpServiceFacade.UserResponse.Equals(object other) -> bool
+~IdpServiceFacade.Identity.Equals(IdpServiceFacade.Identity other) -> bool
+override IdpServiceFacade.Identity.GetHashCode() -> int
+~override IdpServiceFacade.Identity.ToString() -> string
+~IdpServiceFacade.Identity.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.Identity.CalculateSize() -> int
+~IdpServiceFacade.UserResponse.Equals(IdpServiceFacade.UserResponse other) -> bool
+~IdpServiceFacade.Identity.MergeFrom(IdpServiceFacade.Identity other) -> void
+~IdpServiceFacade.Identity.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+override IdpServiceFacade.UserResponse.GetHashCode() -> int
+~IdpServiceFacade.UserResponse.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~override IdpServiceFacade.UserResponse.ToString() -> string
+IdpServiceFacade.UserResponse.CalculateSize() -> int
+~IdpFacade.UserResponse.MergeFrom(IdpServiceFacade.UserResponse other) -> void
+~IdpServiceFacade.UserResponse.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserR
+static UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
+UserResponseHelper
+UserResponseHelpers
+const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int

@@ -5,7 +5,7 @@
 Field number for the "user\_id" field\.
 
 ```csharp
-public const int UserIdFieldNumber = 26;
+public const int UserIdFieldNumber = 16;
 ```
 
 #### Field Value
