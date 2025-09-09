@@ -7,6 +7,9 @@ using Identity = IdpServiceFacade.Identity;
 using User = Auth0.ManagementApi.Models.User;
 
 namespace Innago.Security.IdpServiceFacade.Services;
+/// <summary>
+/// Converter for user model from Auth0
+/// </summary>
 public static class UserResponseHelpers
 {
     /// <summary>
