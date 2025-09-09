@@ -132,7 +132,7 @@ public partial class Auth0Client
         Task<string>? OnError(Exception? exception)
         {
             logger.Error(exception);
-            return Task.FromException<string>(exception);
+            return Task.FromException<string>(exception!);
         }
     }
 
