@@ -24,6 +24,7 @@ service User {
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
   rpc GetUser (UserId) returns (UserResponse);
   rpc GetUsers (UsersSearchRequest) returns (UserSearchResponse);
+  rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
 }
 
 // The request message containing the user's email.
@@ -46,6 +47,11 @@ message UserMFARequest {
   bool enable = 2;
 }
 
+message UsersMetadataByNameOrEmailFragmentRequest {
+  string searchTerm = 1;
+  optional KeysWrapper keys = 2;
+}
+
 // The response message containing the outcome.
 message UserReply {
   bool ok = 1;
@@ -63,6 +69,14 @@ message KeysWrapper {
 
 message UserMetadataReply {
   map<string, string> metadata = 1;
+}
+
+message UsersMetadataReply {
+  repeated UserWithMetadata users = 1;
+}
+
+message UserWithMetadata {
+  map<string, UserMetadataReply> user = 1;
 }
 
 

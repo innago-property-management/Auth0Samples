@@ -1,7 +1,10 @@
 using Abstractions;
+
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
+
 using Prometheus;
+
 using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
