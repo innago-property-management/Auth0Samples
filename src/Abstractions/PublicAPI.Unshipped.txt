@@ -26,6 +26,7 @@ Abstractions.IUserService.MarkUserAsSuspicious(string! email, System.Threading.C
 Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.ToggleMFA(string! email, bool enable, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IAuth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.OkError
 Abstractions.OkError.<Clone>$() -> Abstractions.OkError!
 Abstractions.OkError.Deconstruct(out bool OK, out string? Error) -> void
