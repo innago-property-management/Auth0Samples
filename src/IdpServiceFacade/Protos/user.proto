@@ -3,6 +3,8 @@ syntax = "proto3";
 option csharp_namespace = "IdpServiceFacade";
 
 package user;
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
 
 // The user service definition.
 service User {
@@ -20,6 +22,7 @@ service User {
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
+  rpc GetUser (UserId) returns (UserResponse);
 }
 
 // The request message containing the user's email.
@@ -59,6 +62,34 @@ message KeysWrapper {
 
 message UserMetadataReply {
    map<string,string> metadata = 1;
+}
+
+
+message Identity {
+  string user_id = 1;
+}
+
+message UserResponse {
+  string email = 1;
+  bool email_verified = 2;
+  string phone_number = 3;
+  bool phone_verified = 4;
+  string user_metadata = 5;
+  string username = 6;
+  optional string nickname = 7;
+  optional string given_name = 8;
+  string name = 9;
+  string family_name = 10;
+  string picture = 11;
+  bool blocked = 12;
+  repeated Identity identities = 13;
+  string last_ip = 14;
+  string last_login = 15;
+  string user_id = 16;
+}
+
+message UserId{
+  string id = 1;
 }
 
 message InitiatePasswordResetReply {

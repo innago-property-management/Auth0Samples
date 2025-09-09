@@ -7,7 +7,11 @@ using Auth0.ManagementApi.Paging;
 
 using Innago.Shared.TryHelpers;
 
+using JetBrains.Annotations;
+
 using MorseCode.ITask;
+
+using Newtonsoft.Json.Linq;
 
 using System;
 using System.Collections.Generic;
@@ -16,10 +20,6 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-
-using JetBrains.Annotations;
-
-using Newtonsoft.Json.Linq;
 
 public partial class Auth0Client
 {
@@ -45,6 +45,19 @@ public partial class Auth0Client
         };
 
         return await client.Users.CreateAsync(request, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Get a user
+    /// </summary>
+    /// <param name="oruUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<User> GetUser(string oruUid, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
+        string id = "auth0|" + oruUid;
+        return await client.Users.GetAsync(id, null!, true, cancellationToken);
     }
 
     /// <summary>

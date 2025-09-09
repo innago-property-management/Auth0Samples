@@ -10,7 +10,7 @@ using Grpc.Core;
 
 using MorseCode.ITask;
 
-internal class UserService(IUserService externalService) : User.UserBase
+internal class UserService(IUserService externalService, IAuth0Client auth0Client) : User.UserBase
 {
     public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
@@ -77,5 +77,26 @@ internal class UserService(IUserService externalService) : User.UserBase
         ITask<IReadOnlyDictionary<string, string?>?> f = externalService.GetUserMetadata(request.Email, request.Keys?.Key.ToArray(), context.CancellationToken);
 
         return f.ToUserMetadataReply();
+    }
+
+    public override async Task<UserResponse> GetUser(UserId request, ServerCallContext context)
+    {
+        try
+        {
+            using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
+            var result =  await auth0Client.GetUser(request.Id, context.CancellationToken);
+            return result.ToGetUserResponse();
+        }
+        catch (OperationCanceledException ex)
+        {
+            throw new RpcException(new Status(StatusCode.Cancelled, "Request was cancelled"), ex.Message);
+        }
+        catch (Exception ex)
+        {
+            // Log with activity if you want
+            Console.WriteLine(ex);
+
+            throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
+        }
     }
 }
