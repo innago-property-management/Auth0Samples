@@ -6,7 +6,7 @@
 Initiates a password reset
 
 ```csharp
-public virtual System.Threading.Tasks.Task<IdpServiceFacade.UserReply> InitiatePasswordReset(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context);
+public virtual System.Threading.Tasks.Task<IdpServiceFacade.InitiatePasswordResetReply> InitiatePasswordReset(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context);
 ```
 #### Parameters
 
@@ -23,5 +23,5 @@ The request received from the client\.
 The context of the server\-side call handler being invoked\.
 
 #### Returns
-[System\.Threading\.Tasks\.Task&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')[UserReply](../../UserReply/index.md 'IdpServiceFacade\.UserReply')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')  
+[System\.Threading\.Tasks\.Task&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')[InitiatePasswordResetReply](../../InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')  
 The response to send back to the client \(wrapped by a task\)\.

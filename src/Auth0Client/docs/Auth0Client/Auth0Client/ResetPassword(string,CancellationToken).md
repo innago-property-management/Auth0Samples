@@ -5,7 +5,7 @@
 Initiates a password reset for the specified user\.
 
 ```csharp
-public MorseCode.ITask.ITask<Abstractions.OkError> ResetPassword(string email, System.Threading.CancellationToken cancellationToken);
+public MorseCode.ITask.ITask<string?> ResetPassword(string email, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
@@ -24,5 +24,5 @@ A token to cancel the operation\.
 Implements [ResetPassword\(string, CancellationToken\)](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iuserservice.resetpassword#abstractions-iuserservice-resetpassword(system-string-system-threading-cancellationtoken) 'Abstractions\.IUserService\.ResetPassword\(System\.String,System\.Threading\.CancellationToken\)')
 
 #### Returns
-[MorseCode\.ITask\.ITask&lt;](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask-1 'MorseCode\.ITask\.ITask\`1')[Abstractions\.OkError](https://learn.microsoft.com/en-us/dotnet/api/abstractions.okerror 'Abstractions\.OkError')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask-1 'MorseCode\.ITask\.ITask\`1')  
+[MorseCode\.ITask\.ITask&lt;](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask-1 'MorseCode\.ITask\.ITask\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask-1 'MorseCode\.ITask\.ITask\`1')  
 A task that represents the asynchronous operation, containing the result of the password reset request\.

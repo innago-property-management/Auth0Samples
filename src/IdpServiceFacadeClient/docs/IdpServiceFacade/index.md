@@ -3,6 +3,7 @@
 | Classes | |
 | :--- | :--- |
 | [Identity](Identity/index.md 'IdpServiceFacade\.Identity') | |
+| [InitiatePasswordResetReply](InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply') | |
 | [KeysWrapper](KeysWrapper/index.md 'IdpServiceFacade\.KeysWrapper') | |
 | [Organization](Organization/index.md 'IdpServiceFacade\.Organization') | |
 | [Organization\.OrganizationClient](Organization/OrganizationClient/index.md 'IdpServiceFacade\.Organization\.OrganizationClient') | Client for Organization |

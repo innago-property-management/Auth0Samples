@@ -9,7 +9,7 @@ import "google/protobuf/struct.proto";
 // The user service definition.
 service User {
   // Initiates a password reset
-  rpc InitiatePasswordReset (UserRequest) returns (UserReply);
+  rpc InitiatePasswordReset (UserRequest) returns (InitiatePasswordResetReply);
   rpc InitiateForcedLogin (UserRequest) returns (UserReply);
   rpc InitiateLockout (UserRequest) returns (UserReply);
   rpc MarkAsSuspicious (UserRequest) returns (UserReply);
@@ -90,4 +90,8 @@ message UserResponse {
 
 message UserId{
   string id = 1;
+}
+
+message InitiatePasswordResetReply {
+   string token = 1;
 }
