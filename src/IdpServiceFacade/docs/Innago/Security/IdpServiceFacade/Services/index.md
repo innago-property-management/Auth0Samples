@@ -4,4 +4,4 @@
 
 | Classes | |
 | :--- | :--- |
-| [UserResponseHelpers](UserResponseHelpers/index.md 'Innago\.Security\.IdpServiceFacade\.Services\.UserResponseHelpers') | |
+| [UserResponseHelpers](UserResponseHelpers/index.md 'Innago\.Security\.IdpServiceFacade\.Services\.UserResponseHelpers') | Converter for user model from Auth0 |
