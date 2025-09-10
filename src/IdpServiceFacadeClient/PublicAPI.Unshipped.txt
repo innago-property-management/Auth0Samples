@@ -619,3 +619,6 @@ override IdpServiceFacade.GetTokenAuthRequest.GetHashCode() -> int
 ~override IdpServiceFacade.GetTokenAuthRequest.ToString() -> string
 ~IdpServiceFacade.GetTokenAuthRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
+~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(IdpServiceFacade.GetTokenAuthRequest other) -> void
+~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void

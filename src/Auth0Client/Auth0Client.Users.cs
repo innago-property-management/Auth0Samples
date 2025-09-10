@@ -619,16 +619,8 @@ public partial class Auth0Client
 
 		Task<TokenResponsePayload<TokenResponse>> LogAndReturn(Exception? exception)
 		{
-			Action logError = memberName switch
-			{
-				nameof(GetTokenAsyncImplementation) => () => logger.Error(exception),
-				nameof(GetRefreshTokenAsyncImplementation) => () => logger.Error(exception),
-				_ => () => logger.Error(exception) // Default case to handle all other values
-			};
-
-			logError();
-
-			TokenResponsePayload<TokenResponse> payload = new()
+            logger.Error(exception);
+            TokenResponsePayload<TokenResponse> payload = new()
 			{
 				Result = default,
 				Error = exception?.Message,
