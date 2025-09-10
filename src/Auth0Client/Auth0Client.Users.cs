@@ -538,5 +538,4 @@ public partial class Auth0Client
     [UsedImplicitly]
     private sealed record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
 
-    private sealed record TwoFactorEnabled([property: JsonPropertyName("two_factor_enabled")] bool? Enabled = false);
 }
