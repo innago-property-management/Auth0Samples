@@ -525,3 +525,24 @@ const IdpServiceFacade.UserResponseList.UserResponseList_FieldNumber = 1 -> int
 ~IdpServiceFacade.UserResponseList.UserResponseList_.get -> Google.Protobuf.Collections.RepeatedField<IdpServiceFacade.UserResponse>
 ~override IdpServiceFacade.UserResponseList.Equals(object other) -> bool
 ~IdpServiceFacade.UserResponseList.Equals(IdpServiceFacade.UserResponseList other) -> bool
+override IdpServiceFacade.UserResponseList.GetHashCode() -> int
+~override IdpServiceFacade.UserResponseList.ToString() -> string
+~IdpServiceFacade.UserResponseList.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.UserResponseList.CalculateSize() -> int
+~IdpServiceFacade.UserResponseList.MergeFrom(IdpServiceFacade.UserResponseList other) -> void
+~IdpServiceFacade.UserResponseList.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~static IdpServiceFacade.UserIds.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserIds> 
+~static IdpServiceFacade.UserIds.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+IdpServiceFacade.UserIds.UserIds() -> void
+~IdpServiceFacade.UserIds.UserIds(IdpServiceFacade.UserIds other) -> void
+~IdpServiceFacade.UserIds.Clone() -> IdpServiceFacade.UserIds
+~IdpServiceFacade.UserIds.Ids.get -> Google.Protobuf.Collections.RepeatedField<string>
+~override IdpServiceFacade.UserIds.Equals(object other) -> bool
+~IdpServiceFacade.UserIds.Equals(IdpServiceFacade.UserIds other) -> bool
+override IdpServiceFacade.UserIds.GetHashCode() -> int
+~override IdpServiceFacade.UserIds.ToString() -> string
+~IdpServiceFacade.UserIds.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.UserIds.CalculateSize() -> int
+~IdpServiceFacade.UserIds.MergeFrom(IdpServiceFacade.UserIds other) -> void
+~IdpServiceFacade.UserIds.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+
