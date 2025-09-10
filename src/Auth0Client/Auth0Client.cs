@@ -14,9 +14,6 @@ using Auth0.ManagementApi.Models;
 using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Logging;
-using MorseCode.ITask;
-using System.Collections.Generic;
-using System.Threading;
 using System.Net.Http;
 
 /// <summary>

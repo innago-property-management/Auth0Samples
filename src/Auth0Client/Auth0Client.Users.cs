@@ -480,7 +480,7 @@ public partial class Auth0Client
         }
     }
 
-    public async ITask<TokenResponsePayload<TokenResponse>?> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken)
+    public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
 
@@ -498,7 +498,7 @@ public partial class Auth0Client
         return payload; // this contains access_token, id_token, etc.
     }
 
-    public async ITask<TokenResponsePayload<TokenResponse>?> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken)
+    public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
 
@@ -617,24 +617,25 @@ public partial class Auth0Client
     {
         return LogAndReturn;
 
-        Task<TokenResponsePayload<TokenResponse>> LogAndReturn(Exception? exception)
-        {
-            Action logError = memberName switch
-            {
-                nameof(GetTokenAsyncImplementation) => () => logger.Error(exception),
-                nameof(GetRefreshTokenAsyncImplementation) => () => logger.Error(exception),
-            };
+		Task<TokenResponsePayload<TokenResponse>> LogAndReturn(Exception? exception)
+		{
+			Action logError = memberName switch
+			{
+				nameof(GetTokenAsyncImplementation) => () => logger.Error(exception),
+				nameof(GetRefreshTokenAsyncImplementation) => () => logger.Error(exception),
+				_ => () => logger.Error(exception) // Default case to handle all other values
+			};
 
-            logError();
+			logError();
 
-            TokenResponsePayload<TokenResponse> payload = new()
-            {
-                Result = default,
-                Error = exception?.Message,
-            };
+			TokenResponsePayload<TokenResponse> payload = new()
+			{
+				Result = default,
+				Error = exception?.Message,
+			};
 
-            return Task.FromResult(payload);
-        }
+			return Task.FromResult(payload);
+		}
     }
 
 
