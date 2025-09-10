@@ -571,8 +571,3 @@ override IdpServiceFacade.GetTokenAuthReply.GetHashCode() -> int
 ~IdpServiceFacade.GetTokenAuthReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 IdpServiceFacade.GetTokenAuthReply.CalculateSize() -> int
 ~IdpServiceFacade.GetTokenAuthReply.MergeFrom(IdpServiceFacade.GetTokenAuthReply other) -> void
-Auth0Client.Auth0Client.Auth0Client(Auth0.ManagementApi.IManagementApiClient! client, Microsoft.Extensions.Options.IOptions<Abstractions.Auth0Settings!>! settings, Microsoft.Extensions.Logging.ILogger<Auth0Client.Auth0Client!>! logger, System.Net.Http.IHttpClientFactory! httpClientFactory) -> void
-Auth0Client.Auth0Client.GetTokenAsyncImplementation(string! username, string! password, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>?>!
-Auth0Client.Auth0Client.GetRefreshTokenAsyncImplementation(string! refreshToken, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>?>!
-Auth0Client.Auth0Client.Auth0Client(Auth0.ManagementApi.IManagementApiClient! client, Microsoft.Extensions.Options.IOptions<Abstractions.Auth0Settings!>! settings, Microsoft.Extensions.Logging.ILogger<Auth0Client.Auth0Client!>! logger) -> void
-
