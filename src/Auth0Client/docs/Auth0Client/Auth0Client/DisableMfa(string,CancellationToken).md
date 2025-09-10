@@ -2,7 +2,7 @@
 
 ## Auth0Client\.DisableMfa\(string, CancellationToken\) Method
 
-Enables or disables Multi\-Factor Authentication for the specified user\.
+Disables Multi\-Factor Authentication for the specified user\.
 
 ```csharp
 public MorseCode.ITask.ITask<Abstractions.OkError> DisableMfa(string email, System.Threading.CancellationToken cancellationToken);
