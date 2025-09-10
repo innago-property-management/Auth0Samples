@@ -277,7 +277,7 @@ public partial class Auth0Client
     /// <returns>A task that represents the asynchronous operation, containing the result of the MFA toggle.</returns>
     public async ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken)
     {
-        OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new TwoFactorEnabled(false), cancellationToken);
+        OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new Dictionary<string, object>{["two_factor_enabled"] = false}, cancellationToken);
 
         if (!userMetadataUpdated.OK)
         {
@@ -383,7 +383,7 @@ public partial class Auth0Client
     public ITask<OkError> EnableMfa(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-        return this.UpdateUserMetadata(email, new TwoFactorEnabled(true), cancellationToken);
+        return this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = true }, cancellationToken);
     }
     private static IReadOnlyDictionary<string, string?>? MapUserMetadata(IDictionary<string, JToken?>? userMetadata, IEnumerable<string>? keys = null)
     {
