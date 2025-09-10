@@ -2,6 +2,9 @@
 
 | Classes | |
 | :--- | :--- |
+| [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
+| [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
+| [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
 | [KeysWrapper](KeysWrapper/index.md 'IdpServiceFacade\.KeysWrapper') | |
 | [Organization](Organization/index.md 'IdpServiceFacade\.Organization') | |
 | [Organization\.OrganizationClient](Organization/OrganizationClient/index.md 'IdpServiceFacade\.Organization\.OrganizationClient') | Client for Organization |

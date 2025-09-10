@@ -42,4 +42,26 @@ internal static class UserReplyHelpers
 
         return metadata.ToUserMetadataReply();
     }
+
+
+
+    private static GetTokenAuthReply ToTokenReply(this TokenResponsePayload<TokenResponse> result)
+    {
+        return new GetTokenAuthReply
+        {
+            Accesstoken = result.Result.AccessToken,
+            Expiresin = result.Result.ExpiresIn,
+            Scope = result.Result.Scope,
+            Tokentype = result.Result.TokenType,
+        };
+    }
+
+    public async static Task<GetTokenAuthReply> ToTokenReply(this ITask<TokenResponsePayload<TokenResponse>> task)
+    {
+        TokenResponsePayload<TokenResponse> result = await task.ConfigureAwait(false);
+
+        return result.ToTokenReply();
+    }
+
+
 }

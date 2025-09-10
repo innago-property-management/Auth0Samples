@@ -1,7 +1,8 @@
 namespace Abstractions;
 
 /// <summary>
-/// Contains configuration settings for Auth0 authentication and authorization.
+/// Contains configuration setting
+/// Auth0 authentication and authorization.
 /// </summary>
 public class Auth0Settings
 {
@@ -29,4 +30,9 @@ public class Auth0Settings
     /// Gets or sets the name of the Auth0 connection.
     /// </summary>
     public required string ConnectionName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Auth0 audience.
+    /// </summary>
+    public required string Audience { get; set; }
 }
