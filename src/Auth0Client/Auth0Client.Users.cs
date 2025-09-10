@@ -493,7 +493,7 @@ public partial class Auth0Client
     public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
-
+        logger.Information($"GetTokenAsyncImplementation called for user {username}");
         var tokenEndpoint = $"{this.auth0Domain}/oauth/token";
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
@@ -502,7 +502,7 @@ public partial class Auth0Client
         Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
                 this.httpClient.SendAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
-
+        logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
         TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
 
         return payload; // this contains access_token, id_token, etc.
