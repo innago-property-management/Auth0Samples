@@ -21,11 +21,11 @@ Abstractions.IAuth0Client.ListUsers(string! luceneQuery = "user_id:*", System.Th
 Abstractions.IUserService
 Abstractions.IUserService.BlockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.DisableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.GetUserMetadata(string! email, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>!
 Abstractions.IUserService.GetUsersMetadataByNameOrEmailFragment(string! searchTerm, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>?>!
 Abstractions.IUserService.MarkUserAsFraud(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.MarkUserAsSuspicious(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
-Abstractions.IUserService.ToggleMFA(string! email, bool enable, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IAuth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.OkError

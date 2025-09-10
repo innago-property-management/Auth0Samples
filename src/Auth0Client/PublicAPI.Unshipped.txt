@@ -6,6 +6,8 @@ Auth0Client.Auth0Client.ChangePassword(string! email, string! newPassword, Syste
 Auth0Client.Auth0Client.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.Organization!>!
 Auth0Client.Auth0Client.CreateRole(string! description, string! name, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.Role!>!
 Auth0Client.Auth0Client.CreateUser(Abstractions.UserCreateInfo! userCreateInfo, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
+Auth0Client.Auth0Client.DisableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Auth0Client.Auth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Auth0Client.Auth0Client.GetUserMetadata(string! email, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>!
 Auth0Client.Auth0Client.GetUsers(string![]! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.List<Auth0.ManagementApi.Models.User!>!>!
 Auth0Client.Auth0Client.GetUsersMetadataByNameOrEmailFragment(string! searchTerm, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>?>!
@@ -15,8 +17,6 @@ Auth0Client.Auth0Client.ListUsers(string! luceneQuery = "user_id:*", System.Thre
 Auth0Client.Auth0Client.MarkUserAsFraud(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.MarkUserAsSuspicious(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string?>!
-Auth0Client.Auth0Client.ToggleMFA(string! email, bool enable, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0ClientTracer
 static readonly Auth0Client.Auth0ClientTracer.Source -> System.Diagnostics.ActivitySource!
-Auth0Client.Auth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!

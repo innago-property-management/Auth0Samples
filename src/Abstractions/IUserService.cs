@@ -51,7 +51,7 @@ public interface IUserService
     /// <param name="enable">True to enable MFA, false to disable it.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
-    ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken);
+    ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Blocks a user based on their email address, preventing them from accessing the system.

@@ -16,7 +16,7 @@ service User {
   rpc MarkAsFraud (UserRequest) returns (UserReply);
   rpc InitiateLegalHold (UserRequest) returns (UserReply);
   rpc ChangePassword (UserChangePasswordRequest) returns (UserReply);
-  rpc ToggleMfa (UserMFARequest) returns (UserReply);
+  rpc DisableMfa (UserRequest) returns (UserReply);
   rpc BlockUser (UserRequest) returns (UserReply);
   rpc UnblockUser (UserRequest) returns (UserReply);
   rpc AssignRole (UserRoleRequest) returns (UserReply);
@@ -41,11 +41,6 @@ message UserRoleRequest {
 message UserChangePasswordRequest {
   string email = 1;
   string password = 2;
-}
-
-message UserMFARequest {
-  string email = 1;
-  bool enable = 2;
 }
 
 message UsersMetadataByNameOrEmailFragmentRequest {
