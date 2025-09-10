@@ -29,4 +29,9 @@ public class Auth0Settings
     /// Gets or sets the name of the Auth0 connection.
     /// </summary>
     public required string ConnectionName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Auth0 audience.
+    /// </summary>
+    public required string Audience { get; set; }
 }

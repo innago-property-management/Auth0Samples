@@ -6,6 +6,7 @@
 | :--- | :--- |
 | [Auth0Settings](Auth0Settings/index.md 'Abstractions\.Auth0Settings') | Contains configuration settings for Auth0 authentication and authorization\. |
 | [OkError](OkError/index.md 'Abstractions\.OkError') | Represents a result that indicates success or failure with an optional error message\. |
+| [OpenApiClientAuthResponse](OpenApiClientAuthResponse/index.md 'Abstractions\.OpenApiClientAuthResponse') | Represents the response from an OpenAPI client authentication request\. |
 | [OrganizationCreateInfo](OrganizationCreateInfo/index.md 'Abstractions\.OrganizationCreateInfo') | Represents the information required to create an organization\. |
 | [UserCreateInfo](UserCreateInfo/index.md 'Abstractions\.UserCreateInfo') | Represents the information required to create a user\. |
 

@@ -54,6 +54,17 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
     }
 
+    public override Task<UserMetadataReply> GetUserMetadata(UserMetadataRequest request, ServerCallContext context)
+
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        ITask<IReadOnlyDictionary<string, string?>?> f = externalService.GetUserMetadata(request.Email, request.Keys?.Key.ToArray(), context.CancellationToken);
+
+        return f.ToUserMetadataReply();
+    }
+
     public override Task<UserReply> BlockUser(UserRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
@@ -70,41 +81,19 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return externalService.UnblockUser(request.Email, context.CancellationToken).ToUserReply();
     }
 
-    public override Task<UserMetadataReply> GetUserMetadata(UserMetadataRequest request, ServerCallContext context)
+    public override Task<GetTokenAuthReply> GetToken(GetTokenAuthRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+            tags: [new KeyValuePair<string, object?>(nameof(request.Username), request.Username)]);
 
-        ITask<IReadOnlyDictionary<string, string?>?> f = externalService.GetUserMetadata(request.Email, request.Keys?.Key.ToArray(), context.CancellationToken);
-
-        return f.ToUserMetadataReply();
+       return externalService.GetTokenAsyncImplementation(request.Username, request.Password, request.Keys?.Key.ToArray(), context.CancellationToken).ToTokenReply();
     }
-
-    public override async Task<UserResponse> GetUser(UserId request, ServerCallContext context)
+    public override Task<GetTokenAuthReply> GetRefreshToken(GetRefreshTokenAuthRequest request, ServerCallContext context)
     {
-        try
-        {
-            using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
-            var result = (await auth0Client.GetUsers([request.Id], context.CancellationToken)).FirstOrDefault();
-            
-            if (result == null)
-            {
-                return new UserResponse();
-            }
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Refreshtoken), request.Refreshtoken)]);
 
-            UserResponse userResponse = result.ToGetUserResponse();
-            return userResponse;
-        }
-        catch (OperationCanceledException ex)
-        {
-            throw new RpcException(new Status(StatusCode.Cancelled, "Request was cancelled"), ex.Message);
-        }
-        catch (Exception ex)
-        {
-            logger.LogInformation(ex, "There was an error in calling Get User method through grpc for User id {UserId}", request.Id);
-
-            throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
-        }
+        return externalService.GetRefreshTokenAsyncImplementation(request.Refreshtoken, request.Keys?.Key.ToArray(), context.CancellationToken).ToTokenReply();
     }
 
     public override async Task<UserResponseList> GetUsersByIds(UserIds request, ServerCallContext context)

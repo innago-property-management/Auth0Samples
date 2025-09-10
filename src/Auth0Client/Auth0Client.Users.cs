@@ -20,6 +20,11 @@ using JetBrains.Annotations;
 using MorseCode.ITask;
 
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 public partial class Auth0Client
 {
@@ -475,6 +480,71 @@ public partial class Auth0Client
         }
     }
 
+    public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
+
+        var tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+        var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
+        {
+            Content = this.MakeTokenContent(username, password)
+        };
+        Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
+                this.httpClient.SendAsync(request, cancellationToken)!)
+            .ConfigureAwait(false);
+
+        TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
+
+        return payload; // this contains access_token, id_token, etc.
+    }
+
+    public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
+
+        var tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+        var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
+        {
+            Content = this.MakeRefreshTokenContent(refreshToken)
+        };
+        Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
+                this.httpClient.SendAsync(request, cancellationToken)!)
+            .ConfigureAwait(false);
+
+        TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
+
+        return payload; // this contains access_token, id_token, etc.
+    }
+
+    private FormUrlEncodedContent MakeTokenContent(string username, string password)
+    {
+        FormUrlEncodedContent requestContent = new([
+            new KeyValuePair<string, string>("grant_type", "http://auth0.com/oauth/grant-type/password-realm"),
+            new KeyValuePair<string, string>("username", username ?? string.Empty),
+            new KeyValuePair<string, string>("password", password ?? string.Empty),
+            new KeyValuePair<string, string>("audience", this.auth0Audience ?? string.Empty),
+            new KeyValuePair<string, string>("scope", "read:sample offline_access"),
+            new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
+            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty),
+            new KeyValuePair<string, string>("realm", this.auth0ConnectionName ?? string.Empty),
+            new KeyValuePair<string, string>("connection", this.auth0ConnectionName ?? string.Empty)
+        ]);
+
+        return requestContent;
+    }
+
+    private FormUrlEncodedContent MakeRefreshTokenContent(string refreshToken)
+    {
+        FormUrlEncodedContent requestContent = new([
+            new KeyValuePair<string, string>("grant_type", "refresh_token"),
+            new KeyValuePair<string, string>("refresh_token", refreshToken ?? string.Empty),
+            new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
+            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty)
+        ]);
+
+        return requestContent;
+    }
+
     private async ITask<OkError> UpdateUserMetadata(string email, dynamic metadata, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
@@ -522,6 +592,59 @@ public partial class Auth0Client
                         return exception!;
                     });
             }
+        }
+    }
+    private static Func<HttpResponseMessage, Task<TokenResponsePayload<TokenResponse>>> OnSuccessDeserializeToken(CancellationToken cancellationToken)
+    {
+        return DeserializeToken;
+
+        async Task<TokenResponsePayload<TokenResponse>> DeserializeToken(HttpResponseMessage response)
+        {
+            TokenResponse tokenResponse =
+                await response.IsSuccessStatusCode.Map(OnSuccessStatusCodeTrueDeserializeToken(response, cancellationToken),
+                    OnSuccessStatusCodeFalseReturnDefault)!;
+
+            return new TokenResponsePayload<TokenResponse>
+            {
+                Result = tokenResponse,
+                Error = response.IsSuccessStatusCode ? null : response.ReasonPhrase,
+            };
+        }
+    }
+#pragma warning disable S1172
+    private static Func<Exception?, Task<TokenResponsePayload<TokenResponse>>> OnError(ILogger<Auth0Client> logger, [CallerMemberName] string? memberName = null)
+#pragma warning restore S1172
+    {
+        return LogAndReturn;
+
+		Task<TokenResponsePayload<TokenResponse>> LogAndReturn(Exception? exception)
+		{
+            logger.Error(exception);
+            TokenResponsePayload<TokenResponse> payload = new()
+			{
+				Result = default,
+				Error = exception?.Message,
+			};
+
+			return Task.FromResult(payload);
+		}
+    }
+
+
+    private static Task<TokenResponse> OnSuccessStatusCodeFalseReturnDefault()
+    {
+        TokenResponse tokenResponse = new();
+        return Task.FromResult(tokenResponse);
+    }
+
+    private static Func<Task<TokenResponse>> OnSuccessStatusCodeTrueDeserializeToken(HttpResponseMessage message, CancellationToken cancellationToken)
+    {
+        return DeserializeToken;
+
+        async Task<TokenResponse> DeserializeToken()
+        {
+            return await JsonSerializer.DeserializeAsync<TokenResponse>(await message.Content.ReadAsStreamAsync(cancellationToken),
+                cancellationToken: cancellationToken);
         }
     }
 
