@@ -15,6 +15,7 @@
 | [User\.UserClient](User/UserClient/index.md 'IdpServiceFacade\.User\.UserClient') | Client for User |
 | [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |
 | [UserId](UserId/index.md 'IdpServiceFacade\.UserId') | |
+| [UserIds](UserIds/index.md 'IdpServiceFacade\.UserIds') | |
 | [UserMetadataReply](UserMetadataReply/index.md 'IdpServiceFacade\.UserMetadataReply') | |
 | [UserMetadataRequest](UserMetadataRequest/index.md 'IdpServiceFacade\.UserMetadataRequest') | |
 | [UserMFARequest](UserMFARequest/index.md 'IdpServiceFacade\.UserMFARequest') | |
@@ -22,6 +23,7 @@
 | [UserReply](UserReply/index.md 'IdpServiceFacade\.UserReply') | The response message containing the outcome\. |
 | [UserRequest](UserRequest/index.md 'IdpServiceFacade\.UserRequest') | The request message containing the user's email\. |
 | [UserResponse](UserResponse/index.md 'IdpServiceFacade\.UserResponse') | |
+| [UserResponseList](UserResponseList/index.md 'IdpServiceFacade\.UserResponseList') | |
 | [UserRoleRequest](UserRoleRequest/index.md 'IdpServiceFacade\.UserRoleRequest') | |
 | [UserSearchResponse](UserSearchResponse/index.md 'IdpServiceFacade\.UserSearchResponse') | |
 | [UsersMetadataByNameOrEmailFragmentRequest](UsersMetadataByNameOrEmailFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameOrEmailFragmentRequest') | |

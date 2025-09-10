@@ -510,3 +510,18 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.UnblockUser(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+IdpServiceFacade.UserIds
+const IdpServiceFacade.UserIds.IdsFieldNumber = 1 -> int
+IdpServiceFacade.UserResponseList
+const IdpServiceFacade.UserResponseList.UserResponseList_FieldNumber = 1 -> int
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIds(IdpServiceFacade.UserIds request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserResponseList
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIdsAsync(IdpServiceFacade.UserIds request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponseList>
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIds(IdpServiceFacade.UserIds request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserResponseList
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIdsAsync(IdpServiceFacade.UserIds request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponseList>
+~static IdpServiceFacade.UserResponseList.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserResponseList>
+~static IdpServiceFacade.UserResponseList.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~IdpServiceFacade.UserResponseList.UserResponseList(IdpServiceFacade.UserResponseList other) -> void
+~IdpServiceFacade.UserResponseList.Clone() -> IdpServiceFacade.UserResponseList
+~IdpServiceFacade.UserResponseList.UserResponseList_.get -> Google.Protobuf.Collections.RepeatedField<IdpServiceFacade.UserResponse>
+~override IdpServiceFacade.UserResponseList.Equals(object other) -> bool
+~IdpServiceFacade.UserResponseList.Equals(IdpServiceFacade.UserResponseList other) -> bool
