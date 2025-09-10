@@ -82,7 +82,7 @@ message GetTokenAuthRequest {
 
 message GetRefreshTokenAuthRequest {
    string refreshtoken = 1;
-   optional KeysWrapper keys = 3;
+   optional KeysWrapper keys = 2;
 }
 
 message GetTokenAuthReply {

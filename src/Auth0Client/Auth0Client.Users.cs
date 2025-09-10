@@ -523,7 +523,7 @@ public partial class Auth0Client
             new KeyValuePair<string, string>("username", username ?? string.Empty),
             new KeyValuePair<string, string>("password", password ?? string.Empty),
             new KeyValuePair<string, string>("audience", this.auth0Audience ?? string.Empty),
-            new KeyValuePair<string, string>("scope", "read:sample offline_access" ?? string.Empty),
+            new KeyValuePair<string, string>("scope", "read:sample offline_access"),
             new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
             new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty),
             new KeyValuePair<string, string>("realm", this.auth0ConnectionName ?? string.Empty),

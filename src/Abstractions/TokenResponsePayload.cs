@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents the payload for the token response in authentication operations.
 /// </summary>
-public class TokenResponsePayload<T>
+public class TokenResponsePayload<T> : IPayload<T>
 {
     /// <summary>
     ///     Gets or sets the Error.

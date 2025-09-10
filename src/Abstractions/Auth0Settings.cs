@@ -1,8 +1,7 @@
 namespace Abstractions;
 
 /// <summary>
-/// Contains configuration setting
-/// Auth0 authentication and authorization.
+/// Contains configuration settings for Auth0 authentication and authorization.
 /// </summary>
 public class Auth0Settings
 {
