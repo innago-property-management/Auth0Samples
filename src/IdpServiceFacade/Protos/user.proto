@@ -3,8 +3,6 @@ syntax = "proto3";
 option csharp_namespace = "IdpServiceFacade";
 
 package user;
-//import "google/protobuf/timestamp.proto";
-//import "google/protobuf/struct.proto";
 
 // The user service definition.
 service User {
@@ -22,6 +20,8 @@ service User {
   rpc AssignRole (UserRoleRequest) returns (UserReply);
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
+  rpc GetToken (GetTokenAuthRequest) returns (GetTokenAuthReply);
+  rpc GetRefreshToken (GetRefreshTokenAuthRequest) returns (GetTokenAuthReply);
   rpc GetUser (UserId) returns (UserResponse);
   rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
@@ -49,6 +49,12 @@ message UsersMetadataByNameOrEmailFragmentRequest {
   optional KeysWrapper keys = 2;
 }
 
+
+message UserMFARequest {
+  string email = 1;
+  bool enable = 2;
+}
+
 // The response message containing the outcome.
 message UserReply {
   bool ok = 1;
@@ -56,8 +62,8 @@ message UserReply {
 }
 
 message UserMetadataRequest {
-  string email = 1;
-  optional KeysWrapper keys = 2;
+   string email = 1;
+   optional KeysWrapper keys = 2;
 }
 
 message KeysWrapper {
@@ -65,12 +71,32 @@ message KeysWrapper {
 }
 
 message UserMetadataReply {
-  map<string, string> metadata = 1;
+   map<string,string> metadata = 1;
+}
+
+
+message GetTokenAuthRequest {
+   string username = 1;
+   string password = 2;
+   optional KeysWrapper keys = 3;
+}
+
+message GetRefreshTokenAuthRequest {
+   string refreshtoken = 1;
+   optional KeysWrapper keys = 2;
+}
+
+message GetTokenAuthReply {
+   string accesstoken = 1;
+   string scope = 2;
+   string expiresin = 3;
+   string tokentype = 4;
 }
 
 message UsersMetadataReply {
   repeated UserWithMetadata users = 1;
 }
+
 
 message UserWithMetadata {
   map<string, UserMetadataReply> user = 1;
