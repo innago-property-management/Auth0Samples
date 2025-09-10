@@ -1,4 +1,4 @@
-﻿#### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
+#### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
 ### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UserResponseList](index.md 'IdpServiceFacade\.UserResponseList')
 
 ## UserResponseList\.UserResponseList\_FieldNumber Field

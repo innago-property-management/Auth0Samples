@@ -39,7 +39,7 @@ public static class UserResponseHelpers
             Blocked = user.Blocked ?? false,
             UserMetadata = JsonConvert.SerializeObject(user.UserMetadata),
             UserId = user.UserId,
-            LastLogin = user.LastLogin?.ToString(),
+            LastLogin = user.LastLogin?.ToString() ?? "",
             LastIp = user.LastIpAddress ?? "",
             Identities =
             {

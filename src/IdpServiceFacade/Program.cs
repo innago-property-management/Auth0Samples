@@ -1,4 +1,3 @@
-using Abstractions;
 using Innago.Security.IdpServiceFacade;
 using Innago.Security.IdpServiceFacade.Services;
 using Prometheus;
@@ -7,6 +6,7 @@ using Serilog.Formatting.Compact;
 using Serilog.Sinks.Grafana.Loki;
 using Serilog.Sinks.OpenTelemetry;
 
+using Abstractions;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 LoggerConfiguration loggerConfiguration = new LoggerConfiguration()

@@ -70,7 +70,7 @@ public partial class Auth0Client
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
         
-        string query = string.Join(" OR ", oruUid.Select(uid => $"user_id:\"auth0|{uid}\""));
+        string query = string.Join(" OR ", oruUid.Select(uid => $"user_metadata.user_id:\"{uid}\""));
         
         GetUsersRequest request = new()
         {

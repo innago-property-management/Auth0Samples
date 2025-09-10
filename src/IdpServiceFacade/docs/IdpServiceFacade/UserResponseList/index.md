@@ -1,4 +1,4 @@
-﻿#### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
+#### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
 ### [IdpServiceFacade](../index.md 'IdpServiceFacade')
 
 ## UserResponseList Class

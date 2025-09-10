@@ -1,4 +1,4 @@
-﻿### [Auth0Client](../index.md 'Auth0Client').[Auth0Client](index.md 'Auth0Client\.Auth0Client')
+### [Auth0Client](../index.md 'Auth0Client').[Auth0Client](index.md 'Auth0Client\.Auth0Client')
 
 ## Auth0Client\.GetUsers\(string\[\], CancellationToken\) Method
 
