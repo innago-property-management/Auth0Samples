@@ -5,7 +5,7 @@
 Field number for the "keys" field\.
 
 ```csharp
-public const int KeysFieldNumber = 3;
+public const int KeysFieldNumber = 2;
 ```
 
 #### Field Value
