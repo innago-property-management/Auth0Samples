@@ -6,8 +6,20 @@ using global::IdpServiceFacade;
 
 using MorseCode.ITask;
 
+using User = Auth0.ManagementApi.Models.User;
+
 internal static class UserReplyHelpers
 {
+    public static async Task<InitiatePasswordResetReply> ToInitiatePasswordResetReply(this ITask<string?> task)
+    {
+        string? resetTokenResult = await task.ConfigureAwait(false);
+
+        return new InitiatePasswordResetReply
+        {
+            Token = resetTokenResult,
+        };
+    }
+
     public static async Task<UserMetadataReply> ToUserMetadataReply(this ITask<IReadOnlyDictionary<string, string?>?> task)
     {
         IReadOnlyDictionary<string, string?> metadata = await task.ConfigureAwait(false) ?? new Dictionary<string, string?>();
@@ -20,6 +32,23 @@ internal static class UserReplyHelpers
         OkError result = await task.ConfigureAwait(false);
 
         return result.ToUserReply();
+    }
+
+    public static async Task<UserSearchResponse> ToUserSearchResponse(this Task<IEnumerable<User>> task)
+    {
+        return (await task.ConfigureAwait(false)).ToUserSearchResponse();
+    }
+
+    public static UsersMetadataReply ToUsersMetadataReply(this IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users)
+    {
+        UsersMetadataReply response = new();
+
+        foreach ((string email, IReadOnlyDictionary<string, string?>? metadata) in users ?? new Dictionary<string, IReadOnlyDictionary<string, string?>?>())
+        {
+            response.Users.Add(metadata.ToUserWithMetadata(email));
+        }
+
+        return response;
     }
 
     private static UserMetadataReply ToUserMetadataReply(this IReadOnlyDictionary<string, string?> metadata)
@@ -43,12 +72,24 @@ internal static class UserReplyHelpers
         };
     }
 
-    public static async Task<InitiatePasswordResetReply> ToInitiatePasswordResetReply(this ITask<String> task)
+    private static UserSearchResponse ToUserSearchResponse(this IEnumerable<User> users)
     {
-        var resetTokenResult = await task.ConfigureAwait(false);
-        return new InitiatePasswordResetReply
+        UserSearchResponse response = new();
+
+        foreach (User user in users)
         {
-            Token = resetTokenResult,
-        };
+            response.Users.Add(user.ToGetUserResponse());
+        }
+
+        return response;
+    }
+
+    private static UserWithMetadata ToUserWithMetadata(this IReadOnlyDictionary<string, string?>? metadata, string email)
+    {
+        UserMetadataReply userMetadata = metadata?.ToUserMetadataReply() ?? new UserMetadataReply();
+        UserWithMetadata userWithMetadata = new();
+        userWithMetadata.User.Add(email, userMetadata);
+
+        return userWithMetadata;
     }
 }

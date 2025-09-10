@@ -3,7 +3,7 @@
 
 ## UserResponseHelpers Class
 
-Converter for user model from Auth0
+Converter for the user model from Auth0
 
 ```csharp
 public static class UserResponseHelpers

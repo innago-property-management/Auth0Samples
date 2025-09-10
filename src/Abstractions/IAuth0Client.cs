@@ -46,9 +46,10 @@ public interface IAuth0Client : IUserService
     /// <summary>
     /// Retrieves a list of all users.
     /// </summary>
+    /// <param name="luceneQuery"></param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the list of users.</returns>
-    Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken);
+    Task<IEnumerable<User>> ListUsers(string luceneQuery = "user_id:*", CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Performs a health check on the Auth0 service to verify its availability.

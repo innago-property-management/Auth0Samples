@@ -1,5 +1,13 @@
 namespace Auth0Client;
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text.Json.Serialization;
+using System.Threading;
+using System.Threading.Tasks;
+
 using Abstractions;
 
 using Auth0.ManagementApi.Models;
@@ -13,18 +21,15 @@ using MorseCode.ITask;
 
 using Newtonsoft.Json.Linq;
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
-
 public partial class Auth0Client
 {
+    private const string Email = "email";
+    private const string FirstName = "given_name";
+    private const string LastName = "family_name";
+    private const int MinSearchLength = 3;
+
     /// <summary>
-    /// Creates a new user in Auth0.
+    ///     Creates a new user in Auth0.
     /// </summary>
     /// <param name="userCreateInfo">The information required to create the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -46,9 +51,9 @@ public partial class Auth0Client
 
         return await client.Users.CreateAsync(request, cancellationToken);
     }
-    
+
     /// <summary>
-    /// Get a user
+    ///     Get a user
     /// </summary>
     /// <param name="oruUid"></param>
     /// <param name="cancellationToken"></param>
@@ -102,11 +107,12 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    /// Retrieves a list of all users from Auth0.
+    ///     Retrieves a list of all users from Auth0.
     /// </summary>
+    /// <param name="luceneQuery"></param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the list of users.</returns>
-    public async Task<IEnumerable<User>> ListUsers(CancellationToken cancellationToken)
+    public async Task<IEnumerable<User>> ListUsers(string luceneQuery = "user_id:*", CancellationToken cancellationToken = default)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
@@ -114,8 +120,7 @@ public partial class Auth0Client
         {
             Connection = this.auth0DatabaseName,
             Sort = "user_id:1",
-            Query = "user_id:*",
-            Fields = "user_id,email,name,last_login",
+            Query = luceneQuery,
             IncludeFields = true,
             SearchEngine = "v3",
         };
@@ -142,7 +147,7 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    /// Initiates a password reset for the specified user.
+    ///     Initiates a password reset for the specified user.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -154,15 +159,18 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
         Console.WriteLine($"ResetPassword step 1 email : {email}");
+
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
             ConnectionId = this.auth0ConnectionName,
         };
+
         Console.WriteLine($"InitiatePasswordReset called with request {email} step 2");
 
         Result<Ticket?> result = await TryHelpers.TryAsync(() => client.Tickets.CreatePasswordChangeTicketAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
+
         Console.WriteLine($"ResetPassword step 2 email : {email}");
 
         return await result.Map(OnSuccess, OnError)!;
@@ -180,7 +188,7 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    /// Marks a user as suspicious in Auth0.
+    ///     Marks a user as suspicious in Auth0.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -188,11 +196,11 @@ public partial class Auth0Client
     public ITask<OkError> MarkUserAsSuspicious(string email, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-        return this.UpdateUserMetadata(email, new FraudStatus(Suspicious: true), cancellationToken);
+        return this.UpdateUserMetadata(email, new FraudStatus(true), cancellationToken);
     }
 
     /// <summary>
-    /// Marks a user as fraudulent in Auth0.
+    ///     Marks a user as fraudulent in Auth0.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -204,7 +212,7 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    /// Changes the password for the specified user.
+    ///     Changes the password for the specified user.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="newPassword">The new password to set.</param>
@@ -261,7 +269,7 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    /// Enables or disables Multi-Factor Authentication for the specified user.
+    ///     Enables or disables Multi-Factor Authentication for the specified user.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="enable">True to enable MFA, false to disable it.</param>
@@ -308,10 +316,7 @@ public partial class Auth0Client
             {
                 var userMetadata = (IDictionary<string, JToken?>?)users?[0].UserMetadata;
 
-                IReadOnlyDictionary<string, string?>? flattened = userMetadata?
-                    .Where(pair => keys == null || keys.Contains(pair.Key))
-                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value?.ToString())
-                    .AsReadOnly();
+                IReadOnlyDictionary<string, string?>? flattened = MapUserMetadata(userMetadata, keys);
 
                 return Task.FromResult(flattened);
             }
@@ -322,6 +327,62 @@ public partial class Auth0Client
             logger.Error(exception);
             return Task.FromException<IReadOnlyDictionary<string, string?>?>(exception);
         }
+    }
+
+    /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameOrEmailFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        searchTerm = searchTerm.Trim();
+
+        if (searchTerm.Length < Auth0Client.MinSearchLength)
+        {
+            return null;
+        }
+
+        searchTerm = searchTerm.SanitizeSearchTerm();
+
+        string searchCriteria = $"{Auth0Client.FirstName}:{searchTerm}* or {Auth0Client.Email}:{searchTerm}* or {Auth0Client.LastName}:{searchTerm}*";
+
+        IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
+
+        return users.ToDictionary(user => user.Email, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
+
+    /// <summary>
+    ///     Blocks a user by their email address.
+    /// </summary>
+    /// <param name="email">The email address of the user to block.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the result of the block action.</returns>
+    public ITask<OkError> BlockUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserBlockStatus(email, true, cancellationToken);
+    }
+
+    /// <summary>
+    ///     Unblocks a user in the Auth0 system.
+    /// </summary>
+    /// <param name="email">The email address of the user to unblock.</param>
+    /// <param name="cancellationToken">A token to cancel the unblock operation.</param>
+    /// <returns>An asynchronous task containing the result of the unblock operation.</returns>
+    public ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserBlockStatus(email, false, cancellationToken);
+    }
+
+    private static IReadOnlyDictionary<string, string?>? MapUserMetadata(IDictionary<string, JToken?>? userMetadata, IEnumerable<string>? keys = null)
+    {
+        IReadOnlyDictionary<string, string?>? dictionary = userMetadata?
+            .Where(pair => keys == null || keys.Contains(pair.Key))
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value?.ToString())
+            .AsReadOnly();
+
+        return dictionary;
     }
 
     private async ITask<OkError> RemoveAuthenticationMethods(string email, CancellationToken cancellationToken)
@@ -359,7 +420,57 @@ public partial class Auth0Client
                 Result updateResult = await TryHelpers.TryAsync(() => client.Users.DeleteAuthenticationMethodsAsync(userId, cancellationToken))
                     .ConfigureAwait(false);
 
-                return new OkError(OK: updateResult.HasSucceeded, Error: ((Exception?)updateResult)?.Message);
+                return new OkError(updateResult.HasSucceeded, ((Exception?)updateResult)?.Message);
+            }
+        }
+    }
+
+    private async ITask<OkError> UpdateUserBlockStatus(string email, bool blocked, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(UpdateUserBlock, GetUsersError)!;
+
+        static Task<OkError> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
+        }
+
+        async Task<OkError> UpdateUserBlock(IList<User>? users)
+        {
+            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
+
+            Task<OkError> MoreThanOneUserFound()
+            {
+                const string? error = "more than one user found";
+                // ReSharper disable once AccessToDisposedClosure
+                activity?.AddException(new Exception(error));
+                return Task.FromResult(new OkError(Error: error));
+            }
+
+            async Task<OkError> OnTrue()
+            {
+                User user = users![0];
+                string id = user.UserId;
+
+                UserUpdateRequest request = new()
+                {
+                    Blocked = blocked,
+                };
+
+                Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
+
+                return updateResult.Map<Result>(_ => Result.Success,
+                    exception =>
+                    {
+                        // ReSharper disable once AccessToDisposedClosure
+                        activity?.AddException(exception!);
+                        return exception!;
+                    });
             }
         }
     }
@@ -399,68 +510,6 @@ public partial class Auth0Client
                 UserUpdateRequest request = new()
                 {
                     UserMetadata = metadata,
-                };
-
-                Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
-
-                return updateResult.Map<Result>(_ => Result.Success,
-                    exception =>
-                    {
-                        // ReSharper disable once AccessToDisposedClosure
-                        activity?.AddException(exception!);
-                        return exception!;
-                    });
-            }
-        }
-    }
-
-    public ITask<OkError> BlockUser(string email, CancellationToken cancellationToken)
-    {
-        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-        return this.UpdateUserBlockStatus(email, true, cancellationToken);
-    }
-
-    public ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken)
-    {
-        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-        return this.UpdateUserBlockStatus(email, false, cancellationToken);
-    }
-
-    private async ITask<OkError> UpdateUserBlockStatus(string email, bool blocked, CancellationToken cancellationToken)
-    {
-        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-
-        Result<IList<User>?> getUsersResult = await TryHelpers
-            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
-            .ConfigureAwait(false);
-
-        return await getUsersResult.Map(UpdateUserBlock, GetUsersError)!;
-
-        static Task<OkError> GetUsersError(Exception? exception)
-        {
-            return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
-        }
-
-        async Task<OkError> UpdateUserBlock(IList<User>? users)
-        {
-            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
-
-            Task<OkError> MoreThanOneUserFound()
-            {
-                const string? error = "more than one user found";
-                // ReSharper disable once AccessToDisposedClosure
-                activity?.AddException(new Exception(error));
-                return Task.FromResult(new OkError(Error: error));
-            }
-
-            async Task<OkError> OnTrue()
-            {
-                User user = users![0];
-                string id = user.UserId;
-
-                UserUpdateRequest request = new()
-                {
-                    Blocked = blocked,
                 };
 
                 Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);

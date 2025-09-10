@@ -15,7 +15,7 @@ internal class ListUsersCommand(IAuth0Client client, ILogger<ListUsersCommand> l
 {
     public async Task RunAsync(CliContext context)
     {
-        List<User> users = (await client.ListUsers(context.CancellationToken).ConfigureAwait(false)).ToList();
+        List<User> users = (await client.ListUsers(cancellationToken: context.CancellationToken).ConfigureAwait(false)).ToList();
 
         users.ForEach(user => logger.User(user.UserId, user.Email, user.FullName, user.LastLogin));
     }

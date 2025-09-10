@@ -3,8 +3,8 @@ syntax = "proto3";
 option csharp_namespace = "IdpServiceFacade";
 
 package user;
-import "google/protobuf/timestamp.proto";
-import "google/protobuf/struct.proto";
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/struct.proto";
 
 // The user service definition.
 service User {
@@ -23,7 +23,9 @@ service User {
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
   rpc GetUser (UserId) returns (UserResponse);
-  rpc GetUsers (UserIds) returns (UserResponseList);
+  rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
+  rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
+  rpc GetUsersByIds (UserIds) returns (UserResponseList);
 }
 
 // The request message containing the user's email.
@@ -46,6 +48,11 @@ message UserMFARequest {
   bool enable = 2;
 }
 
+message UsersMetadataByNameOrEmailFragmentRequest {
+  string searchTerm = 1;
+  optional KeysWrapper keys = 2;
+}
+
 // The response message containing the outcome.
 message UserReply {
   bool ok = 1;
@@ -53,8 +60,8 @@ message UserReply {
 }
 
 message UserMetadataRequest {
-   string email = 1;
-   optional KeysWrapper keys = 2;
+  string email = 1;
+  optional KeysWrapper keys = 2;
 }
 
 message KeysWrapper {
@@ -62,7 +69,15 @@ message KeysWrapper {
 }
 
 message UserMetadataReply {
-   map<string,string> metadata = 1;
+  map<string, string> metadata = 1;
+}
+
+message UsersMetadataReply {
+  repeated UserWithMetadata users = 1;
+}
+
+message UserWithMetadata {
+  map<string, UserMetadataReply> user = 1;
 }
 
 
@@ -94,7 +109,7 @@ message UserId{
 }
 
 message InitiatePasswordResetReply {
-   string token = 1;
+  string token = 1;
 }
 
 message UserIds{
@@ -103,4 +118,12 @@ message UserIds{
 
 message UserResponseList{
   repeated UserResponse UserResponseList=1;
+}
+
+message UsersSearchRequest {
+  string text = 1;
+}
+
+message UserSearchResponse{
+  repeated UserResponse users = 1;
 }

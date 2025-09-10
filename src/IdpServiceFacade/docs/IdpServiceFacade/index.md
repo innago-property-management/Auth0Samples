@@ -27,3 +27,8 @@
 | [UserResponse](UserResponse/index.md 'IdpServiceFacade\.UserResponse') | |
 | [UserResponseList](UserResponseList/index.md 'IdpServiceFacade\.UserResponseList') | |
 | [UserRoleRequest](UserRoleRequest/index.md 'IdpServiceFacade\.UserRoleRequest') | |
+| [UserSearchResponse](UserSearchResponse/index.md 'IdpServiceFacade\.UserSearchResponse') | |
+| [UsersMetadataByNameOrEmailFragmentRequest](UsersMetadataByNameOrEmailFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameOrEmailFragmentRequest') | |
+| [UsersMetadataReply](UsersMetadataReply/index.md 'IdpServiceFacade\.UsersMetadataReply') | |
+| [UsersSearchRequest](UsersSearchRequest/index.md 'IdpServiceFacade\.UsersSearchRequest') | |
+| [UserWithMetadata](UserWithMetadata/index.md 'IdpServiceFacade\.UserWithMetadata') | |

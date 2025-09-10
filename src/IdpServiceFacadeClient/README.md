@@ -107,6 +107,26 @@ grpcurl -d '{"email": "zzz@yopmail.com", "keys": [ {"key":"organizationuid"}]}' 
 
 ```
 
+### User Search
+
+```bash
+grpcurl -d '{"text": "family_name:t* or given_name:t* or email:t* or nickname:t*"}' localhost:7122 user.User.GetUsers
+
+grpcurl -d '{"text": "user_metadata.phone_number:\"+12163933566\""}' localhost:7122 user.User.GetUsers
+```
+
+### Get Metadata for multiple users by name or email fragment
+* Length must be &ge; 3
+
+```bash
+# all metadata
+grpcurl -d '{"searchTerm":"dam"}' localhost:7122 user.User.GetUsersMetadataByNameOrEmailFragment
+
+# select metadata
+grpcurl -d '{"searchTerm":"dam", "keys":{"key":["organization_role_user_id", "organization_id"]}}' localhost:7122 user.User.GetUsersMetadataByNameOrEmailFragment
+
+```
+
 ## Required Scopes
 
 - create:user_attribute_profiles

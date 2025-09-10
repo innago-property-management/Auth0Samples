@@ -15,6 +15,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
         Console.WriteLine($"InitiatePasswordReset called with request {request.Email}");
+
         using Activity? activity =
             IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
@@ -106,7 +107,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
     }
 
-    public override async Task<UserResponseList> GetUsers(UserIds request, ServerCallContext context)
+    public override async Task<UserResponseList> GetUsersByIds(UserIds request, ServerCallContext context)
     {
         try
         {
@@ -130,5 +131,17 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             logger.LogInformation(ex, "There was an error in calling Get Users method through grpc for User id {UserIds}", string.Join(", ", request.Ids));
             throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
         }
+    }
+
+    public override Task<UserSearchResponse> GetUsers(UsersSearchRequest request, ServerCallContext context)
+    {
+        return auth0Client.ListUsers(request.Text, context.CancellationToken).ToUserSearchResponse();
+    }
+
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragment(UsersMetadataByNameOrEmailFragmentRequest request, ServerCallContext context)
+    {
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client.GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
     }
 }
