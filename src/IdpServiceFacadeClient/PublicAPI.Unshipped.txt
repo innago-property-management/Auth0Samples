@@ -546,5 +546,4 @@ IdpServiceFacade.UserIds.CalculateSize() -> int
 ~IdpServiceFacade.UserIds.MergeFrom(IdpServiceFacade.UserIds other) -> void
 ~IdpServiceFacade.UserIds.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 IdpServiceFacade.UserResponseList.UserResponseList() -> void
-~static IdpServiceFacade.UserIds.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserIds>
 
