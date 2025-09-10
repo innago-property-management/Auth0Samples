@@ -41,8 +41,8 @@ public interface IUserService
     /// </summary>
     /// <param name="email">The email address of the user requesting a password reset.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
-    ITask<OkError> ResetPassword(string email, CancellationToken cancellationToken);
+    /// <returns>An <see cref="string" /> token that can be used to reset password</returns>
+    ITask<string?> ResetPassword(string email, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Enables or disables Multi-Factor Authentication (MFA) for a user.
@@ -51,7 +51,7 @@ public interface IUserService
     /// <param name="enable">True to enable MFA, false to disable it.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
-    ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken);
+    ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Blocks a user based on their email address, preventing them from accessing the system.
@@ -103,4 +103,14 @@ public interface IUserService
     /// A task that resolves to an <see cref="TokenResponsePayload<TokenResponse>" /> containing the response from an OpenAPI client authentication request.
     /// </returns>
     ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken);
+    /// Retrieves metadata for users whose name or email matches the given search term.
+    /// </summary>
+    /// <param name="searchTerm">The partial name or email fragment to search for matching users.</param>
+    /// <param name="keys">The optional list of metadata keys to retrieve for each user. If null, all metadata is returned.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A dictionary where the keys are user identifiers, and the values are dictionaries containing the requested metadata. Returns null if no users match the search term.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameOrEmailFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
 }

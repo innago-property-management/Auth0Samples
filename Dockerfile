@@ -1,4 +1,4 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# syntax=docker/dockerfile:1
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG TARGETARCH
@@ -39,19 +39,22 @@ RUN dotnet publish ./IdpServiceFacade/IdpServiceFacade.csproj \
     --arch $TARGETARCH \
     -p:SKIP_OPENAPI_GENERATION=true
 
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS app
- 
-LABEL vendor="Innago"
-LABEL com.innago.image="Innago.Auth0ServiceFacade"
+FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS app
+
+LABEL org.opencontainers.image.vendor="Innago" \
+      org.opencontainers.image.description="auth0 idp client" \
+      org.opencontainers.image.title="Innago.Auth0ServiceFacade" \
+      org.opencontainers.image.source="https://github.com/innago-property-management/Auth0Samples" \
+      org.opencontainers.image.licenses="MIT"
 
 RUN addgroup --gid 10001 notroot \
     && adduser --uid 10001 --ingroup notroot notroot --disabled-password --no-create-home
 
 WORKDIR /app
 COPY --from=build /app .
-RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+
 USER notroot:notroot
-ENV ASPNETCORE_URLS="http://+:8080"
+ENV ASPNETCORE_URLS="https://*:8443;http://*:8080"
 ENV DOTNET_EnableDiagnostics=1
 ENV DOTNET_EnableDiagnostics_IPC=0
 ENV DOTNET_EnableDiagnostics_Debugger=0

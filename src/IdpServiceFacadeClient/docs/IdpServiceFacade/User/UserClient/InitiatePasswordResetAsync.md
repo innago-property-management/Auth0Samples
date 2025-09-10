@@ -14,7 +14,7 @@
 Initiates a password reset
 
 ```csharp
-public virtual AsyncUnaryCall<IdpServiceFacade.UserReply> InitiatePasswordResetAsync(IdpServiceFacade.UserRequest request, CallOptions options);
+public virtual AsyncUnaryCall<IdpServiceFacade.InitiatePasswordResetReply> InitiatePasswordResetAsync(IdpServiceFacade.UserRequest request, CallOptions options);
 ```
 #### Parameters
 
@@ -41,7 +41,7 @@ The call object\.
 Initiates a password reset
 
 ```csharp
-public virtual AsyncUnaryCall<IdpServiceFacade.UserReply> InitiatePasswordResetAsync(IdpServiceFacade.UserRequest request, Metadata headers=null, System.Nullable<System.DateTime> deadline=null, System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
+public virtual AsyncUnaryCall<IdpServiceFacade.InitiatePasswordResetReply> InitiatePasswordResetAsync(IdpServiceFacade.UserRequest request, Metadata headers=null, System.Nullable<System.DateTime> deadline=null, System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
 ```
 #### Parameters
 
