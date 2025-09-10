@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -27,9 +27,9 @@
         <PackageReference Include="Auth0Net.DependencyInjection" Version="5.1.0" />
         <PackageReference Include="Bogus" Version="35.6.3" />
         <PackageReference Include="DotMake.CommandLine" Version="2.7.1" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.8" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
         <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
