@@ -23,8 +23,9 @@ service User {
   rpc RemoveRole (UserRoleRequest) returns (UserReply);
   rpc GetUserMetadata (UserMetadataRequest) returns (UserMetadataReply);
   rpc GetUser (UserId) returns (UserResponse);
-  rpc GetUsers (UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
+  rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
+  rpc GetUsersByIds (UserIds) returns (UserResponseList);
 }
 
 // The request message containing the user's email.
@@ -109,6 +110,14 @@ message UserId{
 
 message InitiatePasswordResetReply {
   string token = 1;
+}
+
+message UserIds{
+  repeated string ids = 1;
+}
+
+message UserResponseList{
+  repeated UserResponse UserResponseList=1;
 }
 
 message UsersSearchRequest {

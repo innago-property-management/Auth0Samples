@@ -510,3 +510,40 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.UnblockUser(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+IdpServiceFacade.UserIds
+const IdpServiceFacade.UserIds.IdsFieldNumber = 1 -> int
+IdpServiceFacade.UserResponseList
+const IdpServiceFacade.UserResponseList.UserResponseList_FieldNumber = 1 -> int
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIds(IdpServiceFacade.UserIds request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserResponseList
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIdsAsync(IdpServiceFacade.UserIds request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponseList>
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIds(IdpServiceFacade.UserIds request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserResponseList
+~virtual IdpServiceFacade.User.UserClient.GetUsersByIdsAsync(IdpServiceFacade.UserIds request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponseList>
+~static IdpServiceFacade.UserResponseList.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserResponseList>
+~static IdpServiceFacade.UserResponseList.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~IdpServiceFacade.UserResponseList.UserResponseList(IdpServiceFacade.UserResponseList other) -> void
+~IdpServiceFacade.UserResponseList.Clone() -> IdpServiceFacade.UserResponseList
+~IdpServiceFacade.UserResponseList.UserResponseList_.get -> Google.Protobuf.Collections.RepeatedField<IdpServiceFacade.UserResponse>
+~override IdpServiceFacade.UserResponseList.Equals(object other) -> bool
+~IdpServiceFacade.UserResponseList.Equals(IdpServiceFacade.UserResponseList other) -> bool
+override IdpServiceFacade.UserResponseList.GetHashCode() -> int
+~override IdpServiceFacade.UserResponseList.ToString() -> string
+~IdpServiceFacade.UserResponseList.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.UserResponseList.CalculateSize() -> int
+~IdpServiceFacade.UserResponseList.MergeFrom(IdpServiceFacade.UserResponseList other) -> void
+~IdpServiceFacade.UserResponseList.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~static IdpServiceFacade.UserIds.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserIds>
+~static IdpServiceFacade.UserIds.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+IdpServiceFacade.UserIds.UserIds() -> void
+~IdpServiceFacade.UserIds.UserIds(IdpServiceFacade.UserIds other) -> void
+~IdpServiceFacade.UserIds.Clone() -> IdpServiceFacade.UserIds
+~IdpServiceFacade.UserIds.Ids.get -> Google.Protobuf.Collections.RepeatedField<string>
+~override IdpServiceFacade.UserIds.Equals(object other) -> bool
+~IdpServiceFacade.UserIds.Equals(IdpServiceFacade.UserIds other) -> bool
+override IdpServiceFacade.UserIds.GetHashCode() -> int
+~override IdpServiceFacade.UserIds.ToString() -> string
+~IdpServiceFacade.UserIds.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+IdpServiceFacade.UserIds.CalculateSize() -> int
+~IdpServiceFacade.UserIds.MergeFrom(IdpServiceFacade.UserIds other) -> void
+~IdpServiceFacade.UserIds.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+IdpServiceFacade.UserResponseList.UserResponseList() -> void
+

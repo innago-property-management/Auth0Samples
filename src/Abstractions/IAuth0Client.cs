@@ -65,4 +65,12 @@ public interface IAuth0Client : IUserService
     /// <param name="cancellationToken"></param>
     /// <returns>A user response</returns>
     Task<User> GetUser(string oruUid, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Get All the Users based on their oru Ids
+    /// </summary>
+    /// <param name="oruUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<List<User>> GetUsers(string[] oruUid, CancellationToken cancellationToken);
 }

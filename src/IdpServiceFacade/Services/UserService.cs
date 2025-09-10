@@ -10,7 +10,7 @@ using Grpc.Core;
 
 using MorseCode.ITask;
 
-internal class UserService(IUserService externalService, IAuth0Client auth0Client) : User.UserBase
+internal class UserService(IUserService externalService, IAuth0Client auth0Client, ILogger<UserService> logger) : User.UserBase
 {
     public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
@@ -85,8 +85,15 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         try
         {
             using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
-            Auth0.ManagementApi.Models.User result = await auth0Client.GetUser(request.Id, context.CancellationToken);
-            return result.ToGetUserResponse();
+            var result = (await auth0Client.GetUsers([request.Id], context.CancellationToken)).FirstOrDefault();
+            
+            if (result == null)
+            {
+                return new UserResponse();
+            }
+
+            UserResponse userResponse = result.ToGetUserResponse();
+            return userResponse;
         }
         catch (OperationCanceledException ex)
         {
@@ -94,9 +101,34 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
         catch (Exception ex)
         {
-            // Log with activity if you want
-            Console.WriteLine(ex);
+            logger.LogInformation(ex, "There was an error in calling Get User method through grpc for User id {UserId}", request.Id);
 
+            throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
+        }
+    }
+
+    public override async Task<UserResponseList> GetUsersByIds(UserIds request, ServerCallContext context)
+    {
+        try
+        {
+            using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
+            var result = await auth0Client.GetUsers(request.Ids.ToArray(), context.CancellationToken);
+            var responseList = new UserResponseList();
+
+            if (result.Any())
+            {
+                responseList.UserResponseList_.AddRange(result.Select(u => u.ToGetUserResponse()));
+            }
+
+            return responseList;
+        }
+        catch (OperationCanceledException ex)
+        {
+            throw new RpcException(new Status(StatusCode.Cancelled, "Request was cancelled"), ex.Message);
+        }
+        catch (Exception ex)
+        {
+            logger.LogInformation(ex, "There was an error in calling Get Users method through grpc for User id {UserIds}", string.Join(", ", request.Ids));
             throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
         }
     }

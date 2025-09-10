@@ -64,6 +64,47 @@ public partial class Auth0Client
         string id = "auth0|" + oruUid;
         return await client.Users.GetAsync(id, null!, true, cancellationToken);
     }
+    
+    /// <summary>
+    /// Gets List of Users per their Ids
+    /// </summary>
+    /// <param name="oruUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Returns a list of user</returns>
+    public async Task<List<User>> GetUsers(string[] oruUid, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
+        
+        string query = string.Join(" OR ", oruUid.Select(uid => $"user_metadata.user_id:\"{uid}\""));
+        
+        GetUsersRequest request = new()
+        {
+            Connection = this.auth0DatabaseName,
+            Sort = "user_id:1",
+            Query = query,
+            SearchEngine = "v3",
+        };
+
+        int pageNo = 0;
+        const int perPage = 100;
+        bool hasMore;
+        List<User> users = [];
+        int usersProcessed = 0;
+
+        do
+        {
+            PaginationInfo paginationInfo = new(pageNo, perPage, true);
+            IPagedList<User> pagedList = await client.Users.GetAllAsync(request, paginationInfo, cancellationToken).ConfigureAwait(false);
+
+            users.AddRange(pagedList);
+
+            pageNo += 1;
+            usersProcessed += pagedList.Count;
+            hasMore = pagedList.Paging.Total > usersProcessed;
+        } while (hasMore);
+
+        return users;
+    }
 
     /// <summary>
     ///     Retrieves a list of all users from Auth0.
