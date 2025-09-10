@@ -531,7 +531,7 @@ override IdpServiceFacade.UserResponseList.GetHashCode() -> int
 IdpServiceFacade.UserResponseList.CalculateSize() -> int
 ~IdpServiceFacade.UserResponseList.MergeFrom(IdpServiceFacade.UserResponseList other) -> void
 ~IdpServiceFacade.UserResponseList.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~static IdpServiceFacade.UserIds.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserIds> 
+~static IdpServiceFacade.UserIds.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserIds>
 ~static IdpServiceFacade.UserIds.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 IdpServiceFacade.UserIds.UserIds() -> void
 ~IdpServiceFacade.UserIds.UserIds(IdpServiceFacade.UserIds other) -> void
@@ -545,4 +545,6 @@ override IdpServiceFacade.UserIds.GetHashCode() -> int
 IdpServiceFacade.UserIds.CalculateSize() -> int
 ~IdpServiceFacade.UserIds.MergeFrom(IdpServiceFacade.UserIds other) -> void
 ~IdpServiceFacade.UserIds.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+IdpServiceFacade.UserResponseList.UserResponseList() -> void
+~static IdpServiceFacade.UserIds.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserIds>
 
