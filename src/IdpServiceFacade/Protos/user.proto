@@ -26,6 +26,7 @@ service User {
   rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersByIds (UserIds) returns (UserResponseList);
+  rpc EnableMfa(UserRequest) returns (UserReply);
 }
 
 // The request message containing the user's email.

@@ -45,10 +45,9 @@ public interface IUserService
     ITask<string?> ResetPassword(string email, CancellationToken cancellationToken);
 
     /// <summary>
-    ///     Enables or disables Multi-Factor Authentication (MFA) for a user.
+    ///    Disables Multi-Factor Authentication (MFA) for a user.
     /// </summary>
     /// <param name="email">The email address of the user for whom to toggle MFA.</param>
-    /// <param name="enable">True to enable MFA, false to disable it.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
     ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken);
@@ -92,4 +91,11 @@ public interface IUserService
         string searchTerm,
         IEnumerable<string>? keys,
         CancellationToken cancellationToken);
+    /// <summary>
+    ///     Disables Multi-Factor Authentication (MFA) for a user for next login
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    ITask<OkError> EnableMfa(string email, CancellationToken cancellationToken);
 }

@@ -269,7 +269,7 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    ///     Enables or disables Multi-Factor Authentication for the specified user.
+    ///     Disables Multi-Factor Authentication for the specified user.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="enable">True to enable MFA, false to disable it.</param>
@@ -374,7 +374,17 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
         return this.UpdateUserBlockStatus(email, false, cancellationToken);
     }
-
+    /// <summary>
+    /// Enables Multi-Factor Authentication (MFA) for a user
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    public ITask<OkError> EnableMfa(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserMetadata(email, new TwoFactorEnabled(true), cancellationToken);
+    }
     private static IReadOnlyDictionary<string, string?>? MapUserMetadata(IDictionary<string, JToken?>? userMetadata, IEnumerable<string>? keys = null)
     {
         IReadOnlyDictionary<string, string?>? dictionary = userMetadata?
