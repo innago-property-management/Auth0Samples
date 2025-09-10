@@ -275,9 +275,9 @@ public partial class Auth0Client
     /// <param name="enable">True to enable MFA, false to disable it.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the result of the MFA toggle.</returns>
-    public async ITask<OkError> ToggleMFA(string email, bool enable, CancellationToken cancellationToken)
+    public async ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken)
     {
-        OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new TwoFactorEnabled(enable), cancellationToken);
+        OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new TwoFactorEnabled(false), cancellationToken);
 
         if (!userMetadataUpdated.OK)
         {
