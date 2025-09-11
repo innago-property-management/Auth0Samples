@@ -21,6 +21,7 @@
 | [UserIds](UserIds/index.md 'IdpServiceFacade\.UserIds') | |
 | [UserMetadataReply](UserMetadataReply/index.md 'IdpServiceFacade\.UserMetadataReply') | |
 | [UserMetadataRequest](UserMetadataRequest/index.md 'IdpServiceFacade\.UserMetadataRequest') | |
+| [UserMFARequest](UserMFARequest/index.md 'IdpServiceFacade\.UserMFARequest') | |
 | [UserReflection](UserReflection/index.md 'IdpServiceFacade\.UserReflection') | Holder for reflection information generated from user\.proto |
 | [UserReply](UserReply/index.md 'IdpServiceFacade\.UserReply') | The response message containing the outcome\. |
 | [UserRequest](UserRequest/index.md 'IdpServiceFacade\.UserRequest') | The request message containing the user's email\. |

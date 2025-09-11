@@ -1,0 +1,3 @@
+T:System.Console; use Logger
+M:System.Console.WriteLine; use Logger
+T:Microsoft.Extensions.Logging.LoggerExtensions; use LoggerMessage
