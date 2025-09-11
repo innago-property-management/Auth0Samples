@@ -1,4 +1,3 @@
-const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 5 -> int
 IdpServiceFacade.Identity
 IdpServiceFacade.Identity.CalculateSize() -> int
 IdpServiceFacade.Identity.Identity() -> void
