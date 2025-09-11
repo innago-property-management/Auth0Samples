@@ -105,6 +105,14 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return users.ToUsersMetadataReply();
     }
 
+    public override Task<UserReply> EnableMfa(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.EnableMfa(request.Email, context.CancellationToken).ToUserReply();
+    }
+
     public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
     {
         logger.InitiatePasswordReset(request.Email);

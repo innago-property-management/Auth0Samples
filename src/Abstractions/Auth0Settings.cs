@@ -34,4 +34,9 @@ public class Auth0Settings
     /// Gets or sets the name of the Auth0 audience.
     /// </summary>
     public required string Audience { get; set; }
+
+    /// <summary>
+    /// Gets or sets the API audience used for authentication and authorization.
+    /// </summary>
+    public required string ApiAudience { get; set; }
 }

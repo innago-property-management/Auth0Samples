@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        <UserSecretsId>bdc867a4-c1d6-44f2-8bbc-d7f43a247457</UserSecretsId>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

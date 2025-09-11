@@ -4,8 +4,10 @@
 
 | Classes | |
 | :--- | :--- |
+| [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
 | [CreateRoleRequest](CreateRoleRequest/index.md 'IdpServiceFacade\.CreateRoleRequest') | |
 | [CreateRoleResponse](CreateRoleResponse/index.md 'IdpServiceFacade\.CreateRoleResponse') | |
+| [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |

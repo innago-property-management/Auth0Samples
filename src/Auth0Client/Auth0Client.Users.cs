@@ -391,6 +391,18 @@ public partial class Auth0Client
         return this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = true }, cancellationToken);
     }
 
+    private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
+    {
+        FormUrlEncodedContent requestContent = new([
+            new KeyValuePair<string, string>("grant_type", "refresh_token"),
+            new KeyValuePair<string, string>("refresh_token", refreshToken ?? string.Empty),
+            new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
+            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty),
+        ]);
+
+        return requestContent;
+    }
+
     private static IReadOnlyDictionary<string, string?>? MapUserMetadata(IDictionary<string, JToken?>? userMetadata, IEnumerable<string>? keys = null)
     {
         IReadOnlyDictionary<string, string?>? dictionary = userMetadata?
@@ -452,9 +464,8 @@ public partial class Auth0Client
 
         async Task<TokenResponse> DeserializeToken()
         {
-            var stream = await message.Content.ReadAsStreamAsync(cancellationToken);
-            var response = await JsonSerializer.DeserializeAsync<TokenResponse>(stream, cancellationToken: cancellationToken);
-            return response;
+            return await JsonSerializer.DeserializeAsync<TokenResponse>(await message.Content.ReadAsStreamAsync(cancellationToken),
+                cancellationToken: cancellationToken);
         }
     }
 
@@ -568,7 +579,8 @@ public partial class Auth0Client
             Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
 
         logger.Information($"GetTokenAsyncImplementation called for user {username}");
-        string tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
+        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
             Content = this.MakeTokenContent(username, password)
@@ -580,30 +592,30 @@ public partial class Auth0Client
 
         logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
         TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
-        logger.Information($"Token response:{payload.Result}");
-        logger.Information($"Token error: {payload.Error}");
+
         return payload; // this contains access_token, id_token, etc.
     }
 
     /// <summary>
     /// Retrieves a new token using a refresh token.
     /// </summary>
-    /// <param name="refreshtoken">The refresh token used to request a new access token.</param>
+    /// <param name="refreshToken">The refresh token used to request a new access token.</param>
     /// <param name="keys">Optional keys used as additional parameters for the token request.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the token response payload.</returns>
     public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(
-        string refreshtoken,
+        string refreshToken,
         IEnumerable<string>? keys,
         CancellationToken cancellationToken)
     {
         using Activity? activity =
-            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshtoken), null)]);
+            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
 
-		string tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
+        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
-            Content = this.MakeRefreshTokenContent(refreshtoken)
+            Content = this.MakeRefreshTokenContent(refreshToken)
         };
 
         Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
@@ -627,18 +639,6 @@ public partial class Auth0Client
             new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty),
             new KeyValuePair<string, string>("realm", this.auth0DatabaseName ?? string.Empty),
             new KeyValuePair<string, string>("connection", this.auth0DatabaseName ?? string.Empty)
-        ]);
-
-        return requestContent;
-    }
-
-    private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
-    {
-        FormUrlEncodedContent requestContent = new([
-            new KeyValuePair<string, string>("grant_type", "refresh_token"),
-            new KeyValuePair<string, string>("refresh_token", refreshToken ?? string.Empty),
-            new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
-            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty)
         ]);
 
         return requestContent;
@@ -693,7 +693,7 @@ public partial class Auth0Client
             }
         }
     }
-    
+
     [UsedImplicitly]
     private sealed record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
 }
