@@ -1,13 +1,14 @@
-const IdpServiceFacade.OrganizationReply.ErrorFieldNumber = 2 -> int
-const IdpServiceFacade.OrganizationReply.OkFieldNumber = 1 -> int
-const IdpServiceFacade.OrgRequest.OrgEmailFieldNumber = 1 -> int
-const IdpServiceFacade.OrgUserRequest.OrgEmailFieldNumber = 1 -> int
-const IdpServiceFacade.OrgUserRequest.UserEmailFieldNumber = 2 -> int
-const IdpServiceFacade.UserReply.ErrorFieldNumber = 2 -> int
-const IdpServiceFacade.UserReply.OkFieldNumber = 1 -> int
-const IdpServiceFacade.UserRequest.EmailFieldNumber = 1 -> int
-const IdpServiceFacade.UserRoleRequest.EmailFieldNumber = 1 -> int
-const IdpServiceFacade.UserRoleRequest.RoleFieldNumber = 2 -> int
+IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest() -> void
+IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
+IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest() -> void
+IdpServiceFacade.Identity
+IdpServiceFacade.Identity.Identity() -> void
+IdpServiceFacade.OrgRequest
+IdpServiceFacade.OrgRequest.CalculateSize() -> int
+IdpServiceFacade.OrgRequest.OrgRequest() -> void
+IdpServiceFacade.OrgUserRequest
+IdpServiceFacade.OrgUserRequest.CalculateSize() -> int
+IdpServiceFacade.OrgUserRequest.OrgUserRequest() -> void
 IdpServiceFacade.Organization
 IdpServiceFacade.Organization.OrganizationBase
 IdpServiceFacade.Organization.OrganizationBase.OrganizationBase() -> void
@@ -17,15 +18,14 @@ IdpServiceFacade.OrganizationReply.CalculateSize() -> int
 IdpServiceFacade.OrganizationReply.Ok.get -> bool
 IdpServiceFacade.OrganizationReply.Ok.set -> void
 IdpServiceFacade.OrganizationReply.OrganizationReply() -> void
-IdpServiceFacade.OrgRequest
-IdpServiceFacade.OrgRequest.CalculateSize() -> int
-IdpServiceFacade.OrgRequest.OrgRequest() -> void
-IdpServiceFacade.OrgUserRequest
-IdpServiceFacade.OrgUserRequest.CalculateSize() -> int
-IdpServiceFacade.OrgUserRequest.OrgUserRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserBase
 IdpServiceFacade.User.UserBase.UserBase() -> void
+IdpServiceFacade.UserId
+IdpServiceFacade.UserId.UserId() -> void
+IdpServiceFacade.UserMFARequest.CalculateSize() -> int
+IdpServiceFacade.UserMFARequest.Enable.get -> bool
+IdpServiceFacade.UserMFARequest.Enable.set -> void
 IdpServiceFacade.UserReflection
 IdpServiceFacade.UserReply
 IdpServiceFacade.UserReply.CalculateSize() -> int
@@ -35,27 +35,77 @@ IdpServiceFacade.UserReply.UserReply() -> void
 IdpServiceFacade.UserRequest
 IdpServiceFacade.UserRequest.CalculateSize() -> int
 IdpServiceFacade.UserRequest.UserRequest() -> void
+IdpServiceFacade.UserResponse
+IdpServiceFacade.UserResponse.UserResponse() -> void
 IdpServiceFacade.UserRoleRequest
 IdpServiceFacade.UserRoleRequest.CalculateSize() -> int
 IdpServiceFacade.UserRoleRequest.UserRoleRequest() -> void
 Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer
+Innago.Security.IdpServiceFacade.Services.RoleService
+Innago.Security.IdpServiceFacade.Services.RoleService.RoleService(Abstractions.IRoleService! externalService, Microsoft.Extensions.Logging.ILogger<Innago.Security.IdpServiceFacade.Services.RoleService!>! logger) -> void
 Innago.Security.IdpServiceFacade.Services.UserResponseHelpers
-override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
+const IdpServiceFacade.Identity.UserIdFieldNumber = 1 -> int
+const IdpServiceFacade.OrgRequest.OrgEmailFieldNumber = 1 -> int
+const IdpServiceFacade.OrgUserRequest.OrgEmailFieldNumber = 1 -> int
+const IdpServiceFacade.OrgUserRequest.UserEmailFieldNumber = 2 -> int
+const IdpServiceFacade.OrganizationReply.ErrorFieldNumber = 2 -> int
+const IdpServiceFacade.OrganizationReply.OkFieldNumber = 1 -> int
+const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
+const IdpServiceFacade.UserReply.ErrorFieldNumber = 2 -> int
+const IdpServiceFacade.UserReply.OkFieldNumber = 1 -> int
+const IdpServiceFacade.UserRequest.EmailFieldNumber = 1 -> int
+const IdpServiceFacade.UserResponse.BlockedFieldNumber = 12 -> int
+const IdpServiceFacade.UserResponse.EmailFieldNumber = 1 -> int
+const IdpServiceFacade.UserResponse.EmailVerifiedFieldNumber = 2 -> int
+const IdpServiceFacade.UserResponse.FamilyNameFieldNumber = 10 -> int
+const IdpServiceFacade.UserResponse.GivenNameFieldNumber = 8 -> int
+const IdpServiceFacade.UserResponse.IdentitiesFieldNumber = 13 -> int
+const IdpServiceFacade.UserResponse.LastIpFieldNumber = 14 -> int
+const IdpServiceFacade.UserResponse.LastLoginFieldNumber = 15 -> int
+const IdpServiceFacade.UserResponse.NameFieldNumber = 9 -> int
+const IdpServiceFacade.UserResponse.NicknameFieldNumber = 7 -> int
+const IdpServiceFacade.UserResponse.PhoneNumberFieldNumber = 3 -> int
+const IdpServiceFacade.UserResponse.PhoneVerifiedFieldNumber = 4 -> int
+const IdpServiceFacade.UserResponse.PictureFieldNumber = 11 -> int
+const IdpServiceFacade.UserResponse.UserIdFieldNumber = 16 -> int
+const IdpServiceFacade.UserResponse.UserMetadataFieldNumber = 5 -> int
+const IdpServiceFacade.UserResponse.UsernameFieldNumber = 6 -> int
+const IdpServiceFacade.UserRoleRequest.EmailFieldNumber = 1 -> int
+const IdpServiceFacade.UserRoleRequest.RoleFieldNumber = 2 -> int
+override IdpServiceFacade.GetTokenAuthRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
+override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
+override IdpServiceFacade.UserMFARequest.GetHashCode() -> int
 override IdpServiceFacade.UserReply.GetHashCode() -> int
 override IdpServiceFacade.UserRequest.GetHashCode() -> int
 override IdpServiceFacade.UserRoleRequest.GetHashCode() -> int
+override Innago.Security.IdpServiceFacade.Services.RoleService.CreateRole(IdpServiceFacade.CreateRoleRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateRoleResponse!>!
 static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
 static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -> System.Diagnostics.ActivitySource!
-~IdpServiceFacade.OrganizationReply.Clone() -> IdpServiceFacade.OrganizationReply
-~IdpServiceFacade.OrganizationReply.Equals(IdpServiceFacade.OrganizationReply other) -> bool
-~IdpServiceFacade.OrganizationReply.Error.get -> string
-~IdpServiceFacade.OrganizationReply.Error.set -> void
-~IdpServiceFacade.OrganizationReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~IdpServiceFacade.OrganizationReply.MergeFrom(IdpServiceFacade.OrganizationReply other) -> void
-~IdpServiceFacade.OrganizationReply.OrganizationReply(IdpServiceFacade.OrganizationReply other) -> void
-~IdpServiceFacade.OrganizationReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.GetRefreshTokenAuthRequest.Clone() -> IdpServiceFacade.GetRefreshTokenAuthRequest
+~IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest(IdpServiceFacade.GetRefreshTokenAuthRequest other) -> void
+~IdpServiceFacade.GetRefreshTokenAuthRequest.Keys.get -> IdpServiceFacade.KeysWrapper
+~IdpServiceFacade.GetRefreshTokenAuthRequest.Keys.set -> void
+~IdpServiceFacade.GetRefreshTokenAuthRequest.Refreshtoken.get -> string
+~IdpServiceFacade.GetRefreshTokenAuthRequest.Refreshtoken.set -> void
+~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.GetTokenAuthRequest.Clone() -> IdpServiceFacade.GetTokenAuthRequest
+~IdpServiceFacade.GetTokenAuthRequest.Equals(IdpServiceFacade.GetTokenAuthRequest other) -> bool
+~IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest(IdpServiceFacade.GetTokenAuthRequest other) -> void
+~IdpServiceFacade.GetTokenAuthRequest.Keys.get -> IdpServiceFacade.KeysWrapper
+~IdpServiceFacade.GetTokenAuthRequest.Keys.set -> void
+~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(IdpServiceFacade.GetTokenAuthRequest other) -> void
+~IdpServiceFacade.GetTokenAuthRequest.Password.get -> string
+~IdpServiceFacade.GetTokenAuthRequest.Password.set -> void
+~IdpServiceFacade.GetTokenAuthRequest.Username.get -> string
+~IdpServiceFacade.GetTokenAuthRequest.Username.set -> void
+~IdpServiceFacade.GetTokenAuthRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.Identity.Clone() -> IdpServiceFacade.Identity
+~IdpServiceFacade.Identity.Identity(IdpServiceFacade.Identity other) -> void
+~IdpServiceFacade.Identity.UserId.get -> string
+~IdpServiceFacade.Identity.UserId.set -> void
 ~IdpServiceFacade.OrgRequest.Clone() -> IdpServiceFacade.OrgRequest
 ~IdpServiceFacade.OrgRequest.Equals(IdpServiceFacade.OrgRequest other) -> bool
 ~IdpServiceFacade.OrgRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
@@ -74,6 +124,25 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.OrgUserRequest.UserEmail.get -> string
 ~IdpServiceFacade.OrgUserRequest.UserEmail.set -> void
 ~IdpServiceFacade.OrgUserRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.OrganizationReply.Clone() -> IdpServiceFacade.OrganizationReply
+~IdpServiceFacade.OrganizationReply.Equals(IdpServiceFacade.OrganizationReply other) -> bool
+~IdpServiceFacade.OrganizationReply.Error.get -> string
+~IdpServiceFacade.OrganizationReply.Error.set -> void
+~IdpServiceFacade.OrganizationReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.OrganizationReply.MergeFrom(IdpServiceFacade.OrganizationReply other) -> void
+~IdpServiceFacade.OrganizationReply.OrganizationReply(IdpServiceFacade.OrganizationReply other) -> void
+~IdpServiceFacade.OrganizationReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UserId.Clone() -> IdpServiceFacade.UserId
+~IdpServiceFacade.UserId.Id.get -> string
+~IdpServiceFacade.UserId.Id.set -> void
+~IdpServiceFacade.UserId.UserId(IdpServiceFacade.UserId other) -> void
+~IdpServiceFacade.UserMFARequest.Clone() -> IdpServiceFacade.UserMFARequest
+~IdpServiceFacade.UserMFARequest.Email.get -> string
+~IdpServiceFacade.UserMFARequest.Email.set -> void
+~IdpServiceFacade.UserMFARequest.Equals(IdpServiceFacade.UserMFARequest other) -> bool
+~IdpServiceFacade.UserMFARequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UserMFARequest.MergeFrom(IdpServiceFacade.UserMFARequest other) -> void
+~IdpServiceFacade.UserMFARequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.UserReply.Clone() -> IdpServiceFacade.UserReply
 ~IdpServiceFacade.UserReply.Equals(IdpServiceFacade.UserReply other) -> bool
 ~IdpServiceFacade.UserReply.Error.get -> string
@@ -90,6 +159,9 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.UserRequest.MergeFrom(IdpServiceFacade.UserRequest other) -> void
 ~IdpServiceFacade.UserRequest.UserRequest(IdpServiceFacade.UserRequest other) -> void
 ~IdpServiceFacade.UserRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UserResponse.Clone() -> IdpServiceFacade.UserResponse
+~IdpServiceFacade.UserResponse.Email.get -> string
+~IdpServiceFacade.UserResponse.UserResponse(IdpServiceFacade.UserResponse other) -> void
 ~IdpServiceFacade.UserRoleRequest.Clone() -> IdpServiceFacade.UserRoleRequest
 ~IdpServiceFacade.UserRoleRequest.Email.get -> string
 ~IdpServiceFacade.UserRoleRequest.Email.set -> void
@@ -100,36 +172,53 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.UserRoleRequest.Role.set -> void
 ~IdpServiceFacade.UserRoleRequest.UserRoleRequest(IdpServiceFacade.UserRoleRequest other) -> void
 ~IdpServiceFacade.UserRoleRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
-~override IdpServiceFacade.OrganizationReply.Equals(object other) -> bool
-~override IdpServiceFacade.OrganizationReply.ToString() -> string
+~override IdpServiceFacade.GetRefreshTokenAuthRequest.Equals(object other) -> bool
+~override IdpServiceFacade.GetTokenAuthRequest.Equals(object other) -> bool
+~override IdpServiceFacade.GetTokenAuthRequest.ToString() -> string
+~override IdpServiceFacade.Identity.Equals(object other) -> bool
 ~override IdpServiceFacade.OrgRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.OrgRequest.ToString() -> string
 ~override IdpServiceFacade.OrgUserRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.OrgUserRequest.ToString() -> string
+~override IdpServiceFacade.OrganizationReply.Equals(object other) -> bool
+~override IdpServiceFacade.OrganizationReply.ToString() -> string
+~override IdpServiceFacade.UserId.Equals(object other) -> bool
+~override IdpServiceFacade.UserMFARequest.Equals(object other) -> bool
+~override IdpServiceFacade.UserMFARequest.ToString() -> string
 ~override IdpServiceFacade.UserReply.Equals(object other) -> bool
 ~override IdpServiceFacade.UserReply.ToString() -> string
 ~override IdpServiceFacade.UserRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UserRequest.ToString() -> string
 ~override IdpServiceFacade.UserRoleRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UserRoleRequest.ToString() -> string
+~static IdpServiceFacade.GetRefreshTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.GetRefreshTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetRefreshTokenAuthRequest>
+~static IdpServiceFacade.GetTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.GetTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetTokenAuthRequest>
+~static IdpServiceFacade.Identity.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.Identity.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.Identity>
+~static IdpServiceFacade.OrgRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.OrgRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrgRequest>
+~static IdpServiceFacade.OrgUserRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.OrgUserRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrgUserRequest>
 ~static IdpServiceFacade.Organization.BindService(Grpc.Core.ServiceBinderBase serviceBinder, IdpServiceFacade.Organization.OrganizationBase serviceImpl) -> void
 ~static IdpServiceFacade.Organization.BindService(IdpServiceFacade.Organization.OrganizationBase serviceImpl) -> Grpc.Core.ServerServiceDefinition
 ~static IdpServiceFacade.Organization.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
 ~static IdpServiceFacade.OrganizationReflection.Descriptor.get -> Google.Protobuf.Reflection.FileDescriptor
 ~static IdpServiceFacade.OrganizationReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.OrganizationReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrganizationReply>
-~static IdpServiceFacade.OrgRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-~static IdpServiceFacade.OrgRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrgRequest>
-~static IdpServiceFacade.OrgUserRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-~static IdpServiceFacade.OrgUserRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrgUserRequest>
 ~static IdpServiceFacade.User.BindService(Grpc.Core.ServiceBinderBase serviceBinder, IdpServiceFacade.User.UserBase serviceImpl) -> void
 ~static IdpServiceFacade.User.BindService(IdpServiceFacade.User.UserBase serviceImpl) -> Grpc.Core.ServerServiceDefinition
 ~static IdpServiceFacade.User.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
+~static IdpServiceFacade.UserId.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UserId.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserId>
 ~static IdpServiceFacade.UserReflection.Descriptor.get -> Google.Protobuf.Reflection.FileDescriptor
 ~static IdpServiceFacade.UserReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserReply>
 ~static IdpServiceFacade.UserRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserRequest>
+~static IdpServiceFacade.UserResponse.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UserResponse.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserResponse>
 ~static IdpServiceFacade.UserRoleRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserRoleRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserRoleRequest>
 ~virtual IdpServiceFacade.Organization.OrganizationBase.InitiateLegalHold(IdpServiceFacade.OrgRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply>
@@ -144,148 +233,3 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.MarkAsFraud(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.MarkAsSuspicious(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
-const IdpServiceFacade.UserId.IdFieldNumber = 1 -> int
-IdpServiceFacade.UserId
-IdpServiceFacade.Identity
-const IdpServiceFacade.Identity.UserIdFieldNumber = 1 -> int
-IdpServiceFacade.UserResponse
-const IdpServiceFacade.UserResponse.EmailVerifiedFieldNumber = 2 -> int
-const IdpServiceFacade.UserResponse.EmailFieldNumber = 1 -> int
-const IdpServiceFacade.UserResponse.PhoneNumberFieldNumber = 3 -> int
-const IdpServiceFacade.UserResponse.PhoneVerifiedFieldNumber = 4 -> int
-const IdpServiceFacade.UserResponse.UserMetadataFieldNumber = 5 -> int
-const IdpServiceFacade.UserResponse.UsernameFieldNumber = 6 -> int
-const IdpServiceFacade.UserResponse.NicknameFieldNumber = 7 -> int
-const IdpServiceFacade.UserResponse.GivenNameFieldNumber = 8 -> int
-const IdpServiceFacade.UserResponse.NameFieldNumber = 9 -> int
-const IdpServiceFacade.UserResponse.FamilyNameFieldNumber = 10 -> int
-const IdpServiceFacade.UserResponse.PictureFieldNumber = 11 -> int
-const IdpServiceFacade.UserResponse.BlockedFieldNumber = 12 -> int
-const IdpServiceFacade.UserResponse.IdentitiesFieldNumber = 13 -> int
-const IdpServiceFacade.UserResponse.LastIpFieldNumber = 14 -> int
-const IdpServiceFacade.UserResponse.LastLoginFieldNumber = 15 -> int
-const IdpServiceFacade.UserResponse.UserIdFieldNumber = 16 -> int
-~static IdpServiceFacade.Identity.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.Identity>
-~static IdpServiceFacade.Identity.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-IdpServiceFacade.Identity.Identity() -> void
-~IdpServiceFacade.Identity.Identity(IdpServiceFacade.Identity other) -> void
-~IdpServiceFacade.Identity.Clone() -> IdpServiceFacade.Identity
-~IdpServiceFacade.Identity.UserId.get -> string
-~IdpServiceFacade.Identity.UserId.set -> void
-~override IdpServiceFacade.Identity.Equals(object other) -> bool
-~static IdpServiceFacade.UserId.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserId>
-~static IdpServiceFacade.UserId.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-~static IdpServiceFacade.UserResponse.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-IdpServiceFacade.UserId.UserId() -> void
-~IdpServiceFacade.UserId.UserId(IdpServiceFacade.UserId other) -> void
-~IdpServiceFacade.UserId.Clone() -> IdpServiceFacade.UserId
-~static IdpServiceFacade.UserResponse.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserResponse>
-~IdpServiceFacade.UserId.Id.get -> string
-~IdpServiceFacade.UserId.Id.set -> void
-~override IdpServiceFacade.UserId.Equals(object other) -> bool
-IdpServiceFacade.UserResponse.UserResponse() -> void
-~IdpServiceFacade.UserResponse.UserResponse(IdpServiceFacade.UserResponse other) -> void
-~IdpServiceFacade.UserResponse.Clone() -> IdpServiceFacade.UserResponse
-~IdpServiceFacade.UserResponse.Email.get -> string
-~IdpServiceFacade.UserMFARequest.Clone() -> IdpServiceFacade.UserMFARequest
-~static IdpServiceFacade.GetTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetTokenAuthRequest>
-~static IdpServiceFacade.GetTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest() -> void
-~static IdpServiceFacade.GetRefreshTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetRefreshTokenAuthRequest>
-~IdpServiceFacade.UserMFARequest.Email.set -> void
-~IdpServiceFacade.UserMFARequest.Email.get -> string
-IdpServiceFacade.UserMFARequest.Enable.get -> bool
-~override IdpServiceFacade.UserMFARequest.Equals(object other) -> bool
-~IdpServiceFacade.UserMFARequest.Equals(IdpServiceFacade.UserMFARequest other) -> bool
-IdpServiceFacade.UserMFARequest.Enable.set -> void
-~static IdpServiceFacade.GetRefreshTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-override IdpServiceFacade.UserMFARequest.GetHashCode() -> int
-~IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest(IdpServiceFacade.GetTokenAuthRequest other) -> void
-~IdpServiceFacade.GetTokenAuthRequest.Clone() -> IdpServiceFacade.GetTokenAuthRequest
-~override IdpServiceFacade.UserMFARequest.ToString() -> string
-IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest() -> void
-~IdpServiceFacade.GetTokenAuthRequest.Username.get -> string
-~IdpServiceFacade.UserMFARequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
-~IdpServiceFacade.GetTokenAuthRequest.Username.set -> void
-~IdpServiceFacade.GetTokenAuthRequest.Password.get -> string
-~IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest(IdpServiceFacade.GetRefreshTokenAuthRequest other) -> void
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Clone() -> IdpServiceFacade.GetRefreshTokenAuthRequest
-~IdpServiceFacade.GetTokenAuthRequest.Password.set -> void
-~IdpServiceFacade.GetTokenAuthRequest.Keys.get -> IdpServiceFacade.KeysWrapper
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Keys.get -> IdpServiceFacade.KeysWrapper
-~override IdpServiceFacade.GetTokenAuthRequest.Equals(object other) -> bool
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Refreshtoken.set -> void
-~IdpServiceFacade.GetTokenAuthRequest.Keys.set -> void
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Keys.set -> void
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Refreshtoken.get -> string
-~override IdpServiceFacade.GetRefreshTokenAuthRequest.Equals(object other) -> bool
-IdpServiceFacade.UserMFARequest.CalculateSize() -> int
-~IdpServiceFacade.GetTokenAuthRequest.Equals(IdpServiceFacade.GetTokenAuthRequest other) -> bool
-~IdpServiceFacade.UserMFARequest.MergeFrom(IdpServiceFacade.UserMFARequest other) -> void
-~IdpServiceFacade.UserMFARequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-override IdpServiceFacade.GetTokenAuthRequest.GetHashCode() -> int
-~override IdpServiceFacade.GetTokenAuthRequest.ToString() -> string
-~IdpServiceFacade.GetTokenAuthRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
-IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
-~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(IdpServiceFacade.GetTokenAuthRequest other) -> void
-~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~virtual IdpServiceFacade.User.UserClient.GetTokenAsync(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~virtual IdpServiceFacade.User.UserClient.GetTokenAsync(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~virtual IdpServiceFacade.User.UserClient.GetToken(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetToken(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetRefreshToken(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetRefreshToken(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetRefreshTokenAsync(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~virtual IdpServiceFacade.User.UserClient.GetRefreshTokenAsync(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~IdpServiceFacade.UserMFARequest.Clone() -> IdpServiceFacade.UserMFARequest
-~static IdpServiceFacade.GetTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetTokenAuthRequest>
-~static IdpServiceFacade.GetTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest() -> void
-~static IdpServiceFacade.GetRefreshTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetRefreshTokenAuthRequest>
-~IdpServiceFacade.UserMFARequest.Email.set -> void
-~IdpServiceFacade.UserMFARequest.Email.get -> string
-IdpServiceFacade.UserMFARequest.Enable.get -> bool
-~override IdpServiceFacade.UserMFARequest.Equals(object other) -> bool
-~IdpServiceFacade.UserMFARequest.Equals(IdpServiceFacade.UserMFARequest other) -> bool
-IdpServiceFacade.UserMFARequest.Enable.set -> void
-~static IdpServiceFacade.GetRefreshTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
-override IdpServiceFacade.UserMFARequest.GetHashCode() -> int
-~IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest(IdpServiceFacade.GetTokenAuthRequest other) -> void
-~IdpServiceFacade.GetTokenAuthRequest.Clone() -> IdpServiceFacade.GetTokenAuthRequest
-~override IdpServiceFacade.UserMFARequest.ToString() -> string
-IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest() -> void
-~IdpServiceFacade.GetTokenAuthRequest.Username.get -> string
-~IdpServiceFacade.UserMFARequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
-~IdpServiceFacade.GetTokenAuthRequest.Username.set -> void
-~IdpServiceFacade.GetTokenAuthRequest.Password.get -> string
-~IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest(IdpServiceFacade.GetRefreshTokenAuthRequest other) -> void
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Clone() -> IdpServiceFacade.GetRefreshTokenAuthRequest
-~IdpServiceFacade.GetTokenAuthRequest.Password.set -> void
-~IdpServiceFacade.GetTokenAuthRequest.Keys.get -> IdpServiceFacade.KeysWrapper
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Keys.get -> IdpServiceFacade.KeysWrapper
-~override IdpServiceFacade.GetTokenAuthRequest.Equals(object other) -> bool
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Refreshtoken.set -> void
-~IdpServiceFacade.GetTokenAuthRequest.Keys.set -> void
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Keys.set -> void
-~IdpServiceFacade.GetRefreshTokenAuthRequest.Refreshtoken.get -> string
-~override IdpServiceFacade.GetRefreshTokenAuthRequest.Equals(object other) -> bool
-IdpServiceFacade.UserMFARequest.CalculateSize() -> int
-~IdpServiceFacade.GetTokenAuthRequest.Equals(IdpServiceFacade.GetTokenAuthRequest other) -> bool
-~IdpServiceFacade.UserMFARequest.MergeFrom(IdpServiceFacade.UserMFARequest other) -> void
-~IdpServiceFacade.UserMFARequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-override IdpServiceFacade.GetTokenAuthRequest.GetHashCode() -> int
-~override IdpServiceFacade.GetTokenAuthRequest.ToString() -> string
-~IdpServiceFacade.GetTokenAuthRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
-IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
-~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(IdpServiceFacade.GetTokenAuthRequest other) -> void
-~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-~virtual IdpServiceFacade.User.UserClient.GetTokenAsync(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~virtual IdpServiceFacade.User.UserClient.GetTokenAsync(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~virtual IdpServiceFacade.User.UserClient.GetToken(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetToken(IdpServiceFacade.GetTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetRefreshToken(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetRefreshToken(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.GetTokenAuthReply
-~virtual IdpServiceFacade.User.UserClient.GetRefreshTokenAsync(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>
-~virtual IdpServiceFacade.User.UserClient.GetRefreshTokenAsync(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.GetTokenAuthReply>

@@ -27,6 +27,25 @@ service User {
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersByIds (UserIds) returns (UserResponseList);
   rpc EnableMfa(UserRequest) returns (UserReply);
+  rpc CreateUser (CreateUserRequest) returns (UserReply);
+  rpc CreateApplicant (CreateApplicantRequest) returns (UserReply);
+}
+
+message CreateApplicantRequest{
+  string firstName = 1;
+  string lastName = 2;
+  string email = 3;
+}
+
+message CreateUserRequest {
+  UserRole role = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+}
+
+enum UserRole {
+  Applicant = 0;
 }
 
 // The request message containing the user's email.

@@ -1,10 +1,10 @@
-using IdpServiceFacade;
-
 namespace Innago.Security.IdpServiceFacade.Services;
 
 using System.Diagnostics;
 
 using Abstractions;
+
+using global::IdpServiceFacade;
 
 using Grpc.Core;
 
@@ -12,30 +12,20 @@ using MorseCode.ITask;
 
 internal class UserService(IUserService externalService, IAuth0Client auth0Client, ILogger<UserService> logger) : User.UserBase
 {
-    public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
+    public override Task<UserReply> BlockUser(UserRequest request, ServerCallContext context)
     {
-        Console.WriteLine($"InitiatePasswordReset called with request {request.Email}");
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
-        using Activity? activity =
-            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
-
-        return externalService.ResetPassword(request.Email, context.CancellationToken).ToInitiatePasswordResetReply();
+        return externalService.BlockUser(request.Email, context.CancellationToken).ToUserReply();
     }
 
-    public override Task<UserReply> MarkAsSuspicious(UserRequest request, ServerCallContext context)
+    public override Task<UserReply> ChangePassword(UserChangePasswordRequest request, ServerCallContext context)
     {
-        using Activity? activity =
-            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
 
-        return externalService.MarkUserAsSuspicious(request.Email, context.CancellationToken).ToUserReply();
-    }
-
-    public override Task<UserReply> MarkAsFraud(UserRequest request, ServerCallContext context)
-    {
-        using Activity? activity =
-            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
-
-        return externalService.MarkUserAsFraud(request.Email, context.CancellationToken).ToUserReply();
+        return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
     }
 
     public override Task<UserReply> DisableMfa(UserRequest request, ServerCallContext context)
@@ -46,12 +36,21 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return externalService.DisableMfa(request.Email, context.CancellationToken).ToUserReply();
     }
 
-    public override Task<UserReply> ChangePassword(UserChangePasswordRequest request, ServerCallContext context)
+    public override Task<GetTokenAuthReply> GetRefreshToken(GetRefreshTokenAuthRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+            tags: [new KeyValuePair<string, object?>(nameof(request.Refreshtoken), request.Refreshtoken)]);
 
-        return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
+        return externalService.GetRefreshTokenAsyncImplementation(request.Refreshtoken, request.Keys?.Key.ToArray(), context.CancellationToken).ToTokenReply();
+    }
+
+    public override Task<GetTokenAuthReply> GetToken(GetTokenAuthRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Username), request.Username)]);
+
+        return externalService.GetTokenAsyncImplementation(request.Username, request.Password, request.Keys?.Key.ToArray(), context.CancellationToken)
+            .ToTokenReply();
     }
 
     public override Task<UserMetadataReply> GetUserMetadata(UserMetadataRequest request, ServerCallContext context)
@@ -65,35 +64,9 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return f.ToUserMetadataReply();
     }
 
-    public override Task<UserReply> BlockUser(UserRequest request, ServerCallContext context)
+    public override Task<UserSearchResponse> GetUsers(UsersSearchRequest request, ServerCallContext context)
     {
-        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
-
-        return externalService.BlockUser(request.Email, context.CancellationToken).ToUserReply();
-    }
-
-    public override Task<UserReply> UnblockUser(UserRequest request, ServerCallContext context)
-    {
-        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
-
-        return externalService.UnblockUser(request.Email, context.CancellationToken).ToUserReply();
-    }
-
-    public override Task<GetTokenAuthReply> GetToken(GetTokenAuthRequest request, ServerCallContext context)
-    {
-        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Username), request.Username)]);
-
-       return externalService.GetTokenAsyncImplementation(request.Username, request.Password, request.Keys?.Key.ToArray(), context.CancellationToken).ToTokenReply();
-    }
-    public override Task<GetTokenAuthReply> GetRefreshToken(GetRefreshTokenAuthRequest request, ServerCallContext context)
-    {
-        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Refreshtoken), request.Refreshtoken)]);
-
-        return externalService.GetRefreshTokenAsyncImplementation(request.Refreshtoken, request.Keys?.Key.ToArray(), context.CancellationToken).ToTokenReply();
+        return auth0Client.ListUsers(request.Text, context.CancellationToken).ToUserSearchResponse();
     }
 
     public override async Task<UserResponseList> GetUsersByIds(UserIds request, ServerCallContext context)
@@ -101,7 +74,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         try
         {
             using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client);
-            var result = await auth0Client.GetUsers(request.Ids.ToArray(), context.CancellationToken);
+            List<Auth0.ManagementApi.Models.User> result = await auth0Client.GetUsers(request.Ids.ToArray(), context.CancellationToken);
             var responseList = new UserResponseList();
 
             if (result.Any())
@@ -117,19 +90,17 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
         catch (Exception ex)
         {
-            logger.LogInformation(ex, "There was an error in calling Get Users method through grpc for User id {UserIds}", string.Join(", ", request.Ids));
+            logger.GetUsersByIdsError(ex, string.Join(", ", request.Ids));
             throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred"), ex.Message);
         }
     }
 
-    public override Task<UserSearchResponse> GetUsers(UsersSearchRequest request, ServerCallContext context)
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragment(
+        UsersMetadataByNameOrEmailFragmentRequest request,
+        ServerCallContext context)
     {
-        return auth0Client.ListUsers(request.Text, context.CancellationToken).ToUserSearchResponse();
-    }
-
-    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragment(UsersMetadataByNameOrEmailFragmentRequest request, ServerCallContext context)
-    {
-        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client.GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client
+            .GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
 
         return users.ToUsersMetadataReply();
     }
@@ -138,6 +109,41 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
         return externalService.EnableMfa(request.Email, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<InitiatePasswordResetReply> InitiatePasswordReset(UserRequest request, ServerCallContext context)
+    {
+        logger.InitiatePasswordReset(request.Email);
+
+        using Activity? activity =
+            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.ResetPassword(request.Email, context.CancellationToken).ToInitiatePasswordResetReply();
+    }
+
+    public override Task<UserReply> MarkAsFraud(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity =
+            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.MarkUserAsFraud(request.Email, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<UserReply> MarkAsSuspicious(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity =
+            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.MarkUserAsSuspicious(request.Email, context.CancellationToken).ToUserReply();
+    }
+
+    public override Task<UserReply> UnblockUser(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+
+        return externalService.UnblockUser(request.Email, context.CancellationToken).ToUserReply();
     }
 }
