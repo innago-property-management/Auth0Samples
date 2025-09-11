@@ -635,3 +635,4 @@ const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 6 -> int
 ~IdpServiceFacade.GetTokenAuthReply.Refreshtoken.set -> void
 IdpServiceFacade.GetTokenAuthReply.HasRefreshtoken.get -> bool
 IdpServiceFacade.GetTokenAuthReply.ClearRefreshtoken() -> void
+const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 5 -> int
