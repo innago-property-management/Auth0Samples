@@ -5,7 +5,7 @@ repos:
         name: gitleaks
         entry: gitleaks
         language: system
-        args: ["detect","--baseline-path", "gitleaks-report.json","--verbose"]
+        args: [ "protect", "--staged", "--verbose" ]
       - id: prevent-commits-to-default-branch
         name: prevent commits to default branch
         entry: prevent-commits-to-default-branch.sh
