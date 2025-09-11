@@ -495,7 +495,6 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
         logger.Information($"GetTokenAsyncImplementation called for user {username}");
         var tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
-        logger.Information($"Token endpoint: {tokenEndpoint}");
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
             Content = this.MakeTokenContent(username, password)
@@ -505,7 +504,7 @@ public partial class Auth0Client
             .ConfigureAwait(false);
         logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
         TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
-        logger.Information($"Token response: {payload.Result}");
+        logger.Information($"Token response:{payload.Result}");
         logger.Information($"Token error: {payload.Error}");
         return payload; // this contains access_token, id_token, etc.
     }
@@ -515,7 +514,7 @@ public partial class Auth0Client
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
 
-        var tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+        var tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
             Content = this.MakeRefreshTokenContent(refreshToken)
@@ -656,8 +655,9 @@ public partial class Auth0Client
 
         async Task<TokenResponse> DeserializeToken()
         {
-            return await JsonSerializer.DeserializeAsync<TokenResponse>(await message.Content.ReadAsStreamAsync(cancellationToken),
-                cancellationToken: cancellationToken);
+            var stream = await message.Content.ReadAsStreamAsync(cancellationToken);
+            var tokenResponse = await JsonSerializer.DeserializeAsync<TokenResponse>(stream, cancellationToken: cancellationToken);
+            return tokenResponse;
         }
     }
 

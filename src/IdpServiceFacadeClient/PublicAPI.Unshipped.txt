@@ -629,3 +629,7 @@ IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
 ~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(IdpServiceFacade.GetTokenAuthRequest other) -> void
 ~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+const IdpServiceFacade.GetTokenAuthReply.RefreshtokenFieldNumber = 5 -> int
+const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 6 -> int
+~IdpServiceFacade.GetTokenAuthReply.Refreshtoken.get -> string
+~IdpServiceFacade.GetTokenAuthReply.Refreshtoken.set -> void

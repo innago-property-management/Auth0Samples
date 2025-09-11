@@ -16,5 +16,6 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 | [AccesstokenFieldNumber](AccesstokenFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.AccesstokenFieldNumber') | Field number for the "accesstoken" field\. |
 | [ErrorFieldNumber](ErrorFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ErrorFieldNumber') | Field number for the "error" field\. |
 | [ExpiresinFieldNumber](ExpiresinFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ExpiresinFieldNumber') | Field number for the "expiresin" field\. |
+| [RefreshtokenFieldNumber](RefreshtokenFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.RefreshtokenFieldNumber') | Field number for the "refreshtoken" field\. |
 | [ScopeFieldNumber](ScopeFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ScopeFieldNumber') | Field number for the "scope" field\. |
 | [TokentypeFieldNumber](TokentypeFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.TokentypeFieldNumber') | Field number for the "tokentype" field\. |
