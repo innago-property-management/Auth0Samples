@@ -14,6 +14,7 @@ using Auth0.ManagementApi.Models;
 using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Logging;
+
 using System.Net.Http;
 
 /// <summary>
@@ -22,11 +23,12 @@ using System.Net.Http;
 /// <param name="client">The Auth0 management API client.</param>
 /// <param name="settings">The Auth0 configuration settings.</param>
 /// <param name="logger">The logger.</param>
-/// <param name="httpClientFactory">The httpClientFactory to create http client.</param>
+/// <param name="httpClientFactory">The httpClientFactory to create an http client.</param>
 public partial class Auth0Client(
     IManagementApiClient client,
     IOptions<Auth0Settings> settings,
-    ILogger<Auth0Client> logger, IHttpClientFactory httpClientFactory) : IAuth0Client
+    ILogger<Auth0Client> logger,
+    IHttpClientFactory httpClientFactory) : IAuth0Client
 {
     private readonly string auth0DatabaseName = settings.Value.DatabaseName;
     private readonly string auth0ConnectionName = settings.Value.ConnectionName;

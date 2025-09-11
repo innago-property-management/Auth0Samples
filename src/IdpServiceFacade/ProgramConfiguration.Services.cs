@@ -58,6 +58,7 @@ internal static partial class ProgramConfiguration
         services.AddAuth0ManagementClient().AddManagementAccessToken().SetCertificateValidationOptions(configuration);
 
         services.AddScoped<IUserService, Auth0Client>();
+        services.AddScoped<IRoleService, Auth0Client>();
 
         services.AddOptions<Auth0Settings>().BindConfiguration("Auth0");
 

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdpServiceFacade";
+
+package role;
+
+service Role {
+  rpc CreateRole (CreateRoleRequest) returns (CreateRoleResponse);
+}
+
+message CreateRoleRequest {
+  string roleName = 1;
+  optional string roleDescription = 2;
+}
+
+message CreateRoleResponse {
+  bool ok = 1;
+  optional string error = 2;
+}

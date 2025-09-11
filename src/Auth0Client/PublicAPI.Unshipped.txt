@@ -3,7 +3,7 @@ Auth0Client.Auth0Client.AddUserToOrganization(string! userId, string! orgId, Sys
 Auth0Client.Auth0Client.BlockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.Organization!>!
-Auth0Client.Auth0Client.CreateRole(string! description, string! name, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.Role!>!
+Auth0Client.Auth0Client.CreateRole(string! roleName, string? description = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.CreateUser(Abstractions.UserCreateInfo! userCreateInfo, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Auth0Client.Auth0Client.DisableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!

@@ -5,12 +5,12 @@
 Provides functionality for interacting with Auth0 authentication services\.
 
 ```csharp
-public class Auth0Client : Abstractions.IAuth0Client, Abstractions.IUserService
+public class Auth0Client : Abstractions.IAuth0Client, Abstractions.IUserService, Abstractions.IRoleService
 ```
 
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; Auth0Client
 
-Implements [Abstractions\.IAuth0Client](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iauth0client 'Abstractions\.IAuth0Client'), [Abstractions\.IUserService](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iuserservice 'Abstractions\.IUserService')
+Implements [Abstractions\.IAuth0Client](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iauth0client 'Abstractions\.IAuth0Client'), [Abstractions\.IUserService](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iuserservice 'Abstractions\.IUserService'), [Abstractions\.IRoleService](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iroleservice 'Abstractions\.IRoleService')
 
 | Constructors | |
 | :--- | :--- |
@@ -23,7 +23,7 @@ Implements [Abstractions\.IAuth0Client](https://learn.microsoft.com/en-us/dotnet
 | [BlockUser\(string, CancellationToken\)](BlockUser(string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.BlockUser\(string, System\.Threading\.CancellationToken\)') | Blocks a user by their email address\. |
 | [ChangePassword\(string, string, CancellationToken\)](ChangePassword(string,string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.ChangePassword\(string, string, System\.Threading\.CancellationToken\)') | Changes the password for the specified user\. |
 | [CreateOrganization\(OrganizationCreateInfo, CancellationToken\)](CreateOrganization(OrganizationCreateInfo,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateOrganization\(Abstractions\.OrganizationCreateInfo, System\.Threading\.CancellationToken\)') | Creates a new organization in Auth0\. |
-| [CreateRole\(string, string, CancellationToken\)](CreateRole(string,string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateRole\(string, string, System\.Threading\.CancellationToken\)') | Creates a new role in Auth0\. |
+| [CreateRole\(string, string, CancellationToken\)](CreateRole(string,string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateRole\(string, string, System\.Threading\.CancellationToken\)') | Creates a new role in the Auth0 system with the specified name and optional description\. |
 | [CreateUser\(UserCreateInfo, CancellationToken\)](CreateUser(UserCreateInfo,CancellationToken).md 'global::Auth0Client\.Auth0Client\.CreateUser\(Abstractions\.UserCreateInfo, System\.Threading\.CancellationToken\)') | Creates a new user in Auth0\. |
 | [DisableMfa\(string, CancellationToken\)](DisableMfa(string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.DisableMfa\(string, System\.Threading\.CancellationToken\)') | Enables or disables Multi\-Factor Authentication for the specified user\. |
 | [GetUser\(string, CancellationToken\)](GetUser(string,CancellationToken).md 'global::Auth0Client\.Auth0Client\.GetUser\(string, System\.Threading\.CancellationToken\)') | Get a user |
