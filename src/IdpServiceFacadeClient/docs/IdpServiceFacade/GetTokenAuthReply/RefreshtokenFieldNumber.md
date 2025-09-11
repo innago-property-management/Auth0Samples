@@ -1,12 +1,11 @@
-#### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
 ### [IdpServiceFacade](../index.md 'IdpServiceFacade').[GetTokenAuthReply](index.md 'IdpServiceFacade\.GetTokenAuthReply')
 
-## GetTokenAuthReply\.ErrorFieldNumber Field
+## GetTokenAuthReply\.RefreshtokenFieldNumber Field
 
-Field number for the "error" field\.
+Field number for the "refreshtoken" field\.
 
 ```csharp
-public const int ErrorFieldNumber = 6;
+public const int RefreshtokenFieldNumber = 5;
 ```
 
 #### Field Value

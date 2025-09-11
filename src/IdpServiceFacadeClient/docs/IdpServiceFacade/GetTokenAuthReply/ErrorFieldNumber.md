@@ -5,7 +5,7 @@
 Field number for the "error" field\.
 
 ```csharp
-public const int ErrorFieldNumber = 5;
+public const int ErrorFieldNumber = 6;
 ```
 
 #### Field Value

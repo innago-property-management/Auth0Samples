@@ -107,9 +107,10 @@ internal static class UserReplyHelpers
         return new GetTokenAuthReply
         {
             Accesstoken = result.Result.AccessToken,
-            Expiresin = result.Result.ExpiresIn,
+            Expiresin = result.Result.ExpiresIn?.ToString(),
             Scope = result.Result.Scope,
             Tokentype = result.Result.TokenType,
+            Refreshtoken = result.Result.RefreshToken ?? string.Empty
         };
     }
 

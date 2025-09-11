@@ -1,4 +1,5 @@
-const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 5 -> int
+const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 6 -> int
+const IdpServiceFacade.GetTokenAuthReply.RefreshtokenFieldNumber = 5 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -12,7 +13,9 @@ IdpServiceFacade.GetRefreshTokenAuthRequest.CalculateSize() -> int
 IdpServiceFacade.GetRefreshTokenAuthRequest.GetRefreshTokenAuthRequest() -> void
 IdpServiceFacade.GetTokenAuthReply
 IdpServiceFacade.GetTokenAuthReply.CalculateSize() -> int
+IdpServiceFacade.GetTokenAuthReply.ClearRefreshtoken() -> void
 IdpServiceFacade.GetTokenAuthReply.GetTokenAuthReply() -> void
+IdpServiceFacade.GetTokenAuthReply.HasRefreshtoken.get -> bool
 IdpServiceFacade.GetTokenAuthRequest
 IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
 IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest() -> void
@@ -241,6 +244,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.GetTokenAuthReply.GetTokenAuthReply(IdpServiceFacade.GetTokenAuthReply other) -> void
 ~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.GetTokenAuthReply.MergeFrom(IdpServiceFacade.GetTokenAuthReply other) -> void
+~IdpServiceFacade.GetTokenAuthReply.Refreshtoken.get -> string
+~IdpServiceFacade.GetTokenAuthReply.Refreshtoken.set -> void
 ~IdpServiceFacade.GetTokenAuthReply.Scope.get -> string
 ~IdpServiceFacade.GetTokenAuthReply.Scope.set -> void
 ~IdpServiceFacade.GetTokenAuthReply.Tokentype.get -> string
