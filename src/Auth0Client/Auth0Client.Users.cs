@@ -505,7 +505,6 @@ public partial class Auth0Client
             .ConfigureAwait(false);
         logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
         TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
-
         return payload; // this contains access_token, id_token, etc.
     }
 

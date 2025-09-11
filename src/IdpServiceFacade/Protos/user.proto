@@ -91,6 +91,7 @@ message GetTokenAuthReply {
    string scope = 2;
    string expiresin = 3;
    string tokentype = 4;
+   string error = 5;
 }
 
 message UsersMetadataReply {

@@ -1,3 +1,4 @@
+const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 5 -> int
 IdpServiceFacade.Identity
 IdpServiceFacade.Identity.CalculateSize() -> int
 IdpServiceFacade.Identity.Identity() -> void
@@ -137,6 +138,8 @@ override IdpServiceFacade.UserWithMetadata.GetHashCode() -> int
 override IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.GetHashCode() -> int
 override IdpServiceFacade.UsersMetadataReply.GetHashCode() -> int
 override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
+~IdpServiceFacade.GetTokenAuthReply.Error.get -> string
+~IdpServiceFacade.GetTokenAuthReply.Error.set -> void
 ~IdpServiceFacade.Identity.Clone() -> IdpServiceFacade.Identity
 ~IdpServiceFacade.Identity.Equals(IdpServiceFacade.Identity other) -> bool
 ~IdpServiceFacade.Identity.Identity(IdpServiceFacade.Identity other) -> void
@@ -626,5 +629,3 @@ IdpServiceFacade.GetTokenAuthRequest.CalculateSize() -> int
 ~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(IdpServiceFacade.GetTokenAuthRequest other) -> void
 ~IdpServiceFacade.GetTokenAuthRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.GetTokenAuthReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
-
-
