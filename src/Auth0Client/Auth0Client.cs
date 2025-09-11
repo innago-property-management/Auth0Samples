@@ -30,12 +30,12 @@ public partial class Auth0Client(
     ILogger<Auth0Client> logger,
     IHttpClientFactory httpClientFactory) : IAuth0Client
 {
-    private readonly string auth0DatabaseName = settings.Value.DatabaseName;
-    private readonly string auth0ConnectionName = settings.Value.ConnectionName;
-    private readonly string auth0Audience = settings.Value.Audience;
-    private readonly string auth0ClientId = settings.Value.ClientId;
-    private readonly string auth0ClientSecret = settings.Value.ClientSecret;
-    private readonly string auth0Domain = settings.Value.Domain;
+    private readonly string? auth0DatabaseName = settings.Value.DatabaseName;
+    private readonly string? auth0ConnectionName = settings.Value.ConnectionName;
+    private readonly string? auth0Audience = settings.Value.Audience;
+    private readonly string? auth0ClientId = settings.Value.ClientId;
+    private readonly string? auth0ClientSecret = settings.Value.ClientSecret;
+    private readonly string? auth0Domain = settings.Value.Domain;
     private readonly HttpClient httpClient = httpClientFactory.CreateClient();
 
     [GeneratedRegex("[^a-z0-9\\-_]+")]

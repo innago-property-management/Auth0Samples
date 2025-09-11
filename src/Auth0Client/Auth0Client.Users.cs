@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -51,7 +50,7 @@ public partial class Auth0Client
             EmailVerified = false,
             VerifyEmail = false,
             Password = userCreateInfo.Password,
-            Connection = this.auth0DatabaseName,
+            Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
         };
 
         return await client.Users.CreateAsync(request, cancellationToken);
@@ -84,7 +83,7 @@ public partial class Auth0Client
 
         GetUsersRequest request = new()
         {
-            Connection = this.auth0DatabaseName,
+            Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
             Sort = "user_id:1",
             Query = query,
             SearchEngine = "v3",
@@ -123,7 +122,7 @@ public partial class Auth0Client
 
         GetUsersRequest request = new()
         {
-            Connection = this.auth0DatabaseName,
+            Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
             Sort = "user_id:1",
             Query = luceneQuery,
             IncludeFields = true,
@@ -168,7 +167,7 @@ public partial class Auth0Client
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
-            ConnectionId = this.auth0ConnectionName,
+            ConnectionId = this.auth0ConnectionName ?? throw new InvalidOperationException(),
         };
 
         Console.WriteLine($"InitiatePasswordReset called with request {email} step 2");
@@ -274,14 +273,15 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    ///     Enables or disables Multi-Factor Authentication for the specified user.
+    ///     Disables Multi-Factor Authentication for the specified user.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the result of the MFA toggle.</returns>
     public async ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken)
     {
-        OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new TwoFactorEnabled(), cancellationToken);
+        OkError userMetadataUpdated =
+            await this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = false }, cancellationToken);
 
         if (!userMetadataUpdated.OK)
         {
@@ -379,84 +379,16 @@ public partial class Auth0Client
         return this.UpdateUserBlockStatus(email, false, cancellationToken);
     }
 
-    /// <inheritdoc />
-    public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(
-        string username,
-        string password,
-        IEnumerable<string>? keys,
-        CancellationToken cancellationToken)
+    /// <summary>
+    /// Enables Multi-Factor Authentication (MFA) for a user
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    public ITask<OkError> EnableMfa(string email, CancellationToken cancellationToken)
     {
-        using Activity? activity =
-            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
-
-        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
-
-        var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
-        {
-            Content = this.MakeTokenContent(username, password),
-        };
-
-        Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
-                this.httpClient.SendAsync(request, cancellationToken)!)
-            .ConfigureAwait(false);
-
-        TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
-
-        return payload; // this contains access_token, id_token, etc.
-    }
-
-    /// <inheritdoc />
-    public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(
-        string refreshToken,
-        IEnumerable<string>? keys,
-        CancellationToken cancellationToken)
-    {
-        using Activity? activity =
-            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
-
-        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
-
-        var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
-        {
-            Content = this.MakeRefreshTokenContent(refreshToken),
-        };
-
-        Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
-                this.httpClient.SendAsync(request, cancellationToken)!)
-            .ConfigureAwait(false);
-
-        TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
-
-        return payload; // this contains access_token, id_token, etc.
-    }
-
-    private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
-    {
-        FormUrlEncodedContent requestContent = new([
-            new KeyValuePair<string, string>("grant_type", "refresh_token"),
-            new KeyValuePair<string, string>("refresh_token", refreshToken ?? string.Empty),
-            new KeyValuePair<string, string>("client_id", this.auth0ClientId),
-            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret),
-        ]);
-
-        return requestContent;
-    }
-
-    private FormUrlEncodedContent MakeTokenContent(string username, string password)
-    {
-        FormUrlEncodedContent requestContent = new([
-            new KeyValuePair<string, string>("grant_type", "http://auth0.com/oauth/grant-type/password-realm"),
-            new KeyValuePair<string, string>("username", username),
-            new KeyValuePair<string, string>("password", password),
-            new KeyValuePair<string, string>("audience", this.auth0Audience),
-            new KeyValuePair<string, string>("scope", "read:sample offline_access"),
-            new KeyValuePair<string, string>("client_id", this.auth0ClientId),
-            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret),
-            new KeyValuePair<string, string>("realm", this.auth0ConnectionName),
-            new KeyValuePair<string, string>("connection", this.auth0ConnectionName),
-        ]);
-
-        return requestContent;
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = true }, cancellationToken);
     }
 
     private static IReadOnlyDictionary<string, string?>? MapUserMetadata(IDictionary<string, JToken?>? userMetadata, IEnumerable<string>? keys = null)
@@ -615,6 +547,103 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    /// Retrieves a token for the specified user by authenticating with the provided credentials.
+    /// </summary>
+    /// <param name="username">The username of the user attempting authentication.</param>
+    /// <param name="password">The password of the user for authentication.</param>
+    /// <param name="keys">Optional additional keys used in the token request.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation, containing a <see cref="TokenResponsePayload{TokenResponse}"/> instance with the retrieved token information.
+    /// </returns>
+    public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(
+        string username,
+        string password,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        using Activity? activity =
+            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
+
+        logger.Information($"GetTokenAsyncImplementation called for user {username}");
+        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+
+        var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
+        {
+            Content = this.MakeTokenContent(username, password)
+        };
+
+        Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
+                this.httpClient.SendAsync(request, cancellationToken)!)
+            .ConfigureAwait(false);
+
+        logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
+        TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
+
+        return payload; // this contains access_token, id_token, etc.
+    }
+
+    /// <summary>
+    /// Retrieves a new token using a refresh token.
+    /// </summary>
+    /// <param name="refreshToken">The refresh token used to request a new access token.</param>
+    /// <param name="keys">Optional keys used as additional parameters for the token request.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the token response payload.</returns>
+    public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(
+        string refreshToken,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        using Activity? activity =
+            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
+
+        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+
+        var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
+        {
+            Content = this.MakeRefreshTokenContent(refreshToken)
+        };
+
+        Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
+                this.httpClient.SendAsync(request, cancellationToken)!)
+            .ConfigureAwait(false);
+
+        TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
+
+        return payload; // this contains access_token, id_token, etc.
+    }
+
+    private FormUrlEncodedContent MakeTokenContent(string? username, string? password)
+    {
+        FormUrlEncodedContent requestContent = new([
+            new KeyValuePair<string, string>("grant_type", "http://auth0.com/oauth/grant-type/password-realm"),
+            new KeyValuePair<string, string>("username", username ?? string.Empty),
+            new KeyValuePair<string, string>("password", password ?? string.Empty),
+            new KeyValuePair<string, string>("audience", this.auth0Audience ?? string.Empty),
+            new KeyValuePair<string, string>("scope", "read:sample offline_access"),
+            new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
+            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty),
+            new KeyValuePair<string, string>("realm", this.auth0ConnectionName ?? string.Empty),
+            new KeyValuePair<string, string>("connection", this.auth0ConnectionName ?? string.Empty)
+        ]);
+
+        return requestContent;
+    }
+
+    private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
+    {
+        FormUrlEncodedContent requestContent = new([
+            new KeyValuePair<string, string>("grant_type", "refresh_token"),
+            new KeyValuePair<string, string>("refresh_token", refreshToken ?? string.Empty),
+            new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
+            new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty)
+        ]);
+
+        return requestContent;
+    }
+
     private async ITask<OkError> UpdateUserMetadata(string email, dynamic metadata, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
@@ -667,6 +696,4 @@ public partial class Auth0Client
 
     [UsedImplicitly]
     private sealed record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
-
-    private sealed record TwoFactorEnabled([property: JsonPropertyName("two_factor_enabled")] bool? Enabled = false);
 }

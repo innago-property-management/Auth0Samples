@@ -1,28 +1,22 @@
 #### [Abstractions](../../index.md 'index')
 ### [Abstractions](../index.md 'Abstractions').[IUserService](index.md 'Abstractions\.IUserService')
 
-## IUserService\.ToggleMFA\(string, bool, CancellationToken\) Method
+## IUserService\.DisableMfa\(string, CancellationToken\) Method
 
-Enables or disables Multi\-Factor Authentication \(MFA\) for a user\.
+Disables Multi\-Factor Authentication \(MFA\) for a user\.
 
 ```csharp
-ITask<Abstractions.OkError> ToggleMFA(string email, bool enable, System.Threading.CancellationToken cancellationToken);
+ITask<Abstractions.OkError> DisableMfa(string email, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
-<a name='Abstractions.IUserService.ToggleMFA(string,bool,System.Threading.CancellationToken).email'></a>
+<a name='Abstractions.IUserService.DisableMfa(string,System.Threading.CancellationToken).email'></a>
 
 `email` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The email address of the user for whom to toggle MFA\.
 
-<a name='Abstractions.IUserService.ToggleMFA(string,bool,System.Threading.CancellationToken).enable'></a>
-
-`enable` [System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')
-
-True to enable MFA, false to disable it\.
-
-<a name='Abstractions.IUserService.ToggleMFA(string,bool,System.Threading.CancellationToken).cancellationToken'></a>
+<a name='Abstractions.IUserService.DisableMfa(string,System.Threading.CancellationToken).cancellationToken'></a>
 
 `cancellationToken` [System\.Threading\.CancellationToken](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken 'System\.Threading\.CancellationToken')
 
