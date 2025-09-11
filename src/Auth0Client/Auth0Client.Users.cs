@@ -539,8 +539,8 @@ public partial class Auth0Client
             new KeyValuePair<string, string>("scope", "read:sample offline_access"),
             new KeyValuePair<string, string>("client_id", this.auth0ClientId ?? string.Empty),
             new KeyValuePair<string, string>("client_secret", this.auth0ClientSecret ?? string.Empty),
-            new KeyValuePair<string, string>("realm", this.auth0ConnectionName ?? string.Empty),
-            new KeyValuePair<string, string>("connection", this.auth0ConnectionName ?? string.Empty)
+            new KeyValuePair<string, string>("realm", this.auth0DatabaseName ?? string.Empty),
+            new KeyValuePair<string, string>("connection", this.auth0DatabaseName ?? string.Empty)
         ]);
 
         return requestContent;
