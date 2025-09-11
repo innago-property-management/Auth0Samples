@@ -494,7 +494,7 @@ public partial class Auth0Client
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
         logger.Information($"GetTokenAsyncImplementation called for user {username}");
-        var tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+        var tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
         logger.Information($"Token endpoint: {tokenEndpoint}");
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
