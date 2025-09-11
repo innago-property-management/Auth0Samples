@@ -277,7 +277,6 @@ public partial class Auth0Client
     ///     Disables Multi-Factor Authentication for the specified user.
     /// </summary>
     /// <param name="email">The email address of the user.</param>
-    /// <param name="enable">True to enable MFA, false to disable it.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the result of the MFA toggle.</returns>
     public async ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken)
@@ -490,6 +489,7 @@ public partial class Auth0Client
         }
     }
 
+    /// <inheritdoc/>
     public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
@@ -505,9 +505,12 @@ public partial class Auth0Client
             .ConfigureAwait(false);
         logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
         TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
+        logger.Information($"Token response: {payload.Result}");
+        logger.Information($"Token error: {payload.Error}");
         return payload; // this contains access_token, id_token, etc.
     }
 
+    /// <inheritdoc/>
     public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
