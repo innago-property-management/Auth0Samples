@@ -5,13 +5,13 @@
 Retrieves a new token using a refresh token\.
 
 ```csharp
-public MorseCode.ITask.ITask<global::TokenResponsePayload<Abstractions.TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, System.Collections.Generic.IEnumerable<string>? keys, System.Threading.CancellationToken cancellationToken);
+public MorseCode.ITask.ITask<global::TokenResponsePayload<Abstractions.TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshtoken, System.Collections.Generic.IEnumerable<string>? keys, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
-<a name='global__Auth0Client.Auth0Client.GetRefreshTokenAsyncImplementation(string,System.Collections.Generic.IEnumerable_string_,System.Threading.CancellationToken).refreshToken'></a>
+<a name='global__Auth0Client.Auth0Client.GetRefreshTokenAsyncImplementation(string,System.Collections.Generic.IEnumerable_string_,System.Threading.CancellationToken).refreshtoken'></a>
 
-`refreshToken` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+`refreshtoken` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 The refresh token used to request a new access token\.
 

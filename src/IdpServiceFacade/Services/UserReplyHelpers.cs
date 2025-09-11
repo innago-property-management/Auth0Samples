@@ -97,12 +97,20 @@ internal static class UserReplyHelpers
 
     private static GetTokenAuthReply ToTokenReply(this TokenResponsePayload<TokenResponse> result)
     {
+        if (!string.IsNullOrEmpty(result.Error))
+        {
+            return new GetTokenAuthReply
+            {
+                Error = result.Error,
+            };
+        }
         return new GetTokenAuthReply
         {
             Accesstoken = result.Result.AccessToken,
-            Expiresin = result.Result.ExpiresIn,
+            Expiresin = result.Result.ExpiresIn?.ToString(),
             Scope = result.Result.Scope,
             Tokentype = result.Result.TokenType,
+            Refreshtoken = result.Result.RefreshToken ?? string.Empty
         };
     }
 

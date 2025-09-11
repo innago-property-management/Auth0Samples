@@ -13,6 +13,16 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | Fields | |
 | :--- | :--- |
 | [AccesstokenFieldNumber](AccesstokenFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.AccesstokenFieldNumber') | Field number for the "accesstoken" field\. |
+| [ErrorFieldNumber](ErrorFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ErrorFieldNumber') | Field number for the "error" field\. |
 | [ExpiresinFieldNumber](ExpiresinFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ExpiresinFieldNumber') | Field number for the "expiresin" field\. |
+| [RefreshtokenFieldNumber](RefreshtokenFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.RefreshtokenFieldNumber') | Field number for the "refreshtoken" field\. |
 | [ScopeFieldNumber](ScopeFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ScopeFieldNumber') | Field number for the "scope" field\. |
 | [TokentypeFieldNumber](TokentypeFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.TokentypeFieldNumber') | Field number for the "tokentype" field\. |
+
+| Properties | |
+| :--- | :--- |
+| [HasRefreshtoken](HasRefreshtoken.md 'IdpServiceFacade\.GetTokenAuthReply\.HasRefreshtoken') | Gets whether the "refreshtoken" field is set |
+
+| Methods | |
+| :--- | :--- |
+| [ClearRefreshtoken\(\)](ClearRefreshtoken().md 'IdpServiceFacade\.GetTokenAuthReply\.ClearRefreshtoken\(\)') | Clears the value of the "refreshtoken" field |
