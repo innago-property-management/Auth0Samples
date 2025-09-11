@@ -19,3 +19,11 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 | [RefreshtokenFieldNumber](RefreshtokenFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.RefreshtokenFieldNumber') | Field number for the "refreshtoken" field\. |
 | [ScopeFieldNumber](ScopeFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.ScopeFieldNumber') | Field number for the "scope" field\. |
 | [TokentypeFieldNumber](TokentypeFieldNumber.md 'IdpServiceFacade\.GetTokenAuthReply\.TokentypeFieldNumber') | Field number for the "tokentype" field\. |
+
+| Properties | |
+| :--- | :--- |
+| [HasRefreshtoken](HasRefreshtoken.md 'IdpServiceFacade\.GetTokenAuthReply\.HasRefreshtoken') | Gets whether the "refreshtoken" field is set |
+
+| Methods | |
+| :--- | :--- |
+| [ClearRefreshtoken\(\)](ClearRefreshtoken().md 'IdpServiceFacade\.GetTokenAuthReply\.ClearRefreshtoken\(\)') | Clears the value of the "refreshtoken" field |

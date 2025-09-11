@@ -9,7 +9,7 @@ using Auth0.ManagementApi.Models;
 /// <summary>
 /// Represents a client for interacting with Auth0 authentication services.
 /// </summary>
-public interface IAuth0Client : IUserService
+public interface IAuth0Client : IUserService, IRoleService
 {
     /// <summary>
     /// Adds a user to an organization.

@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.Json.Serialization;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,14 +19,11 @@ using Innago.Shared.TryHelpers;
 
 using JetBrains.Annotations;
 
+using Microsoft.Extensions.Logging;
+
 using MorseCode.ITask;
 
 using Newtonsoft.Json.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
 public partial class Auth0Client
 {
@@ -51,7 +50,7 @@ public partial class Auth0Client
             EmailVerified = false,
             VerifyEmail = false,
             Password = userCreateInfo.Password,
-            Connection = this.auth0DatabaseName,
+            Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
         };
 
         return await client.Users.CreateAsync(request, cancellationToken);
@@ -69,9 +68,9 @@ public partial class Auth0Client
         string id = "auth0|" + oruUid;
         return await client.Users.GetAsync(id, null!, true, cancellationToken);
     }
-    
+
     /// <summary>
-    /// Gets List of Users per their Ids
+    ///     Gets List of Users per their Ids
     /// </summary>
     /// <param name="oruUid"></param>
     /// <param name="cancellationToken"></param>
@@ -79,12 +78,12 @@ public partial class Auth0Client
     public async Task<List<User>> GetUsers(string[] oruUid, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
-        
+
         string query = string.Join(" OR ", oruUid.Select(uid => $"user_metadata.user_id:\"{uid}\""));
-        
+
         GetUsersRequest request = new()
         {
-            Connection = this.auth0DatabaseName,
+            Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
             Sort = "user_id:1",
             Query = query,
             SearchEngine = "v3",
@@ -123,7 +122,7 @@ public partial class Auth0Client
 
         GetUsersRequest request = new()
         {
-            Connection = this.auth0DatabaseName,
+            Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
             Sort = "user_id:1",
             Query = luceneQuery,
             IncludeFields = true,
@@ -168,7 +167,7 @@ public partial class Auth0Client
         PasswordChangeTicketRequest request = new()
         {
             Email = email,
-            ConnectionId = this.auth0ConnectionName,
+            ConnectionId = this.auth0ConnectionName ?? throw new InvalidOperationException(),
         };
 
         Console.WriteLine($"InitiatePasswordReset called with request {email} step 2");
@@ -178,14 +177,14 @@ public partial class Auth0Client
 
         Console.WriteLine($"ResetPassword step 2 email : {email}");
 
-        return await result.Map(OnSuccess, OnError)!;
+        return await result.Map(ReturnUrl, ChangePasswordError)!;
 
-        Task<string> OnSuccess(Ticket? ticket)
+        static Task<string> ReturnUrl(Ticket? ticket)
         {
             return Task.FromResult(ticket?.Value ?? string.Empty);
         }
 
-        Task<string>? OnError(Exception? exception)
+        Task<string>? ChangePasswordError(Exception? exception)
         {
             logger.Error(exception);
             return Task.FromException<string>(exception!);
@@ -281,7 +280,8 @@ public partial class Auth0Client
     /// <returns>A task that represents the asynchronous operation, containing the result of the MFA toggle.</returns>
     public async ITask<OkError> DisableMfa(string email, CancellationToken cancellationToken)
     {
-        OkError userMetadataUpdated = await this.UpdateUserMetadata(email, new Dictionary<string, object>{["two_factor_enabled"] = false}, cancellationToken);
+        OkError userMetadataUpdated =
+            await this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = false }, cancellationToken);
 
         if (!userMetadataUpdated.OK)
         {
@@ -305,7 +305,7 @@ public partial class Auth0Client
             .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_metadata", cancellationToken: cancellationToken)!)
             .ConfigureAwait(false);
 
-        return await getUsersResult.Map(OnSuccess, OnError!)!;
+        return await getUsersResult.Map(OnSuccess, GetUserError!)!;
 
         Task<IReadOnlyDictionary<string, string?>?> OnSuccess(IList<User>? users)
         {
@@ -326,7 +326,7 @@ public partial class Auth0Client
             }
         }
 
-        Task<IReadOnlyDictionary<string, string?>?>? OnError(Exception exception)
+        Task<IReadOnlyDictionary<string, string?>?>? GetUserError(Exception exception)
         {
             logger.Error(exception);
             return Task.FromException<IReadOnlyDictionary<string, string?>?>(exception);
@@ -378,6 +378,7 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
         return this.UpdateUserBlockStatus(email, false, cancellationToken);
     }
+
     /// <summary>
     /// Enables Multi-Factor Authentication (MFA) for a user
     /// </summary>
@@ -389,6 +390,7 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
         return this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = true }, cancellationToken);
     }
+
     private static IReadOnlyDictionary<string, string?>? MapUserMetadata(IDictionary<string, JToken?>? userMetadata, IEnumerable<string>? keys = null)
     {
         IReadOnlyDictionary<string, string?>? dictionary = userMetadata?
@@ -397,6 +399,63 @@ public partial class Auth0Client
             .AsReadOnly();
 
         return dictionary;
+    }
+#pragma warning disable S1172
+    private static Func<Exception?, Task<TokenResponsePayload<TokenResponse>>> OnError(
+        ILogger<Auth0Client> logger,
+        [CallerMemberName] string? memberName = null)
+#pragma warning restore S1172
+    {
+        return LogAndReturn;
+
+        Task<TokenResponsePayload<TokenResponse>> LogAndReturn(Exception? exception)
+        {
+            logger.Error(exception);
+
+            TokenResponsePayload<TokenResponse> payload = new()
+            {
+                Result = default,
+                Error = exception?.Message,
+            };
+
+            return Task.FromResult(payload);
+        }
+    }
+
+    private static Func<HttpResponseMessage, Task<TokenResponsePayload<TokenResponse>>> OnSuccessDeserializeToken(CancellationToken cancellationToken)
+    {
+        return DeserializeToken;
+
+        async Task<TokenResponsePayload<TokenResponse>> DeserializeToken(HttpResponseMessage response)
+        {
+            TokenResponse tokenResponse =
+                await response.IsSuccessStatusCode.Map(OnSuccessStatusCodeTrueDeserializeToken(response, cancellationToken),
+                    OnSuccessStatusCodeFalseReturnDefault)!;
+
+            return new TokenResponsePayload<TokenResponse>
+            {
+                Result = tokenResponse,
+                Error = response.IsSuccessStatusCode ? null : response.ReasonPhrase,
+            };
+        }
+    }
+
+    private static Task<TokenResponse> OnSuccessStatusCodeFalseReturnDefault()
+    {
+        TokenResponse tokenResponse = new();
+        return Task.FromResult(tokenResponse);
+    }
+
+    private static Func<Task<TokenResponse>> OnSuccessStatusCodeTrueDeserializeToken(HttpResponseMessage message, CancellationToken cancellationToken)
+    {
+        return DeserializeToken;
+
+        async Task<TokenResponse> DeserializeToken()
+        {
+            var stream = await message.Content.ReadAsStreamAsync(cancellationToken);
+            var response = await JsonSerializer.DeserializeAsync<TokenResponse>(stream, cancellationToken: cancellationToken);
+            return response;
+        }
     }
 
     private async ITask<OkError> RemoveAuthenticationMethods(string email, CancellationToken cancellationToken)
@@ -489,19 +548,36 @@ public partial class Auth0Client
         }
     }
 
-    /// <inheritdoc/>
-    public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken)
+    /// <summary>
+    /// Retrieves a token for the specified user by authenticating with the provided credentials.
+    /// </summary>
+    /// <param name="username">The username of the user attempting authentication.</param>
+    /// <param name="password">The password of the user for authentication.</param>
+    /// <param name="keys">Optional additional keys used in the token request.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation, containing a <see cref="TokenResponsePayload{TokenResponse}"/> instance with the retrieved token information.
+    /// </returns>
+    public async ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(
+        string username,
+        string password,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
     {
-        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
+        using Activity? activity =
+            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
+
         logger.Information($"GetTokenAsyncImplementation called for user {username}");
-        var tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
+        string tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
             Content = this.MakeTokenContent(username, password)
         };
+
         Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
                 this.httpClient.SendAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
+
         logger.Information($"GetTokenAsyncImplementation succeeded: {response.HasSucceeded}");
         TokenResponsePayload<TokenResponse> payload = await response.Map(OnSuccessDeserializeToken(cancellationToken)!, OnError(logger))!.ConfigureAwait(false);
         logger.Information($"Token response:{payload.Result}");
@@ -509,16 +585,27 @@ public partial class Auth0Client
         return payload; // this contains access_token, id_token, etc.
     }
 
-    /// <inheritdoc/>
-    public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken)
+    /// <summary>
+    /// Retrieves a new token using a refresh token.
+    /// </summary>
+    /// <param name="refreshtoken">The refresh token used to request a new access token.</param>
+    /// <param name="keys">Optional keys used as additional parameters for the token request.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the token response payload.</returns>
+    public async ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(
+        string refreshtoken,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
     {
-        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
+        using Activity? activity =
+            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshtoken), null)]);
 
-        var tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
+		string tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
-            Content = this.MakeRefreshTokenContent(refreshToken)
+            Content = this.MakeRefreshTokenContent(refreshtoken)
         };
+
         Result<HttpResponseMessage?> response = await TryHelpers.TryAsync(() =>
                 this.httpClient.SendAsync(request, cancellationToken)!)
             .ConfigureAwait(false);
@@ -528,7 +615,7 @@ public partial class Auth0Client
         return payload; // this contains access_token, id_token, etc.
     }
 
-    private FormUrlEncodedContent MakeTokenContent(string username, string password)
+    private FormUrlEncodedContent MakeTokenContent(string? username, string? password)
     {
         FormUrlEncodedContent requestContent = new([
             new KeyValuePair<string, string>("grant_type", "http://auth0.com/oauth/grant-type/password-realm"),
@@ -545,7 +632,7 @@ public partial class Auth0Client
         return requestContent;
     }
 
-    private FormUrlEncodedContent MakeRefreshTokenContent(string refreshToken)
+    private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
     {
         FormUrlEncodedContent requestContent = new([
             new KeyValuePair<string, string>("grant_type", "refresh_token"),
@@ -606,62 +693,7 @@ public partial class Auth0Client
             }
         }
     }
-    private static Func<HttpResponseMessage, Task<TokenResponsePayload<TokenResponse>>> OnSuccessDeserializeToken(CancellationToken cancellationToken)
-    {
-        return DeserializeToken;
-
-        async Task<TokenResponsePayload<TokenResponse>> DeserializeToken(HttpResponseMessage response)
-        {
-            TokenResponse tokenResponse =
-                await response.IsSuccessStatusCode.Map(OnSuccessStatusCodeTrueDeserializeToken(response, cancellationToken),
-                    OnSuccessStatusCodeFalseReturnDefault)!;
-
-            return new TokenResponsePayload<TokenResponse>
-            {
-                Result = tokenResponse,
-                Error = response.IsSuccessStatusCode ? null : response.ReasonPhrase,
-            };
-        }
-    }
-#pragma warning disable S1172
-    private static Func<Exception?, Task<TokenResponsePayload<TokenResponse>>> OnError(ILogger<Auth0Client> logger, [CallerMemberName] string? memberName = null)
-#pragma warning restore S1172
-    {
-        return LogAndReturn;
-
-		Task<TokenResponsePayload<TokenResponse>> LogAndReturn(Exception? exception)
-		{
-            logger.Error(exception);
-            TokenResponsePayload<TokenResponse> payload = new()
-			{
-				Result = default,
-				Error = exception?.Message,
-			};
-
-			return Task.FromResult(payload);
-		}
-    }
-
-
-    private static Task<TokenResponse> OnSuccessStatusCodeFalseReturnDefault()
-    {
-        TokenResponse tokenResponse = new();
-        return Task.FromResult(tokenResponse);
-    }
-
-    private static Func<Task<TokenResponse>> OnSuccessStatusCodeTrueDeserializeToken(HttpResponseMessage message, CancellationToken cancellationToken)
-    {
-        return DeserializeToken;
-
-        async Task<TokenResponse> DeserializeToken()
-        {
-            var stream = await message.Content.ReadAsStreamAsync(cancellationToken);
-            var tokenResponse = await JsonSerializer.DeserializeAsync<TokenResponse>(stream, cancellationToken: cancellationToken);
-            return tokenResponse;
-        }
-    }
-
+    
     [UsedImplicitly]
     private sealed record FraudStatus(bool? Suspicious = null, bool? Fraudulent = null);
-
 }

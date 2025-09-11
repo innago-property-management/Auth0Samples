@@ -91,17 +91,17 @@ public interface IUserService
     /// A task that resolves to an <see cref="TokenResponsePayload<TokenResponse>" /> containing the response from an OpenAPI client authentication request.
     /// </returns>
     ITask<TokenResponsePayload<TokenResponse>> GetTokenAsyncImplementation(string username, string password, IEnumerable<string>? keys, CancellationToken cancellationToken);
-   
+
     /// <summary>
     /// Retrieves token for a user identified by the provided username and password.
     /// </summary>
-    /// <param name="refreshToken">The refreshToken from Auth0 to fetch new token.</param>
+    /// <param name="refreshtoken">The refreshToken from Auth0 to fetch new token.</param>
     /// <param name="keys">A collection of keys specifying which metadata fields to fetch. If null, all metadata will be retrieved.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>
     /// A task that resolves to an <see cref="TokenResponsePayload<TokenResponse>" /> containing the response from an OpenAPI client authentication request.
     /// </returns>
-    ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshToken, IEnumerable<string>? keys, CancellationToken cancellationToken);
+    ITask<TokenResponsePayload<TokenResponse>> GetRefreshTokenAsyncImplementation(string refreshtoken, IEnumerable<string>? keys, CancellationToken cancellationToken);
     /// Retrieves metadata for users whose name or email matches the given search term.
     /// </summary>
     /// <param name="searchTerm">The partial name or email fragment to search for matching users.</param>

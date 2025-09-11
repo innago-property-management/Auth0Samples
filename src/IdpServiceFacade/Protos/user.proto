@@ -91,7 +91,7 @@ message GetTokenAuthReply {
    string scope = 2;
    string expiresin = 3;
    string tokentype = 4;
-   string refreshtoken = 5;
+   optional string refreshtoken = 5;
    string error = 6;
 }
 

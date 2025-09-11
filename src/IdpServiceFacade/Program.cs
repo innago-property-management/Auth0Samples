@@ -9,6 +9,7 @@ using Serilog.Sinks.Grafana.Loki;
 using Serilog.Sinks.OpenTelemetry;
 
 using Abstractions;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
@@ -54,6 +55,7 @@ app.UseForwardedHeaders();
 app.UseSerilogRequestLogging();
 
 app.MapGrpcService<UserService>();
+app.MapGrpcService<RoleService>();
 
 app.MapGrpcHealthChecksService();
 

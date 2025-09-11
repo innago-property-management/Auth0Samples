@@ -15,24 +15,6 @@ using JetBrains.Annotations;
 public partial class Auth0Client
 {
     /// <summary>
-    /// Creates a new role in Auth0.
-    /// </summary>
-    /// <param name="description">The description of the role.</param>
-    /// <param name="name">The name of the role.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A task that represents the asynchronous operation, containing the created role.</returns>
-    public Task<Role> CreateRole(string description, string name, CancellationToken cancellationToken)
-    {
-        RoleCreateRequest request = new()
-        {
-            Description = description,
-            Name = name,
-        };
-
-        return client.Roles.CreateAsync(request, cancellationToken);
-    }
-
-    /// <summary>
     /// Creates a new organization in Auth0.
     /// </summary>
     /// <param name="organizationCreateInfo">The information required to create the organization.</param>

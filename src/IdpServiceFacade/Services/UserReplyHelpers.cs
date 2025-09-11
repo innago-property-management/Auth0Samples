@@ -110,6 +110,7 @@ internal static class UserReplyHelpers
             Expiresin = result.Result.ExpiresIn?.ToString(),
             Scope = result.Result.Scope,
             Tokentype = result.Result.TokenType,
+            Refreshtoken = result.Result.RefreshToken ?? string.Empty
         };
     }
 

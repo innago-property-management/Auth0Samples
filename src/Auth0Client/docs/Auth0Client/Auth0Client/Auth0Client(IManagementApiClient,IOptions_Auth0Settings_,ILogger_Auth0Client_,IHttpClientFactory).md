@@ -31,4 +31,4 @@ The logger\.
 
 `httpClientFactory` [System\.Net\.Http\.IHttpClientFactory](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.ihttpclientfactory 'System\.Net\.Http\.IHttpClientFactory')
 
-The httpClientFactory to create http client\.
+The httpClientFactory to create an http client\.
