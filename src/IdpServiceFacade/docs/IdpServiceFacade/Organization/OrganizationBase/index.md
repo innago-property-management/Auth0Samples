@@ -10,3 +10,6 @@ public abstract class Organization.OrganizationBase
 ```
 
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') &#129106; OrganizationBase
+
+Derived  
+&#8627; [OrganizationService](../../../Innago/Security/IdpServiceFacade/Services/OrganizationService/index.md 'Innago\.Security\.IdpServiceFacade\.Services\.OrganizationService')

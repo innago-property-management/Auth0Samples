@@ -5,6 +5,8 @@
 | Classes | |
 | :--- | :--- |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
+| [CreateOrganizationReply](CreateOrganizationReply/index.md 'IdpServiceFacade\.CreateOrganizationReply') | |
+| [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
 | [CreateRoleRequest](CreateRoleRequest/index.md 'IdpServiceFacade\.CreateRoleRequest') | |
 | [CreateRoleResponse](CreateRoleResponse/index.md 'IdpServiceFacade\.CreateRoleResponse') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
