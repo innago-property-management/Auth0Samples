@@ -2,8 +2,6 @@ namespace Runner.Commands;
 
 using Abstractions;
 
-using Auth0.ManagementApi.Models;
-
 using DotMake.CommandLine;
 
 using Messages;
@@ -19,8 +17,8 @@ internal class CreateOrganizationCommand(IAuth0Client client, ILogger<CreateOrga
     public async Task RunAsync(CliContext context)
     {
         OrganizationCreateInfo info = new(this.Name!);
-        Organization organization = await client.CreateOrganization(info, context.CancellationToken).ConfigureAwait(false);
+        OkError? result = await client.CreateOrganization(info, context.CancellationToken).ConfigureAwait(false);
 
-        logger.OrganizationCreated(organization);
+        logger.OrganizationCreated(result.OK ? nameof(result.OK) : result.Error);
     }
 }

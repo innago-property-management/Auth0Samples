@@ -3,6 +3,8 @@
 | Classes | |
 | :--- | :--- |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
+| [CreateOrganizationReply](CreateOrganizationReply/index.md 'IdpServiceFacade\.CreateOrganizationReply') | |
+| [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |

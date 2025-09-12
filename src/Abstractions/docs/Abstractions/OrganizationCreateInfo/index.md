@@ -15,4 +15,4 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 
 | Constructors | |
 | :--- | :--- |
-| [OrganizationCreateInfo\(string\)](OrganizationCreateInfo(string).md 'Abstractions\.OrganizationCreateInfo\.OrganizationCreateInfo\(string\)') | Represents the information required to create an organization\. |
+| [OrganizationCreateInfo\(string, string\)](OrganizationCreateInfo(string,string).md 'Abstractions\.OrganizationCreateInfo\.OrganizationCreateInfo\(string, string\)') | Represents the information required to create an organization\. |

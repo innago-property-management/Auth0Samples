@@ -1,8 +1,19 @@
-const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 6 -> int
-const IdpServiceFacade.GetTokenAuthReply.RefreshtokenFieldNumber = 5 -> int
+const IdpServiceFacade.CreateOrganizationRequest.LegacyIdFieldNumber = 2 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
+IdpServiceFacade.CreateOrganizationReply
+IdpServiceFacade.CreateOrganizationReply.CalculateSize() -> int
+IdpServiceFacade.CreateOrganizationReply.ClearError() -> void
+IdpServiceFacade.CreateOrganizationReply.CreateOrganizationReply() -> void
+IdpServiceFacade.CreateOrganizationReply.HasError.get -> bool
+IdpServiceFacade.CreateOrganizationReply.Ok.get -> bool
+IdpServiceFacade.CreateOrganizationReply.Ok.set -> void
+IdpServiceFacade.CreateOrganizationRequest
+IdpServiceFacade.CreateOrganizationRequest.CalculateSize() -> int
+IdpServiceFacade.CreateOrganizationRequest.ClearLegacyId() -> void
+IdpServiceFacade.CreateOrganizationRequest.CreateOrganizationRequest() -> void
+IdpServiceFacade.CreateOrganizationRequest.HasLegacyId.get -> bool
 IdpServiceFacade.CreateUserRequest
 IdpServiceFacade.CreateUserRequest.CalculateSize() -> int
 IdpServiceFacade.CreateUserRequest.CreateUserRequest() -> void
@@ -114,6 +125,9 @@ IdpServiceFacade.UsersSearchRequest.UsersSearchRequest() -> void
 const IdpServiceFacade.CreateApplicantRequest.EmailFieldNumber = 3 -> int
 const IdpServiceFacade.CreateApplicantRequest.FirstNameFieldNumber = 1 -> int
 const IdpServiceFacade.CreateApplicantRequest.LastNameFieldNumber = 2 -> int
+const IdpServiceFacade.CreateOrganizationReply.ErrorFieldNumber = 2 -> int
+const IdpServiceFacade.CreateOrganizationReply.OkFieldNumber = 1 -> int
+const IdpServiceFacade.CreateOrganizationRequest.NameFieldNumber = 1 -> int
 const IdpServiceFacade.CreateUserRequest.EmailFieldNumber = 4 -> int
 const IdpServiceFacade.CreateUserRequest.FirstNameFieldNumber = 2 -> int
 const IdpServiceFacade.CreateUserRequest.LastNameFieldNumber = 3 -> int
@@ -121,7 +135,9 @@ const IdpServiceFacade.CreateUserRequest.RoleFieldNumber = 1 -> int
 const IdpServiceFacade.GetRefreshTokenAuthRequest.KeysFieldNumber = 2 -> int
 const IdpServiceFacade.GetRefreshTokenAuthRequest.RefreshtokenFieldNumber = 1 -> int
 const IdpServiceFacade.GetTokenAuthReply.AccesstokenFieldNumber = 1 -> int
+const IdpServiceFacade.GetTokenAuthReply.ErrorFieldNumber = 6 -> int
 const IdpServiceFacade.GetTokenAuthReply.ExpiresinFieldNumber = 3 -> int
+const IdpServiceFacade.GetTokenAuthReply.RefreshtokenFieldNumber = 5 -> int
 const IdpServiceFacade.GetTokenAuthReply.ScopeFieldNumber = 2 -> int
 const IdpServiceFacade.GetTokenAuthReply.TokentypeFieldNumber = 4 -> int
 const IdpServiceFacade.GetTokenAuthRequest.KeysFieldNumber = 3 -> int
@@ -173,6 +189,8 @@ const IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.SearchTermField
 const IdpServiceFacade.UsersMetadataReply.UsersFieldNumber = 1 -> int
 const IdpServiceFacade.UsersSearchRequest.TextFieldNumber = 1 -> int
 override IdpServiceFacade.CreateApplicantRequest.GetHashCode() -> int
+override IdpServiceFacade.CreateOrganizationReply.GetHashCode() -> int
+override IdpServiceFacade.CreateOrganizationRequest.GetHashCode() -> int
 override IdpServiceFacade.CreateUserRequest.GetHashCode() -> int
 override IdpServiceFacade.GetRefreshTokenAuthRequest.GetHashCode() -> int
 override IdpServiceFacade.GetTokenAuthReply.GetHashCode() -> int
@@ -211,6 +229,24 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.CreateApplicantRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.CreateApplicantRequest.MergeFrom(IdpServiceFacade.CreateApplicantRequest other) -> void
 ~IdpServiceFacade.CreateApplicantRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.CreateOrganizationReply.Clone() -> IdpServiceFacade.CreateOrganizationReply
+~IdpServiceFacade.CreateOrganizationReply.CreateOrganizationReply(IdpServiceFacade.CreateOrganizationReply other) -> void
+~IdpServiceFacade.CreateOrganizationReply.Equals(IdpServiceFacade.CreateOrganizationReply other) -> bool
+~IdpServiceFacade.CreateOrganizationReply.Error.get -> string
+~IdpServiceFacade.CreateOrganizationReply.Error.set -> void
+~IdpServiceFacade.CreateOrganizationReply.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.CreateOrganizationReply.MergeFrom(IdpServiceFacade.CreateOrganizationReply other) -> void
+~IdpServiceFacade.CreateOrganizationReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.CreateOrganizationRequest.Clone() -> IdpServiceFacade.CreateOrganizationRequest
+~IdpServiceFacade.CreateOrganizationRequest.CreateOrganizationRequest(IdpServiceFacade.CreateOrganizationRequest other) -> void
+~IdpServiceFacade.CreateOrganizationRequest.Equals(IdpServiceFacade.CreateOrganizationRequest other) -> bool
+~IdpServiceFacade.CreateOrganizationRequest.LegacyId.get -> string
+~IdpServiceFacade.CreateOrganizationRequest.LegacyId.set -> void
+~IdpServiceFacade.CreateOrganizationRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.CreateOrganizationRequest.MergeFrom(IdpServiceFacade.CreateOrganizationRequest other) -> void
+~IdpServiceFacade.CreateOrganizationRequest.Name.get -> string
+~IdpServiceFacade.CreateOrganizationRequest.Name.set -> void
+~IdpServiceFacade.CreateOrganizationRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.CreateUserRequest.Clone() -> IdpServiceFacade.CreateUserRequest
 ~IdpServiceFacade.CreateUserRequest.CreateUserRequest(IdpServiceFacade.CreateUserRequest other) -> void
 ~IdpServiceFacade.CreateUserRequest.Email.get -> string
@@ -473,6 +509,10 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.UsersSearchRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~override IdpServiceFacade.CreateApplicantRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.CreateApplicantRequest.ToString() -> string
+~override IdpServiceFacade.CreateOrganizationReply.Equals(object other) -> bool
+~override IdpServiceFacade.CreateOrganizationReply.ToString() -> string
+~override IdpServiceFacade.CreateOrganizationRequest.Equals(object other) -> bool
+~override IdpServiceFacade.CreateOrganizationRequest.ToString() -> string
 ~override IdpServiceFacade.CreateUserRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.CreateUserRequest.ToString() -> string
 ~override IdpServiceFacade.GetRefreshTokenAuthRequest.Equals(object other) -> bool
@@ -529,6 +569,10 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~override IdpServiceFacade.UsersSearchRequest.ToString() -> string
 ~static IdpServiceFacade.CreateApplicantRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.CreateApplicantRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateApplicantRequest>
+~static IdpServiceFacade.CreateOrganizationReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.CreateOrganizationReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateOrganizationReply>
+~static IdpServiceFacade.CreateOrganizationRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.CreateOrganizationRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateOrganizationRequest>
 ~static IdpServiceFacade.CreateUserRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.CreateUserRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateUserRequest>
 ~static IdpServiceFacade.GetRefreshTokenAuthRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
@@ -585,6 +629,10 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~static IdpServiceFacade.UsersMetadataReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UsersMetadataReply>
 ~static IdpServiceFacade.UsersSearchRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UsersSearchRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UsersSearchRequest>
+~virtual IdpServiceFacade.Organization.OrganizationClient.CreateOrganization(IdpServiceFacade.CreateOrganizationRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.CreateOrganizationReply
+~virtual IdpServiceFacade.Organization.OrganizationClient.CreateOrganization(IdpServiceFacade.CreateOrganizationRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.CreateOrganizationReply
+~virtual IdpServiceFacade.Organization.OrganizationClient.CreateOrganizationAsync(IdpServiceFacade.CreateOrganizationRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.CreateOrganizationReply>
+~virtual IdpServiceFacade.Organization.OrganizationClient.CreateOrganizationAsync(IdpServiceFacade.CreateOrganizationRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.CreateOrganizationReply>
 ~virtual IdpServiceFacade.Organization.OrganizationClient.InitiateLegalHold(IdpServiceFacade.OrgRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.OrganizationReply
 ~virtual IdpServiceFacade.Organization.OrganizationClient.InitiateLegalHold(IdpServiceFacade.OrgRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.OrganizationReply
 ~virtual IdpServiceFacade.Organization.OrganizationClient.InitiateLegalHoldAsync(IdpServiceFacade.OrgRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.OrganizationReply>

@@ -24,6 +24,9 @@ internal static partial class LoggerMessages
         LoggerMessages.ErrorDefinition2(logger, exception?.Message, userIds, exception);
     }
 
+    [LoggerMessage(LogLevel.Error, EventName = nameof(OrganizationService.CreateOrganization), Message = "{Error}")]
+    internal static partial void CreateOrganizationError(this ILogger<OrganizationService> logger, string? error);
+
     [LoggerMessage(LogLevel.Information, "{Message}")]
     internal static partial void Information(this ILogger logger, string message);
 

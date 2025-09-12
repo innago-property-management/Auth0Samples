@@ -10,6 +10,7 @@ service Organization {
   rpc MarkAsSuspicious (OrgRequest) returns (OrganizationReply);
   rpc MarkAsFraud (OrgRequest) returns (OrganizationReply);
   rpc InitiateLegalHold (OrgRequest) returns (OrganizationReply);
+  rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationReply);
 }
 
 message OrgRequest {
@@ -24,4 +25,14 @@ message OrgUserRequest {
 message OrganizationReply {
   bool ok = 1;
   string error = 2;
+}
+
+message CreateOrganizationRequest {
+  string name = 1;
+  optional string legacyId = 2;
+}
+
+message CreateOrganizationReply {
+  bool ok = 1;
+  optional string error = 2;
 }

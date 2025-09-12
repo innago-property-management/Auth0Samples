@@ -56,6 +56,7 @@ app.UseSerilogRequestLogging();
 
 app.MapGrpcService<UserService>();
 app.MapGrpcService<RoleService>();
+app.MapGrpcService<OrganizationService>();
 
 app.MapGrpcHealthChecksService();
 
