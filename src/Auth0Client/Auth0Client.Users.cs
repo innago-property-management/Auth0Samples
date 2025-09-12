@@ -609,7 +609,7 @@ public partial class Auth0Client
         CancellationToken cancellationToken)
     {
         using Activity? activity =
-            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), default)]);
+            Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), null)]);
 
         string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
 

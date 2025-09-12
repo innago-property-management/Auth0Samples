@@ -59,6 +59,7 @@ internal static partial class ProgramConfiguration
 
         services.AddScoped<IUserService, Auth0Client>();
         services.AddScoped<IRoleService, Auth0Client>();
+        services.AddScoped<IOrganizationService, Auth0Client>();
 
         services.AddOptions<Auth0Settings>().BindConfiguration("Auth0");
 

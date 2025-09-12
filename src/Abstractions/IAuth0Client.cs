@@ -9,7 +9,7 @@ using Auth0.ManagementApi.Models;
 /// <summary>
 /// Represents a client for interacting with Auth0 authentication services.
 /// </summary>
-public interface IAuth0Client : IUserService, IRoleService
+public interface IAuth0Client : IUserService, IRoleService, IOrganizationService
 {
     /// <summary>
     /// Adds a user to an organization.
@@ -19,14 +19,6 @@ public interface IAuth0Client : IUserService, IRoleService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     Task AddUserToOrganization(string userId, string orgId, CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Creates a new organization.
-    /// </summary>
-    /// <param name="organizationCreateInfo">The information required to create the organization.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A task that represents the asynchronous operation, containing the created organization.</returns>
-    Task<Organization> CreateOrganization(OrganizationCreateInfo organizationCreateInfo, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a new user.

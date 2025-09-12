@@ -29,6 +29,7 @@ message OrganizationReply {
 
 message CreateOrganizationRequest {
   string name = 1;
+  optional string legacyId = 2;
 }
 
 message CreateOrganizationReply {

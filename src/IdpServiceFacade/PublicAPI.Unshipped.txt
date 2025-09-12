@@ -42,7 +42,7 @@ IdpServiceFacade.UserRoleRequest.CalculateSize() -> int
 IdpServiceFacade.UserRoleRequest.UserRoleRequest() -> void
 Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer
 Innago.Security.IdpServiceFacade.Services.OrganizationService
-Innago.Security.IdpServiceFacade.Services.OrganizationService.OrganizationService() -> void
+Innago.Security.IdpServiceFacade.Services.OrganizationService.OrganizationService(Abstractions.IOrganizationService! externalService, Microsoft.Extensions.Logging.ILogger<Innago.Security.IdpServiceFacade.Services.OrganizationService!>! logger) -> void
 Innago.Security.IdpServiceFacade.Services.RoleService
 Innago.Security.IdpServiceFacade.Services.RoleService.RoleService(Abstractions.IRoleService! externalService, Microsoft.Extensions.Logging.ILogger<Innago.Security.IdpServiceFacade.Services.RoleService!>! logger) -> void
 Innago.Security.IdpServiceFacade.Services.UserResponseHelpers

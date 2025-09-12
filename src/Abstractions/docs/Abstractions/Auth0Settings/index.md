@@ -13,6 +13,8 @@ Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system
 
 | Properties | |
 | :--- | :--- |
+| [ApiAudience](ApiAudience.md 'Abstractions\.Auth0Settings\.ApiAudience') | Gets or sets the API audience used for authentication and authorization\. |
+| [Audience](Audience.md 'Abstractions\.Auth0Settings\.Audience') | Gets or sets the name of the Auth0 audience\. |
 | [ClientId](ClientId.md 'Abstractions\.Auth0Settings\.ClientId') | Gets or sets the Auth0 client identifier\. |
 | [ClientSecret](ClientSecret.md 'Abstractions\.Auth0Settings\.ClientSecret') | Gets or sets the Auth0 client secret\. |
 | [ConnectionName](ConnectionName.md 'Abstractions\.Auth0Settings\.ConnectionName') | Gets or sets the name of the Auth0 connection\. |

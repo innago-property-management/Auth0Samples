@@ -13,4 +13,13 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 
 | Fields | |
 | :--- | :--- |
+| [LegacyIdFieldNumber](LegacyIdFieldNumber.md 'IdpServiceFacade\.CreateOrganizationRequest\.LegacyIdFieldNumber') | Field number for the "legacyId" field\. |
 | [NameFieldNumber](NameFieldNumber.md 'IdpServiceFacade\.CreateOrganizationRequest\.NameFieldNumber') | Field number for the "name" field\. |
+
+| Properties | |
+| :--- | :--- |
+| [HasLegacyId](HasLegacyId.md 'IdpServiceFacade\.CreateOrganizationRequest\.HasLegacyId') | Gets whether the "legacyId" field is set |
+
+| Methods | |
+| :--- | :--- |
+| [ClearLegacyId\(\)](ClearLegacyId().md 'IdpServiceFacade\.CreateOrganizationRequest\.ClearLegacyId\(\)') | Clears the value of the "legacyId" field |

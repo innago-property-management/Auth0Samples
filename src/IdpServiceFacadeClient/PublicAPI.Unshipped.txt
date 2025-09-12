@@ -1,3 +1,4 @@
+const IdpServiceFacade.CreateOrganizationRequest.LegacyIdFieldNumber = 2 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -10,7 +11,9 @@ IdpServiceFacade.CreateOrganizationReply.Ok.get -> bool
 IdpServiceFacade.CreateOrganizationReply.Ok.set -> void
 IdpServiceFacade.CreateOrganizationRequest
 IdpServiceFacade.CreateOrganizationRequest.CalculateSize() -> int
+IdpServiceFacade.CreateOrganizationRequest.ClearLegacyId() -> void
 IdpServiceFacade.CreateOrganizationRequest.CreateOrganizationRequest() -> void
+IdpServiceFacade.CreateOrganizationRequest.HasLegacyId.get -> bool
 IdpServiceFacade.CreateUserRequest
 IdpServiceFacade.CreateUserRequest.CalculateSize() -> int
 IdpServiceFacade.CreateUserRequest.CreateUserRequest() -> void
@@ -237,6 +240,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.CreateOrganizationRequest.Clone() -> IdpServiceFacade.CreateOrganizationRequest
 ~IdpServiceFacade.CreateOrganizationRequest.CreateOrganizationRequest(IdpServiceFacade.CreateOrganizationRequest other) -> void
 ~IdpServiceFacade.CreateOrganizationRequest.Equals(IdpServiceFacade.CreateOrganizationRequest other) -> bool
+~IdpServiceFacade.CreateOrganizationRequest.LegacyId.get -> string
+~IdpServiceFacade.CreateOrganizationRequest.LegacyId.set -> void
 ~IdpServiceFacade.CreateOrganizationRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.CreateOrganizationRequest.MergeFrom(IdpServiceFacade.CreateOrganizationRequest other) -> void
 ~IdpServiceFacade.CreateOrganizationRequest.Name.get -> string

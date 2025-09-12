@@ -1,5 +1,6 @@
 namespace Auth0Client;
 
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,18 +10,24 @@ using Abstractions;
 using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;
 
+using Innago.Shared.TryHelpers;
+
 using JetBrains.Annotations;
+
+using MorseCode.ITask;
 
 [PublicAPI]
 public partial class Auth0Client
 {
+    private sealed record Metadata(string? LegacyId = null);
+
     /// <summary>
     /// Creates a new organization in Auth0.
     /// </summary>
     /// <param name="organizationCreateInfo">The information required to create the organization.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the created organization.</returns>
-    public Task<Organization> CreateOrganization(OrganizationCreateInfo organizationCreateInfo, CancellationToken cancellationToken = default)
+    public async ITask<OkError> CreateOrganization(OrganizationCreateInfo organizationCreateInfo, CancellationToken cancellationToken = default)
     {
         string orgName = CleanName(organizationCreateInfo.Name);
 
@@ -28,9 +35,16 @@ public partial class Auth0Client
         {
             Name = orgName,
             DisplayName = organizationCreateInfo.Name,
+            Metadata = new Metadata(organizationCreateInfo.LegacyId),
         };
 
-        return client.Organizations.CreateAsync(request, cancellationToken);
+        Result<Organization?> result = await TryHelpers.TryAsync(() => client.Organizations.CreateAsync(request, cancellationToken)!).ConfigureAwait(false);
+
+        return new OkError
+        {
+            OK = result.HasSucceeded,
+            Error = ((Exception?)result)?.Message,
+        };
     }
 
     /// <summary>
