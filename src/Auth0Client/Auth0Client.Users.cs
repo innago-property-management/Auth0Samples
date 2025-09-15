@@ -579,7 +579,7 @@ public partial class Auth0Client
             Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(username), username)]);
 
         logger.Information($"GetTokenAsyncImplementation called for user {username}");
-        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+        string tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
 
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
@@ -611,7 +611,7 @@ public partial class Auth0Client
         using Activity? activity =
             Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(refreshToken), null)]);
 
-        string tokenEndpoint = $"{this.auth0Domain}/oauth/token";
+        string tokenEndpoint = $"https://{this.auth0Domain}/oauth/token";
 
         var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint)
         {
