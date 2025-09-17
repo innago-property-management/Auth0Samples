@@ -2,6 +2,7 @@ namespace Auth0Client;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,10 +17,12 @@ using JetBrains.Annotations;
 
 using MorseCode.ITask;
 
+using Newtonsoft.Json.Linq;
+
 [PublicAPI]
 public partial class Auth0Client
 {
-    private sealed record Metadata(string? LegacyId = null);
+    private sealed record Metadata(string? LegacyId = null, string? LegacyUid = null);
 
     /// <summary>
     /// Creates a new organization in Auth0.
@@ -35,7 +38,7 @@ public partial class Auth0Client
         {
             Name = orgName,
             DisplayName = organizationCreateInfo.Name,
-            Metadata = new Metadata(organizationCreateInfo.LegacyId),
+            Metadata = new Metadata(organizationCreateInfo.LegacyId, organizationCreateInfo.LegacyUid),
         };
 
         Result<Organization?> result = await TryHelpers.TryAsync(() => client.Organizations.CreateAsync(request, cancellationToken)!).ConfigureAwait(false);
@@ -52,7 +55,7 @@ public partial class Auth0Client
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the list of organizations.</returns>
-    public async Task<IEnumerable<Organization>> ListOrganizations(CancellationToken cancellationToken)
+    public async ITask<IEnumerable<Org>> ListOrganizations(CancellationToken cancellationToken = default)
     {
         const int perPage = 10;
         List<Organization> organizations = [];
@@ -69,7 +72,17 @@ public partial class Auth0Client
             from = pagedList.Paging.Next;
         } while (!string.IsNullOrEmpty(from));
 
-        return organizations;
+        return organizations.Select(MapOrganization).ToList();
+
+        static Org MapOrganization(Organization org)
+        {
+            return new Org(org.Id, org.Name, org.DisplayName, MapMetadata(org.Metadata));
+        }
+
+        static IReadOnlyDictionary<string, string>? MapMetadata(JObject? obj)
+        {
+            return (obj as IDictionary<string, JToken?>)?.ToDictionary(pair => pair.Key, pair => pair.Value?.ToString() ?? string.Empty);
+        }
     }
 
     /// <summary>

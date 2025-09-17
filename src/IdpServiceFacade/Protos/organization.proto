@@ -11,6 +11,30 @@ service Organization {
   rpc MarkAsFraud (OrgRequest) returns (OrganizationReply);
   rpc InitiateLegalHold (OrgRequest) returns (OrganizationReply);
   rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationReply);
+  rpc ListOrganizations (EmptyRequest) returns (ListOrganizationReply);
+}
+
+message EmptyRequest {}
+
+message ListOrganizationReply{
+  repeated GetOrganizationReply organizations = 1;
+}
+
+
+message GetOrganizationReply {
+  string id = 1;
+  string name = 2;
+  string displayName = 3;
+  Metadata metadata = 4;
+}
+
+message Metadata {
+  repeated MetadataItem item = 1;
+}
+
+message MetadataItem {
+  string key = 1;
+  string value = 2;
 }
 
 message OrgRequest {
@@ -30,6 +54,7 @@ message OrganizationReply {
 message CreateOrganizationRequest {
   string name = 1;
   optional string legacyId = 2;
+  optional string legacyUid = 3;
 }
 
 message CreateOrganizationReply {

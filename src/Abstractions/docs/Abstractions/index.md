@@ -6,6 +6,7 @@
 | :--- | :--- |
 | [Auth0Settings](Auth0Settings/index.md 'Abstractions\.Auth0Settings') | Contains configuration settings for Auth0 authentication and authorization\. |
 | [OkError](OkError/index.md 'Abstractions\.OkError') | Represents a result that indicates success or failure with an optional error message\. |
+| [Org](Org/index.md 'Abstractions\.Org') | Represents an organization with a unique identifier, name, display name, and associated metadata\. |
 | [OrganizationCreateInfo](OrganizationCreateInfo/index.md 'Abstractions\.OrganizationCreateInfo') | Represents the information required to create an organization\. |
 | [UserCreateInfo](UserCreateInfo/index.md 'Abstractions\.UserCreateInfo') | Represents the information required to create a user\. |
 
