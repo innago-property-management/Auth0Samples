@@ -20,10 +20,10 @@ Abstractions.IAuth0Client.CreateUser(Abstractions.UserCreateInfo! userCreateInfo
 Abstractions.IAuth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.IAuth0Client.GetUsers(string![]! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.List<Auth0.ManagementApi.Models.User!>!>!
 Abstractions.IAuth0Client.HealthCheck(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
-Abstractions.IAuth0Client.ListOrganizations(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.ManagementApi.Models.Organization!>!>!
 Abstractions.IAuth0Client.ListUsers(string! luceneQuery = "user_id:*", System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.ManagementApi.Models.User!>!>!
 Abstractions.IOrganizationService
 Abstractions.IOrganizationService.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IOrganizationService.ListOrganizations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<System.Collections.Generic.IEnumerable<Abstractions.Org!>!>!
 Abstractions.IRoleService
 Abstractions.IRoleService.CreateRole(string! roleName, string? description = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService
@@ -48,14 +48,28 @@ Abstractions.OkError.Error.init -> void
 Abstractions.OkError.OK.get -> bool
 Abstractions.OkError.OK.init -> void
 Abstractions.OkError.OkError(bool OK = true, string? Error = null) -> void
+Abstractions.Org
+Abstractions.Org.Deconstruct(out string! Id, out string! Name, out string! DisplayName, out System.Collections.Generic.IReadOnlyDictionary<string!, string!>? Metadata) -> void
+Abstractions.Org.DisplayName.get -> string!
+Abstractions.Org.DisplayName.init -> void
+Abstractions.Org.Id.get -> string!
+Abstractions.Org.Id.init -> void
+Abstractions.Org.Metadata.get -> System.Collections.Generic.IReadOnlyDictionary<string!, string!>?
+Abstractions.Org.Metadata.init -> void
+Abstractions.Org.Name.get -> string!
+Abstractions.Org.Name.init -> void
+Abstractions.Org.Org(Abstractions.Org! original) -> void
+Abstractions.Org.Org(string! Id, string! Name, string! DisplayName, System.Collections.Generic.IReadOnlyDictionary<string!, string!>? Metadata = null) -> void
 Abstractions.OrganizationCreateInfo
-Abstractions.OrganizationCreateInfo.Deconstruct(out string! Name, out string? LegacyId) -> void
+Abstractions.OrganizationCreateInfo.Deconstruct(out string! Name, out string? LegacyId, out string? LegacyUid) -> void
 Abstractions.OrganizationCreateInfo.LegacyId.get -> string?
 Abstractions.OrganizationCreateInfo.LegacyId.init -> void
+Abstractions.OrganizationCreateInfo.LegacyUid.get -> string?
+Abstractions.OrganizationCreateInfo.LegacyUid.init -> void
 Abstractions.OrganizationCreateInfo.Name.get -> string!
 Abstractions.OrganizationCreateInfo.Name.init -> void
 Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(Abstractions.OrganizationCreateInfo! original) -> void
-Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(string! Name, string? LegacyId = null) -> void
+Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(string! Name, string? LegacyId = null, string? LegacyUid = null) -> void
 Abstractions.TokenResponse
 Abstractions.TokenResponse.AccessToken.get -> string?
 Abstractions.TokenResponse.AccessToken.set -> void
@@ -92,6 +106,9 @@ TokenResponsePayload<T>.TokenResponsePayload() -> void
 override Abstractions.OkError.Equals(object? obj) -> bool
 override Abstractions.OkError.GetHashCode() -> int
 override Abstractions.OkError.ToString() -> string!
+override Abstractions.Org.Equals(object? obj) -> bool
+override Abstractions.Org.GetHashCode() -> int
+override Abstractions.Org.ToString() -> string!
 override Abstractions.OrganizationCreateInfo.Equals(object? obj) -> bool
 override Abstractions.OrganizationCreateInfo.GetHashCode() -> int
 override Abstractions.OrganizationCreateInfo.ToString() -> string!
@@ -102,12 +119,18 @@ override Abstractions.UserCreateInfo.ToString() -> string!
 static Abstractions.OkError.implicit operator Abstractions.OkError!(Innago.Shared.TryHelpers.Result result) -> Abstractions.OkError!
 static Abstractions.OkError.operator !=(Abstractions.OkError? left, Abstractions.OkError? right) -> bool
 static Abstractions.OkError.operator ==(Abstractions.OkError? left, Abstractions.OkError? right) -> bool
+static Abstractions.Org.operator !=(Abstractions.Org? left, Abstractions.Org? right) -> bool
+static Abstractions.Org.operator ==(Abstractions.Org? left, Abstractions.Org? right) -> bool
 static Abstractions.OrganizationCreateInfo.operator !=(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
 static Abstractions.OrganizationCreateInfo.operator ==(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
 static Abstractions.TokenResponse.operator !=(Abstractions.TokenResponse left, Abstractions.TokenResponse right) -> bool
 static Abstractions.TokenResponse.operator ==(Abstractions.TokenResponse left, Abstractions.TokenResponse right) -> bool
 static Abstractions.UserCreateInfo.operator !=(Abstractions.UserCreateInfo? left, Abstractions.UserCreateInfo? right) -> bool
 static Abstractions.UserCreateInfo.operator ==(Abstractions.UserCreateInfo? left, Abstractions.UserCreateInfo? right) -> bool
+virtual Abstractions.Org.<Clone>$() -> Abstractions.Org!
+virtual Abstractions.Org.EqualityContract.get -> System.Type!
+virtual Abstractions.Org.Equals(Abstractions.Org? other) -> bool
+virtual Abstractions.Org.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual Abstractions.OrganizationCreateInfo.<Clone>$() -> Abstractions.OrganizationCreateInfo!
 virtual Abstractions.OrganizationCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.OrganizationCreateInfo.Equals(Abstractions.OrganizationCreateInfo? other) -> bool

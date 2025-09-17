@@ -8,6 +8,8 @@ using global::IdpServiceFacade;
 
 using Grpc.Core;
 
+using MorseCode.ITask;
+
 using Shared.TryHelpers;
 
 /// <summary>
@@ -35,13 +37,14 @@ public class OrganizationService(
             {
                 { nameof(request.Name), request.Name },
                 { nameof(request.LegacyId), request.LegacyId },
+                { nameof(request.LegacyUid), request.LegacyUid },
             });
 
         return await (!string.IsNullOrWhiteSpace(request.Name)).Map(CreateOrg, MissingOrganizationName)!;
 
         async Task<CreateOrganizationReply>? CreateOrg()
         {
-            OkError? result = await externalService.CreateOrganization(new OrganizationCreateInfo(request.Name, request.LegacyId), context.CancellationToken);
+            OkError? result = await externalService.CreateOrganization(new OrganizationCreateInfo(request.Name, request.LegacyId, request.LegacyUid), context.CancellationToken);
 
             (!string.IsNullOrEmpty(result.Error)).IfTrue(() => logger.CreateOrganizationError(result.Error));
 
@@ -50,6 +53,37 @@ public class OrganizationService(
                 Ok = result.OK,
                 Error = result.Error ?? string.Empty,
             };
+        }
+    }
+
+    /// <inheritdoc />
+    public override async Task<ListOrganizationReply> ListOrganizations(EmptyRequest request, ServerCallContext context)
+    {
+        Result<IEnumerable<Org>?> result =
+            await TryHelpers.TryAsync(() => externalService.ListOrganizations(context.CancellationToken).AsTask()!).ConfigureAwait(false);
+
+        return result.Map(MapOrgs, ListOrgError)!;
+
+        ListOrganizationReply? ListOrgError(Exception? exception)
+        {
+            logger.ListOrganizationsError(exception?.Message);
+
+            ListOrganizationReply reply = new();
+
+            reply.Organizations.AddRange([]);
+
+            return reply;
+        }
+
+        static ListOrganizationReply MapOrgs(IEnumerable<Org>? orgs)
+        {
+            ListOrganizationReply reply = new();
+
+            IEnumerable<GetOrganizationReply> organizationReplies = orgs?.Select(org => org.ToGetOrganizationReply()).ToList() ?? [];
+
+            reply.Organizations.AddRange(organizationReplies);
+
+            return reply;
         }
     }
 

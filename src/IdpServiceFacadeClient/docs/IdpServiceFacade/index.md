@@ -6,12 +6,16 @@
 | [CreateOrganizationReply](CreateOrganizationReply/index.md 'IdpServiceFacade\.CreateOrganizationReply') | |
 | [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
+| [GetOrganizationReply](GetOrganizationReply/index.md 'IdpServiceFacade\.GetOrganizationReply') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
 | [Identity](Identity/index.md 'IdpServiceFacade\.Identity') | |
 | [InitiatePasswordResetReply](InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply') | |
 | [KeysWrapper](KeysWrapper/index.md 'IdpServiceFacade\.KeysWrapper') | |
+| [ListOrganizationReply](ListOrganizationReply/index.md 'IdpServiceFacade\.ListOrganizationReply') | |
+| [Metadata](Metadata/index.md 'IdpServiceFacade\.Metadata') | |
+| [MetadataItem](MetadataItem/index.md 'IdpServiceFacade\.MetadataItem') | |
 | [Organization](Organization/index.md 'IdpServiceFacade\.Organization') | |
 | [Organization\.OrganizationClient](Organization/OrganizationClient/index.md 'IdpServiceFacade\.Organization\.OrganizationClient') | Client for Organization |
 | [OrganizationReflection](OrganizationReflection/index.md 'IdpServiceFacade\.OrganizationReflection') | Holder for reflection information generated from organization\.proto |

@@ -2,8 +2,6 @@ namespace Runner.Commands;
 
 using Abstractions;
 
-using Auth0.ManagementApi.Models;
-
 using DotMake.CommandLine;
 
 using Messages;
@@ -15,7 +13,7 @@ internal class ListOrganizationsCommand(IAuth0Client client, ILogger<ListOrganiz
 {
     public async Task RunAsync(CliContext context)
     {
-        List<Organization> organizations = (await client.ListOrganizations(context.CancellationToken).ConfigureAwait(false)).ToList();
+        List<Org> organizations = (await client.ListOrganizations(context.CancellationToken).ConfigureAwait(false)).ToList();
 
         organizations.ForEach(organization => logger.Organization(organization.Id, organization.DisplayName));
     }

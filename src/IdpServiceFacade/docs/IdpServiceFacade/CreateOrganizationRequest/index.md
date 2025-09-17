@@ -14,12 +14,15 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 | Fields | |
 | :--- | :--- |
 | [LegacyIdFieldNumber](LegacyIdFieldNumber.md 'IdpServiceFacade\.CreateOrganizationRequest\.LegacyIdFieldNumber') | Field number for the "legacyId" field\. |
+| [LegacyUidFieldNumber](LegacyUidFieldNumber.md 'IdpServiceFacade\.CreateOrganizationRequest\.LegacyUidFieldNumber') | Field number for the "legacyUid" field\. |
 | [NameFieldNumber](NameFieldNumber.md 'IdpServiceFacade\.CreateOrganizationRequest\.NameFieldNumber') | Field number for the "name" field\. |
 
 | Properties | |
 | :--- | :--- |
 | [HasLegacyId](HasLegacyId.md 'IdpServiceFacade\.CreateOrganizationRequest\.HasLegacyId') | Gets whether the "legacyId" field is set |
+| [HasLegacyUid](HasLegacyUid.md 'IdpServiceFacade\.CreateOrganizationRequest\.HasLegacyUid') | Gets whether the "legacyUid" field is set |
 
 | Methods | |
 | :--- | :--- |
 | [ClearLegacyId\(\)](ClearLegacyId().md 'IdpServiceFacade\.CreateOrganizationRequest\.ClearLegacyId\(\)') | Clears the value of the "legacyId" field |
+| [ClearLegacyUid\(\)](ClearLegacyUid().md 'IdpServiceFacade\.CreateOrganizationRequest\.ClearLegacyUid\(\)') | Clears the value of the "legacyUid" field |

@@ -29,13 +29,6 @@ public interface IAuth0Client : IUserService, IRoleService, IOrganizationService
     Task<User> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Retrieves a list of all organizations.
-    /// </summary>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A task that represents the asynchronous operation, containing the list of organizations.</returns>
-    Task<IEnumerable<Organization>> ListOrganizations(CancellationToken cancellationToken);
-
-    /// <summary>
     /// Retrieves a list of all users.
     /// </summary>
     /// <param name="luceneQuery"></param>

@@ -15,6 +15,7 @@
         <PackageReadMeFile>README.md</PackageReadMeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <OutputType>Library</OutputType>
+        <InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.Extensions.Configuration.Binder.SourceGeneration</InterceptorsNamespaces>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

@@ -5,7 +5,7 @@
 Retrieves a list of all organizations from Auth0\.
 
 ```csharp
-public System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.ManagementApi.Models.Organization>> ListOrganizations(System.Threading.CancellationToken cancellationToken);
+public MorseCode.ITask.ITask<System.Collections.Generic.IEnumerable<Abstractions.Org>> ListOrganizations(System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
 ```
 #### Parameters
 
@@ -15,8 +15,8 @@ public System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.
 
 A token to cancel the operation\.
 
-Implements [ListOrganizations\(CancellationToken\)](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iauth0client.listorganizations#abstractions-iauth0client-listorganizations(system-threading-cancellationtoken) 'Abstractions\.IAuth0Client\.ListOrganizations\(System\.Threading\.CancellationToken\)')
+Implements [ListOrganizations\(CancellationToken\)](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iorganizationservice.listorganizations#abstractions-iorganizationservice-listorganizations(system-threading-cancellationtoken) 'Abstractions\.IOrganizationService\.ListOrganizations\(System\.Threading\.CancellationToken\)')
 
 #### Returns
-[System\.Threading\.Tasks\.Task&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')[System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[Auth0\.ManagementApi\.Models\.Organization](https://learn.microsoft.com/en-us/dotnet/api/auth0.managementapi.models.organization 'Auth0\.ManagementApi\.Models\.Organization')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')  
+[MorseCode\.ITask\.ITask&lt;](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask-1 'MorseCode\.ITask\.ITask\`1')[System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[Abstractions\.Org](https://learn.microsoft.com/en-us/dotnet/api/abstractions.org 'Abstractions\.Org')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask-1 'MorseCode\.ITask\.ITask\`1')  
 A task that represents the asynchronous operation, containing the list of organizations\.

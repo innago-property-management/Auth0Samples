@@ -15,3 +15,4 @@ Derived
 | Methods | |
 | :--- | :--- |
 | [CreateOrganization\(OrganizationCreateInfo, CancellationToken\)](CreateOrganization(OrganizationCreateInfo,CancellationToken).md 'Abstractions\.IOrganizationService\.CreateOrganization\(Abstractions\.OrganizationCreateInfo, System\.Threading\.CancellationToken\)') | Creates a new organization with the provided information\. |
+| [ListOrganizations\(CancellationToken\)](ListOrganizations(CancellationToken).md 'Abstractions\.IOrganizationService\.ListOrganizations\(System\.Threading\.CancellationToken\)') | Retrieves a list of all organizations available in the system\. |

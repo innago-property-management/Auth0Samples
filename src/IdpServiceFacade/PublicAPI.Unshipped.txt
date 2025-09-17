@@ -83,6 +83,7 @@ override IdpServiceFacade.UserReply.GetHashCode() -> int
 override IdpServiceFacade.UserRequest.GetHashCode() -> int
 override IdpServiceFacade.UserRoleRequest.GetHashCode() -> int
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.CreateOrganization(IdpServiceFacade.CreateOrganizationRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateOrganizationReply!>!
+override Innago.Security.IdpServiceFacade.Services.OrganizationService.ListOrganizations(IdpServiceFacade.EmptyRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.ListOrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.RoleService.CreateRole(IdpServiceFacade.CreateRoleRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateRoleResponse!>!
 static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
 static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -> System.Diagnostics.ActivitySource!
