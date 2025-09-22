@@ -26,6 +26,7 @@ service User {
   rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByNameFragment (UsersMetadataByNameFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailFragment (UsersMetadataByEmailFragmentRequest) returns (UsersMetadataReply);
+  rpc GetUsersMetadataByEmailAddresses (GetUsersMetadataByEmailAddressesRequest) returns (UsersMetadataReply);
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersByIds (UserIds) returns (UserResponseList);
   rpc EnableMfa(UserRequest) returns (UserReply);
@@ -53,6 +54,10 @@ enum UserRole {
 // The request message containing the user's email.
 message UserRequest {
   string email = 1;
+}
+
+message GetUsersMetadataByEmailAddressesRequest {
+  repeated string emailAddresses = 1;
 }
 
 message UserRoleRequest {
