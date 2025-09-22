@@ -123,6 +123,31 @@ public interface IUserService
         CancellationToken cancellationToken);
 
     /// <summary>
+    /// Retrieves a dictionary of user metadata for users whose names or identifiers contain the specified search term.
+    /// </summary>
+    /// <param name="searchTerm">The text fragment to search for in users' names or identifiers.</param>
+    /// <param name="keys">A collection of specific metadata keys to include in the response, or null to include all available keys.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous operation and returns a dictionary containing user metadata for matching users.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves metadata for users whose email addresses match the provided search term.
+    /// </summary>
+    /// <param name="searchTerm">A fragment of the email address to search for.</param>
+    /// <param name="keys">A collection of specific metadata keys to include in the result. If null, all available metadata will be included.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A task that resolves to a dictionary where the keys are user identifiers, and the values are dictionaries of metadata key-value pairs, or null if no matches are found.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
+
+
+    /// <summary>
     ///     Disables Multi-Factor Authentication (MFA) for a user for next login
     /// </summary>
     /// <param name="email"></param>

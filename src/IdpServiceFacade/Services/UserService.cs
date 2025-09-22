@@ -105,6 +105,14 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return users.ToUsersMetadataReply();
     }
 
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameFragment(UsersMetadataByNameFragmentRequest request, ServerCallContext context)
+    {
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client
+            .GetUsersMetadataByNameFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
+
     public override Task<UserReply> EnableMfa(UserRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
