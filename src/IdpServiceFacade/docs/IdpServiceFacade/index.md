@@ -44,6 +44,7 @@
 | [UserResponseList](UserResponseList/index.md 'IdpServiceFacade\.UserResponseList') | |
 | [UserRoleRequest](UserRoleRequest/index.md 'IdpServiceFacade\.UserRoleRequest') | |
 | [UserSearchResponse](UserSearchResponse/index.md 'IdpServiceFacade\.UserSearchResponse') | |
+| [UsersMetadataByNameFragmentRequest](UsersMetadataByNameFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameFragmentRequest') | |
 | [UsersMetadataByNameOrEmailFragmentRequest](UsersMetadataByNameOrEmailFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameOrEmailFragmentRequest') | |
 | [UsersMetadataReply](UsersMetadataReply/index.md 'IdpServiceFacade\.UsersMetadataReply') | |
 | [UsersSearchRequest](UsersSearchRequest/index.md 'IdpServiceFacade\.UsersSearchRequest') | |
