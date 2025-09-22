@@ -129,6 +129,9 @@ IdpServiceFacade.UserSearchResponse.UserSearchResponse() -> void
 IdpServiceFacade.UserWithMetadata
 IdpServiceFacade.UserWithMetadata.CalculateSize() -> int
 IdpServiceFacade.UserWithMetadata.UserWithMetadata() -> void
+IdpServiceFacade.UsersMetadataByEmailFragmentRequest
+IdpServiceFacade.UsersMetadataByEmailFragmentRequest.CalculateSize() -> int
+IdpServiceFacade.UsersMetadataByEmailFragmentRequest.UsersMetadataByEmailFragmentRequest() -> void
 IdpServiceFacade.UsersMetadataByNameFragmentRequest
 IdpServiceFacade.UsersMetadataByNameFragmentRequest.CalculateSize() -> int
 IdpServiceFacade.UsersMetadataByNameFragmentRequest.UsersMetadataByNameFragmentRequest() -> void
@@ -213,6 +216,8 @@ const IdpServiceFacade.UserRoleRequest.EmailFieldNumber = 1 -> int
 const IdpServiceFacade.UserRoleRequest.RoleFieldNumber = 2 -> int
 const IdpServiceFacade.UserSearchResponse.UsersFieldNumber = 1 -> int
 const IdpServiceFacade.UserWithMetadata.UserFieldNumber = 1 -> int
+const IdpServiceFacade.UsersMetadataByEmailFragmentRequest.KeysFieldNumber = 2 -> int
+const IdpServiceFacade.UsersMetadataByEmailFragmentRequest.SearchTermFieldNumber = 1 -> int
 const IdpServiceFacade.UsersMetadataByNameFragmentRequest.KeysFieldNumber = 2 -> int
 const IdpServiceFacade.UsersMetadataByNameFragmentRequest.SearchTermFieldNumber = 1 -> int
 const IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.KeysFieldNumber = 2 -> int
@@ -250,6 +255,7 @@ override IdpServiceFacade.UserResponseList.GetHashCode() -> int
 override IdpServiceFacade.UserRoleRequest.GetHashCode() -> int
 override IdpServiceFacade.UserSearchResponse.GetHashCode() -> int
 override IdpServiceFacade.UserWithMetadata.GetHashCode() -> int
+override IdpServiceFacade.UsersMetadataByEmailFragmentRequest.GetHashCode() -> int
 override IdpServiceFacade.UsersMetadataByNameFragmentRequest.GetHashCode() -> int
 override IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.GetHashCode() -> int
 override IdpServiceFacade.UsersMetadataReply.GetHashCode() -> int
@@ -565,6 +571,16 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.UserWithMetadata.User.get -> Google.Protobuf.Collections.MapField<string, IdpServiceFacade.UserMetadataReply>
 ~IdpServiceFacade.UserWithMetadata.UserWithMetadata(IdpServiceFacade.UserWithMetadata other) -> void
 ~IdpServiceFacade.UserWithMetadata.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Clone() -> IdpServiceFacade.UsersMetadataByEmailFragmentRequest
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Equals(IdpServiceFacade.UsersMetadataByEmailFragmentRequest other) -> bool
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Keys.get -> IdpServiceFacade.KeysWrapper
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Keys.set -> void
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.MergeFrom(IdpServiceFacade.UsersMetadataByEmailFragmentRequest other) -> void
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.SearchTerm.get -> string
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.SearchTerm.set -> void
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.UsersMetadataByEmailFragmentRequest(IdpServiceFacade.UsersMetadataByEmailFragmentRequest other) -> void
+~IdpServiceFacade.UsersMetadataByEmailFragmentRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.UsersMetadataByNameFragmentRequest.Clone() -> IdpServiceFacade.UsersMetadataByNameFragmentRequest
 ~IdpServiceFacade.UsersMetadataByNameFragmentRequest.Equals(IdpServiceFacade.UsersMetadataByNameFragmentRequest other) -> bool
 ~IdpServiceFacade.UsersMetadataByNameFragmentRequest.Keys.get -> IdpServiceFacade.KeysWrapper
@@ -664,6 +680,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~override IdpServiceFacade.UserSearchResponse.ToString() -> string
 ~override IdpServiceFacade.UserWithMetadata.Equals(object other) -> bool
 ~override IdpServiceFacade.UserWithMetadata.ToString() -> string
+~override IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Equals(object other) -> bool
+~override IdpServiceFacade.UsersMetadataByEmailFragmentRequest.ToString() -> string
 ~override IdpServiceFacade.UsersMetadataByNameFragmentRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UsersMetadataByNameFragmentRequest.ToString() -> string
 ~override IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.Equals(object other) -> bool
@@ -738,6 +756,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~static IdpServiceFacade.UserSearchResponse.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserSearchResponse>
 ~static IdpServiceFacade.UserWithMetadata.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserWithMetadata.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserWithMetadata>
+~static IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UsersMetadataByEmailFragmentRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UsersMetadataByEmailFragmentRequest>
 ~static IdpServiceFacade.UsersMetadataByNameFragmentRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UsersMetadataByNameFragmentRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UsersMetadataByNameFragmentRequest>
 ~static IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
@@ -826,6 +846,10 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.GetUsersByIds(IdpServiceFacade.UserIds request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserResponseList
 ~virtual IdpServiceFacade.User.UserClient.GetUsersByIdsAsync(IdpServiceFacade.UserIds request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponseList>
 ~virtual IdpServiceFacade.User.UserClient.GetUsersByIdsAsync(IdpServiceFacade.UserIds request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserResponseList>
+~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByEmailFragment(IdpServiceFacade.UsersMetadataByEmailFragmentRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UsersMetadataReply
+~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByEmailFragment(IdpServiceFacade.UsersMetadataByEmailFragmentRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UsersMetadataReply
+~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByEmailFragmentAsync(IdpServiceFacade.UsersMetadataByEmailFragmentRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UsersMetadataReply>
+~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByEmailFragmentAsync(IdpServiceFacade.UsersMetadataByEmailFragmentRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UsersMetadataReply>
 ~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByNameFragment(IdpServiceFacade.UsersMetadataByNameFragmentRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UsersMetadataReply
 ~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByNameFragment(IdpServiceFacade.UsersMetadataByNameFragmentRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UsersMetadataReply
 ~virtual IdpServiceFacade.User.UserClient.GetUsersMetadataByNameFragmentAsync(IdpServiceFacade.UsersMetadataByNameFragmentRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UsersMetadataReply>

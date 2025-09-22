@@ -356,6 +356,28 @@ public partial class Auth0Client
     }
 
     /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        searchTerm = searchTerm.Trim();
+
+        if (searchTerm.Length < Auth0Client.MinSearchLength)
+        {
+            return null;
+        }
+
+        searchTerm = searchTerm.SanitizeSearchTerm();
+
+        string searchCriteria = $"{Auth0Client.Email}:*{searchTerm}*";
+
+        IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
+
+        return users.ToDictionary(user => user.Email, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
+
+    /// <inheritdoc />
     public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameFragment(
         string searchTerm,
         IEnumerable<string>? keys,

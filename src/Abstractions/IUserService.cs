@@ -134,6 +134,18 @@ public interface IUserService
         IEnumerable<string>? keys,
         CancellationToken cancellationToken);
 
+    /// <summary>
+    /// Retrieves metadata for users whose email addresses match the provided search term.
+    /// </summary>
+    /// <param name="searchTerm">A fragment of the email address to search for.</param>
+    /// <param name="keys">A collection of specific metadata keys to include in the result. If null, all available metadata will be included.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A task that resolves to a dictionary where the keys are user identifiers, and the values are dictionaries of metadata key-value pairs, or null if no matches are found.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
+
 
     /// <summary>
     ///     Disables Multi-Factor Authentication (MFA) for a user for next login
