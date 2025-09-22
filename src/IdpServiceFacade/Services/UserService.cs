@@ -154,4 +154,14 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
 
         return externalService.UnblockUser(request.Email, context.CancellationToken).ToUserReply();
     }
+
+    public override async Task<UsersMetadataReply> GetUsersMetadataByEmailAddresses(GetUsersMetadataByEmailAddressesRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.EmailAddresses), request.EmailAddresses)]);
+
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService.GetUsersMetadataByEmailAddresses(request.EmailAddresses.ToArray(), request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
 }

@@ -14,7 +14,7 @@ ITask<global::TokenResponsePayload<Abstractions.TokenResponse>> GetRefreshTokenA
 
 `refreshToken` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
-The refreshToken from Auth0 to fetch new token\.
+The refreshToken from Auth0 to fetch a new token\.
 
 <a name='Abstractions.IUserService.GetRefreshTokenAsyncImplementation(string,System.Collections.Generic.IEnumerable_string_,System.Threading.CancellationToken).keys'></a>
 
