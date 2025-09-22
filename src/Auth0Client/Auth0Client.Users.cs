@@ -435,6 +435,21 @@ public partial class Auth0Client
         return this.UpdateUserMetadata(email, new Dictionary<string, object> { ["two_factor_enabled"] = true }, cancellationToken);
     }
 
+    /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailAddresses(
+        IEnumerable<string> emailAddresses,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        emailAddresses = emailAddresses.Select(email => email.ToLowerInvariant().Trim().SanitizeSearchTerm()).ToList();
+
+        string searchCriteria = emailAddresses.Aggregate(string.Empty, (current, criteria) => $"{criteria} or {Auth0Client.Email}:{current}");
+
+        IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
+
+        return users.ToDictionary(user => user.Email, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
+
     private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
     {
         FormUrlEncodedContent requestContent = new([

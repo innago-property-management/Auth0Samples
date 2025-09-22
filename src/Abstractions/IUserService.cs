@@ -99,7 +99,7 @@ public interface IUserService
     /// <summary>
     /// Retrieves token for a user identified by the provided username and password.
     /// </summary>
-    /// <param name="refreshToken">The refreshToken from Auth0 to fetch new token.</param>
+    /// <param name="refreshToken">The refreshToken from Auth0 to fetch a new token.</param>
     /// <param name="keys">A collection of keys specifying which metadata fields to fetch. If null, all metadata will be retrieved.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>
@@ -146,7 +146,6 @@ public interface IUserService
         IEnumerable<string>? keys,
         CancellationToken cancellationToken);
 
-
     /// <summary>
     ///     Disables Multi-Factor Authentication (MFA) for a user for next login
     /// </summary>
@@ -154,4 +153,19 @@ public interface IUserService
     /// <param name="cancellationToken"></param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
     ITask<OkError> EnableMfa(string email, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves metadata for users based on their email addresses.
+    /// </summary>
+    /// <param name="emailAddresses">The email addresses</param>
+    /// <param name="keys">A collection of specific metadata keys to retrieve for each user.
+    /// Can be null to retrieve all keys.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A task containing a read-only dictionary where the key is the email address,
+    /// and the value is another dictionary with user metadata as key-value pairs,
+    /// or null if no metadata is found.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailAddresses(
+        IEnumerable<string> emailAddresses,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
 }
