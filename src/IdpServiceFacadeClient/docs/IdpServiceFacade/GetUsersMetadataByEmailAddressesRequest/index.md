@@ -13,3 +13,4 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | Fields | |
 | :--- | :--- |
 | [EmailAddressesFieldNumber](EmailAddressesFieldNumber.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest\.EmailAddressesFieldNumber') | Field number for the "emailAddresses" field\. |
+| [KeysFieldNumber](KeysFieldNumber.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest\.KeysFieldNumber') | Field number for the "keys" field\. |

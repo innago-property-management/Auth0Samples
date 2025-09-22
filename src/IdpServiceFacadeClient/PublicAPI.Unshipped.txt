@@ -175,6 +175,7 @@ const IdpServiceFacade.GetTokenAuthRequest.KeysFieldNumber = 3 -> int
 const IdpServiceFacade.GetTokenAuthRequest.PasswordFieldNumber = 2 -> int
 const IdpServiceFacade.GetTokenAuthRequest.UsernameFieldNumber = 1 -> int
 const IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.EmailAddressesFieldNumber = 1 -> int
+const IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.KeysFieldNumber = 2 -> int
 const IdpServiceFacade.Identity.UserIdFieldNumber = 1 -> int
 const IdpServiceFacade.InitiatePasswordResetReply.TokenFieldNumber = 1 -> int
 const IdpServiceFacade.KeysWrapper.KeyFieldNumber = 1 -> int
@@ -373,6 +374,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.EmailAddresses.get -> Google.Protobuf.Collections.RepeatedField<string>
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.Equals(IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest other) -> bool
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.GetUsersMetadataByEmailAddressesRequest(IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest other) -> void
+~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.Keys.get -> IdpServiceFacade.KeysWrapper
+~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.Keys.set -> void
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.MergeFrom(IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest other) -> void
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void

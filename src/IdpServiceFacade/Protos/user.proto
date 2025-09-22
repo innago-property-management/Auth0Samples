@@ -58,6 +58,7 @@ message UserRequest {
 
 message GetUsersMetadataByEmailAddressesRequest {
   repeated string emailAddresses = 1;
+  optional KeysWrapper keys = 2;
 }
 
 message UserRoleRequest {
