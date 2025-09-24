@@ -24,6 +24,7 @@ service User {
   rpc GetRefreshToken (GetRefreshTokenAuthRequest) returns (GetTokenAuthReply);
   rpc GetUser (UserId) returns (UserResponse);
   rpc GetUsersMetadataByNameOrEmailFragment (UsersMetadataByNameOrEmailFragmentRequest) returns (UsersMetadataReply);
+  rpc GetUsersMetadataByNameOrEmailFragmentAndOrgUid (UsersMetadataByNameOrEmailFragmentAndOrgUidRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByNameFragment (UsersMetadataByNameFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailFragment (UsersMetadataByEmailFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailAddresses (GetUsersMetadataByEmailAddressesRequest) returns (UsersMetadataReply);
@@ -74,6 +75,12 @@ message UserChangePasswordRequest {
 message UsersMetadataByNameOrEmailFragmentRequest {
   string searchTerm = 1;
   optional KeysWrapper keys = 2;
+}
+
+message UsersMetadataByNameOrEmailFragmentAndOrgUidRequest {
+  string searchTerm = 1;
+  string OrgUid = 2;
+  optional KeysWrapper keys = 3;
 }
 
 message UsersMetadataByNameFragmentRequest {

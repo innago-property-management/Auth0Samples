@@ -217,4 +217,19 @@ public interface IUserService
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
     ITask<OkError> UnblockUser(string email, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves metadata for users whose names or email addresses match the specified search term.
+    /// </summary>
+    /// <param name="searchTerm">The search string to match against usernames or email addresses.</param>
+    /// <param name="orgUid">The unique identifier of the organization to which the users belong.</param>
+    /// <param name="keys">A collection of metadata keys to filter the returned metadata.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A task containing a dictionary where each key represents a user identifier,
+    /// and the value contains a dictionary of metadata keys and their corresponding values.</returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameOrEmailFragment(
+        string searchTerm,
+        string orgUid,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
 }

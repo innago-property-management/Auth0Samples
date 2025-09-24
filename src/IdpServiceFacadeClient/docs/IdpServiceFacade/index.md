@@ -40,6 +40,7 @@
 | [UserSearchResponse](UserSearchResponse/index.md 'IdpServiceFacade\.UserSearchResponse') | |
 | [UsersMetadataByEmailFragmentRequest](UsersMetadataByEmailFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByEmailFragmentRequest') | |
 | [UsersMetadataByNameFragmentRequest](UsersMetadataByNameFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameFragmentRequest') | |
+| [UsersMetadataByNameOrEmailFragmentAndOrgUidRequest](UsersMetadataByNameOrEmailFragmentAndOrgUidRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameOrEmailFragmentAndOrgUidRequest') | |
 | [UsersMetadataByNameOrEmailFragmentRequest](UsersMetadataByNameOrEmailFragmentRequest/index.md 'IdpServiceFacade\.UsersMetadataByNameOrEmailFragmentRequest') | |
 | [UsersMetadataReply](UsersMetadataReply/index.md 'IdpServiceFacade\.UsersMetadataReply') | |
 | [UsersSearchRequest](UsersSearchRequest/index.md 'IdpServiceFacade\.UsersSearchRequest') | |
