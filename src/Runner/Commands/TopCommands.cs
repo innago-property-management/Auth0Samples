@@ -13,7 +13,6 @@ using JetBrains.Annotations;
     typeof(ListUsersCommand),
     typeof(CreateOrganizationCommand),
     typeof(ListOrganizationsCommand),
-    typeof(AddUserToOrganizationCommand),
 ])]
 [UsedImplicitly]
 [PublicAPI]

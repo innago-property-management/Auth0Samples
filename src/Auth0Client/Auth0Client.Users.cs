@@ -38,22 +38,39 @@ public partial class Auth0Client
     /// <param name="userCreateInfo">The information required to create the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the created user.</returns>
-    public async Task<User> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
+    public async Task<User?> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
+        const bool emailVerified = false;
+
+        return await this.CreateUserImplementation(userCreateInfo, emailVerified, cancellationToken: cancellationToken);
+    }
+
+    private async Task<User> CreateUserImplementation(
+        UserCreateInfo userCreateInfo,
+        bool emailVerified,
+        object? metadata = null,
+        CancellationToken cancellationToken = default)
+    {
         UserCreateRequest request = new()
         {
             Email = userCreateInfo.Email,
             FirstName = userCreateInfo.FirstName,
             LastName = userCreateInfo.LastName,
-            EmailVerified = false,
-            VerifyEmail = false,
+            EmailVerified = emailVerified,
+            VerifyEmail = true,
             Password = userCreateInfo.Password,
             Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
         };
 
-        return await client.Users.CreateAsync(request, cancellationToken);
+        if (metadata != null)
+        {
+            request.UserMetadata = metadata;
+        }
+
+        User user = await client.Users.CreateAsync(request, cancellationToken);
+        return user;
     }
 
     /// <summary>

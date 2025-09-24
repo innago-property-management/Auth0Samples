@@ -19,7 +19,8 @@ The email address of the user whose metadata is to be retrieved\.
 
 `keys` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
-A collection of keys specifying which metadata fields to fetch\. If null, all metadata will be retrieved\.
+A collection of keys specifying which metadata fields to fetch\. If null, all metadata will be
+retrieved\.
 
 <a name='global__Auth0Client.Auth0Client.GetUserMetadata(string,System.Collections.Generic.IEnumerable_string_,System.Threading.CancellationToken).cancellationToken'></a>
 

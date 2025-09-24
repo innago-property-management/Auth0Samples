@@ -184,7 +184,7 @@ const IdpServiceFacade.Metadata.ItemFieldNumber = 1 -> int
 const IdpServiceFacade.MetadataItem.KeyFieldNumber = 1 -> int
 const IdpServiceFacade.MetadataItem.ValueFieldNumber = 2 -> int
 const IdpServiceFacade.OrgRequest.OrgEmailFieldNumber = 1 -> int
-const IdpServiceFacade.OrgUserRequest.OrgEmailFieldNumber = 1 -> int
+const IdpServiceFacade.OrgUserRequest.OrgIdFieldNumber = 1 -> int
 const IdpServiceFacade.OrgUserRequest.UserEmailFieldNumber = 2 -> int
 const IdpServiceFacade.OrganizationReply.ErrorFieldNumber = 2 -> int
 const IdpServiceFacade.OrganizationReply.OkFieldNumber = 1 -> int
@@ -438,8 +438,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.OrgUserRequest.Equals(IdpServiceFacade.OrgUserRequest other) -> bool
 ~IdpServiceFacade.OrgUserRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.OrgUserRequest.MergeFrom(IdpServiceFacade.OrgUserRequest other) -> void
-~IdpServiceFacade.OrgUserRequest.OrgEmail.get -> string
-~IdpServiceFacade.OrgUserRequest.OrgEmail.set -> void
+~IdpServiceFacade.OrgUserRequest.OrgId.get -> string
+~IdpServiceFacade.OrgUserRequest.OrgId.set -> void
 ~IdpServiceFacade.OrgUserRequest.OrgUserRequest(IdpServiceFacade.OrgUserRequest other) -> void
 ~IdpServiceFacade.OrgUserRequest.UserEmail.get -> string
 ~IdpServiceFacade.OrgUserRequest.UserEmail.set -> void

@@ -87,6 +87,31 @@ public class OrganizationService(
         }
     }
 
+    /// <summary>
+    /// Invites a user to an organization based on the provided request.
+    /// This method implements the gRPC OrganizationBase class's definition for the InviteUser operation.
+    /// </summary>
+    /// <param name="request">The request containing the organization's name, and the user's email.</param>
+    /// <param name="context">The context of the server call, providing metadata and other information.</param>
+    /// <returns>
+    /// A task representing the asynchronous operation. The result contains an OrganizationReply object indicating
+    /// the result of the invitation process.
+    /// </returns>
+    public override async Task<OrganizationReply> InviteUser(OrgUserRequest request, ServerCallContext context)
+    {
+        using Activity? activity =
+            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+                tags:
+                [
+                    new KeyValuePair<string, object?>(nameof(request.OrgId), request.OrgId),
+                    new KeyValuePair<string, object?>(nameof(request.UserEmail), request.UserEmail),
+                ]);
+
+        OkError okError = await externalService.InviteUser(request.OrgId, request.UserEmail, context.CancellationToken);
+
+        return okError.ToOrganizationReply();
+    }
+
     private static Task<CreateOrganizationReply> MissingOrganizationName()
     {
         return Task.FromResult(new CreateOrganizationReply

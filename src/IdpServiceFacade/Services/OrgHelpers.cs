@@ -25,4 +25,13 @@ internal static class OrgHelpers
 
         return getOrganizationReply;
     }
+
+    internal static OrganizationReply ToOrganizationReply(this OkError result)
+    {
+        return new OrganizationReply
+        {
+            Ok = result.OK,
+            Error = result.Error ?? string.Empty,
+        };
+    }
 }
