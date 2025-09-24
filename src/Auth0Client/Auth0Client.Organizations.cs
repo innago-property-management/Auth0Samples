@@ -22,10 +22,8 @@ using Newtonsoft.Json.Linq;
 [PublicAPI]
 public partial class Auth0Client
 {
-    private sealed record Metadata(string? LegacyId = null, string? LegacyUid = null);
-
     /// <summary>
-    /// Creates a new organization in Auth0.
+    ///     Creates a new organization in Auth0.
     /// </summary>
     /// <param name="organizationCreateInfo">The information required to create the organization.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -51,7 +49,7 @@ public partial class Auth0Client
     }
 
     /// <summary>
-    /// Retrieves a list of all organizations from Auth0.
+    ///     Retrieves a list of all organizations from Auth0.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the list of organizations.</returns>
@@ -85,20 +83,79 @@ public partial class Auth0Client
         }
     }
 
+    /// <inheritdoc />
+    public async ITask<OkError> InviteUser(string organizationId, string userEmail, CancellationToken cancellationToken = default)
+    {
+        string password = Guid.CreateVersion7().ToString();
+
+        Result<User?> userCreationResult = await TryHelpers
+            .TryAsync(() => this.CreateUserImplementation(new UserCreateInfo(" ", " ", userEmail, password),
+                true,
+                new Metadata(RoleId: "3"),
+                cancellationToken: cancellationToken)!).ConfigureAwait(false);
+
+        return await userCreationResult.Map(OnCreateSuccess!, HandleError)!;
+
+        async Task<OkError> OnCreateSuccess(User user)
+        {
+            Result addToOrganizationResult = await TryHelpers.TryAsync(() => this.AddUserToOrganization(user, organizationId, cancellationToken));
+
+            Result<OkError> addToOrgResult = await addToOrganizationResult.MapAsync(OnAddSuccess, OnAddError!);
+
+            return addToOrgResult!;
+
+            async Task<Result<OkError>> OnAddSuccess()
+            {
+                Result<string?> resetPasswordResult =
+                    await TryHelpers.TryAsync(() => this.ResetPassword(user.Email, cancellationToken).AsTask()).ConfigureAwait(false);
+
+                return new OkError(resetPasswordResult.HasSucceeded, ((Exception?)resetPasswordResult)?.Message);
+            }
+        }
+    }
+
     /// <summary>
-    /// Adds a user to an organization in Auth0.
+    ///     Adds a user to an organization in Auth0.
     /// </summary>
-    /// <param name="userId">The ID of the user to add.</param>
+    /// <param name="user">The user to add.</param>
     /// <param name="orgId">The ID of the organization.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    public Task AddUserToOrganization(string userId, string orgId, CancellationToken cancellationToken)
+    public async Task AddUserToOrganization(User user, string orgId, CancellationToken cancellationToken)
     {
         OrganizationAddMembersRequest request = new()
         {
-            Members = [userId],
+            Members = [user.UserId],
         };
 
-        return client.Organizations.AddMembersAsync(orgId, request, cancellationToken);
+        await client.Organizations.AddMembersAsync(orgId, request, cancellationToken).ConfigureAwait(false);
+
+        Result<Ticket?> ticket = await TryHelpers.TryAsync(() => client.Tickets.CreateEmailVerificationTicketAsync(new EmailVerificationTicketRequest
+            {
+                OrganizationId = orgId,
+                UserId = user.UserId,
+            },
+            cancellationToken)!).ConfigureAwait(false);
+
+        ticket.IfFailed(ThrowOnError);
+        return;
+
+        static void ThrowOnError(Exception? exception)
+        {
+            throw exception!;
+        }
     }
+
+    private static Task<OkError> HandleError(Exception? exception)
+    {
+        return Task.FromResult(new OkError(false, exception?.Message ?? string.Empty));
+    }
+
+    private static Task<Result<OkError>> OnAddError(Exception exception)
+    {
+        Result<OkError> errorResult = new OkError(false, exception.Message);
+        return Task.FromResult(errorResult);
+    }
+
+    private sealed record Metadata(string? LegacyId = null, string? LegacyUid = null, string? RoleId = null);
 }

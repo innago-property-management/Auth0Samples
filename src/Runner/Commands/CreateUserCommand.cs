@@ -28,7 +28,7 @@ internal class CreateUserCommand(IAuth0Client client, ILogger<CreateUserCommand>
     public async Task RunAsync(CliContext context)
     {
         UserCreateInfo info = new(this.FirstName, this.LastName, this.Email, this.Password);
-        User user = await client.CreateUser(info, context.CancellationToken).ConfigureAwait(false);
+        User user = (await client.CreateUser(info, context.CancellationToken).ConfigureAwait(false))!;
 
         logger.UserCreated(user);
     }

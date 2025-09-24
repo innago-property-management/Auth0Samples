@@ -30,4 +30,5 @@ The token to monitor for cancellation requests\.
 
 #### Returns
 [MorseCode\.ITask\.ITask](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask 'MorseCode\.ITask\.ITask')  
-A dictionary where the keys are user identifiers, and the values are dictionaries containing the requested metadata\. Returns null if no users match the search term\.
+A dictionary where the keys are user identifiers, and the values are dictionaries containing the requested
+metadata\. Returns null if no users match the search term\.

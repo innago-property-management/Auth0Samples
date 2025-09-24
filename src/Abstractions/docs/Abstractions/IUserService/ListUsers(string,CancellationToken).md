@@ -1,7 +1,7 @@
 #### [Abstractions](../../index.md 'index')
-### [Abstractions](../index.md 'Abstractions').[IAuth0Client](index.md 'Abstractions\.IAuth0Client')
+### [Abstractions](../index.md 'Abstractions').[IUserService](index.md 'Abstractions\.IUserService')
 
-## IAuth0Client\.ListUsers\(string, CancellationToken\) Method
+## IUserService\.ListUsers\(string, CancellationToken\) Method
 
 Retrieves a list of all users\.
 
@@ -10,11 +10,11 @@ System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<User>> ListUs
 ```
 #### Parameters
 
-<a name='Abstractions.IAuth0Client.ListUsers(string,System.Threading.CancellationToken).luceneQuery'></a>
+<a name='Abstractions.IUserService.ListUsers(string,System.Threading.CancellationToken).luceneQuery'></a>
 
 `luceneQuery` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
-<a name='Abstractions.IAuth0Client.ListUsers(string,System.Threading.CancellationToken).cancellationToken'></a>
+<a name='Abstractions.IUserService.ListUsers(string,System.Threading.CancellationToken).cancellationToken'></a>
 
 `cancellationToken` [System\.Threading\.CancellationToken](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken 'System\.Threading\.CancellationToken')
 

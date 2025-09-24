@@ -42,7 +42,7 @@ message OrgRequest {
 }
 
 message OrgUserRequest {
-  string orgEmail = 1;
+  string orgId = 1;
   string userEmail = 2;
 }
 

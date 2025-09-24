@@ -24,4 +24,5 @@ A token to monitor for cancellation requests\.
 
 #### Returns
 [MorseCode\.ITask\.ITask](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask 'MorseCode\.ITask\.ITask')  
-A task that represents the asynchronous operation, containing the result of the operation as an [OkError](../OkError/index.md 'Abstractions\.OkError') object\.
+A task that represents the asynchronous operation, containing the result of the operation as an
+[OkError](../OkError/index.md 'Abstractions\.OkError') object\.

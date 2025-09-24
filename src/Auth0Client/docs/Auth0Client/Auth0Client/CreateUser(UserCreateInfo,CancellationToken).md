@@ -5,7 +5,7 @@
 Creates a new user in Auth0\.
 
 ```csharp
-public System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User> CreateUser(Abstractions.UserCreateInfo userCreateInfo, System.Threading.CancellationToken cancellationToken);
+public System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User?> CreateUser(Abstractions.UserCreateInfo userCreateInfo, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
@@ -21,7 +21,7 @@ The information required to create the user\.
 
 A token to cancel the operation\.
 
-Implements [CreateUser\(UserCreateInfo, CancellationToken\)](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iauth0client.createuser#abstractions-iauth0client-createuser(abstractions-usercreateinfo-system-threading-cancellationtoken) 'Abstractions\.IAuth0Client\.CreateUser\(Abstractions\.UserCreateInfo,System\.Threading\.CancellationToken\)')
+Implements [CreateUser\(UserCreateInfo, CancellationToken\)](https://learn.microsoft.com/en-us/dotnet/api/abstractions.iuserservice.createuser#abstractions-iuserservice-createuser(abstractions-usercreateinfo-system-threading-cancellationtoken) 'Abstractions\.IUserService\.CreateUser\(Abstractions\.UserCreateInfo,System\.Threading\.CancellationToken\)')
 
 #### Returns
 [System\.Threading\.Tasks\.Task&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')[Auth0\.ManagementApi\.Models\.User](https://learn.microsoft.com/en-us/dotnet/api/auth0.managementapi.models.user 'Auth0\.ManagementApi\.Models\.User')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1 'System\.Threading\.Tasks\.Task\`1')  

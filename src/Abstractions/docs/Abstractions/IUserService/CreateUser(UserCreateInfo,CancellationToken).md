@@ -1,22 +1,22 @@
 #### [Abstractions](../../index.md 'index')
-### [Abstractions](../index.md 'Abstractions').[IAuth0Client](index.md 'Abstractions\.IAuth0Client')
+### [Abstractions](../index.md 'Abstractions').[IUserService](index.md 'Abstractions\.IUserService')
 
-## IAuth0Client\.CreateUser\(UserCreateInfo, CancellationToken\) Method
+## IUserService\.CreateUser\(UserCreateInfo, CancellationToken\) Method
 
 Creates a new user\.
 
 ```csharp
-System.Threading.Tasks.Task<User> CreateUser(Abstractions.UserCreateInfo userCreateInfo, System.Threading.CancellationToken cancellationToken);
+System.Threading.Tasks.Task<User?> CreateUser(Abstractions.UserCreateInfo userCreateInfo, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
-<a name='Abstractions.IAuth0Client.CreateUser(Abstractions.UserCreateInfo,System.Threading.CancellationToken).userCreateInfo'></a>
+<a name='Abstractions.IUserService.CreateUser(Abstractions.UserCreateInfo,System.Threading.CancellationToken).userCreateInfo'></a>
 
 `userCreateInfo` [UserCreateInfo](../UserCreateInfo/index.md 'Abstractions\.UserCreateInfo')
 
 The information required to create the user\.
 
-<a name='Abstractions.IAuth0Client.CreateUser(Abstractions.UserCreateInfo,System.Threading.CancellationToken).cancellationToken'></a>
+<a name='Abstractions.IUserService.CreateUser(Abstractions.UserCreateInfo,System.Threading.CancellationToken).cancellationToken'></a>
 
 `cancellationToken` [System\.Threading\.CancellationToken](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken 'System\.Threading\.CancellationToken')
 

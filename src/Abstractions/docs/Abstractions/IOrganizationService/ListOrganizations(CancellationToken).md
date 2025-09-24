@@ -18,4 +18,5 @@ A token to monitor for cancellation requests\.
 
 #### Returns
 [MorseCode\.ITask\.ITask](https://learn.microsoft.com/en-us/dotnet/api/morsecode.itask.itask 'MorseCode\.ITask\.ITask')  
-A task that represents the asynchronous operation, containing a collection of [Org](../Org/index.md 'Abstractions\.Org') objects representing the organizations\.
+A task that represents the asynchronous operation, containing a collection of [Org](../Org/index.md 'Abstractions\.Org') objects
+representing the organizations\.

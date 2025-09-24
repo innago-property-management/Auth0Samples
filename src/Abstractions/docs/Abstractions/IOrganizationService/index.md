@@ -14,5 +14,7 @@ Derived
 
 | Methods | |
 | :--- | :--- |
+| [AddUserToOrganization\(User, string, CancellationToken\)](AddUserToOrganization(User,string,CancellationToken).md 'Abstractions\.IOrganizationService\.AddUserToOrganization\(User, string, System\.Threading\.CancellationToken\)') | Adds a user to an organization\. |
 | [CreateOrganization\(OrganizationCreateInfo, CancellationToken\)](CreateOrganization(OrganizationCreateInfo,CancellationToken).md 'Abstractions\.IOrganizationService\.CreateOrganization\(Abstractions\.OrganizationCreateInfo, System\.Threading\.CancellationToken\)') | Creates a new organization with the provided information\. |
+| [InviteUser\(string, string, CancellationToken\)](InviteUser(string,string,CancellationToken).md 'Abstractions\.IOrganizationService\.InviteUser\(string, string, System\.Threading\.CancellationToken\)') | Sends an invitation to a user to join the specified organization\. |
 | [ListOrganizations\(CancellationToken\)](ListOrganizations(CancellationToken).md 'Abstractions\.IOrganizationService\.ListOrganizations\(System\.Threading\.CancellationToken\)') | Retrieves a list of all organizations available in the system\. |

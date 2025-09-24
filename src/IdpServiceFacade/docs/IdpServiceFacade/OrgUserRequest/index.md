@@ -13,5 +13,5 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 
 | Fields | |
 | :--- | :--- |
-| [OrgEmailFieldNumber](OrgEmailFieldNumber.md 'IdpServiceFacade\.OrgUserRequest\.OrgEmailFieldNumber') | Field number for the "orgEmail" field\. |
+| [OrgIdFieldNumber](OrgIdFieldNumber.md 'IdpServiceFacade\.OrgUserRequest\.OrgIdFieldNumber') | Field number for the "orgId" field\. |
 | [UserEmailFieldNumber](UserEmailFieldNumber.md 'IdpServiceFacade\.OrgUserRequest\.UserEmailFieldNumber') | Field number for the "userEmail" field\. |

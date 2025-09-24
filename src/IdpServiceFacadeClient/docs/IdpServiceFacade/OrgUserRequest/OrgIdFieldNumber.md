@@ -1,12 +1,11 @@
-#### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
 ### [IdpServiceFacade](../index.md 'IdpServiceFacade').[OrgUserRequest](index.md 'IdpServiceFacade\.OrgUserRequest')
 
-## OrgUserRequest\.OrgEmailFieldNumber Field
+## OrgUserRequest\.OrgIdFieldNumber Field
 
-Field number for the "orgEmail" field\.
+Field number for the "orgId" field\.
 
 ```csharp
-public const int OrgEmailFieldNumber = 1;
+public const int OrgIdFieldNumber = 1;
 ```
 
 #### Field Value

@@ -48,7 +48,7 @@ Innago.Security.IdpServiceFacade.Services.RoleService.RoleService(Abstractions.I
 Innago.Security.IdpServiceFacade.Services.UserResponseHelpers
 const IdpServiceFacade.Identity.UserIdFieldNumber = 1 -> int
 const IdpServiceFacade.OrgRequest.OrgEmailFieldNumber = 1 -> int
-const IdpServiceFacade.OrgUserRequest.OrgEmailFieldNumber = 1 -> int
+const IdpServiceFacade.OrgUserRequest.OrgIdFieldNumber = 1 -> int
 const IdpServiceFacade.OrgUserRequest.UserEmailFieldNumber = 2 -> int
 const IdpServiceFacade.OrganizationReply.ErrorFieldNumber = 2 -> int
 const IdpServiceFacade.OrganizationReply.OkFieldNumber = 1 -> int
@@ -83,6 +83,7 @@ override IdpServiceFacade.UserReply.GetHashCode() -> int
 override IdpServiceFacade.UserRequest.GetHashCode() -> int
 override IdpServiceFacade.UserRoleRequest.GetHashCode() -> int
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.CreateOrganization(IdpServiceFacade.CreateOrganizationRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateOrganizationReply!>!
+override Innago.Security.IdpServiceFacade.Services.OrganizationService.InviteUser(IdpServiceFacade.OrgUserRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.ListOrganizations(IdpServiceFacade.EmptyRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.ListOrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.RoleService.CreateRole(IdpServiceFacade.CreateRoleRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateRoleResponse!>!
 static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
@@ -122,8 +123,6 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.OrgUserRequest.Equals(IdpServiceFacade.OrgUserRequest other) -> bool
 ~IdpServiceFacade.OrgUserRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.OrgUserRequest.MergeFrom(IdpServiceFacade.OrgUserRequest other) -> void
-~IdpServiceFacade.OrgUserRequest.OrgEmail.get -> string
-~IdpServiceFacade.OrgUserRequest.OrgEmail.set -> void
 ~IdpServiceFacade.OrgUserRequest.OrgUserRequest(IdpServiceFacade.OrgUserRequest other) -> void
 ~IdpServiceFacade.OrgUserRequest.UserEmail.get -> string
 ~IdpServiceFacade.OrgUserRequest.UserEmail.set -> void
