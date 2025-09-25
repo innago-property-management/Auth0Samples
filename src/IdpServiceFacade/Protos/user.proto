@@ -33,6 +33,7 @@ service User {
   rpc EnableMfa(UserRequest) returns (UserReply);
   rpc CreateUser (CreateUserRequest) returns (UserReply);
   rpc CreateApplicant (CreateApplicantRequest) returns (UserReply);
+  rpc UpdateUserFullName (UpdateUserFullNameRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{
@@ -194,4 +195,10 @@ message UsersSearchRequest {
 
 message UserSearchResponse{
   repeated UserResponse users = 1;
+}
+
+message UpdateUserFullNameRequest {
+  string email = 1;
+  string firstName = 2;
+  string lastName = 3;
 }

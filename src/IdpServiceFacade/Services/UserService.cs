@@ -4,8 +4,10 @@ using System.Diagnostics;
 
 using Abstractions;
 
-using global::IdpServiceFacade;
+using Auth0.ManagementApi.Models;
 
+using global::IdpServiceFacade;
+using User = global::IdpServiceFacade.User;
 using Grpc.Core;
 
 using MorseCode.ITask;
@@ -171,5 +173,21 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             .GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.OrgUid, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
 
         return users.ToUsersMetadataReply();
+    }
+
+    public override async Task<UserReply> UpdateUserFullName(UpdateUserFullNameRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
+        UserUpdateRequest userUpdateRequest = new()
+        {
+            FullName = $"{request.FirstName} {request.LastName}",
+            UserMetadata = new Dictionary<string, object>
+            {
+                { "first_name", request.FirstName },
+                { "last_name", request.LastName },
+            },
+        };
+        return await externalService.UpdateUser(request.Email, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 }
