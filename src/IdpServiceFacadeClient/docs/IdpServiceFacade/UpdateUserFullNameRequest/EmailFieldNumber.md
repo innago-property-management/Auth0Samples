@@ -1,0 +1,12 @@
+### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserFullNameRequest](index.md 'IdpServiceFacade\.UpdateUserFullNameRequest')
+
+## UpdateUserFullNameRequest\.EmailFieldNumber Field
+
+Field number for the "email" field\.
+
+```csharp
+public const int EmailFieldNumber = 1;
+```
+
+#### Field Value
+[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')

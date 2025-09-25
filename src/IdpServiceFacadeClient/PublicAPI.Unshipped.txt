@@ -1,3 +1,6 @@
+const IdpServiceFacade.UpdateUserFullNameRequest.EmailFieldNumber = 1 -> int
+const IdpServiceFacade.UpdateUserFullNameRequest.FirstNameFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateUserFullNameRequest.LastNameFieldNumber = 3 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -73,6 +76,9 @@ IdpServiceFacade.OrganizationReply.CalculateSize() -> int
 IdpServiceFacade.OrganizationReply.Ok.get -> bool
 IdpServiceFacade.OrganizationReply.Ok.set -> void
 IdpServiceFacade.OrganizationReply.OrganizationReply() -> void
+IdpServiceFacade.UpdateUserFullNameRequest
+IdpServiceFacade.UpdateUserFullNameRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateUserFullNameRequest.UpdateUserFullNameRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserClient
 IdpServiceFacade.User.UserClient.UserClient() -> void
@@ -254,6 +260,7 @@ override IdpServiceFacade.MetadataItem.GetHashCode() -> int
 override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
 override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
+override IdpServiceFacade.UpdateUserFullNameRequest.GetHashCode() -> int
 override IdpServiceFacade.UserChangePasswordRequest.GetHashCode() -> int
 override IdpServiceFacade.UserId.GetHashCode() -> int
 override IdpServiceFacade.UserIds.GetHashCode() -> int
@@ -462,6 +469,18 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.OrganizationReply.MergeFrom(IdpServiceFacade.OrganizationReply other) -> void
 ~IdpServiceFacade.OrganizationReply.OrganizationReply(IdpServiceFacade.OrganizationReply other) -> void
 ~IdpServiceFacade.OrganizationReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.Clone() -> IdpServiceFacade.UpdateUserFullNameRequest
+~IdpServiceFacade.UpdateUserFullNameRequest.Email.get -> string
+~IdpServiceFacade.UpdateUserFullNameRequest.Email.set -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.Equals(IdpServiceFacade.UpdateUserFullNameRequest other) -> bool
+~IdpServiceFacade.UpdateUserFullNameRequest.FirstName.get -> string
+~IdpServiceFacade.UpdateUserFullNameRequest.FirstName.set -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.LastName.get -> string
+~IdpServiceFacade.UpdateUserFullNameRequest.LastName.set -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.MergeFrom(IdpServiceFacade.UpdateUserFullNameRequest other) -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.UpdateUserFullNameRequest(IdpServiceFacade.UpdateUserFullNameRequest other) -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.CallInvoker callInvoker) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.ChannelBase channel) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> void
@@ -689,6 +708,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~override IdpServiceFacade.Organization.OrganizationClient.NewInstance(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> IdpServiceFacade.Organization.OrganizationClient
 ~override IdpServiceFacade.OrganizationReply.Equals(object other) -> bool
 ~override IdpServiceFacade.OrganizationReply.ToString() -> string
+~override IdpServiceFacade.UpdateUserFullNameRequest.Equals(object other) -> bool
+~override IdpServiceFacade.UpdateUserFullNameRequest.ToString() -> string
 ~override IdpServiceFacade.User.UserClient.NewInstance(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> IdpServiceFacade.User.UserClient
 ~override IdpServiceFacade.UserChangePasswordRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UserChangePasswordRequest.ToString() -> string
@@ -768,6 +789,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~static IdpServiceFacade.OrganizationReflection.Descriptor.get -> Google.Protobuf.Reflection.FileDescriptor
 ~static IdpServiceFacade.OrganizationReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.OrganizationReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrganizationReply>
+~static IdpServiceFacade.UpdateUserFullNameRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UpdateUserFullNameRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateUserFullNameRequest>
 ~static IdpServiceFacade.User.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
 ~static IdpServiceFacade.UserChangePasswordRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserChangePasswordRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserChangePasswordRequest>
@@ -940,3 +963,7 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.UnblockUser(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserClient.UpdateUserFullName(IdpServiceFacade.UpdateUserFullNameRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserReply
+~virtual IdpServiceFacade.User.UserClient.UpdateUserFullName(IdpServiceFacade.UpdateUserFullNameRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
+~virtual IdpServiceFacade.User.UserClient.UpdateUserFullNameAsync(IdpServiceFacade.UpdateUserFullNameRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserClient.UpdateUserFullNameAsync(IdpServiceFacade.UpdateUserFullNameRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
