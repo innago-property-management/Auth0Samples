@@ -504,7 +504,7 @@ public partial class Auth0Client
         Result<IPagedList<User>?> getUsersResult = await TryHelpers
             .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!)
             .ConfigureAwait(false);
-
+        
         return await getUsersResult.Map(UpdateUser, GetUsersError)!;
 
         static Task<OkError> GetUsersError(Exception? exception)
@@ -514,6 +514,10 @@ public partial class Auth0Client
 
         async Task<OkError> UpdateUser(IList<User>? users)
         {
+            if (users == null || users.Any()) { 
+                logger.Information("No User found to update");
+                return new OkError(Error: "No User found to update");
+            }
             User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
             string id = user.UserId;
 
