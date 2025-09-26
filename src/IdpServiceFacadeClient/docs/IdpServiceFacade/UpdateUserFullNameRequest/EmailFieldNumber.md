@@ -5,7 +5,7 @@
 Field number for the "email" field\.
 
 ```csharp
-public const int EmailFieldNumber = 1;
+public const int EmailFieldNumber = 2;
 ```
 
 #### Field Value

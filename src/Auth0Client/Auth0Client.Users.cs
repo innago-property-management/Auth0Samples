@@ -493,12 +493,16 @@ public partial class Auth0Client
         return users.DistinctBy(user => user.Email).ToDictionary(user => user.Email, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
     }
     /// <inheritdoc/>
-    public async ITask<OkError> UpdateUser(string email, UserUpdateRequest request, CancellationToken cancellationToken)
+    public async ITask<OkError> UpdateUser(string identityId, UserUpdateRequest request, CancellationToken cancellationToken)
     {
-        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-
-        Result<IList<User>?> getUsersResult = await TryHelpers
-            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(identityId), identityId)]);
+        GetUsersRequest getUsersRequest = new()
+        {
+            Query = $"identity_id:\"{identityId}\"",
+            SearchEngine = "v3",
+        };
+        Result<IPagedList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!)
             .ConfigureAwait(false);
 
         return await getUsersResult.Map(UpdateUser, GetUsersError)!;
@@ -510,31 +514,18 @@ public partial class Auth0Client
 
         async Task<OkError> UpdateUser(IList<User>? users)
         {
-            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
+            User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
+            string id = user.UserId;
 
-            Task<OkError> MoreThanOneUserFound()
-            {
-                const string? error = "more than one user found";
-                // ReSharper disable once AccessToDisposedClosure
-                activity?.AddException(new Exception(error));
-                return Task.FromResult(new OkError(Error: error));
-            }
+            Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
 
-            async Task<OkError> OnTrue()
-            {
-                User user = users![0];
-                string id = user.UserId;
-
-                Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
-
-                return updateResult.Map<Result>(_ => Result.Success,
-                    exception =>
-                    {
-                        // ReSharper disable once AccessToDisposedClosure
-                        activity?.AddException(exception!);
-                        return exception!;
-                    });
-            }
+            return updateResult.Map<Result>(_ => Result.Success,
+                exception =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure
+                    activity?.AddException(exception!);
+                    return exception!;
+                });   
         }
     }
     private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)

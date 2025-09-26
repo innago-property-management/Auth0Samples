@@ -198,7 +198,8 @@ message UserSearchResponse{
 }
 
 message UpdateUserFullNameRequest {
-  string email = 1;
-  string firstName = 2;
-  string lastName = 3;
+  string identity_id = 1;
+  string email = 2;
+  string firstName = 3;
+  string lastName = 4;
 }

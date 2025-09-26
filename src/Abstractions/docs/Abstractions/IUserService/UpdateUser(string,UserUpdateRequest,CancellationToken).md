@@ -6,13 +6,13 @@
 Updates a user with the specified email by setting the provided key\-value pairs\.
 
 ```csharp
-ITask<Abstractions.OkError> UpdateUser(string email, UserUpdateRequest request, System.Threading.CancellationToken cancellationToken);
+ITask<Abstractions.OkError> UpdateUser(string identityId, UserUpdateRequest request, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
-<a name='Abstractions.IUserService.UpdateUser(string,UserUpdateRequest,System.Threading.CancellationToken).email'></a>
+<a name='Abstractions.IUserService.UpdateUser(string,UserUpdateRequest,System.Threading.CancellationToken).identityId'></a>
 
-`email` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+`identityId` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 <a name='Abstractions.IUserService.UpdateUser(string,UserUpdateRequest,System.Threading.CancellationToken).request'></a>
 
