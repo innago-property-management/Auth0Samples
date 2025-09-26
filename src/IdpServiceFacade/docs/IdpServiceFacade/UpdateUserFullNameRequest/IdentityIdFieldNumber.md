@@ -1,12 +1,12 @@
 #### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
 ### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserFullNameRequest](index.md 'IdpServiceFacade\.UpdateUserFullNameRequest')
 
-## UpdateUserFullNameRequest\.EmailFieldNumber Field
+## UpdateUserFullNameRequest\.IdentityIdFieldNumber Field
 
-Field number for the "email" field\.
+Field number for the "identity\_id" field\.
 
 ```csharp
-public const int EmailFieldNumber = 2;
+public const int IdentityIdFieldNumber = 1;
 ```
 
 #### Field Value

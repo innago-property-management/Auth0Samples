@@ -1,6 +1,7 @@
-const IdpServiceFacade.UpdateUserFullNameRequest.EmailFieldNumber = 1 -> int
-const IdpServiceFacade.UpdateUserFullNameRequest.FirstNameFieldNumber = 2 -> int
-const IdpServiceFacade.UpdateUserFullNameRequest.LastNameFieldNumber = 3 -> int
+const IdpServiceFacade.UpdateUserFullNameRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateUserFullNameRequest.FirstNameFieldNumber = 3 -> int
+const IdpServiceFacade.UpdateUserFullNameRequest.IdentityIdFieldNumber = 1 -> int
+const IdpServiceFacade.UpdateUserFullNameRequest.LastNameFieldNumber = 4 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -475,6 +476,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.UpdateUserFullNameRequest.Equals(IdpServiceFacade.UpdateUserFullNameRequest other) -> bool
 ~IdpServiceFacade.UpdateUserFullNameRequest.FirstName.get -> string
 ~IdpServiceFacade.UpdateUserFullNameRequest.FirstName.set -> void
+~IdpServiceFacade.UpdateUserFullNameRequest.IdentityId.get -> string
+~IdpServiceFacade.UpdateUserFullNameRequest.IdentityId.set -> void
 ~IdpServiceFacade.UpdateUserFullNameRequest.LastName.get -> string
 ~IdpServiceFacade.UpdateUserFullNameRequest.LastName.set -> void
 ~IdpServiceFacade.UpdateUserFullNameRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void

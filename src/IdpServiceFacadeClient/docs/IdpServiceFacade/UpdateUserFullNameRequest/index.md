@@ -14,4 +14,5 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | :--- | :--- |
 | [EmailFieldNumber](EmailFieldNumber.md 'IdpServiceFacade\.UpdateUserFullNameRequest\.EmailFieldNumber') | Field number for the "email" field\. |
 | [FirstNameFieldNumber](FirstNameFieldNumber.md 'IdpServiceFacade\.UpdateUserFullNameRequest\.FirstNameFieldNumber') | Field number for the "firstName" field\. |
+| [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.UpdateUserFullNameRequest\.IdentityIdFieldNumber') | Field number for the "identity\_id" field\. |
 | [LastNameFieldNumber](LastNameFieldNumber.md 'IdpServiceFacade\.UpdateUserFullNameRequest\.LastNameFieldNumber') | Field number for the "lastName" field\. |

@@ -178,9 +178,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     public override async Task<UserReply> UpdateUserFullName(UpdateUserFullNameRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
         UserUpdateRequest userUpdateRequest = new()
         {
+            Email = request.Email,
             FullName = $"{request.FirstName} {request.LastName}",
             UserMetadata = new Dictionary<string, object>
             {
@@ -188,6 +189,6 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
                 { "last_name", request.LastName },
             },
         };
-        return await externalService.UpdateUser(request.Email, userUpdateRequest, context.CancellationToken).ToUserReply();
+        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 }

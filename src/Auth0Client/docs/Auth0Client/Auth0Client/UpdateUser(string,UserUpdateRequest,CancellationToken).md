@@ -5,13 +5,13 @@
 Updates a user with the specified email by setting the provided key\-value pairs\.
 
 ```csharp
-public MorseCode.ITask.ITask<Abstractions.OkError> UpdateUser(string email, Auth0.ManagementApi.Models.UserUpdateRequest request, System.Threading.CancellationToken cancellationToken);
+public MorseCode.ITask.ITask<Abstractions.OkError> UpdateUser(string identityId, Auth0.ManagementApi.Models.UserUpdateRequest request, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
-<a name='global__Auth0Client.Auth0Client.UpdateUser(string,Auth0.ManagementApi.Models.UserUpdateRequest,System.Threading.CancellationToken).email'></a>
+<a name='global__Auth0Client.Auth0Client.UpdateUser(string,Auth0.ManagementApi.Models.UserUpdateRequest,System.Threading.CancellationToken).identityId'></a>
 
-`email` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+`identityId` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
 
 <a name='global__Auth0Client.Auth0Client.UpdateUser(string,Auth0.ManagementApi.Models.UserUpdateRequest,System.Threading.CancellationToken).request'></a>
 

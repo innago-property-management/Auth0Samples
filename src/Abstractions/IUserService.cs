@@ -236,9 +236,9 @@ public interface IUserService
     /// <summary>
     /// Updates a user with the specified email by setting the provided key-value pairs.
     /// </summary>
-    /// <param name="email"></param>
+    /// <param name="identityId"></param>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    ITask<OkError> UpdateUser(string email, UserUpdateRequest request, CancellationToken cancellationToken);
+    ITask<OkError> UpdateUser(string identityId, UserUpdateRequest request, CancellationToken cancellationToken);
 }
