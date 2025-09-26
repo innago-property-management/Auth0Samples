@@ -514,7 +514,7 @@ public partial class Auth0Client
 
         async Task<OkError> UpdateUser(IList<User>? users)
         {
-            if (users == null || users.Any()) { 
+            if (users == null || !users.Any()) { 
                 logger.Information("No User found to update");
                 return new OkError(Error: "No User found to update");
             }
