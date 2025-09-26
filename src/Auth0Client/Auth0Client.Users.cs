@@ -498,7 +498,7 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(identityId), identityId)]);
         GetUsersRequest getUsersRequest = new()
         {
-            Query = $"identity_id:\"{identityId}\"",
+            Query = $"user_metadata.identity_id:\"{identityId}\"",
             SearchEngine = "v3",
         };
         Result<IPagedList<User>?> getUsersResult = await TryHelpers
