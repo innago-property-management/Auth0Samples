@@ -213,6 +213,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             userUpdateRequest.UserMetadata.Add("state", request.State);
             userUpdateRequest.UserMetadata.Add("zip", request.Zip);
         }
+        if (request.IsRoleUpdated)
+        {
+            userUpdateRequest.UserMetadata.Add("role_id", request.RoleId);
+        }
         return userUpdateRequest;
     }
     #endregion

@@ -9,8 +9,10 @@ const IdpServiceFacade.UpdateUserProfileRequest.FirstNameFieldNumber = 3 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdatedFieldNumber = 14 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdatedFieldNumber = 15 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdatedFieldNumber = 17 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.LastNameFieldNumber = 4 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.RoleIdFieldNumber = 16 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.StateFieldNumber = 12 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.ZipFieldNumber = 13 -> int
 IdpServiceFacade.CreateApplicantRequest
@@ -94,6 +96,8 @@ IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.set -> void
+IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.get -> bool
+IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserClient
@@ -511,6 +515,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.UpdateUserProfileRequest.MergeFrom(IdpServiceFacade.UpdateUserProfileRequest other) -> void
 ~IdpServiceFacade.UpdateUserProfileRequest.PhoneNumber.get -> string
 ~IdpServiceFacade.UpdateUserProfileRequest.PhoneNumber.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.RoleId.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.RoleId.set -> void
 ~IdpServiceFacade.UpdateUserProfileRequest.State.get -> string
 ~IdpServiceFacade.UpdateUserProfileRequest.State.set -> void
 ~IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest(IdpServiceFacade.UpdateUserProfileRequest other) -> void
