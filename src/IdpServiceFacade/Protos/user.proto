@@ -213,4 +213,6 @@ message UpdateUserProfileRequest {
   string zip = 13;
   bool isAddressUpdated = 14;
   bool isBusinessUpdated = 15;
+  string roleId = 16;
+  bool isRoleUpdated = 17;
 }
