@@ -23,7 +23,7 @@
 | [OrganizationReply](OrganizationReply/index.md 'IdpServiceFacade\.OrganizationReply') | |
 | [OrgRequest](OrgRequest/index.md 'IdpServiceFacade\.OrgRequest') | |
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
-| [UpdateUserFullNameRequest](UpdateUserFullNameRequest/index.md 'IdpServiceFacade\.UpdateUserFullNameRequest') | |
+| [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserClient](User/UserClient/index.md 'IdpServiceFacade\.User\.UserClient') | Client for User |
 | [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |
