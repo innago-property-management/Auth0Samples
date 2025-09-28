@@ -1,7 +1,7 @@
 #### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
-### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserFullNameRequest](index.md 'IdpServiceFacade\.UpdateUserFullNameRequest')
+### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserProfileRequest](index.md 'IdpServiceFacade\.UpdateUserProfileRequest')
 
-## UpdateUserFullNameRequest\.EmailFieldNumber Field
+## UpdateUserProfileRequest\.EmailFieldNumber Field
 
 Field number for the "email" field\.
 

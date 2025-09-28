@@ -175,20 +175,45 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return users.ToUsersMetadataReply();
     }
 
-    public override async Task<UserReply> UpdateUserFullName(UpdateUserFullNameRequest request, ServerCallContext context)
+    public override async Task<UserReply> UpdateUserProfile(UpdateUserProfileRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
+        UserUpdateRequest userUpdateRequest = CreateUserUpdateRequest(request);
+        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
+    }
+
+    #region private methods
+    private static UserUpdateRequest CreateUserUpdateRequest(UpdateUserProfileRequest request)
+    {
         UserUpdateRequest userUpdateRequest = new()
         {
             Email = request.Email,
             FullName = $"{request.FirstName} {request.LastName}",
             UserMetadata = new Dictionary<string, object>
             {
+                { "full_name", $"{request.FirstName} {request.LastName}" },
                 { "first_name", request.FirstName },
                 { "last_name", request.LastName },
+                { "phone_number", request.PhoneNumber}
             },
         };
-        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
+
+        if (request.IsBusinessUpdated)
+        {
+            userUpdateRequest.UserMetadata.Add("business_name", request.BusinessName);
+            userUpdateRequest.UserMetadata.Add("business_email", request.BusinessEmail);
+            userUpdateRequest.UserMetadata.Add("business_phone", request.BusinessPhone);
+        }
+        if (request.IsAddressUpdated)
+        {
+            userUpdateRequest.UserMetadata.Add("address_line1", request.AddressLine1);
+            userUpdateRequest.UserMetadata.Add("address_line2", request.AddressLine2);
+            userUpdateRequest.UserMetadata.Add("city", request.City);
+            userUpdateRequest.UserMetadata.Add("state", request.State);
+            userUpdateRequest.UserMetadata.Add("zip", request.Zip);
+        }
+        return userUpdateRequest;
     }
+    #endregion
 }

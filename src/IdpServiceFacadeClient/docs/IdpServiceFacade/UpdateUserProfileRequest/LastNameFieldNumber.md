@@ -1,6 +1,6 @@
-### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserFullNameRequest](index.md 'IdpServiceFacade\.UpdateUserFullNameRequest')
+### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserProfileRequest](index.md 'IdpServiceFacade\.UpdateUserProfileRequest')
 
-## UpdateUserFullNameRequest\.LastNameFieldNumber Field
+## UpdateUserProfileRequest\.LastNameFieldNumber Field
 
 Field number for the "lastName" field\.
 

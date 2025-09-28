@@ -30,7 +30,7 @@
 | [Role](Role/index.md 'IdpServiceFacade\.Role') | |
 | [Role\.RoleBase](Role/RoleBase/index.md 'IdpServiceFacade\.Role\.RoleBase') | Base class for server\-side implementations of Role |
 | [RoleReflection](RoleReflection/index.md 'IdpServiceFacade\.RoleReflection') | Holder for reflection information generated from Protos/role\.proto |
-| [UpdateUserFullNameRequest](UpdateUserFullNameRequest/index.md 'IdpServiceFacade\.UpdateUserFullNameRequest') | |
+| [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserBase](User/UserBase/index.md 'IdpServiceFacade\.User\.UserBase') | Base class for server\-side implementations of User |
 | [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |
