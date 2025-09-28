@@ -509,14 +509,14 @@ public partial class Auth0Client
 
         static Task<OkError> GetUsersError(Exception? exception)
         {
-            return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
+            return Task.FromResult(new OkError(false, Error: exception?.Message ?? string.Empty));
         }
 
         async Task<OkError> UpdateUser(IList<User>? users)
         {
             if (users == null || !users.Any()) { 
                 logger.Information("No User found to update");
-                return new OkError(Error: "No User found to update");
+                return new OkError(false, Error: "No User found to update");
             }
             User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
             string id = user.UserId;
