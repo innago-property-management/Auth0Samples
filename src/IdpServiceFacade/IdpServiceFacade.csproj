@@ -23,6 +23,12 @@
         <DocumentationFile>bin\Debug\net9.0\IdpServiceFacade.xml</DocumentationFile>
         <DefaultDocumentationFolder>docs</DefaultDocumentationFolder>
         <DefaultDocumentationFileNameFactory>DirectoryName</DefaultDocumentationFileNameFactory>
+        <WarningsAsErrors>;NU1605;SYSLIB0011;RS0016</WarningsAsErrors>
+        <NoWarn>1701;1702;RS0041</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <NoWarn>1701;1702;RS0041</NoWarn>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(CI)' == 'true' ">
@@ -86,7 +92,7 @@
         <PackageReference Include="prometheus-net.AspNetCore.Grpc" Version="8.2.1" />
         <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="8.2.1" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
-        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.4.0" />
+        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.5.0" />
         <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
         <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />

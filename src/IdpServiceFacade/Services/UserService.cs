@@ -4,10 +4,10 @@ using System.Diagnostics;
 
 using Abstractions;
 
-using Auth0.ManagementApi.Models;
-
 using global::IdpServiceFacade;
+
 using User = global::IdpServiceFacade.User;
+
 using Grpc.Core;
 
 using MorseCode.ITask;
@@ -162,62 +162,20 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.EmailAddresses), request.EmailAddresses)]);
 
-        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService.GetUsersMetadataByEmailAddresses(request.EmailAddresses.ToArray(), request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .GetUsersMetadataByEmailAddresses(request.EmailAddresses.ToArray(), request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
 
         return users.ToUsersMetadataReply();
     }
 
-    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragmentAndOrgUid(UsersMetadataByNameOrEmailFragmentAndOrgUidRequest request, ServerCallContext context)
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragmentAndOrgUid(
+        UsersMetadataByNameOrEmailFragmentAndOrgUidRequest request,
+        ServerCallContext context)
     {
         IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client
-            .GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.OrgUid, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+            .GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.OrgUid, request.Keys?.Key.ToArray(), context.CancellationToken)
+            .ConfigureAwait(false);
 
         return users.ToUsersMetadataReply();
     }
-
-    public override async Task<UserReply> UpdateUserProfile(UpdateUserProfileRequest request, ServerCallContext context)
-    {
-        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
-        UserUpdateRequest userUpdateRequest = CreateUserUpdateRequest(request);
-        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
-    }
-
-    #region private methods
-    private static UserUpdateRequest CreateUserUpdateRequest(UpdateUserProfileRequest request)
-    {
-        UserUpdateRequest userUpdateRequest = new()
-        {
-            Email = request.Email,
-            FullName = $"{request.FirstName} {request.LastName}",
-            UserMetadata = new Dictionary<string, object>
-            {
-                { "full_name", $"{request.FirstName} {request.LastName}" },
-                { "first_name", request.FirstName },
-                { "last_name", request.LastName },
-                { "phone_number", request.PhoneNumber}
-            },
-        };
-
-        if (request.IsBusinessUpdated)
-        {
-            userUpdateRequest.UserMetadata.Add("business_name", request.BusinessName);
-            userUpdateRequest.UserMetadata.Add("business_email", request.BusinessEmail);
-            userUpdateRequest.UserMetadata.Add("business_phone", request.BusinessPhone);
-        }
-        if (request.IsAddressUpdated)
-        {
-            userUpdateRequest.UserMetadata.Add("address_line1", request.AddressLine1);
-            userUpdateRequest.UserMetadata.Add("address_line2", request.AddressLine2);
-            userUpdateRequest.UserMetadata.Add("city", request.City);
-            userUpdateRequest.UserMetadata.Add("state", request.State);
-            userUpdateRequest.UserMetadata.Add("zip", request.Zip);
-        }
-        if (request.IsRoleUpdated)
-        {
-            userUpdateRequest.UserMetadata.Add("role_id", request.RoleId);
-        }
-        return userUpdateRequest;
-    }
-    #endregion
 }

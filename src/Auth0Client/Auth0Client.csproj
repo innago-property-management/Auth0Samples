@@ -51,6 +51,7 @@
     <ItemGroup>
         <AdditionalFiles Include="PublicAPI.Shipped.txt" />
         <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
