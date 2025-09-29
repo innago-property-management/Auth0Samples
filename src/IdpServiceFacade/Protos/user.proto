@@ -34,6 +34,7 @@ service User {
   rpc CreateUser (CreateUserRequest) returns (UserReply);
   rpc CreateApplicant (CreateApplicantRequest) returns (UserReply);
   rpc UpdateUserProfile (UpdateUserProfileRequest) returns (UserReply);
+  rpc UpdateVerifiedEmail (UpdateVerifiedUserEmailRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{
@@ -198,7 +199,7 @@ message UserSearchResponse{
 }
 
 message UpdateUserProfileRequest {
-  string identity_id = 1;
+  string identityId = 1;
   string email = 2;
   string firstName = 3;
   string lastName = 4;
@@ -215,4 +216,9 @@ message UpdateUserProfileRequest {
   bool isBusinessUpdated = 15;
   string roleId = 16;
   bool isRoleUpdated = 17;
+}
+
+message UpdateVerifiedUserEmailRequest{
+  string identityId = 1;
+  string email = 2;
 }
