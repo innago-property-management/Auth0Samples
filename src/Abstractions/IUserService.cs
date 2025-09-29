@@ -232,4 +232,13 @@ public interface IUserService
         string orgUid,
         IEnumerable<string>? keys,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Updates a user with the specified email by setting the provided key-value pairs.
+    /// </summary>
+    /// <param name="identityId"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    ITask<OkError> UpdateUser(string identityId, UserUpdateRequest request, CancellationToken cancellationToken);
 }

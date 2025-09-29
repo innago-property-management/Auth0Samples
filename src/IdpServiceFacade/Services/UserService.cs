@@ -6,6 +6,8 @@ using Abstractions;
 
 using global::IdpServiceFacade;
 
+using User = global::IdpServiceFacade.User;
+
 using Grpc.Core;
 
 using MorseCode.ITask;
@@ -160,22 +162,20 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.EmailAddresses), request.EmailAddresses)]);
 
-        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService.GetUsersMetadataByEmailAddresses(request.EmailAddresses.ToArray(), request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .GetUsersMetadataByEmailAddresses(request.EmailAddresses.ToArray(), request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
 
         return users.ToUsersMetadataReply();
     }
 
-    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragmentAndOrgUid(UsersMetadataByNameOrEmailFragmentAndOrgUidRequest request, ServerCallContext context)
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameOrEmailFragmentAndOrgUid(
+        UsersMetadataByNameOrEmailFragmentAndOrgUidRequest request,
+        ServerCallContext context)
     {
         IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client
-            .GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.OrgUid, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+            .GetUsersMetadataByNameOrEmailFragment(request.SearchTerm, request.OrgUid, request.Keys?.Key.ToArray(), context.CancellationToken)
+            .ConfigureAwait(false);
 
-        return users.ToUsersMetadataReply();
-    }
-
-    public override async Task<UsersMetadataReply> GetUsersMetadataByEmailFragment(UsersMetadataByEmailFragmentRequest request, ServerCallContext context)
-    {
-        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client.GetUsersMetadataByEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken);
         return users.ToUsersMetadataReply();
     }
 }

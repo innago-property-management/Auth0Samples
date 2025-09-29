@@ -33,6 +33,7 @@ service User {
   rpc EnableMfa(UserRequest) returns (UserReply);
   rpc CreateUser (CreateUserRequest) returns (UserReply);
   rpc CreateApplicant (CreateApplicantRequest) returns (UserReply);
+  rpc UpdateUserProfile (UpdateUserProfileRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{
@@ -194,4 +195,24 @@ message UsersSearchRequest {
 
 message UserSearchResponse{
   repeated UserResponse users = 1;
+}
+
+message UpdateUserProfileRequest {
+  string identity_id = 1;
+  string email = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string phoneNumber = 5;
+  string businessName = 6;
+  string businessEmail = 7;
+  string businessPhone = 8;
+  string addressLine1 = 9;
+  string addressLine2 = 10;
+  string city = 11;
+  string state = 12;
+  string zip = 13;
+  bool isAddressUpdated = 14;
+  bool isBusinessUpdated = 15;
+  string roleId = 16;
+  bool isRoleUpdated = 17;
 }

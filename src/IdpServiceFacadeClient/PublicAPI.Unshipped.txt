@@ -1,3 +1,20 @@
+const IdpServiceFacade.UpdateUserProfileRequest.AddressLine1FieldNumber = 9 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.AddressLine2FieldNumber = 10 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.BusinessEmailFieldNumber = 7 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.BusinessNameFieldNumber = 6 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.BusinessPhoneFieldNumber = 8 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.CityFieldNumber = 11 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.FirstNameFieldNumber = 3 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdatedFieldNumber = 14 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdatedFieldNumber = 15 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdatedFieldNumber = 17 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.LastNameFieldNumber = 4 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.RoleIdFieldNumber = 16 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.StateFieldNumber = 12 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.ZipFieldNumber = 13 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -73,6 +90,15 @@ IdpServiceFacade.OrganizationReply.CalculateSize() -> int
 IdpServiceFacade.OrganizationReply.Ok.get -> bool
 IdpServiceFacade.OrganizationReply.Ok.set -> void
 IdpServiceFacade.OrganizationReply.OrganizationReply() -> void
+IdpServiceFacade.UpdateUserProfileRequest
+IdpServiceFacade.UpdateUserProfileRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.get -> bool
+IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.set -> void
+IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.get -> bool
+IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.set -> void
+IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.get -> bool
+IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.set -> void
+IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserClient
 IdpServiceFacade.User.UserClient.UserClient() -> void
@@ -254,6 +280,7 @@ override IdpServiceFacade.MetadataItem.GetHashCode() -> int
 override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
 override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
+override IdpServiceFacade.UpdateUserProfileRequest.GetHashCode() -> int
 override IdpServiceFacade.UserChangePasswordRequest.GetHashCode() -> int
 override IdpServiceFacade.UserId.GetHashCode() -> int
 override IdpServiceFacade.UserIds.GetHashCode() -> int
@@ -462,6 +489,40 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.OrganizationReply.MergeFrom(IdpServiceFacade.OrganizationReply other) -> void
 ~IdpServiceFacade.OrganizationReply.OrganizationReply(IdpServiceFacade.OrganizationReply other) -> void
 ~IdpServiceFacade.OrganizationReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UpdateUserProfileRequest.AddressLine1.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.AddressLine1.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.AddressLine2.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.AddressLine2.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.BusinessEmail.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.BusinessEmail.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.BusinessName.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.BusinessName.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.BusinessPhone.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.BusinessPhone.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.City.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.City.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.Clone() -> IdpServiceFacade.UpdateUserProfileRequest
+~IdpServiceFacade.UpdateUserProfileRequest.Email.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.Email.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.Equals(IdpServiceFacade.UpdateUserProfileRequest other) -> bool
+~IdpServiceFacade.UpdateUserProfileRequest.FirstName.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.FirstName.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.IdentityId.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.IdentityId.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.LastName.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.LastName.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UpdateUserProfileRequest.MergeFrom(IdpServiceFacade.UpdateUserProfileRequest other) -> void
+~IdpServiceFacade.UpdateUserProfileRequest.PhoneNumber.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.PhoneNumber.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.RoleId.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.RoleId.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.State.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.State.set -> void
+~IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest(IdpServiceFacade.UpdateUserProfileRequest other) -> void
+~IdpServiceFacade.UpdateUserProfileRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UpdateUserProfileRequest.Zip.get -> string
+~IdpServiceFacade.UpdateUserProfileRequest.Zip.set -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.CallInvoker callInvoker) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.ChannelBase channel) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> void
@@ -689,6 +750,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~override IdpServiceFacade.Organization.OrganizationClient.NewInstance(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> IdpServiceFacade.Organization.OrganizationClient
 ~override IdpServiceFacade.OrganizationReply.Equals(object other) -> bool
 ~override IdpServiceFacade.OrganizationReply.ToString() -> string
+~override IdpServiceFacade.UpdateUserProfileRequest.Equals(object other) -> bool
+~override IdpServiceFacade.UpdateUserProfileRequest.ToString() -> string
 ~override IdpServiceFacade.User.UserClient.NewInstance(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> IdpServiceFacade.User.UserClient
 ~override IdpServiceFacade.UserChangePasswordRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UserChangePasswordRequest.ToString() -> string
@@ -768,6 +831,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~static IdpServiceFacade.OrganizationReflection.Descriptor.get -> Google.Protobuf.Reflection.FileDescriptor
 ~static IdpServiceFacade.OrganizationReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.OrganizationReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrganizationReply>
+~static IdpServiceFacade.UpdateUserProfileRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UpdateUserProfileRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateUserProfileRequest>
 ~static IdpServiceFacade.User.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
 ~static IdpServiceFacade.UserChangePasswordRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserChangePasswordRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserChangePasswordRequest>
@@ -940,3 +1005,7 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.UnblockUser(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserClient.UnblockUserAsync(IdpServiceFacade.UserRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserClient.UpdateUserProfile(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserReply
+~virtual IdpServiceFacade.User.UserClient.UpdateUserProfile(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
+~virtual IdpServiceFacade.User.UserClient.UpdateUserProfileAsync(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserClient.UpdateUserProfileAsync(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
