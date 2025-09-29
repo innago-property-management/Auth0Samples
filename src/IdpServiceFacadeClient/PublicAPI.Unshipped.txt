@@ -15,6 +15,8 @@ const IdpServiceFacade.UpdateUserProfileRequest.PhoneNumberFieldNumber = 5 -> in
 const IdpServiceFacade.UpdateUserProfileRequest.RoleIdFieldNumber = 16 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.StateFieldNumber = 12 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.ZipFieldNumber = 13 -> int
+const IdpServiceFacade.UpdateVerifiedUserEmailRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityIdFieldNumber = 1 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -99,6 +101,9 @@ IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest() -> void
+IdpServiceFacade.UpdateVerifiedUserEmailRequest
+IdpServiceFacade.UpdateVerifiedUserEmailRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateVerifiedUserEmailRequest.UpdateVerifiedUserEmailRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserClient
 IdpServiceFacade.User.UserClient.UserClient() -> void
@@ -281,6 +286,7 @@ override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
 override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
 override IdpServiceFacade.UpdateUserProfileRequest.GetHashCode() -> int
+override IdpServiceFacade.UpdateVerifiedUserEmailRequest.GetHashCode() -> int
 override IdpServiceFacade.UserChangePasswordRequest.GetHashCode() -> int
 override IdpServiceFacade.UserId.GetHashCode() -> int
 override IdpServiceFacade.UserIds.GetHashCode() -> int
@@ -523,6 +529,16 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.UpdateUserProfileRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.UpdateUserProfileRequest.Zip.get -> string
 ~IdpServiceFacade.UpdateUserProfileRequest.Zip.set -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Clone() -> IdpServiceFacade.UpdateVerifiedUserEmailRequest
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Email.get -> string
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Email.set -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Equals(IdpServiceFacade.UpdateVerifiedUserEmailRequest other) -> bool
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityId.get -> string
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityId.set -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.MergeFrom(IdpServiceFacade.UpdateVerifiedUserEmailRequest other) -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.UpdateVerifiedUserEmailRequest(IdpServiceFacade.UpdateVerifiedUserEmailRequest other) -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.CallInvoker callInvoker) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.ChannelBase channel) -> void
 ~IdpServiceFacade.User.UserClient.UserClient(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> void
@@ -752,6 +768,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~override IdpServiceFacade.OrganizationReply.ToString() -> string
 ~override IdpServiceFacade.UpdateUserProfileRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UpdateUserProfileRequest.ToString() -> string
+~override IdpServiceFacade.UpdateVerifiedUserEmailRequest.Equals(object other) -> bool
+~override IdpServiceFacade.UpdateVerifiedUserEmailRequest.ToString() -> string
 ~override IdpServiceFacade.User.UserClient.NewInstance(Grpc.Core.ClientBase.ClientBaseConfiguration configuration) -> IdpServiceFacade.User.UserClient
 ~override IdpServiceFacade.UserChangePasswordRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UserChangePasswordRequest.ToString() -> string
@@ -833,6 +851,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~static IdpServiceFacade.OrganizationReply.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.OrganizationReply>
 ~static IdpServiceFacade.UpdateUserProfileRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UpdateUserProfileRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateUserProfileRequest>
+~static IdpServiceFacade.UpdateVerifiedUserEmailRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UpdateVerifiedUserEmailRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateVerifiedUserEmailRequest>
 ~static IdpServiceFacade.User.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
 ~static IdpServiceFacade.UserChangePasswordRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UserChangePasswordRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UserChangePasswordRequest>
@@ -1009,3 +1029,7 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~virtual IdpServiceFacade.User.UserClient.UpdateUserProfile(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
 ~virtual IdpServiceFacade.User.UserClient.UpdateUserProfileAsync(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserClient.UpdateUserProfileAsync(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserClient.UpdateVerifiedEmail(IdpServiceFacade.UpdateVerifiedUserEmailRequest request, Grpc.Core.CallOptions options) -> IdpServiceFacade.UserReply
+~virtual IdpServiceFacade.User.UserClient.UpdateVerifiedEmail(IdpServiceFacade.UpdateVerifiedUserEmailRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> IdpServiceFacade.UserReply
+~virtual IdpServiceFacade.User.UserClient.UpdateVerifiedEmailAsync(IdpServiceFacade.UpdateVerifiedUserEmailRequest request, Grpc.Core.CallOptions options) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserClient.UpdateVerifiedEmailAsync(IdpServiceFacade.UpdateVerifiedUserEmailRequest request, Grpc.Core.Metadata headers = null, System.DateTime? deadline = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> Grpc.Core.AsyncUnaryCall<IdpServiceFacade.UserReply>
