@@ -23,6 +23,12 @@
         <DocumentationFile>bin\Debug\net9.0\IdpServiceFacade.xml</DocumentationFile>
         <DefaultDocumentationFolder>docs</DefaultDocumentationFolder>
         <DefaultDocumentationFileNameFactory>DirectoryName</DefaultDocumentationFileNameFactory>
+        <WarningsAsErrors>;NU1605;SYSLIB0011;RS0016</WarningsAsErrors>
+        <NoWarn>1701;1702;RS0041</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <NoWarn>1701;1702;RS0041</NoWarn>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(CI)' == 'true' ">

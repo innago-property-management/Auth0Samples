@@ -23,13 +23,13 @@
 | [MetadataItem](MetadataItem/index.md 'IdpServiceFacade\.MetadataItem') | |
 | [Organization](Organization/index.md 'IdpServiceFacade\.Organization') | |
 | [Organization\.OrganizationBase](Organization/OrganizationBase/index.md 'IdpServiceFacade\.Organization\.OrganizationBase') | Base class for server\-side implementations of Organization |
-| [OrganizationReflection](OrganizationReflection/index.md 'IdpServiceFacade\.OrganizationReflection') | Holder for reflection information generated from Protos/organization\.proto |
+| [OrganizationReflection](OrganizationReflection/index.md 'IdpServiceFacade\.OrganizationReflection') | Holder for reflection information generated from organization\.proto |
 | [OrganizationReply](OrganizationReply/index.md 'IdpServiceFacade\.OrganizationReply') | |
 | [OrgRequest](OrgRequest/index.md 'IdpServiceFacade\.OrgRequest') | |
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
 | [Role](Role/index.md 'IdpServiceFacade\.Role') | |
 | [Role\.RoleBase](Role/RoleBase/index.md 'IdpServiceFacade\.Role\.RoleBase') | Base class for server\-side implementations of Role |
-| [RoleReflection](RoleReflection/index.md 'IdpServiceFacade\.RoleReflection') | Holder for reflection information generated from Protos/role\.proto |
+| [RoleReflection](RoleReflection/index.md 'IdpServiceFacade\.RoleReflection') | Holder for reflection information generated from role\.proto |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserBase](User/UserBase/index.md 'IdpServiceFacade\.User\.UserBase') | Base class for server\-side implementations of User |
 | [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |
@@ -38,7 +38,7 @@
 | [UserMetadataReply](UserMetadataReply/index.md 'IdpServiceFacade\.UserMetadataReply') | |
 | [UserMetadataRequest](UserMetadataRequest/index.md 'IdpServiceFacade\.UserMetadataRequest') | |
 | [UserMFARequest](UserMFARequest/index.md 'IdpServiceFacade\.UserMFARequest') | |
-| [UserReflection](UserReflection/index.md 'IdpServiceFacade\.UserReflection') | Holder for reflection information generated from Protos/user\.proto |
+| [UserReflection](UserReflection/index.md 'IdpServiceFacade\.UserReflection') | Holder for reflection information generated from user\.proto |
 | [UserReply](UserReply/index.md 'IdpServiceFacade\.UserReply') | The response message containing the outcome\. |
 | [UserRequest](UserRequest/index.md 'IdpServiceFacade\.UserRequest') | The request message containing the user's email\. |
 | [UserResponse](UserResponse/index.md 'IdpServiceFacade\.UserResponse') | |

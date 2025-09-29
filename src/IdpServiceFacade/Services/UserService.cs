@@ -172,4 +172,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
 
         return users.ToUsersMetadataReply();
     }
+
+    public override async Task<UsersMetadataReply> GetUsersMetadataByEmailFragment(UsersMetadataByEmailFragmentRequest request, ServerCallContext context)
+    {
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await auth0Client.GetUsersMetadataByEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken);
+        return users.ToUsersMetadataReply();
+    }
 }
