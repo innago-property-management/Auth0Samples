@@ -28,6 +28,7 @@ Abstractions.IRoleService.CreateRole(string! roleName, string? description = nul
 Abstractions.IUserService
 Abstractions.IUserService.BlockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.ChangePasswordWithIdentityId(string! identityId, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.CreateUser(Abstractions.UserCreateInfo! userCreateInfo, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User?>!
 Abstractions.IUserService.CreateUserImplementation(Auth0.ManagementApi.Models.UserCreateRequest! userCreateRequest, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.IUserService.CreateUserWithResult(Auth0.ManagementApi.Models.UserCreateRequest! userCreateRequest, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!

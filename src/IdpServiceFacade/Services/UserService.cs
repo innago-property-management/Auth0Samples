@@ -208,6 +208,28 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         };
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
+
+    public override async Task<UserReply> UpdateVerifiedPhoneNumber(UpdateVerifiedPhoneNumberRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.PhoneNumber), request.PhoneNumber)]);
+        UserUpdateRequest userUpdateRequest = new()
+        {
+            UserMetadata = new Dictionary<string, object>
+            {
+                { "phone_number", request.PhoneNumber }
+            }
+        };
+        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
+    }
+
+    public override async Task<UserReply> ChangePasswordWithIdentityId(ChangePasswordWithIdentityIdRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId)]);
+        return await externalService.ChangePasswordWithIdentityId(request.IdentityId, request.NewPassword, context.CancellationToken).ToUserReply();
+    }
+
     #region private methods
     private static UserUpdateRequest CreateUserUpdateRequest(UpdateUserProfileRequest request)
     {

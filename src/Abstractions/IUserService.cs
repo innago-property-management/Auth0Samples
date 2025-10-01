@@ -255,4 +255,12 @@ public interface IUserService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing an OkError result.</returns>
     ITask<OkError> CreateUserWithResult(UserCreateRequest userCreateRequest, CancellationToken cancellationToken);
+    /// <summary>
+    /// Change the password for a user identified by the provided identityId.
+    /// </summary>
+    /// <param name="identityId"></param>
+    /// <param name="newPassword"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    ITask<OkError> ChangePasswordWithIdentityId(string identityId, string newPassword, CancellationToken cancellationToken);
 }
