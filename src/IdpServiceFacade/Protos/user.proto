@@ -219,6 +219,7 @@ message UpdateUserProfileRequest {
   bool isBusinessUpdated = 15;
   string roleId = 16;
   bool isRoleUpdated = 17;
+  bool emailVerified = 18;
 }
 
 message UpdateVerifiedUserEmailRequest{
