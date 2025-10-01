@@ -216,11 +216,9 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.PhoneNumber), request.PhoneNumber)]);
         UserUpdateRequest userUpdateRequest = new()
         {
-            UserMetadata = new Dictionary<string, object>
-            {
-                { "phone_number", request.PhoneNumber }
-            }
+            UserMetadata = new Dictionary<string, object>()
         };
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "phone_number", request.PhoneNumber);
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 
@@ -232,42 +230,58 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     }
 
     #region private methods
+    private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            dict[key] = value;
+        }
+    }
+
     private static UserUpdateRequest CreateUserUpdateRequest(UpdateUserProfileRequest request)
     {
         UserUpdateRequest userUpdateRequest = new()
         {
             UserName = request.Email,
             Email = request.Email,
-            FullName = $"{request.FirstName} {request.LastName}",
-            UserMetadata = new Dictionary<string, object>
-            {
-                { "full_name", $"{request.FirstName} {request.LastName}" },
-                { "first_name", request.FirstName },
-                { "last_name", request.LastName },
-                { "phone_number", request.PhoneNumber}
-            },
+            EmailVerified = request.EmailVerified,
+            FullName = $"{request.FirstName} {request.LastName}".Trim(),
+            UserMetadata = new Dictionary<string, object>()
         };
 
+        // base fields
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "full_name", $"{request.FirstName} {request.LastName}".Trim());
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "first_name", request.FirstName);
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "last_name", request.LastName);
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "phone_number", request.PhoneNumber);
+
+        // business fields
         if (request.IsBusinessUpdated)
         {
-            userUpdateRequest.UserMetadata.Add("business_name", request.BusinessName);
-            userUpdateRequest.UserMetadata.Add("business_email", request.BusinessEmail);
-            userUpdateRequest.UserMetadata.Add("business_phone", request.BusinessPhone);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "business_name", request.BusinessName);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "business_email", request.BusinessEmail);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "business_phone", request.BusinessPhone);
         }
+
+        // address fields
         if (request.IsAddressUpdated)
         {
-            userUpdateRequest.UserMetadata.Add("address_line1", request.AddressLine1);
-            userUpdateRequest.UserMetadata.Add("address_line2", request.AddressLine2);
-            userUpdateRequest.UserMetadata.Add("city", request.City);
-            userUpdateRequest.UserMetadata.Add("state", request.State);
-            userUpdateRequest.UserMetadata.Add("zip", request.Zip);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "address_line1", request.AddressLine1);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "address_line2", request.AddressLine2);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "city", request.City);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "state", request.State);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "zip", request.Zip);
         }
+
+        // role field
         if (request.IsRoleUpdated)
         {
-            userUpdateRequest.UserMetadata.Add("role_id", request.RoleId);
+            AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
         }
+
         return userUpdateRequest;
     }
+
     private static UserCreateRequest CreateUserProfileRequest(CreateUserProfileRequest request)
     {
         UserCreateRequest userCreateRequest = new()

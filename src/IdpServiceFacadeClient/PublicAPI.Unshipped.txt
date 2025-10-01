@@ -16,6 +16,7 @@ const IdpServiceFacade.UpdateUserProfileRequest.BusinessNameFieldNumber = 6 -> i
 const IdpServiceFacade.UpdateUserProfileRequest.BusinessPhoneFieldNumber = 8 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.CityFieldNumber = 11 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.EmailVerifiedFieldNumber = 18 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.FirstNameFieldNumber = 3 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdatedFieldNumber = 14 -> int
@@ -117,6 +118,8 @@ IdpServiceFacade.OrganizationReply.Ok.set -> void
 IdpServiceFacade.OrganizationReply.OrganizationReply() -> void
 IdpServiceFacade.UpdateUserProfileRequest
 IdpServiceFacade.UpdateUserProfileRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateUserProfileRequest.EmailVerified.get -> bool
+IdpServiceFacade.UpdateUserProfileRequest.EmailVerified.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.get -> bool
