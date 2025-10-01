@@ -88,10 +88,16 @@ public partial class Auth0Client
     {
         string password = Guid.CreateVersion7().ToString();
 
+        UserCreateRequest userCreateRequest = new UserCreateRequest
+        {
+            Email = userEmail,
+            Password = password,
+            EmailVerified = true,
+            VerifyEmail = true,
+            AppMetadata = new Metadata(RoleId: "3"),
+        };
         Result<User?> userCreationResult = await TryHelpers
-            .TryAsync(() => this.CreateUserImplementation(new UserCreateInfo(" ", " ", userEmail, password),
-                true,
-                new Metadata(RoleId: "3"),
+            .TryAsync(() => this.CreateUser(userCreateRequest,
                 cancellationToken: cancellationToken)!).ConfigureAwait(false);
 
         return await userCreationResult.Map(OnCreateSuccess!, HandleError)!;
@@ -131,10 +137,10 @@ public partial class Auth0Client
         await client.Organizations.AddMembersAsync(orgId, request, cancellationToken).ConfigureAwait(false);
 
         Result<Ticket?> ticket = await TryHelpers.TryAsync(() => client.Tickets.CreateEmailVerificationTicketAsync(new EmailVerificationTicketRequest
-            {
-                OrganizationId = orgId,
-                UserId = user.UserId,
-            },
+        {
+            OrganizationId = orgId,
+            UserId = user.UserId,
+        },
             cancellationToken)!).ConfigureAwait(false);
 
         ticket.IfFailed(ThrowOnError);

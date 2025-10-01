@@ -38,6 +38,13 @@ public interface IUserService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the created user.</returns>
     Task<User?> CreateUser(UserCreateInfo userCreateInfo, CancellationToken cancellationToken);
+    /// <summary>
+    ///     Creates a new user.
+    /// </summary>
+    /// <param name="userCreateRequest">The information required to create the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the created user.</returns>
+    Task<User?> CreateUser(UserCreateRequest userCreateRequest, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Disables Multi-Factor Authentication (MFA) for a user.
@@ -241,4 +248,11 @@ public interface IUserService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     ITask<OkError> UpdateUser(string identityId, UserUpdateRequest request, CancellationToken cancellationToken);
+    /// <summary>
+    ///     Creates a new user in Auth0 and returns an OkError result.
+    /// </summary>
+    /// <param name="userCreateRequest">The information required to create the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing an OkError result.</returns>
+    ITask<OkError> CreateUserWithResult(UserCreateRequest userCreateRequest, CancellationToken cancellationToken);
 }
