@@ -550,6 +550,60 @@ public partial class Auth0Client
                 });
         }
     }
+    /// <inheritdoc/>
+    public async ITask<OkError> ChangePasswordWithIdentityId(string identityId, string newPassword, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(identityId), identityId)]);
+        GetUsersRequest getUsersRequest = new()
+        {
+            Query = $"user_metadata.identity_id:\"{identityId}\"",
+            SearchEngine = "v3",
+        };
+        Result<IPagedList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(UpdateUserPassword, GetUsersError)!;
+
+        static Task<OkError> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(Error: exception?.Message ?? string.Empty));
+        }
+
+        async Task<OkError> UpdateUserPassword(IList<User>? users)
+        {
+            return await (users?.Count == 1).Map(OnTrue, MoreThanOneUserFound)!;
+
+            Task<OkError> MoreThanOneUserFound()
+            {
+                const string? error = "more than one user found";
+                // ReSharper disable once AccessToDisposedClosure
+                activity?.AddException(new Exception(error));
+                return Task.FromResult(new OkError(Error: error));
+            }
+
+            async Task<OkError> OnTrue()
+            {
+                User user = users![0];
+                string id = user.UserId;
+
+                UserUpdateRequest request = new()
+                {
+                    Password = newPassword,
+                };
+
+                Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
+
+                return updateResult.Map<Result>(_ => Result.Success,
+                    exception =>
+                    {
+                        // ReSharper disable once AccessToDisposedClosure
+                        activity?.AddException(exception!);
+                        return exception!;
+                    });
+            }
+        }
+    }
     private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
     {
         FormUrlEncodedContent requestContent = new([

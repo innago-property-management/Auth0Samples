@@ -37,6 +37,7 @@ service User {
   rpc UpdateVerifiedEmail (UpdateVerifiedUserEmailRequest) returns (UserReply);
   rpc CreateUserProfile (CreateUserProfileRequest) returns (UserReply);
   rpc UpdateVerifiedPhoneNumber (UpdateVerifiedPhoneNumberRequest) returns (UserReply);
+  rpc ChangePasswordWithIdentityId (ChangePasswordWithIdentityIdRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{
@@ -240,4 +241,9 @@ message CreateUserProfileRequest{
 message UpdateVerifiedPhoneNumberRequest{
   string identityId = 1;
   string phoneNumber = 2;
+}
+
+message ChangePasswordWithIdentityIdRequest{
+  string identityId = 1;
+  string newPassword = 2;
 }

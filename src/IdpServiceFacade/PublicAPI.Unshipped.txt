@@ -116,6 +116,7 @@ IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest() -> void
+IdpServiceFacade.UpdateVerifiedPhoneNumberRequest
 IdpServiceFacade.UpdateVerifiedUserEmailRequest
 IdpServiceFacade.UpdateVerifiedUserEmailRequest.CalculateSize() -> int
 IdpServiceFacade.UpdateVerifiedUserEmailRequest.UpdateVerifiedUserEmailRequest() -> void
