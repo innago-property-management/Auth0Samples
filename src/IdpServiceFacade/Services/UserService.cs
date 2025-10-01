@@ -244,7 +244,6 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         {
             UserName = request.Email,
             Email = request.Email,
-            EmailVerified = request.EmailVerified,
             FullName = $"{request.FirstName} {request.LastName}".Trim(),
             UserMetadata = new Dictionary<string, object>()
         };
@@ -278,7 +277,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         {
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
         }
-
+        if (request.EmailVerified)
+        {
+            userUpdateRequest.EmailVerified = true;
+        }
         return userUpdateRequest;
     }
 
