@@ -97,7 +97,7 @@ public partial class Auth0Client
             AppMetadata = new Metadata(RoleId: "3"),
         };
         Result<User?> userCreationResult = await TryHelpers
-            .TryAsync(() => this.CreateUser(userCreateRequest,
+            .TryAsync(() => this.CreateUserImplementation(userCreateRequest,
                 cancellationToken: cancellationToken)!).ConfigureAwait(false);
 
         return await userCreationResult.Map(OnCreateSuccess!, HandleError)!;

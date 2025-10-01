@@ -44,7 +44,7 @@ public interface IUserService
     /// <param name="userCreateRequest">The information required to create the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation, containing the created user.</returns>
-    Task<User?> CreateUser(UserCreateRequest userCreateRequest, CancellationToken cancellationToken);
+    Task<User> CreateUserImplementation(UserCreateRequest userCreateRequest, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Disables Multi-Factor Authentication (MFA) for a user.

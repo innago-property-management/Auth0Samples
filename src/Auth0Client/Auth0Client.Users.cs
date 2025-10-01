@@ -54,7 +54,7 @@ public partial class Auth0Client
             Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
         };
 
-        return await this.CreateUser(request, cancellationToken: cancellationToken);
+        return await this.CreateUserImplementation(request, cancellationToken: cancellationToken);
     }
     /// <summary>
     /// Creates a new user in Auth0 using the provided UserCreateRequest.
@@ -63,11 +63,11 @@ public partial class Auth0Client
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public async Task<User> CreateUser(UserCreateRequest request, CancellationToken cancellationToken)
+    public async Task<User> CreateUserImplementation(UserCreateRequest userCreateRequest, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
-        request.Connection = this.auth0DatabaseName ?? throw new InvalidOperationException();
-        return await client.Users.CreateAsync(request, cancellationToken);
+        userCreateRequest.Connection = this.auth0DatabaseName ?? throw new InvalidOperationException();
+        return await client.Users.CreateAsync(userCreateRequest, cancellationToken);
     }
 
     /// <summary>
@@ -472,7 +472,7 @@ public partial class Auth0Client
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(userCreateRequest.Email), userCreateRequest.Email)]);
         
-        Result<User?> createResult = await TryHelpers.TryAsync(() => this.CreateUser(userCreateRequest, cancellationToken)!).ConfigureAwait(false);
+        Result<User?> createResult = await TryHelpers.TryAsync(() => this.CreateUserImplementation(userCreateRequest, cancellationToken)!).ConfigureAwait(false);
 
         return createResult.Map<Result>(_ => Result.Success,
             exception =>
