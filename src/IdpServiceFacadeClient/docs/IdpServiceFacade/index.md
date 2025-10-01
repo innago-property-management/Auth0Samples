@@ -5,6 +5,7 @@
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
 | [CreateOrganizationReply](CreateOrganizationReply/index.md 'IdpServiceFacade\.CreateOrganizationReply') | |
 | [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
+| [CreateUserProfileRequest](CreateUserProfileRequest/index.md 'IdpServiceFacade\.CreateUserProfileRequest') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
 | [GetOrganizationReply](GetOrganizationReply/index.md 'IdpServiceFacade\.GetOrganizationReply') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
@@ -24,6 +25,7 @@
 | [OrgRequest](OrgRequest/index.md 'IdpServiceFacade\.OrgRequest') | |
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
+| [UpdateVerifiedUserEmailRequest](UpdateVerifiedUserEmailRequest/index.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserClient](User/UserClient/index.md 'IdpServiceFacade\.User\.UserClient') | Client for User |
 | [UserChangePasswordRequest](UserChangePasswordRequest/index.md 'IdpServiceFacade\.UserChangePasswordRequest') | |

@@ -32,6 +32,14 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return externalService.ChangePassword(request.Email, request.Password, context.CancellationToken).ToUserReply();
     }
 
+    public override async Task<UserReply> CreateUserProfile(CreateUserProfileRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
+        UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
+        return await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken).ToUserReply();
+    }
+
     public override Task<UserReply> DisableMfa(UserRequest request, ServerCallContext context)
     {
         using Activity? activity =
@@ -235,6 +243,26 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             userUpdateRequest.UserMetadata.Add("role_id", request.RoleId);
         }
         return userUpdateRequest;
+    }
+    private static UserCreateRequest CreateUserProfileRequest(CreateUserProfileRequest request)
+    {
+        UserCreateRequest userCreateRequest = new()
+        {
+            Email = request.Email,
+            FullName = $"{request.FirstName} {request.LastName}",
+            Password = Guid.NewGuid().ToString(),
+            EmailVerified = request.EmailVerified,
+            VerifyEmail = request.VerifyEmail
+        };
+        if (request.Metadata is not null && request.Metadata.Count > 0)
+        {
+            userCreateRequest.UserMetadata = request.Metadata.ToDictionary(kv => kv.Key, kv => kv.Value);
+        }
+        else
+        {
+            userCreateRequest.UserMetadata = new Dictionary<string, object>();
+        }
+        return userCreateRequest;
     }
     #endregion
 }

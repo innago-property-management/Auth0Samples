@@ -1,3 +1,14 @@
+const IdpServiceFacade.CreateUserProfileRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.CreateUserProfileRequest.EmailVerifiedFieldNumber = 8 -> int
+const IdpServiceFacade.CreateUserProfileRequest.FirstNameFieldNumber = 3 -> int
+const IdpServiceFacade.CreateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
+const IdpServiceFacade.CreateUserProfileRequest.LastNameFieldNumber = 4 -> int
+const IdpServiceFacade.CreateUserProfileRequest.MetadataFieldNumber = 6 -> int
+const IdpServiceFacade.CreateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
+const IdpServiceFacade.CreateUserProfileRequest.RoleIdFieldNumber = 7 -> int
+const IdpServiceFacade.CreateUserProfileRequest.VerifyEmailFieldNumber = 9 -> int
+const IdpServiceFacade.UpdateVerifiedUserEmailRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityIdFieldNumber = 1 -> int
 IdpServiceFacade.CreateApplicantRequest
 IdpServiceFacade.CreateApplicantRequest.CalculateSize() -> int
 IdpServiceFacade.CreateApplicantRequest.CreateApplicantRequest() -> void
@@ -27,6 +38,13 @@ IdpServiceFacade.CreateRoleResponse.CreateRoleResponse() -> void
 IdpServiceFacade.CreateRoleResponse.HasError.get -> bool
 IdpServiceFacade.CreateRoleResponse.Ok.get -> bool
 IdpServiceFacade.CreateRoleResponse.Ok.set -> void
+IdpServiceFacade.CreateUserProfileRequest
+IdpServiceFacade.CreateUserProfileRequest.CalculateSize() -> int
+IdpServiceFacade.CreateUserProfileRequest.CreateUserProfileRequest() -> void
+IdpServiceFacade.CreateUserProfileRequest.EmailVerified.get -> bool
+IdpServiceFacade.CreateUserProfileRequest.EmailVerified.set -> void
+IdpServiceFacade.CreateUserProfileRequest.VerifyEmail.get -> bool
+IdpServiceFacade.CreateUserProfileRequest.VerifyEmail.set -> void
 IdpServiceFacade.CreateUserRequest
 IdpServiceFacade.CreateUserRequest.CalculateSize() -> int
 IdpServiceFacade.CreateUserRequest.CreateUserRequest() -> void
@@ -98,6 +116,9 @@ IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest() -> void
+IdpServiceFacade.UpdateVerifiedUserEmailRequest
+IdpServiceFacade.UpdateVerifiedUserEmailRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateVerifiedUserEmailRequest.UpdateVerifiedUserEmailRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserBase
 IdpServiceFacade.User.UserBase.UserBase() -> void
@@ -292,6 +313,7 @@ override IdpServiceFacade.CreateOrganizationReply.GetHashCode() -> int
 override IdpServiceFacade.CreateOrganizationRequest.GetHashCode() -> int
 override IdpServiceFacade.CreateRoleRequest.GetHashCode() -> int
 override IdpServiceFacade.CreateRoleResponse.GetHashCode() -> int
+override IdpServiceFacade.CreateUserProfileRequest.GetHashCode() -> int
 override IdpServiceFacade.CreateUserRequest.GetHashCode() -> int
 override IdpServiceFacade.EmptyRequest.GetHashCode() -> int
 override IdpServiceFacade.GetOrganizationReply.GetHashCode() -> int
@@ -309,6 +331,7 @@ override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
 override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
 override IdpServiceFacade.UpdateUserProfileRequest.GetHashCode() -> int
+override IdpServiceFacade.UpdateVerifiedUserEmailRequest.GetHashCode() -> int
 override IdpServiceFacade.UserChangePasswordRequest.GetHashCode() -> int
 override IdpServiceFacade.UserId.GetHashCode() -> int
 override IdpServiceFacade.UserIds.GetHashCode() -> int
@@ -384,6 +407,25 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.CreateRoleResponse.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.CreateRoleResponse.MergeFrom(IdpServiceFacade.CreateRoleResponse other) -> void
 ~IdpServiceFacade.CreateRoleResponse.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.CreateUserProfileRequest.Clone() -> IdpServiceFacade.CreateUserProfileRequest
+~IdpServiceFacade.CreateUserProfileRequest.CreateUserProfileRequest(IdpServiceFacade.CreateUserProfileRequest other) -> void
+~IdpServiceFacade.CreateUserProfileRequest.Email.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.Email.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.Equals(IdpServiceFacade.CreateUserProfileRequest other) -> bool
+~IdpServiceFacade.CreateUserProfileRequest.FirstName.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.FirstName.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.IdentityId.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.IdentityId.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.LastName.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.LastName.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.CreateUserProfileRequest.MergeFrom(IdpServiceFacade.CreateUserProfileRequest other) -> void
+~IdpServiceFacade.CreateUserProfileRequest.Metadata.get -> Google.Protobuf.Collections.MapField<string, string>
+~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.RoleId.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.RoleId.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.CreateUserRequest.Clone() -> IdpServiceFacade.CreateUserRequest
 ~IdpServiceFacade.CreateUserRequest.CreateUserRequest(IdpServiceFacade.CreateUserRequest other) -> void
 ~IdpServiceFacade.CreateUserRequest.Email.get -> string
@@ -572,6 +614,16 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.UpdateUserProfileRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.UpdateUserProfileRequest.Zip.get -> string
 ~IdpServiceFacade.UpdateUserProfileRequest.Zip.set -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Clone() -> IdpServiceFacade.UpdateVerifiedUserEmailRequest
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Email.get -> string
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Email.set -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.Equals(IdpServiceFacade.UpdateVerifiedUserEmailRequest other) -> bool
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityId.get -> string
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityId.set -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.MergeFrom(IdpServiceFacade.UpdateVerifiedUserEmailRequest other) -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.UpdateVerifiedUserEmailRequest(IdpServiceFacade.UpdateVerifiedUserEmailRequest other) -> void
+~IdpServiceFacade.UpdateVerifiedUserEmailRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.UserChangePasswordRequest.Clone() -> IdpServiceFacade.UserChangePasswordRequest
 ~IdpServiceFacade.UserChangePasswordRequest.Email.get -> string
 ~IdpServiceFacade.UserChangePasswordRequest.Email.set -> void
@@ -767,6 +819,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~override IdpServiceFacade.CreateRoleRequest.ToString() -> string
 ~override IdpServiceFacade.CreateRoleResponse.Equals(object other) -> bool
 ~override IdpServiceFacade.CreateRoleResponse.ToString() -> string
+~override IdpServiceFacade.CreateUserProfileRequest.Equals(object other) -> bool
+~override IdpServiceFacade.CreateUserProfileRequest.ToString() -> string
 ~override IdpServiceFacade.CreateUserRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.CreateUserRequest.ToString() -> string
 ~override IdpServiceFacade.EmptyRequest.Equals(object other) -> bool
@@ -801,6 +855,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~override IdpServiceFacade.OrganizationReply.ToString() -> string
 ~override IdpServiceFacade.UpdateUserProfileRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UpdateUserProfileRequest.ToString() -> string
+~override IdpServiceFacade.UpdateVerifiedUserEmailRequest.Equals(object other) -> bool
+~override IdpServiceFacade.UpdateVerifiedUserEmailRequest.ToString() -> string
 ~override IdpServiceFacade.UserChangePasswordRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UserChangePasswordRequest.ToString() -> string
 ~override IdpServiceFacade.UserId.Equals(object other) -> bool
@@ -849,6 +905,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~static IdpServiceFacade.CreateRoleRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateRoleRequest>
 ~static IdpServiceFacade.CreateRoleResponse.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.CreateRoleResponse.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateRoleResponse>
+~static IdpServiceFacade.CreateUserProfileRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.CreateUserProfileRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateUserProfileRequest>
 ~static IdpServiceFacade.CreateUserRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.CreateUserRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.CreateUserRequest>
 ~static IdpServiceFacade.EmptyRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
@@ -891,6 +949,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~static IdpServiceFacade.RoleReflection.Descriptor.get -> Google.Protobuf.Reflection.FileDescriptor
 ~static IdpServiceFacade.UpdateUserProfileRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UpdateUserProfileRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateUserProfileRequest>
+~static IdpServiceFacade.UpdateVerifiedUserEmailRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UpdateVerifiedUserEmailRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateVerifiedUserEmailRequest>
 ~static IdpServiceFacade.User.BindService(Grpc.Core.ServiceBinderBase serviceBinder, IdpServiceFacade.User.UserBase serviceImpl) -> void
 ~static IdpServiceFacade.User.BindService(IdpServiceFacade.User.UserBase serviceImpl) -> Grpc.Core.ServerServiceDefinition
 ~static IdpServiceFacade.User.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
@@ -946,6 +1006,7 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.ChangePassword(IdpServiceFacade.UserChangePasswordRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.CreateApplicant(IdpServiceFacade.CreateApplicantRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.CreateUser(IdpServiceFacade.CreateUserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserBase.CreateUserProfile(IdpServiceFacade.CreateUserProfileRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.DisableMfa(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.EnableMfa(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.GetRefreshToken(IdpServiceFacade.GetRefreshTokenAuthRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.GetTokenAuthReply>
@@ -968,3 +1029,4 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UnblockUser(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UpdateUserProfile(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserBase.UpdateVerifiedEmail(IdpServiceFacade.UpdateVerifiedUserEmailRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>

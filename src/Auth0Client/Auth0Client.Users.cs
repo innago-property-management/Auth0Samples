@@ -43,16 +43,6 @@ public partial class Auth0Client
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
 
         const bool emailVerified = false;
-
-        return await this.CreateUserImplementation(userCreateInfo, emailVerified, cancellationToken: cancellationToken);
-    }
-
-    private async Task<User> CreateUserImplementation(
-        UserCreateInfo userCreateInfo,
-        bool emailVerified,
-        object? metadata = null,
-        CancellationToken cancellationToken = default)
-    {
         UserCreateRequest request = new()
         {
             Email = userCreateInfo.Email,
@@ -64,13 +54,20 @@ public partial class Auth0Client
             Connection = this.auth0DatabaseName ?? throw new InvalidOperationException(),
         };
 
-        if (metadata != null)
-        {
-            request.UserMetadata = metadata;
-        }
-
-        User user = await client.Users.CreateAsync(request, cancellationToken);
-        return user;
+        return await this.CreateUserImplementation(request, cancellationToken: cancellationToken);
+    }
+    /// <summary>
+    /// Creates a new user in Auth0 using the provided UserCreateRequest.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public async Task<User> CreateUserImplementation(UserCreateRequest userCreateRequest, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client);
+        userCreateRequest.Connection = this.auth0DatabaseName ?? throw new InvalidOperationException();
+        return await client.Users.CreateAsync(userCreateRequest, cancellationToken);
     }
 
     /// <summary>
@@ -466,6 +463,26 @@ public partial class Auth0Client
     }
 
     /// <summary>
+    ///     Creates a new user in Auth0 and returns an OkError result.
+    /// </summary>
+    /// <param name="userCreateRequest">The information required to create the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing an OkError result.</returns>
+    public async ITask<OkError> CreateUserWithResult(UserCreateRequest userCreateRequest, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(userCreateRequest.Email), userCreateRequest.Email)]);
+        
+        Result<User?> createResult = await TryHelpers.TryAsync(() => this.CreateUserImplementation(userCreateRequest, cancellationToken)!).ConfigureAwait(false);
+
+        return createResult.Map<Result>(_ => Result.Success,
+            exception =>
+            {
+                activity?.AddException(exception!);
+                return exception!;
+            });
+    }
+
+    /// <summary>
     /// Enables Multi-Factor Authentication (MFA) for a user
     /// </summary>
     /// <param name="email"></param>
@@ -504,7 +521,7 @@ public partial class Auth0Client
         Result<IPagedList<User>?> getUsersResult = await TryHelpers
             .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!)
             .ConfigureAwait(false);
-        
+
         return await getUsersResult.Map(UpdateUser, GetUsersError)!;
 
         static Task<OkError> GetUsersError(Exception? exception)
@@ -514,7 +531,8 @@ public partial class Auth0Client
 
         async Task<OkError> UpdateUser(IList<User>? users)
         {
-            if (users == null || !users.Any()) { 
+            if (users == null || !users.Any())
+            {
                 logger.Information("No User found to update");
                 return new OkError(false, Error: "No User found to update");
             }
@@ -529,7 +547,7 @@ public partial class Auth0Client
                     // ReSharper disable once AccessToDisposedClosure
                     activity?.AddException(exception!);
                     return exception!;
-                });   
+                });
         }
     }
     private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)
