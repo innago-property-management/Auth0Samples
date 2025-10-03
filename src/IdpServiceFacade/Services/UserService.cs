@@ -203,7 +203,6 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
         UserUpdateRequest userUpdateRequest = new()
         {
-            UserName = request.Email,
             Email = request.Email,
             EmailVerified = true
         };
@@ -242,7 +241,6 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     {
         UserUpdateRequest userUpdateRequest = new()
         {
-            UserName = request.Email,
             Email = request.Email,
             FullName = $"{request.FirstName} {request.LastName}".Trim(),
             UserMetadata = new Dictionary<string, object>()
