@@ -524,8 +524,9 @@ public partial class Auth0Client
 
         return await getUsersResult.Map(UpdateUser, GetUsersError)!;
 
-        static Task<OkError> GetUsersError(Exception? exception)
+        Task<OkError> GetUsersError(Exception? exception)
         {
+            logger.Information($"Error getting user with identityId {identityId}: {exception?.Message}");
             return Task.FromResult(new OkError(false, Error: exception?.Message ?? string.Empty));
         }
 
