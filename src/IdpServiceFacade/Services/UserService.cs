@@ -227,6 +227,17 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId)]);
         return await externalService.ChangePasswordWithIdentityId(request.IdentityId, request.NewPassword, context.CancellationToken).ToUserReply();
     }
+    public override async Task<UserReply> UpdateRiskStatusWithIdentityId(UpdateRiskStatusWithIdentityIdRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId)]);
+        UserUpdateRequest userUpdateRequest = new()
+        {
+            UserMetadata = new Dictionary<string, object>()
+        };
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "risk_status", request.RiskStatus);
+        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
+    }
 
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
