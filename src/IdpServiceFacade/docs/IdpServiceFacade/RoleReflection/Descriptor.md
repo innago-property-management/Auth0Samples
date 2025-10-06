@@ -3,7 +3,7 @@
 
 ## RoleReflection\.Descriptor Property
 
-File descriptor for role\.proto
+File descriptor for Protos/role\.proto
 
 ```csharp
 public static Google.Protobuf.Reflection.FileDescriptor Descriptor { get; }

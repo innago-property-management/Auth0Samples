@@ -2,6 +2,7 @@
 
 | Classes | |
 | :--- | :--- |
+| [ChangePasswordWithIdentityIdRequest](ChangePasswordWithIdentityIdRequest/index.md 'IdpServiceFacade\.ChangePasswordWithIdentityIdRequest') | |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
 | [CreateOrganizationReply](CreateOrganizationReply/index.md 'IdpServiceFacade\.CreateOrganizationReply') | |
 | [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
@@ -24,7 +25,9 @@
 | [OrganizationReply](OrganizationReply/index.md 'IdpServiceFacade\.OrganizationReply') | |
 | [OrgRequest](OrgRequest/index.md 'IdpServiceFacade\.OrgRequest') | |
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
+| [UpdateRiskStatusWithIdentityIdRequest](UpdateRiskStatusWithIdentityIdRequest/index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
+| [UpdateVerifiedPhoneNumberRequest](UpdateVerifiedPhoneNumberRequest/index.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest') | |
 | [UpdateVerifiedUserEmailRequest](UpdateVerifiedUserEmailRequest/index.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
 | [User\.UserClient](User/UserClient/index.md 'IdpServiceFacade\.User\.UserClient') | Client for User |
