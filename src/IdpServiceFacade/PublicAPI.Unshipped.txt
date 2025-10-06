@@ -9,6 +9,8 @@ const IdpServiceFacade.CreateUserProfileRequest.MetadataFieldNumber = 6 -> int
 const IdpServiceFacade.CreateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
 const IdpServiceFacade.CreateUserProfileRequest.RoleIdFieldNumber = 7 -> int
 const IdpServiceFacade.CreateUserProfileRequest.VerifyEmailFieldNumber = 9 -> int
+const IdpServiceFacade.GetUsersMetadataByNamesRequest.KeysFieldNumber = 2 -> int
+const IdpServiceFacade.GetUsersMetadataByNamesRequest.NamesFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.RiskStatusFieldNumber = 2 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.EmailVerifiedFieldNumber = 18 -> int
@@ -80,6 +82,9 @@ IdpServiceFacade.GetTokenAuthRequest.GetTokenAuthRequest() -> void
 IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest
 IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.CalculateSize() -> int
 IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.GetUsersMetadataByEmailAddressesRequest() -> void
+IdpServiceFacade.GetUsersMetadataByNamesRequest
+IdpServiceFacade.GetUsersMetadataByNamesRequest.CalculateSize() -> int
+IdpServiceFacade.GetUsersMetadataByNamesRequest.GetUsersMetadataByNamesRequest() -> void
 IdpServiceFacade.Identity
 IdpServiceFacade.Identity.CalculateSize() -> int
 IdpServiceFacade.Identity.Identity() -> void
@@ -340,6 +345,7 @@ override IdpServiceFacade.GetRefreshTokenAuthRequest.GetHashCode() -> int
 override IdpServiceFacade.GetTokenAuthReply.GetHashCode() -> int
 override IdpServiceFacade.GetTokenAuthRequest.GetHashCode() -> int
 override IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.GetHashCode() -> int
+override IdpServiceFacade.GetUsersMetadataByNamesRequest.GetHashCode() -> int
 override IdpServiceFacade.Identity.GetHashCode() -> int
 override IdpServiceFacade.InitiatePasswordResetReply.GetHashCode() -> int
 override IdpServiceFacade.KeysWrapper.GetHashCode() -> int
@@ -538,6 +544,15 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.MergeFrom(IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest other) -> void
 ~IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.Clone() -> IdpServiceFacade.GetUsersMetadataByNamesRequest
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.Equals(IdpServiceFacade.GetUsersMetadataByNamesRequest other) -> bool
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.GetUsersMetadataByNamesRequest(IdpServiceFacade.GetUsersMetadataByNamesRequest other) -> void
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.Keys.get -> IdpServiceFacade.KeysWrapper
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.Keys.set -> void
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.MergeFrom(IdpServiceFacade.GetUsersMetadataByNamesRequest other) -> void
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.Names.get -> Google.Protobuf.Collections.RepeatedField<string>
+~IdpServiceFacade.GetUsersMetadataByNamesRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.Identity.Clone() -> IdpServiceFacade.Identity
 ~IdpServiceFacade.Identity.Equals(IdpServiceFacade.Identity other) -> bool
 ~IdpServiceFacade.Identity.Identity(IdpServiceFacade.Identity other) -> void
@@ -888,6 +903,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~override IdpServiceFacade.GetTokenAuthRequest.ToString() -> string
 ~override IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.ToString() -> string
+~override IdpServiceFacade.GetUsersMetadataByNamesRequest.Equals(object other) -> bool
+~override IdpServiceFacade.GetUsersMetadataByNamesRequest.ToString() -> string
 ~override IdpServiceFacade.Identity.Equals(object other) -> bool
 ~override IdpServiceFacade.Identity.ToString() -> string
 ~override IdpServiceFacade.InitiatePasswordResetReply.Equals(object other) -> bool
@@ -980,6 +997,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~static IdpServiceFacade.GetTokenAuthRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetTokenAuthRequest>
 ~static IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetUsersMetadataByEmailAddressesRequest>
+~static IdpServiceFacade.GetUsersMetadataByNamesRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.GetUsersMetadataByNamesRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.GetUsersMetadataByNamesRequest>
 ~static IdpServiceFacade.Identity.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.Identity.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.Identity>
 ~static IdpServiceFacade.InitiatePasswordResetReply.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
@@ -1084,6 +1103,7 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.GetUsersMetadataByNameFragment(IdpServiceFacade.UsersMetadataByNameFragmentRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UsersMetadataReply>
 ~virtual IdpServiceFacade.User.UserBase.GetUsersMetadataByNameOrEmailFragment(IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UsersMetadataReply>
 ~virtual IdpServiceFacade.User.UserBase.GetUsersMetadataByNameOrEmailFragmentAndOrgUid(IdpServiceFacade.UsersMetadataByNameOrEmailFragmentAndOrgUidRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UsersMetadataReply>
+~virtual IdpServiceFacade.User.UserBase.GetUsersMetadataByNames(IdpServiceFacade.GetUsersMetadataByNamesRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UsersMetadataReply>
 ~virtual IdpServiceFacade.User.UserBase.InitiateForcedLogin(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.InitiateLegalHold(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.InitiateLockout(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>

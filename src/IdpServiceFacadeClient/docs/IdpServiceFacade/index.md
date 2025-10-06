@@ -13,6 +13,7 @@
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
 | [GetUsersMetadataByEmailAddressesRequest](GetUsersMetadataByEmailAddressesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest') | |
+| [GetUsersMetadataByNamesRequest](GetUsersMetadataByNamesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByNamesRequest') | |
 | [Identity](Identity/index.md 'IdpServiceFacade\.Identity') | |
 | [InitiatePasswordResetReply](InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply') | |
 | [KeysWrapper](KeysWrapper/index.md 'IdpServiceFacade\.KeysWrapper') | |

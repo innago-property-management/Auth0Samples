@@ -28,6 +28,7 @@ service User {
   rpc GetUsersMetadataByNameFragment (UsersMetadataByNameFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailFragment (UsersMetadataByEmailFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailAddresses (GetUsersMetadataByEmailAddressesRequest) returns (UsersMetadataReply);
+  rpc GetUsersMetadataByNames (GetUsersMetadataByNamesRequest) returns (UsersMetadataReply);
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersByIds (UserIds) returns (UserResponseList);
   rpc EnableMfa(UserRequest) returns (UserReply);
@@ -65,6 +66,12 @@ message UserRequest {
 
 message GetUsersMetadataByEmailAddressesRequest {
   repeated string emailAddresses = 1;
+  optional KeysWrapper keys = 2;
+}
+
+
+message GetUsersMetadataByNamesRequest {
+  repeated string names = 1;
   optional KeysWrapper keys = 2;
 }
 
