@@ -1,7 +1,7 @@
 #### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
-### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserProfileRequest](index.md 'IdpServiceFacade\.UpdateUserProfileRequest')
+### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateRiskStatusWithIdentityIdRequest](index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest')
 
-## UpdateUserProfileRequest\.IdentityIdFieldNumber Field
+## UpdateRiskStatusWithIdentityIdRequest\.IdentityIdFieldNumber Field
 
 Field number for the "identityId" field\.
 

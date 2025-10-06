@@ -20,8 +20,9 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 | [BusinessPhoneFieldNumber](BusinessPhoneFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.BusinessPhoneFieldNumber') | Field number for the "businessPhone" field\. |
 | [CityFieldNumber](CityFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.CityFieldNumber') | Field number for the "city" field\. |
 | [EmailFieldNumber](EmailFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.EmailFieldNumber') | Field number for the "email" field\. |
+| [EmailVerifiedFieldNumber](EmailVerifiedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.EmailVerifiedFieldNumber') | Field number for the "emailVerified" field\. |
 | [FirstNameFieldNumber](FirstNameFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.FirstNameFieldNumber') | Field number for the "firstName" field\. |
-| [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IdentityIdFieldNumber') | Field number for the "identity\_id" field\. |
+| [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IdentityIdFieldNumber') | Field number for the "identityId" field\. |
 | [IsAddressUpdatedFieldNumber](IsAddressUpdatedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsAddressUpdatedFieldNumber') | Field number for the "isAddressUpdated" field\. |
 | [IsBusinessUpdatedFieldNumber](IsBusinessUpdatedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsBusinessUpdatedFieldNumber') | Field number for the "isBusinessUpdated" field\. |
 | [IsRoleUpdatedFieldNumber](IsRoleUpdatedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsRoleUpdatedFieldNumber') | Field number for the "isRoleUpdated" field\. |

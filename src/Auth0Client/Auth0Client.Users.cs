@@ -59,7 +59,7 @@ public partial class Auth0Client
     /// <summary>
     /// Creates a new user in Auth0 using the provided UserCreateRequest.
     /// </summary>
-    /// <param name="request"></param>
+    /// <param name="userCreateRequest"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>

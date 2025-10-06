@@ -3,7 +3,7 @@
 
 ## OrganizationReflection Class
 
-Holder for reflection information generated from organization\.proto
+Holder for reflection information generated from Protos/organization\.proto
 
 ```csharp
 public static class OrganizationReflection
@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system
 
 | Properties | |
 | :--- | :--- |
-| [Descriptor](Descriptor.md 'IdpServiceFacade\.OrganizationReflection\.Descriptor') | File descriptor for organization\.proto |
+| [Descriptor](Descriptor.md 'IdpServiceFacade\.OrganizationReflection\.Descriptor') | File descriptor for Protos/organization\.proto |

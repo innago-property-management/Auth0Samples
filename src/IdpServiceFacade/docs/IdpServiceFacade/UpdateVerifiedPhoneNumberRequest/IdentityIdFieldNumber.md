@@ -1,7 +1,7 @@
 #### [Innago\.Security\.IdpServiceFacade](../../index.md 'index')
-### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateUserProfileRequest](index.md 'IdpServiceFacade\.UpdateUserProfileRequest')
+### [IdpServiceFacade](../index.md 'IdpServiceFacade').[UpdateVerifiedPhoneNumberRequest](index.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest')
 
-## UpdateUserProfileRequest\.IdentityIdFieldNumber Field
+## UpdateVerifiedPhoneNumberRequest\.IdentityIdFieldNumber Field
 
 Field number for the "identityId" field\.
 
