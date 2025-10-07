@@ -17,6 +17,7 @@
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
 | [GetUsersMetadataByEmailAddressesRequest](GetUsersMetadataByEmailAddressesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest') | |
+| [GetUsersMetadataByEmailOrPhoneRequest](GetUsersMetadataByEmailOrPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailOrPhoneRequest') | |
 | [GetUsersMetadataByNamesRequest](GetUsersMetadataByNamesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByNamesRequest') | |
 | [Identity](Identity/index.md 'IdpServiceFacade\.Identity') | |
 | [InitiatePasswordResetReply](InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply') | |

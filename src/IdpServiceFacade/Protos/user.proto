@@ -29,6 +29,7 @@ service User {
   rpc GetUsersMetadataByEmailFragment (UsersMetadataByEmailFragmentRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailAddresses (GetUsersMetadataByEmailAddressesRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByNames (GetUsersMetadataByNamesRequest) returns (UsersMetadataReply);
+  rpc GetUsersMetadataByEmailOrPhoneFragment (GetUsersMetadataByEmailOrPhoneRequest) returns (UsersMetadataReply);
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersByIds (UserIds) returns (UserResponseList);
   rpc EnableMfa(UserRequest) returns (UserReply);
@@ -72,6 +73,11 @@ message GetUsersMetadataByEmailAddressesRequest {
 
 message GetUsersMetadataByNamesRequest {
   repeated string names = 1;
+  optional KeysWrapper keys = 2;
+}
+
+message GetUsersMetadataByEmailOrPhoneRequest {
+  string searchTerm = 1;
   optional KeysWrapper keys = 2;
 }
 

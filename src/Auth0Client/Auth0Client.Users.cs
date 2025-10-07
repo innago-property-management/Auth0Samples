@@ -927,4 +927,26 @@ public partial class Auth0Client
 
         return users.DistinctBy(user => user.FullName).ToDictionary(user => user.FullName, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
     }
+
+    /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailOrPhoneFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        searchTerm = searchTerm.Trim();
+
+        if (searchTerm.Length < Auth0Client.MinSearchLength)
+        {
+            return null;
+        }
+
+        searchTerm = searchTerm.SanitizeSearchTerm();
+
+        string searchCriteria = $"{Auth0Client.Email}:{searchTerm[0]}* or user_metadata.phone:{searchTerm[1]}*";
+
+        IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
+
+        return users.DistinctBy(user => user.FullName).ToDictionary(user => user.FullName, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
 }

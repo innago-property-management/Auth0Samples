@@ -281,4 +281,22 @@ public interface IUserService
         IEnumerable<string> names,
         IEnumerable<string>? keys,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    ///     Retrieves metadata for users whose email or phone number match the provided search term.
+    /// </summary>
+    /// <param name="searchTerm">The searchTerm.</param>
+    /// <param name="keys">
+    ///     A collection of specific metadata keys to include in the result. If null, all available metadata
+    ///     will be included.
+    /// </param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>
+    ///     A task that resolves to a dictionary where the keys are user identifiers, and the values are dictionaries of
+    ///     metadata key-value pairs, or null if no matches are found.
+    /// </returns>
+    ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByEmailOrPhoneFragment(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken);
 }
