@@ -239,6 +239,39 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 
+    public override async Task<UsersMetadataReply> GetUsersMetadataByEmailFragment(UsersMetadataByEmailFragmentRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.SearchTerm), request.SearchTerm)]);
+
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .GetUsersMetadataByEmailFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
+
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNames(GetUsersMetadataByNamesRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Names), request.Names)]);
+
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .GetUsersMetadataByNames(request.Names.ToArray(), request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
+
+    public override async Task<UsersMetadataReply> GetUsersMetadataByEmailOrPhoneFragment(GetUsersMetadataByEmailOrPhoneRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.SearchTerm), request.SearchTerm)]);
+
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .GetUsersMetadataByEmailOrPhoneFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
+
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {
