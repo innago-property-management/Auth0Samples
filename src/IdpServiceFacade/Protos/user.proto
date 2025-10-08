@@ -30,6 +30,8 @@ service User {
   rpc GetUsersMetadataByEmailAddresses (GetUsersMetadataByEmailAddressesRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByNames (GetUsersMetadataByNamesRequest) returns (UsersMetadataReply);
   rpc GetUsersMetadataByEmailOrPhoneFragment (GetUsersMetadataByEmailOrPhoneRequest) returns (UsersMetadataReply);
+  rpc GetUsersMetadataByNameAndEmailAndPhoneFragment (GetUsersMetadataByNameAndEmailAndPhoneRequest) returns (UsersMetadataReply);
+  rpc CheckPhoneExistsOnAuth0 (CheckPhoneExistsOnAuth0Request) returns (UsersMetadataReply);
   rpc GetUsers(UsersSearchRequest) returns (UserSearchResponse);
   rpc GetUsersByIds (UserIds) returns (UserResponseList);
   rpc EnableMfa(UserRequest) returns (UserReply);
@@ -70,7 +72,6 @@ message GetUsersMetadataByEmailAddressesRequest {
   optional KeysWrapper keys = 2;
 }
 
-
 message GetUsersMetadataByNamesRequest {
   repeated string names = 1;
   optional KeysWrapper keys = 2;
@@ -78,6 +79,16 @@ message GetUsersMetadataByNamesRequest {
 
 message GetUsersMetadataByEmailOrPhoneRequest {
   string searchTerm = 1;
+  optional KeysWrapper keys = 2;
+}
+
+message CheckPhoneExistsOnAuth0Request {
+  string searchTerm = 1;
+  optional KeysWrapper keys = 2;
+}
+
+message GetUsersMetadataByNameAndEmailAndPhoneRequest {
+  repeated string searchTerm = 1;
   optional KeysWrapper keys = 2;
 }
 

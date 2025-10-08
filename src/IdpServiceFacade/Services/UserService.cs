@@ -272,6 +272,28 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return users.ToUsersMetadataReply();
     }
 
+    public override async Task<UsersMetadataReply> GetUsersMetadataByNameAndEmailAndPhoneFragment(GetUsersMetadataByNameAndEmailAndPhoneRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.SearchTerm), request.SearchTerm)]);
+
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .GetUsersMetadataByNameAndEmailAndPhoneFragment(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
+
+    public override async Task<UsersMetadataReply> CheckPhoneExistsOnAuth0(CheckPhoneExistsOnAuth0Request request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.SearchTerm), request.SearchTerm)]);
+
+        IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>? users = await externalService
+            .CheckPhoneExistsOnAuth0(request.SearchTerm, request.Keys?.Key.ToArray(), context.CancellationToken).ConfigureAwait(false);
+
+        return users.ToUsersMetadataReply();
+    }
+
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {

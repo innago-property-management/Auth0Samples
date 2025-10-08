@@ -949,4 +949,51 @@ public partial class Auth0Client
 
         return users.DistinctBy(user => user.FullName).ToDictionary(user => user.FullName, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
     }
+
+    /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> GetUsersMetadataByNameAndEmailAndPhoneFragment(
+        IEnumerable<string> searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        searchTerm = searchTerm.Select(name => name.ToLowerInvariant().Trim().SanitizeSearchTerm()).ToList();
+
+        var parts = new List<string>();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(0)))
+        {
+            parts.Add($"{Auth0Client.FirstName}:{searchTerm.ElementAt(0)}* or {Auth0Client.LastName}:{searchTerm.ElementAt(0)}*");
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(1)))
+        {
+            parts.Add($"{Auth0Client.Email}:{searchTerm.ElementAt(1)}*");
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(2)))
+        {
+            parts.Add($"user_metadata.phone:{searchTerm.ElementAt(2)}*");
+        }
+
+        string searchCriteria = string.Join(" and ", parts);
+
+        IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
+
+        return users.DistinctBy(user => user.FullName).ToDictionary(user => user.FullName, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
+
+    /// <inheritdoc />
+    public async ITask<IReadOnlyDictionary<string, IReadOnlyDictionary<string, string?>?>?> CheckPhoneExistsOnAuth0(
+        string searchTerm,
+        IEnumerable<string>? keys,
+        CancellationToken cancellationToken)
+    {
+        searchTerm = searchTerm.ToLowerInvariant().Trim().SanitizeSearchTerm();
+
+        string searchCriteria = $"user_metadata.phone:{searchTerm}*";
+
+        IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
+
+        return users.DistinctBy(user => user.FullName).ToDictionary(user => user.FullName, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
 }
