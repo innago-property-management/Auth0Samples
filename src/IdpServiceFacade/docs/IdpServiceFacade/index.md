@@ -5,6 +5,7 @@
 | Classes | |
 | :--- | :--- |
 | [ChangePasswordWithIdentityIdRequest](ChangePasswordWithIdentityIdRequest/index.md 'IdpServiceFacade\.ChangePasswordWithIdentityIdRequest') | |
+| [CheckPhoneExistsOnAuth0Request](CheckPhoneExistsOnAuth0Request/index.md 'IdpServiceFacade\.CheckPhoneExistsOnAuth0Request') | |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
 | [CreateOrganizationReply](CreateOrganizationReply/index.md 'IdpServiceFacade\.CreateOrganizationReply') | |
 | [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
@@ -18,6 +19,7 @@
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
 | [GetUsersMetadataByEmailAddressesRequest](GetUsersMetadataByEmailAddressesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest') | |
 | [GetUsersMetadataByEmailOrPhoneRequest](GetUsersMetadataByEmailOrPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailOrPhoneRequest') | |
+| [GetUsersMetadataByNameAndEmailAndPhoneRequest](GetUsersMetadataByNameAndEmailAndPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByNameAndEmailAndPhoneRequest') | |
 | [GetUsersMetadataByNamesRequest](GetUsersMetadataByNamesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByNamesRequest') | |
 | [Identity](Identity/index.md 'IdpServiceFacade\.Identity') | |
 | [InitiatePasswordResetReply](InitiatePasswordResetReply/index.md 'IdpServiceFacade\.InitiatePasswordResetReply') | |

@@ -967,7 +967,7 @@ public partial class Auth0Client
 
         if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(1)))
         {
-            parts.Add($"{Auth0Client.Email}:{searchTerm.ElementAt(1)}*");
+            parts.Add($"{Auth0Client.Email}:{searchTerm.ElementAt(1)}* or user_metadata.business_email:{searchTerm.ElementAt(1)}*");
         }
 
         if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(2)))
