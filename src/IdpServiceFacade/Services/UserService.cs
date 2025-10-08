@@ -204,7 +204,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         UserUpdateRequest userUpdateRequest = new()
         {
             Email = request.Email,
-            EmailVerified = true
+            EmailVerified = request.EmailVerified
         };
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
@@ -217,6 +217,11 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         {
             UserMetadata = new Dictionary<string, object>()
         };
+        if (request.IsProductionEnvironment)
+        {
+            userUpdateRequest.PhoneNumber = request.PhoneNumber;
+            userUpdateRequest.PhoneVerified = true;
+        }
         AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "phone_number", request.PhoneNumber);
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
@@ -335,7 +340,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "state", request.State);
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "zip", request.Zip);
         }
-
+        if (request.IsProductionEnvironment)
+        {
+            userUpdateRequest.PhoneNumber = request.PhoneNumber;
+        }
         // role field
         if (request.IsRoleUpdated)
         {
