@@ -245,11 +245,13 @@ message UpdateUserProfileRequest {
   string roleId = 16;
   bool isRoleUpdated = 17;
   bool emailVerified = 18;
+  bool isProductionEnvironment = 19;
 }
 
 message UpdateVerifiedUserEmailRequest{
   string identityId = 1;
   string email = 2;
+  bool emailVerified = 3;
 }
 
 message CreateUserProfileRequest{
@@ -267,6 +269,7 @@ message CreateUserProfileRequest{
 message UpdateVerifiedPhoneNumberRequest{
   string identityId = 1;
   string phoneNumber = 2;
+  bool isProductionEnvironment = 3;
 }
 
 message ChangePasswordWithIdentityIdRequest{

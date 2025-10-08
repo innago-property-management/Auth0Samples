@@ -31,6 +31,7 @@ const IdpServiceFacade.UpdateUserProfileRequest.FirstNameFieldNumber = 3 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdatedFieldNumber = 14 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdatedFieldNumber = 15 -> int
+const IdpServiceFacade.UpdateUserProfileRequest.IsProductionEnvironmentFieldNumber = 19 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdatedFieldNumber = 17 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.LastNameFieldNumber = 4 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
@@ -38,8 +39,10 @@ const IdpServiceFacade.UpdateUserProfileRequest.RoleIdFieldNumber = 16 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.StateFieldNumber = 12 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.ZipFieldNumber = 13 -> int
 const IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.IdentityIdFieldNumber = 1 -> int
+const IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.IsProductionEnvironmentFieldNumber = 3 -> int
 const IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.PhoneNumberFieldNumber = 2 -> int
 const IdpServiceFacade.UpdateVerifiedUserEmailRequest.EmailFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateVerifiedUserEmailRequest.EmailVerifiedFieldNumber = 3 -> int
 const IdpServiceFacade.UpdateVerifiedUserEmailRequest.IdentityIdFieldNumber = 1 -> int
 IdpServiceFacade.ChangePasswordWithIdentityIdRequest
 IdpServiceFacade.ChangePasswordWithIdentityIdRequest.CalculateSize() -> int
@@ -149,14 +152,20 @@ IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsAddressUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsBusinessUpdated.set -> void
+IdpServiceFacade.UpdateUserProfileRequest.IsProductionEnvironment.get -> bool
+IdpServiceFacade.UpdateUserProfileRequest.IsProductionEnvironment.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.get -> bool
 IdpServiceFacade.UpdateUserProfileRequest.IsRoleUpdated.set -> void
 IdpServiceFacade.UpdateUserProfileRequest.UpdateUserProfileRequest() -> void
 IdpServiceFacade.UpdateVerifiedPhoneNumberRequest
 IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.IsProductionEnvironment.get -> bool
+IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.IsProductionEnvironment.set -> void
 IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.UpdateVerifiedPhoneNumberRequest() -> void
 IdpServiceFacade.UpdateVerifiedUserEmailRequest
 IdpServiceFacade.UpdateVerifiedUserEmailRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateVerifiedUserEmailRequest.EmailVerified.get -> bool
+IdpServiceFacade.UpdateVerifiedUserEmailRequest.EmailVerified.set -> void
 IdpServiceFacade.UpdateVerifiedUserEmailRequest.UpdateVerifiedUserEmailRequest() -> void
 IdpServiceFacade.User
 IdpServiceFacade.User.UserClient
