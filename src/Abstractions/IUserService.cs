@@ -335,4 +335,20 @@ public interface IUserService
         string searchTerm,
         IEnumerable<string>? keys,
         CancellationToken cancellationToken);
+    /// <summary>
+    /// Activates or deactivates a user based on their identity ID.
+    /// </summary>
+    /// <param name="identityId">The identity ID of the user to activate/deactivate.</param>
+    /// <param name="isActivate">True to activate the user, false to deactivate.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    ITask<OkError> ActivateUser(string identityId, bool isActivate, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Deletes a user by setting the isDeleted flag in AppMetadata and blocking the user.
+    /// </summary>
+    /// <param name="identityId">The identity ID of the user to delete.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    ITask<OkError> DeleteUser(string identityId, CancellationToken cancellationToken);
 }

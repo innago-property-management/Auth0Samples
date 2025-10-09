@@ -299,6 +299,22 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return users.ToUsersMetadataReply();
     }
 
+    public override async Task<UserReply> ActivateUser(ActivateUserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.IsActivate), request.IsActivate)]);
+
+        return await externalService.ActivateUser(request.IdentityId, request.IsActivate, context.CancellationToken).ToUserReply();
+    }
+
+    public override async Task<UserReply> DeleteUser(DeleteUserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId)]);
+
+        return await externalService.DeleteUser(request.IdentityId, context.CancellationToken).ToUserReply();
+    }
+
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {

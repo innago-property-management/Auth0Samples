@@ -561,8 +561,7 @@ public partial class Auth0Client
             SearchEngine = "v3",
         };
         Result<IPagedList<User>?> getUsersResult = await TryHelpers
-            .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!)
-            .ConfigureAwait(false);
+            .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!).ConfigureAwait(false);
 
         return await getUsersResult.Map(UpdateUserPassword, GetUsersError)!;
 
@@ -603,6 +602,104 @@ public partial class Auth0Client
                         return exception!;
                     });
             }
+        }
+    }
+    /// <inheritdoc/>
+    public async ITask<OkError> ActivateUser(string identityId, bool isActivate, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(identityId), identityId)]);
+        GetUsersRequest getUsersRequest = new()
+        {
+            Query = $"user_metadata.identity_id:\"{identityId}\"",
+            SearchEngine = "v3",
+        };
+        Result<IPagedList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!).ConfigureAwait(false);
+
+        return await getUsersResult.Map(UpdateUserActiveStatus, GetUsersError)!;
+
+        Task<OkError> GetUsersError(Exception? exception)
+        {
+            logger.Information($"Error getting user with identityId {identityId}: {exception?.Message}");
+            return Task.FromResult(new OkError(false, Error: exception?.Message ?? string.Empty));
+        }
+
+        async Task<OkError> UpdateUserActiveStatus(IList<User>? users)
+        {
+            if (users == null || !users.Any())
+            {
+                logger.Information("No User found to activate/deactivate");
+                return new OkError(false, Error: "No User found to activate/deactivate");
+            }
+            User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
+            string id = user.UserId;
+
+            var userMetadata = user.UserMetadata ?? new Dictionary<string, object>();
+            userMetadata["is_active"] = isActivate;
+            UserUpdateRequest request = new()
+            {
+                UserMetadata = userMetadata
+            };
+
+            Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
+
+            return updateResult.Map<Result>(_ => Result.Success,
+                exception =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure
+                    activity?.AddException(exception!);
+                    return exception!;
+                });
+        }
+    }
+
+    /// <inheritdoc/>
+    public async ITask<OkError> DeleteUser(string identityId, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(identityId), identityId)]);
+        GetUsersRequest getUsersRequest = new()
+        {
+            Query = $"user_metadata.identity_id:\"{identityId}\"",
+            SearchEngine = "v3",
+        };
+        Result<IPagedList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetAllAsync(getUsersRequest, cancellationToken: cancellationToken)!).ConfigureAwait(false);
+
+        return await getUsersResult.Map(DeleteUserImplementation, GetUsersError)!;
+
+        Task<OkError> GetUsersError(Exception? exception)
+        {
+            logger.Information($"Error getting user with identityId {identityId}: {exception?.Message}");
+            return Task.FromResult(new OkError(false, Error: exception?.Message ?? string.Empty));
+        }
+
+        async Task<OkError> DeleteUserImplementation(IList<User>? users)
+        {
+            if (users == null || !users.Any())
+            {
+                logger.Information("No User found to delete");
+                return new OkError(false, Error: "No User found to delete");
+            }
+            User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
+            string id = user.UserId;
+
+            var appMetadata = user.AppMetadata;
+            appMetadata["is_deleted"] = true;
+            UserUpdateRequest request = new()
+            {
+                AppMetadata = appMetadata,
+                Blocked = true
+            };
+
+            Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
+
+            return updateResult.Map<Result>(_ => Result.Success,
+                exception =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure
+                    activity?.AddException(exception!);
+                    return exception!;
+                });
         }
     }
     private FormUrlEncodedContent MakeRefreshTokenContent(string? refreshToken)

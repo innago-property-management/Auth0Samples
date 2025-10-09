@@ -26,6 +26,7 @@ Abstractions.IOrganizationService.ListOrganizations(System.Threading.Cancellatio
 Abstractions.IRoleService
 Abstractions.IRoleService.CreateRole(string! roleName, string? description = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService
+Abstractions.IUserService.ActivateUser(string! identityId, bool isActivate, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.BlockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.ChangePasswordWithIdentityId(string! identityId, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
@@ -33,6 +34,7 @@ Abstractions.IUserService.CheckPhoneExistsOnAuth0(string! searchTerm, System.Col
 Abstractions.IUserService.CreateUser(Abstractions.UserCreateInfo! userCreateInfo, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User?>!
 Abstractions.IUserService.CreateUserImplementation(Auth0.ManagementApi.Models.UserCreateRequest! userCreateRequest, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.IUserService.CreateUserWithResult(Auth0.ManagementApi.Models.UserCreateRequest! userCreateRequest, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Abstractions.IUserService.DeleteUser(string! identityId, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.DisableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.EnableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.GetRefreshTokenAsyncImplementation(string! refreshToken, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>!>!

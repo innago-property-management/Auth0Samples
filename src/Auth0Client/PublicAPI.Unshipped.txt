@@ -1,4 +1,5 @@
 Auth0Client.Auth0Client
+Auth0Client.Auth0Client.ActivateUser(string! identityId, bool isActivate, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.AddUserToOrganization(Auth0.ManagementApi.Models.User! user, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 Auth0Client.Auth0Client.BlockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
@@ -9,6 +10,7 @@ Auth0Client.Auth0Client.CreateRole(string! roleName, string? description = null,
 Auth0Client.Auth0Client.CreateUser(Abstractions.UserCreateInfo! userCreateInfo, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User?>!
 Auth0Client.Auth0Client.CreateUserImplementation(Auth0.ManagementApi.Models.UserCreateRequest! userCreateRequest, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Auth0Client.Auth0Client.CreateUserWithResult(Auth0.ManagementApi.Models.UserCreateRequest! userCreateRequest, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Auth0Client.Auth0Client.DeleteUser(string! identityId, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.DisableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.EnableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.GetRefreshTokenAsyncImplementation(string! refreshToken, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>!>!

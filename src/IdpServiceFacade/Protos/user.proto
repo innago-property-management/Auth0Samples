@@ -43,6 +43,8 @@ service User {
   rpc UpdateVerifiedPhoneNumber (UpdateVerifiedPhoneNumberRequest) returns (UserReply);
   rpc ChangePasswordWithIdentityId (ChangePasswordWithIdentityIdRequest) returns (UserReply);
   rpc UpdateRiskStatusWithIdentityId (UpdateRiskStatusWithIdentityIdRequest) returns (UserReply);
+  rpc ActivateUser (ActivateUserRequest) returns (UserReply);
+  rpc DeleteUser (DeleteUserRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{
@@ -279,4 +281,13 @@ message ChangePasswordWithIdentityIdRequest{
 message UpdateRiskStatusWithIdentityIdRequest{
   string identityId = 1;
   string riskStatus = 2;
+}
+
+message ActivateUserRequest{
+  string identityId = 1;
+  bool isActivate = 2;
+}
+
+message DeleteUserRequest{
+  string identityId = 1;
 }
