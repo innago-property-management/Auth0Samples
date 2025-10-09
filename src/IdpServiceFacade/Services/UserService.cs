@@ -356,10 +356,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "state", request.State);
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "zip", request.Zip);
         }
-        if (request.IsProductionEnvironment)
-        {
-            userUpdateRequest.PhoneNumber = request.PhoneNumber;
-        }
+        // if (request.IsProductionEnvironment)
+        // {
+        //     userUpdateRequest.PhoneNumber = request.PhoneNumber;
+        // }
         // role field
         if (request.IsRoleUpdated)
         {
