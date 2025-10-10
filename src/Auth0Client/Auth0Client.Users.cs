@@ -545,7 +545,7 @@ public partial class Auth0Client
             return updateResult.Map<Result>(_ => Result.Success,
                 exception =>
                 {
-                    // ReSharper disable once AccessToDisposedClosure
+                    logger.Information($"Error updating user with identityId {identityId}: {exception?.Message}");
                     activity?.AddException(exception!);
                     return exception!;
                 });
