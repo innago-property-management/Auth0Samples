@@ -1040,7 +1040,7 @@ public partial class Auth0Client
 
         searchTerm = searchTerm.SanitizeSearchTerm();
 
-        string searchCriteria = $"{Auth0Client.Email}:{searchTerm[0]}* or user_metadata.phone:{searchTerm[1]}*";
+        string searchCriteria = $"{Auth0Client.Email}:{searchTerm[0]}* or user_metadata.phone:{searchTerm[1]}";
 
         IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
 
@@ -1064,12 +1064,12 @@ public partial class Auth0Client
 
         if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(1)))
         {
-            parts.Add($"{Auth0Client.Email}:{searchTerm.ElementAt(1)}* or user_metadata.business_email:{searchTerm.ElementAt(1)}*");
+            parts.Add($"{Auth0Client.Email}:{searchTerm.ElementAt(1)}* or user_metadata.business_email:{searchTerm.ElementAt(1)}");
         }
 
         if (!string.IsNullOrWhiteSpace(searchTerm.ElementAtOrDefault(2)))
         {
-            parts.Add($"user_metadata.phone:{searchTerm.ElementAt(2)}*");
+            parts.Add($"user_metadata.phone:{searchTerm.ElementAt(2)}");
         }
 
         string searchCriteria = string.Join(" and ", parts);
@@ -1087,7 +1087,7 @@ public partial class Auth0Client
     {
         searchTerm = searchTerm.ToLowerInvariant().Trim().SanitizeSearchTerm();
 
-        string searchCriteria = $"user_metadata.phone:{searchTerm}*";
+        string searchCriteria = $"user_metadata.phone:{searchTerm}";
 
         IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
 
