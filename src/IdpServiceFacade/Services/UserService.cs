@@ -218,6 +218,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             Email = request.Email,
             EmailVerified = request.EmailVerified
         };
+        userUpdateRequest.UserMetadata["is_account_verified"] = true;
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 
@@ -376,6 +377,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         if (request.EmailVerified)
         {
             userUpdateRequest.EmailVerified = true;
+            userUpdateRequest.UserMetadata["is_account_verified"] = true;
         }
         return userUpdateRequest;
     }
