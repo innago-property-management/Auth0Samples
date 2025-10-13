@@ -216,7 +216,8 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         UserUpdateRequest userUpdateRequest = new()
         {
             Email = request.Email,
-            EmailVerified = request.EmailVerified
+            EmailVerified = request.EmailVerified,
+            UserMetadata = new Dictionary<string, object>()
         };
         userUpdateRequest.UserMetadata["is_account_verified"] = true;
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
