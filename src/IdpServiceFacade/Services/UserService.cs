@@ -194,19 +194,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
         UserUpdateRequest userUpdateRequest = CreateUserUpdateRequest(request);
-        UserReply result = await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
-        if(!string.IsNullOrWhiteSpace(request.PhoneNumber) && result.Ok)
-        {
-            UserUpdateRequest userUpdateRequestForPhoneNumber = new()
-            {
-                PhoneNumber = request.PhoneNumber,
-                PhoneVerified = true,
-                UserMetadata = new Dictionary<string, object>()
-            };
-            AddIfNotNullOrEmpty(userUpdateRequestForPhoneNumber.UserMetadata, "phone_number", request.PhoneNumber);
-            result = await externalService.UpdateUser(request.IdentityId, userUpdateRequestForPhoneNumber, context.CancellationToken).ToUserReply();
-        }
-        return result;
+        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 
     public override async Task<UserReply> UpdateVerifiedEmail(UpdateVerifiedUserEmailRequest request, ServerCallContext context)
@@ -231,11 +219,6 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         {
             UserMetadata = new Dictionary<string, object>()
         };
-        if (request.IsProductionEnvironment)
-        {
-            userUpdateRequest.PhoneNumber = request.PhoneNumber;
-            userUpdateRequest.PhoneVerified = true;
-        }
         AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "phone_number", request.PhoneNumber);
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
