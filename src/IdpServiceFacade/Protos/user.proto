@@ -45,6 +45,7 @@ service User {
   rpc UpdateRiskStatusWithIdentityId (UpdateRiskStatusWithIdentityIdRequest) returns (UserReply);
   rpc ActivateUser (ActivateUserRequest) returns (UserReply);
   rpc DeleteUser (DeleteUserRequest) returns (UserReply);
+  rpc UnblockBruteforceLockedUser(UserRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{

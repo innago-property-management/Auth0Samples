@@ -52,6 +52,7 @@ Abstractions.IUserService.ListUsers(string! luceneQuery = "user_id:*", System.Th
 Abstractions.IUserService.MarkUserAsFraud(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.MarkUserAsSuspicious(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string?>!
+Abstractions.IUserService.UnblockBruteforceLockedUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.UpdateUser(string! identityId, Auth0.ManagementApi.Models.UserUpdateRequest! request, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.OkError

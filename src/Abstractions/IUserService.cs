@@ -351,4 +351,13 @@ public interface IUserService
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
     ITask<OkError> DeleteUser(string identityId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Attempts to remove a brute-force lock from the user account associated with the specified email address.
+    /// </summary>
+    /// <param name="email">The email address of the user whose brute-force lock should be removed. Cannot be null or empty.</param>
+    /// <param name="cancellationToken">A cancellation token that can be used to cancel the unblock operation.</param>
+    /// <returns>A task that represents the asynchronous operation. The result indicates whether the unblock action succeeded or
+    /// failed.</returns>
+    ITask<OkError> UnblockBruteforceLockedUser(string email, CancellationToken cancellationToken);
 }
