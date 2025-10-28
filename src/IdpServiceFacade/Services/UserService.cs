@@ -312,6 +312,13 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return await externalService.DeleteUser(request.IdentityId, context.CancellationToken).ToUserReply();
     }
 
+    public override async Task<UserReply> UnblockBruteforceLockedUser(UserRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+        return await externalService.UnblockBruteforceLockedUser(request.Email, context.CancellationToken).ToUserReply();
+    }
+
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {

@@ -938,6 +938,34 @@ public partial class Auth0Client
         return payload; // this contains access_token, id_token, etc.
     }
 
+    /// <inheritdoc/>
+    public async ITask<OkError> UnblockBruteforceLockedUser(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        try
+        {
+            await client.UserBlocks.UnblockByIdentifierAsync(email, cancellationToken);
+            var users = await client.Users.GetUsersByEmailAsync(email, cancellationToken: cancellationToken);
+            var user = users?.FirstOrDefault();
+
+            if (user != null)
+            {
+                logger.Information($"User {email} unblocked successfully and they exist in auth0.");
+                return new OkError(true);
+            }
+            logger.Information($"User {email} unblocked successfully but they do not exist in auth0.");
+            await client.Connections.DeleteUserAsync(this.auth0ConnectionName!, email, cancellationToken);
+            logger.Information($"User {email} deleted from auth0 connection {this.auth0ConnectionName}.");
+            return new OkError(true);
+        }
+        catch (Exception ex)
+        {
+            activity?.AddException(ex);
+            logger.LogError(ex, "Error unblocking user");
+            return new OkError(false, Error: ex.Message);
+        }
+    }
+
     private FormUrlEncodedContent MakeTokenContent(string? username, string? password)
     {
         FormUrlEncodedContent requestContent = new([
