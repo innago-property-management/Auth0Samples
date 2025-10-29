@@ -13,4 +13,5 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | Fields | |
 | :--- | :--- |
 | [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest\.IdentityIdFieldNumber') | Field number for the "identityId" field\. |
+| [IsProductionEnvironmentFieldNumber](IsProductionEnvironmentFieldNumber.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest\.IsProductionEnvironmentFieldNumber') | Field number for the "isProductionEnvironment" field\. |
 | [PhoneNumberFieldNumber](PhoneNumberFieldNumber.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest\.PhoneNumberFieldNumber') | Field number for the "phoneNumber" field\. |

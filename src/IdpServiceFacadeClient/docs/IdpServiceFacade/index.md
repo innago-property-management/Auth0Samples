@@ -2,6 +2,7 @@
 
 | Classes | |
 | :--- | :--- |
+| [ActivateUserRequest](ActivateUserRequest/index.md 'IdpServiceFacade\.ActivateUserRequest') | |
 | [ChangePasswordWithIdentityIdRequest](ChangePasswordWithIdentityIdRequest/index.md 'IdpServiceFacade\.ChangePasswordWithIdentityIdRequest') | |
 | [CheckPhoneExistsOnAuth0Request](CheckPhoneExistsOnAuth0Request/index.md 'IdpServiceFacade\.CheckPhoneExistsOnAuth0Request') | |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
@@ -9,6 +10,7 @@
 | [CreateOrganizationRequest](CreateOrganizationRequest/index.md 'IdpServiceFacade\.CreateOrganizationRequest') | |
 | [CreateUserProfileRequest](CreateUserProfileRequest/index.md 'IdpServiceFacade\.CreateUserProfileRequest') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
+| [DeleteUserRequest](DeleteUserRequest/index.md 'IdpServiceFacade\.DeleteUserRequest') | |
 | [GetOrganizationReply](GetOrganizationReply/index.md 'IdpServiceFacade\.GetOrganizationReply') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
