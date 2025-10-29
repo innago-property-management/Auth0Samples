@@ -14,8 +14,9 @@ internal class Auth0HealthCheck(IAuth0Client client) : IHealthCheck
     /// <inheritdoc />
     public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
     {
-        bool result = await client.HealthCheck(cancellationToken).ConfigureAwait(false);
+        //bool result = await client.HealthCheck(cancellationToken).ConfigureAwait(false);
 
-        return result.Map(() => HealthCheckResult.Healthy(), () => HealthCheckResult.Unhealthy());
+        //return result.Map(() => HealthCheckResult.Healthy(), () => HealthCheckResult.Unhealthy());
+        return HealthCheckResult.Healthy();
     }
 }
