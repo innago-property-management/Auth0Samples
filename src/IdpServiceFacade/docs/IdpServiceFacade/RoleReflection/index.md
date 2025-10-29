@@ -3,7 +3,7 @@
 
 ## RoleReflection Class
 
-Holder for reflection information generated from Protos/role\.proto
+Holder for reflection information generated from role\.proto
 
 ```csharp
 public static class RoleReflection
@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system
 
 | Properties | |
 | :--- | :--- |
-| [Descriptor](Descriptor.md 'IdpServiceFacade\.RoleReflection\.Descriptor') | File descriptor for Protos/role\.proto |
+| [Descriptor](Descriptor.md 'IdpServiceFacade\.RoleReflection\.Descriptor') | File descriptor for role\.proto |

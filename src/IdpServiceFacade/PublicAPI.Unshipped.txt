@@ -1226,3 +1226,4 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.UpdateUserProfile(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UpdateVerifiedEmail(IdpServiceFacade.UpdateVerifiedUserEmailRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UpdateVerifiedPhoneNumber(IdpServiceFacade.UpdateVerifiedPhoneNumberRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserBase.UnblockBruteforceLockedUser(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
