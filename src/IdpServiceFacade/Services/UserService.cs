@@ -364,6 +364,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         if (request.IsRoleUpdated)
         {
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
+            if(request.RoleId == "3")
+            {
+                AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "system_role_id", request.RoleId);
+            }
         }
         if (request.EmailVerified)
         {
