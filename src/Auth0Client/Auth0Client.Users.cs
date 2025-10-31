@@ -540,6 +540,12 @@ public partial class Auth0Client
             User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
             string id = user.UserId;
 
+            UserUpdateRequest emptyUserName = new()
+            {
+                UserName = string.Empty,
+            };
+            await client.Users.UpdateAsync(id, emptyUserName, cancellationToken);
+
             Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
 
             return updateResult.Map<Result>(_ => Result.Success,
