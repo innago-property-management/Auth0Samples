@@ -545,7 +545,15 @@ public partial class Auth0Client
                 {
                     UserName = request.Email
                 };
-                await client.Users.UpdateAsync(id, usernameUpdateRequest, cancellationToken);
+                try
+                {
+                    await client.Users.UpdateAsync(id, usernameUpdateRequest, cancellationToken);
+                }
+                catch(Exception ex)
+                {
+                    logger.Information($"Error updating username for user with identityId {identityId}: {ex.Message}");
+                    activity?.AddException(ex);
+                }
             }
             Result<User?> updateResult = await TryHelpers.TryAsync(() => client.Users.UpdateAsync(id, request, cancellationToken)!).ConfigureAwait(false);
 
