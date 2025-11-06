@@ -24,6 +24,7 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IdentityIdFieldNumber') | Field number for the "identityId" field\. |
 | [IsAddressUpdatedFieldNumber](IsAddressUpdatedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsAddressUpdatedFieldNumber') | Field number for the "isAddressUpdated" field\. |
 | [IsBusinessUpdatedFieldNumber](IsBusinessUpdatedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsBusinessUpdatedFieldNumber') | Field number for the "isBusinessUpdated" field\. |
+| [IsProductionEnvironmentFieldNumber](IsProductionEnvironmentFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsProductionEnvironmentFieldNumber') | Field number for the "isProductionEnvironment" field\. |
 | [IsRoleUpdatedFieldNumber](IsRoleUpdatedFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.IsRoleUpdatedFieldNumber') | Field number for the "isRoleUpdated" field\. |
 | [LastNameFieldNumber](LastNameFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.LastNameFieldNumber') | Field number for the "lastName" field\. |
 | [PhoneNumberFieldNumber](PhoneNumberFieldNumber.md 'IdpServiceFacade\.UpdateUserProfileRequest\.PhoneNumberFieldNumber') | Field number for the "phoneNumber" field\. |

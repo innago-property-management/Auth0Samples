@@ -13,4 +13,5 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | Fields | |
 | :--- | :--- |
 | [EmailFieldNumber](EmailFieldNumber.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest\.EmailFieldNumber') | Field number for the "email" field\. |
+| [EmailVerifiedFieldNumber](EmailVerifiedFieldNumber.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest\.EmailVerifiedFieldNumber') | Field number for the "emailVerified" field\. |
 | [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest\.IdentityIdFieldNumber') | Field number for the "identityId" field\. |

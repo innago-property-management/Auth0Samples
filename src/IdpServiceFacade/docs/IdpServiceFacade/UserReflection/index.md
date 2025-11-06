@@ -3,7 +3,7 @@
 
 ## UserReflection Class
 
-Holder for reflection information generated from Protos/user\.proto
+Holder for reflection information generated from user\.proto
 
 ```csharp
 public static class UserReflection
@@ -13,4 +13,4 @@ Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system
 
 | Properties | |
 | :--- | :--- |
-| [Descriptor](Descriptor.md 'IdpServiceFacade\.UserReflection\.Descriptor') | File descriptor for Protos/user\.proto |
+| [Descriptor](Descriptor.md 'IdpServiceFacade\.UserReflection\.Descriptor') | File descriptor for user\.proto |
