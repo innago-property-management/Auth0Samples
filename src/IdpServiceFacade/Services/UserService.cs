@@ -37,7 +37,28 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
         UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
-        return await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken).ToUserReply();
+        OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
+        
+        if (!createResult.OK)
+        {
+            return new UserReply
+            {
+                Ok = createResult.OK,
+                Error = createResult.Error ?? string.Empty,
+            };
+        }
+
+        // Add user to organization if OrganizationId is provided
+        if (!string.IsNullOrWhiteSpace(request.OrganizationId))
+        {
+            await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context.CancellationToken);
+        }
+
+        return new UserReply
+        {
+            Ok = createResult.OK,
+            Error = createResult.Error ?? string.Empty,
+        };
     }
 
     public override Task<UserReply> DisableMfa(UserRequest request, ServerCallContext context)
@@ -320,6 +341,35 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     }
 
     #region private methods
+    private async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            // Get the user by email to obtain the User object needed for AddUserToOrganization
+            IList<Auth0.ManagementApi.Models.User> users = await auth0Client.ListUsers($"email:\"{email}\"", cancellationToken).ConfigureAwait(false) as IList<Auth0.ManagementApi.Models.User> 
+                ?? (await auth0Client.ListUsers($"email:\"{email}\"", cancellationToken).ConfigureAwait(false)).ToList();
+            
+            if (users == null || users.Count == 0)
+            {
+                return new OkError(false, Error: "User not found after creation");
+            }
+            
+            if (users.Count > 1)
+            {
+                return new OkError(false, Error: "Multiple users found with the same email");
+            }
+
+            Auth0.ManagementApi.Models.User user = users[0];
+            await auth0Client.AddUserToOrganization(user, organizationId, cancellationToken).ConfigureAwait(false);
+            
+            return new OkError(true);
+        }
+        catch (Exception ex)
+        {
+            return new OkError(false, Error: ex.Message);
+        }
+    }
+
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))

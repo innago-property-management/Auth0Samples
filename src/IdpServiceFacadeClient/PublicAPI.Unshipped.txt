@@ -10,6 +10,7 @@ const IdpServiceFacade.CreateUserProfileRequest.FirstNameFieldNumber = 3 -> int
 const IdpServiceFacade.CreateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.CreateUserProfileRequest.LastNameFieldNumber = 4 -> int
 const IdpServiceFacade.CreateUserProfileRequest.MetadataFieldNumber = 6 -> int
+const IdpServiceFacade.CreateUserProfileRequest.OrganizationIdFieldNumber = 10 -> int
 const IdpServiceFacade.CreateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
 const IdpServiceFacade.CreateUserProfileRequest.RoleIdFieldNumber = 7 -> int
 const IdpServiceFacade.CreateUserProfileRequest.VerifyEmailFieldNumber = 9 -> int
@@ -464,6 +465,8 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 ~IdpServiceFacade.CreateUserProfileRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.CreateUserProfileRequest.MergeFrom(IdpServiceFacade.CreateUserProfileRequest other) -> void
 ~IdpServiceFacade.CreateUserProfileRequest.Metadata.get -> Google.Protobuf.Collections.MapField<string, string>
+~IdpServiceFacade.CreateUserProfileRequest.OrganizationId.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.OrganizationId.set -> void
 ~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.get -> string
 ~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.set -> void
 ~IdpServiceFacade.CreateUserProfileRequest.RoleId.get -> string
