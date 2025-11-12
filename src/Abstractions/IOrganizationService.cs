@@ -57,4 +57,16 @@ public interface IOrganizationService
     ///     representing the organizations.
     /// </returns>
     ITask<IEnumerable<Org>> ListOrganizations(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Updates an organization identified by the provided organization_uid in metadata.
+    /// </summary>
+    /// <param name="organizationUid">The unique identifier (organization_uid) stored in the organization's metadata.</param>
+    /// <param name="updateInfo">The information to update for the organization.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>
+    ///     A task that represents the asynchronous operation, containing the result of the operation as an
+    ///     <see cref="OkError" /> object.
+    /// </returns>
+    ITask<OkError> UpdateOrganizationByUid(string organizationUid, OrganizationUpdateInfo updateInfo, CancellationToken cancellationToken = default);
 }

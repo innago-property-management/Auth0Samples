@@ -83,6 +83,60 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    ///     Updates an organization in Auth0 by finding it using the organization_uid in metadata.
+    /// </summary>
+    /// <param name="organizationUid">The unique identifier stored in the organization's metadata.</param>
+    /// <param name="updateInfo">The information to update for the organization.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the update result.</returns>
+    public async ITask<OkError> UpdateOrganizationByUid(string organizationUid, OrganizationUpdateInfo updateInfo, CancellationToken cancellationToken = default)
+    {
+        // First, find the organization by organization_uid in metadata
+        IEnumerable<Org> orgs = await this.ListOrganizations(cancellationToken);
+
+        Org? organization = orgs.FirstOrDefault(org =>
+            org.Metadata != null &&
+            org.Metadata.TryGetValue("organization_uid", out string? uid) &&
+            uid == organizationUid);
+
+        if (organization == null)
+        {
+            return new OkError(false, $"Organization with organization_uid '{organizationUid}' not found");
+        }
+
+        // Prepare the update request
+        OrganizationUpdateRequest request = new()
+        {
+            DisplayName = updateInfo.DisplayName,
+        };
+
+        // Merge existing metadata with new metadata
+        if (updateInfo.Metadata != null)
+        {
+            Dictionary<string, object> mergedMetadata = organization.Metadata?.ToDictionary(
+                pair => pair.Key,
+                pair => (object)pair.Value) ?? [];
+
+            foreach (KeyValuePair<string, string> kvp in updateInfo.Metadata)
+            {
+                mergedMetadata[kvp.Key] = kvp.Value;
+            }
+
+            request.Metadata = mergedMetadata;
+        }
+
+        // Update the organization using Auth0 org ID
+        Result<Organization?> result = await TryHelpers.TryAsync(() =>
+            client.Organizations.UpdateAsync(organization.Id, request, cancellationToken)!).ConfigureAwait(false);
+
+        return new OkError
+        {
+            OK = result.HasSucceeded,
+            Error = ((Exception?)result)?.Message,
+        };
+    }
+
     /// <inheritdoc />
     public async ITask<OkError> InviteUser(string organizationId, string userEmail, CancellationToken cancellationToken = default)
     {

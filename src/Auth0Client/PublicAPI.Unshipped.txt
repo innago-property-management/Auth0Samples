@@ -34,6 +34,7 @@ Auth0Client.Auth0Client.MarkUserAsSuspicious(string! email, System.Threading.Can
 Auth0Client.Auth0Client.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string?>!
 Auth0Client.Auth0Client.UnblockBruteforceLockedUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Auth0Client.Auth0Client.UpdateOrganizationByUid(string! organizationUid, Abstractions.OrganizationUpdateInfo! updateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.UpdateUser(string! identityId, Auth0.ManagementApi.Models.UserUpdateRequest! request, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0ClientTracer
 static readonly Auth0Client.Auth0ClientTracer.Source -> System.Diagnostics.ActivitySource!

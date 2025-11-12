@@ -23,6 +23,7 @@ Abstractions.IOrganizationService.AddUserToOrganization(Auth0.ManagementApi.Mode
 Abstractions.IOrganizationService.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.InviteUser(string! organizationId, string! userEmail, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.ListOrganizations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<System.Collections.Generic.IEnumerable<Abstractions.Org!>!>!
+Abstractions.IOrganizationService.UpdateOrganizationByUid(string! organizationUid, Abstractions.OrganizationUpdateInfo! updateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IRoleService
 Abstractions.IRoleService.CreateRole(string! roleName, string? description = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService
@@ -86,6 +87,14 @@ Abstractions.OrganizationCreateInfo.Name.get -> string!
 Abstractions.OrganizationCreateInfo.Name.init -> void
 Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(Abstractions.OrganizationCreateInfo! original) -> void
 Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(string! Name, string? LegacyId = null, string? LegacyUid = null) -> void
+Abstractions.OrganizationUpdateInfo
+Abstractions.OrganizationUpdateInfo.Deconstruct(out string! DisplayName, out System.Collections.Generic.Dictionary<string!, string!>? Metadata) -> void
+Abstractions.OrganizationUpdateInfo.DisplayName.get -> string!
+Abstractions.OrganizationUpdateInfo.DisplayName.init -> void
+Abstractions.OrganizationUpdateInfo.Metadata.get -> System.Collections.Generic.Dictionary<string!, string!>?
+Abstractions.OrganizationUpdateInfo.Metadata.init -> void
+Abstractions.OrganizationUpdateInfo.OrganizationUpdateInfo(Abstractions.OrganizationUpdateInfo! original) -> void
+Abstractions.OrganizationUpdateInfo.OrganizationUpdateInfo(string! DisplayName, System.Collections.Generic.Dictionary<string!, string!>? Metadata = null) -> void
 Abstractions.TokenResponse
 Abstractions.TokenResponse.AccessToken.get -> string?
 Abstractions.TokenResponse.AccessToken.set -> void
@@ -128,6 +137,9 @@ override Abstractions.Org.ToString() -> string!
 override Abstractions.OrganizationCreateInfo.Equals(object? obj) -> bool
 override Abstractions.OrganizationCreateInfo.GetHashCode() -> int
 override Abstractions.OrganizationCreateInfo.ToString() -> string!
+override Abstractions.OrganizationUpdateInfo.Equals(object? obj) -> bool
+override Abstractions.OrganizationUpdateInfo.GetHashCode() -> int
+override Abstractions.OrganizationUpdateInfo.ToString() -> string!
 override Abstractions.TokenResponse.GetHashCode() -> int
 override Abstractions.UserCreateInfo.Equals(object? obj) -> bool
 override Abstractions.UserCreateInfo.GetHashCode() -> int
@@ -139,6 +151,8 @@ static Abstractions.Org.operator !=(Abstractions.Org? left, Abstractions.Org? ri
 static Abstractions.Org.operator ==(Abstractions.Org? left, Abstractions.Org? right) -> bool
 static Abstractions.OrganizationCreateInfo.operator !=(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
 static Abstractions.OrganizationCreateInfo.operator ==(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
+static Abstractions.OrganizationUpdateInfo.operator !=(Abstractions.OrganizationUpdateInfo? left, Abstractions.OrganizationUpdateInfo? right) -> bool
+static Abstractions.OrganizationUpdateInfo.operator ==(Abstractions.OrganizationUpdateInfo? left, Abstractions.OrganizationUpdateInfo? right) -> bool
 static Abstractions.TokenResponse.operator !=(Abstractions.TokenResponse left, Abstractions.TokenResponse right) -> bool
 static Abstractions.TokenResponse.operator ==(Abstractions.TokenResponse left, Abstractions.TokenResponse right) -> bool
 static Abstractions.UserCreateInfo.operator !=(Abstractions.UserCreateInfo? left, Abstractions.UserCreateInfo? right) -> bool
@@ -151,6 +165,8 @@ virtual Abstractions.OrganizationCreateInfo.<Clone>$() -> Abstractions.Organizat
 virtual Abstractions.OrganizationCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.OrganizationCreateInfo.Equals(Abstractions.OrganizationCreateInfo? other) -> bool
 virtual Abstractions.OrganizationCreateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Abstractions.OrganizationUpdateInfo.EqualityContract.get -> System.Type!
+virtual Abstractions.OrganizationUpdateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual Abstractions.UserCreateInfo.<Clone>$() -> Abstractions.UserCreateInfo!
 virtual Abstractions.UserCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.UserCreateInfo.Equals(Abstractions.UserCreateInfo? other) -> bool

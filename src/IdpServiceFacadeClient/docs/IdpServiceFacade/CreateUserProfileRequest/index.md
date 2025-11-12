@@ -18,6 +18,7 @@ Implements [System\.IEquatable&lt;](https://learn.microsoft.com/en-us/dotnet/api
 | [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.IdentityIdFieldNumber') | Field number for the "identityId" field\. |
 | [LastNameFieldNumber](LastNameFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.LastNameFieldNumber') | Field number for the "lastName" field\. |
 | [MetadataFieldNumber](MetadataFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.MetadataFieldNumber') | Field number for the "metadata" field\. |
+| [OrganizationIdFieldNumber](OrganizationIdFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.OrganizationIdFieldNumber') | Field number for the "organizationId" field\. |
 | [PhoneNumberFieldNumber](PhoneNumberFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.PhoneNumberFieldNumber') | Field number for the "phoneNumber" field\. |
 | [RoleIdFieldNumber](RoleIdFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.RoleIdFieldNumber') | Field number for the "roleId" field\. |
 | [VerifyEmailFieldNumber](VerifyEmailFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.VerifyEmailFieldNumber') | Field number for the "verifyEmail" field\. |

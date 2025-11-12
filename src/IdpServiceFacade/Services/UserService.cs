@@ -36,28 +36,48 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
-        UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
-        OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
         
-        if (!createResult.OK)
+        // Check if user exists by email
+        IList<Auth0.ManagementApi.Models.User> existingUsers = await auth0Client.ListUsers($"email:\"{request.Email}\"", context.CancellationToken).ConfigureAwait(false) as IList<Auth0.ManagementApi.Models.User> 
+            ?? (await auth0Client.ListUsers($"email:\"{request.Email}\"", context.CancellationToken).ConfigureAwait(false)).ToList();
+        
+        bool userExists = existingUsers != null && existingUsers.Count > 0;
+        
+        // Only create user if they don't exist
+        if (!userExists)
         {
-            return new UserReply
+            UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
+            OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
+            
+            if (!createResult.OK)
             {
-                Ok = createResult.OK,
-                Error = createResult.Error ?? string.Empty,
-            };
+                return new UserReply
+                {
+                    Ok = createResult.OK,
+                    Error = createResult.Error ?? string.Empty,
+                };
+            }
         }
 
         // Add user to organization if OrganizationId is provided
         if (!string.IsNullOrWhiteSpace(request.OrganizationId))
         {
-            await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context.CancellationToken);
+            OkError addToOrgResult = await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context.CancellationToken);
+            
+            if (!addToOrgResult.OK)
+            {
+                return new UserReply
+                {
+                    Ok = addToOrgResult.OK,
+                    Error = addToOrgResult.Error ?? string.Empty,
+                };
+            }
         }
 
         return new UserReply
         {
-            Ok = createResult.OK,
-            Error = createResult.Error ?? string.Empty,
+            Ok = true,
+            Error = string.Empty,
         };
     }
 

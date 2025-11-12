@@ -4,6 +4,7 @@
 
 | Classes | |
 | :--- | :--- |
+| [ActivateUserRequest](ActivateUserRequest/index.md 'IdpServiceFacade\.ActivateUserRequest') | |
 | [ChangePasswordWithIdentityIdRequest](ChangePasswordWithIdentityIdRequest/index.md 'IdpServiceFacade\.ChangePasswordWithIdentityIdRequest') | |
 | [CheckPhoneExistsOnAuth0Request](CheckPhoneExistsOnAuth0Request/index.md 'IdpServiceFacade\.CheckPhoneExistsOnAuth0Request') | |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
@@ -13,6 +14,7 @@
 | [CreateRoleResponse](CreateRoleResponse/index.md 'IdpServiceFacade\.CreateRoleResponse') | |
 | [CreateUserProfileRequest](CreateUserProfileRequest/index.md 'IdpServiceFacade\.CreateUserProfileRequest') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
+| [DeleteUserRequest](DeleteUserRequest/index.md 'IdpServiceFacade\.DeleteUserRequest') | |
 | [GetOrganizationReply](GetOrganizationReply/index.md 'IdpServiceFacade\.GetOrganizationReply') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
@@ -36,6 +38,7 @@
 | [Role](Role/index.md 'IdpServiceFacade\.Role') | |
 | [Role\.RoleBase](Role/RoleBase/index.md 'IdpServiceFacade\.Role\.RoleBase') | Base class for server\-side implementations of Role |
 | [RoleReflection](RoleReflection/index.md 'IdpServiceFacade\.RoleReflection') | Holder for reflection information generated from Protos/role\.proto |
+| [UpdateOrganizationByUidRequest](UpdateOrganizationByUidRequest/index.md 'IdpServiceFacade\.UpdateOrganizationByUidRequest') | |
 | [UpdateRiskStatusWithIdentityIdRequest](UpdateRiskStatusWithIdentityIdRequest/index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
 | [UpdateVerifiedPhoneNumberRequest](UpdateVerifiedPhoneNumberRequest/index.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest') | |
