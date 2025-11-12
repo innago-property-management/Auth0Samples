@@ -165,7 +165,9 @@ virtual Abstractions.OrganizationCreateInfo.<Clone>$() -> Abstractions.Organizat
 virtual Abstractions.OrganizationCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.OrganizationCreateInfo.Equals(Abstractions.OrganizationCreateInfo? other) -> bool
 virtual Abstractions.OrganizationCreateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Abstractions.OrganizationUpdateInfo.<Clone>$() -> Abstractions.OrganizationUpdateInfo!
 virtual Abstractions.OrganizationUpdateInfo.EqualityContract.get -> System.Type!
+virtual Abstractions.OrganizationUpdateInfo.Equals(Abstractions.OrganizationUpdateInfo? other) -> bool
 virtual Abstractions.OrganizationUpdateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual Abstractions.UserCreateInfo.<Clone>$() -> Abstractions.UserCreateInfo!
 virtual Abstractions.UserCreateInfo.EqualityContract.get -> System.Type!
