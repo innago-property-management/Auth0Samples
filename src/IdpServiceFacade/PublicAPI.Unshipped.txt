@@ -10,6 +10,7 @@ const IdpServiceFacade.CreateUserProfileRequest.FirstNameFieldNumber = 3 -> int
 const IdpServiceFacade.CreateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.CreateUserProfileRequest.LastNameFieldNumber = 4 -> int
 const IdpServiceFacade.CreateUserProfileRequest.MetadataFieldNumber = 6 -> int
+const IdpServiceFacade.CreateUserProfileRequest.OrganizationIdFieldNumber = 10 -> int
 const IdpServiceFacade.CreateUserProfileRequest.PhoneNumberFieldNumber = 5 -> int
 const IdpServiceFacade.CreateUserProfileRequest.RoleIdFieldNumber = 7 -> int
 const IdpServiceFacade.CreateUserProfileRequest.VerifyEmailFieldNumber = 9 -> int
@@ -20,6 +21,9 @@ const IdpServiceFacade.GetUsersMetadataByNameAndEmailAndPhoneRequest.KeysFieldNu
 const IdpServiceFacade.GetUsersMetadataByNameAndEmailAndPhoneRequest.SearchTermFieldNumber = 1 -> int
 const IdpServiceFacade.GetUsersMetadataByNamesRequest.KeysFieldNumber = 2 -> int
 const IdpServiceFacade.GetUsersMetadataByNamesRequest.NamesFieldNumber = 1 -> int
+const IdpServiceFacade.UpdateOrganizationByUidRequest.DisplayNameFieldNumber = 2 -> int
+const IdpServiceFacade.UpdateOrganizationByUidRequest.MetadataFieldNumber = 3 -> int
+const IdpServiceFacade.UpdateOrganizationByUidRequest.OrganizationUidFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.RiskStatusFieldNumber = 2 -> int
 const IdpServiceFacade.UpdateUserProfileRequest.EmailVerifiedFieldNumber = 18 -> int
@@ -151,6 +155,9 @@ IdpServiceFacade.Role
 IdpServiceFacade.Role.RoleBase
 IdpServiceFacade.Role.RoleBase.RoleBase() -> void
 IdpServiceFacade.RoleReflection
+IdpServiceFacade.UpdateOrganizationByUidRequest
+IdpServiceFacade.UpdateOrganizationByUidRequest.CalculateSize() -> int
+IdpServiceFacade.UpdateOrganizationByUidRequest.UpdateOrganizationByUidRequest() -> void
 IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest
 IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.CalculateSize() -> int
 IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.UpdateRiskStatusWithIdentityIdRequest() -> void
@@ -395,6 +402,7 @@ override IdpServiceFacade.MetadataItem.GetHashCode() -> int
 override IdpServiceFacade.OrgRequest.GetHashCode() -> int
 override IdpServiceFacade.OrgUserRequest.GetHashCode() -> int
 override IdpServiceFacade.OrganizationReply.GetHashCode() -> int
+override IdpServiceFacade.UpdateOrganizationByUidRequest.GetHashCode() -> int
 override IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.GetHashCode() -> int
 override IdpServiceFacade.UpdateUserProfileRequest.GetHashCode() -> int
 override IdpServiceFacade.UpdateVerifiedPhoneNumberRequest.GetHashCode() -> int
@@ -421,6 +429,7 @@ override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.CreateOrganization(IdpServiceFacade.CreateOrganizationRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateOrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.InviteUser(IdpServiceFacade.OrgUserRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.ListOrganizations(IdpServiceFacade.EmptyRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.ListOrganizationReply!>!
+override Innago.Security.IdpServiceFacade.Services.OrganizationService.UpdateOrganizationByUid(IdpServiceFacade.UpdateOrganizationByUidRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.RoleService.CreateRole(IdpServiceFacade.CreateRoleRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateRoleResponse!>!
 static Innago.Security.IdpServiceFacade.Services.UserResponseHelpers.ToGetUserResponse(this Auth0.ManagementApi.Models.User! user) -> IdpServiceFacade.UserResponse!
 static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -> System.Diagnostics.ActivitySource!
@@ -516,6 +525,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.CreateUserProfileRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
 ~IdpServiceFacade.CreateUserProfileRequest.MergeFrom(IdpServiceFacade.CreateUserProfileRequest other) -> void
 ~IdpServiceFacade.CreateUserProfileRequest.Metadata.get -> Google.Protobuf.Collections.MapField<string, string>
+~IdpServiceFacade.CreateUserProfileRequest.OrganizationId.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.OrganizationId.set -> void
 ~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.get -> string
 ~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.set -> void
 ~IdpServiceFacade.CreateUserProfileRequest.RoleId.get -> string
@@ -711,6 +722,17 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.OrganizationReply.MergeFrom(IdpServiceFacade.OrganizationReply other) -> void
 ~IdpServiceFacade.OrganizationReply.OrganizationReply(IdpServiceFacade.OrganizationReply other) -> void
 ~IdpServiceFacade.OrganizationReply.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
+~IdpServiceFacade.UpdateOrganizationByUidRequest.Clone() -> IdpServiceFacade.UpdateOrganizationByUidRequest
+~IdpServiceFacade.UpdateOrganizationByUidRequest.DisplayName.get -> string
+~IdpServiceFacade.UpdateOrganizationByUidRequest.DisplayName.set -> void
+~IdpServiceFacade.UpdateOrganizationByUidRequest.Equals(IdpServiceFacade.UpdateOrganizationByUidRequest other) -> bool
+~IdpServiceFacade.UpdateOrganizationByUidRequest.MergeFrom(Google.Protobuf.CodedInputStream input) -> void
+~IdpServiceFacade.UpdateOrganizationByUidRequest.MergeFrom(IdpServiceFacade.UpdateOrganizationByUidRequest other) -> void
+~IdpServiceFacade.UpdateOrganizationByUidRequest.Metadata.get -> Google.Protobuf.Collections.MapField<string, string>
+~IdpServiceFacade.UpdateOrganizationByUidRequest.OrganizationUid.get -> string
+~IdpServiceFacade.UpdateOrganizationByUidRequest.OrganizationUid.set -> void
+~IdpServiceFacade.UpdateOrganizationByUidRequest.UpdateOrganizationByUidRequest(IdpServiceFacade.UpdateOrganizationByUidRequest other) -> void
+~IdpServiceFacade.UpdateOrganizationByUidRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.Clone() -> IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest
 ~IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.Equals(IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest other) -> bool
 ~IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.IdentityId.get -> string
@@ -1018,6 +1040,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~override IdpServiceFacade.OrgUserRequest.ToString() -> string
 ~override IdpServiceFacade.OrganizationReply.Equals(object other) -> bool
 ~override IdpServiceFacade.OrganizationReply.ToString() -> string
+~override IdpServiceFacade.UpdateOrganizationByUidRequest.Equals(object other) -> bool
+~override IdpServiceFacade.UpdateOrganizationByUidRequest.ToString() -> string
 ~override IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.Equals(object other) -> bool
 ~override IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.ToString() -> string
 ~override IdpServiceFacade.UpdateUserProfileRequest.Equals(object other) -> bool
@@ -1130,6 +1154,8 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~static IdpServiceFacade.Role.BindService(IdpServiceFacade.Role.RoleBase serviceImpl) -> Grpc.Core.ServerServiceDefinition
 ~static IdpServiceFacade.Role.Descriptor.get -> Google.Protobuf.Reflection.ServiceDescriptor
 ~static IdpServiceFacade.RoleReflection.Descriptor.get -> Google.Protobuf.Reflection.FileDescriptor
+~static IdpServiceFacade.UpdateOrganizationByUidRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
+~static IdpServiceFacade.UpdateOrganizationByUidRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateOrganizationByUidRequest>
 ~static IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
 ~static IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest.Parser.get -> Google.Protobuf.MessageParser<IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest>
 ~static IdpServiceFacade.UpdateUserProfileRequest.Descriptor.get -> Google.Protobuf.Reflection.MessageDescriptor
@@ -1187,6 +1213,7 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.Organization.OrganizationBase.ListOrganizations(IdpServiceFacade.EmptyRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.ListOrganizationReply>
 ~virtual IdpServiceFacade.Organization.OrganizationBase.MarkAsFraud(IdpServiceFacade.OrgRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply>
 ~virtual IdpServiceFacade.Organization.OrganizationBase.MarkAsSuspicious(IdpServiceFacade.OrgRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply>
+~virtual IdpServiceFacade.Organization.OrganizationBase.UpdateOrganizationByUid(IdpServiceFacade.UpdateOrganizationByUidRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply>
 ~virtual IdpServiceFacade.Role.RoleBase.CreateRole(IdpServiceFacade.CreateRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateRoleResponse>
 ~virtual IdpServiceFacade.User.UserBase.ActivateUser(IdpServiceFacade.ActivateUserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.AssignRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
@@ -1221,6 +1248,7 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~virtual IdpServiceFacade.User.UserBase.MarkAsFraud(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.MarkAsSuspicious(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.RemoveRole(IdpServiceFacade.UserRoleRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
+~virtual IdpServiceFacade.User.UserBase.UnblockBruteforceLockedUser(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UnblockUser(IdpServiceFacade.UserRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UpdateRiskStatusWithIdentityId(IdpServiceFacade.UpdateRiskStatusWithIdentityIdRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>
 ~virtual IdpServiceFacade.User.UserBase.UpdateUserProfile(IdpServiceFacade.UpdateUserProfileRequest request, Grpc.Core.ServerCallContext context) -> System.Threading.Tasks.Task<IdpServiceFacade.UserReply>

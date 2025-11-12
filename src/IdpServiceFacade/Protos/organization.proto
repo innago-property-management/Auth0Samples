@@ -12,6 +12,7 @@ service Organization {
   rpc InitiateLegalHold (OrgRequest) returns (OrganizationReply);
   rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationReply);
   rpc ListOrganizations (EmptyRequest) returns (ListOrganizationReply);
+  rpc UpdateOrganizationByUid (UpdateOrganizationByUidRequest) returns (OrganizationReply);
 }
 
 message EmptyRequest {}
@@ -60,4 +61,10 @@ message CreateOrganizationRequest {
 message CreateOrganizationReply {
   bool ok = 1;
   optional string error = 2;
+}
+
+message UpdateOrganizationByUidRequest {
+  string organizationUid = 1;
+  string displayName = 2;
+  map<string, string> metadata = 3;
 }

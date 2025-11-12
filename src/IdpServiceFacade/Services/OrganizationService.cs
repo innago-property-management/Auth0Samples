@@ -112,6 +112,57 @@ public class OrganizationService(
         return okError.ToOrganizationReply();
     }
 
+    /// <summary>
+    /// Updates an organization based on the provided organization_uid.
+    /// This method implements the gRPC OrganizationBase class's definition for the UpdateOrganizationByUid operation.
+    /// </summary>
+    /// <param name="request">The request containing the organization UID and update information.</param>
+    /// <param name="context">The context of the server call, providing metadata and other information.</param>
+    /// <returns>
+    /// A task representing the asynchronous operation. The result contains an OrganizationReply object indicating
+    /// the result of the update operation.
+    /// </returns>
+    public override async Task<OrganizationReply> UpdateOrganizationByUid(UpdateOrganizationByUidRequest request, ServerCallContext context)
+    {
+        using Activity? activity =
+            IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+                tags:
+                [
+                    new KeyValuePair<string, object?>(nameof(request.OrganizationUid), request.OrganizationUid),
+                    new KeyValuePair<string, object?>(nameof(request.DisplayName), request.DisplayName),
+                ]);
+
+        return await (!string.IsNullOrWhiteSpace(request.OrganizationUid)).Map(UpdateOrg, MissingOrganizationUid)!;
+
+        async Task<OrganizationReply>? UpdateOrg()
+        {
+            Dictionary<string, string>? metadata = request.Metadata?.Count > 0
+                ? request.Metadata.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
+                : null;
+
+            OrganizationUpdateInfo updateInfo = new(request.DisplayName, metadata);
+
+            OkError result = await externalService.UpdateOrganizationByUid(request.OrganizationUid, updateInfo, context.CancellationToken);
+
+            (!string.IsNullOrEmpty(result.Error)).IfTrue(() => logger.UpdateOrganizationByUidError(result.Error));
+
+            return new OrganizationReply
+            {
+                Ok = result.OK,
+                Error = result.Error ?? string.Empty,
+            };
+        }
+
+        static Task<OrganizationReply> MissingOrganizationUid()
+        {
+            return Task.FromResult(new OrganizationReply
+            {
+                Ok = false,
+                Error = "Missing organization UID",
+            });
+        }
+    }
+
     private static Task<CreateOrganizationReply> MissingOrganizationName()
     {
         return Task.FromResult(new CreateOrganizationReply
