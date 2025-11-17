@@ -20,7 +20,7 @@ Abstractions.IAuth0Client.GetUsers(string![]! oruUid, System.Threading.Cancellat
 Abstractions.IAuth0Client.HealthCheck(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
 Abstractions.IOrganizationService
 Abstractions.IOrganizationService.AddUserToOrganization(Auth0.ManagementApi.Models.User! user, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
-Abstractions.IOrganizationService.AddUserToOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Abstractions.IOrganizationService.AddUserToOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
 Abstractions.IOrganizationService.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.InviteUser(string! organizationId, string! userEmail, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.ListOrganizations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<System.Collections.Generic.IEnumerable<Abstractions.Org!>!>!
