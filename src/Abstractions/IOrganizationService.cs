@@ -30,8 +30,8 @@ public interface IOrganizationService
     /// <param name="user">The user to add.</param>
     /// <param name="organizationUid">The name of the organization.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    Task AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken);
+    /// <returns>A task representing the asynchronous operation with success or error information.</returns>
+    Task<OkError> AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken);
 
     /// <summary>
     ///     Creates a new organization with the provided information.

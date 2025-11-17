@@ -63,15 +63,12 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         if (!string.IsNullOrWhiteSpace(request.OrganizationId))
         {
             OkError addToOrgResult = await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context.CancellationToken);
-            
-            if (!addToOrgResult.OK)
+
+            return new UserReply
             {
-                return new UserReply
-                {
-                    Ok = addToOrgResult.OK,
-                    Error = addToOrgResult.Error ?? string.Empty,
-                };
-            }
+                Ok = addToOrgResult.OK,
+                Error = addToOrgResult.Error ?? string.Empty,
+            };
         }
 
         return new UserReply
@@ -380,9 +377,9 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             }
 
             Auth0.ManagementApi.Models.User user = users[0];
-            await auth0Client.AddUserToOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
+            OkError result = await auth0Client.AddUserToOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
             
-            return new OkError(true);
+            return result;
         }
         catch (Exception ex)
         {

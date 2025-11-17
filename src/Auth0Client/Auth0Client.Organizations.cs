@@ -210,22 +210,42 @@ public partial class Auth0Client
     ///     Adds a user to an organization in Auth0.
     /// </summary>
     /// <param name="user">The user to add.</param>
-    /// <param name="orgId">The ID of the organization.</param>
+    /// <param name="organizationUid">The ID of the organization.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    public async Task AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken)
+    public async Task<OkError> AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken)
     {
-        OrganizationAddMembersRequest request = new()
+        Result<Organization?> orgResult = await TryHelpers.TryAsync(() => 
+            client.Organizations.GetByNameAsync(organizationUid, cancellationToken)!).ConfigureAwait(false);
+
+        return await orgResult.Map(OnGetOrgSuccess!, OnGetOrgError)!;
+
+        async Task<OkError> OnGetOrgSuccess(Organization? org)
         {
-            Members = [user.UserId],
-        };
-        var org = await client.Organizations.GetByNameAsync(organizationUid, cancellationToken);
-        if(org is null)
-        {
-            return;
+            if (org is null)
+            {
+                return new OkError(false, $"Organization with name '{organizationUid}' not found");
+            }
+
+            OrganizationAddMembersRequest request = new()
+            {
+                Members = [user.UserId],
+            };
+
+            Result addMemberResult = await TryHelpers.TryAsync(() => 
+                client.Organizations.AddMembersAsync(org.Id, request, cancellationToken)).ConfigureAwait(false);
+
+            return new OkError
+            {
+                OK = addMemberResult.HasSucceeded,
+                Error = ((Exception?)addMemberResult)?.Message,
+            };
         }
-        await client.Organizations.AddMembersAsync(org.Id, request, cancellationToken).ConfigureAwait(false);
-        return;
+
+        static Task<OkError> OnGetOrgError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(false, exception?.Message ?? "Failed to get organization"));
+        }
     }
 
     private static Task<OkError> HandleError(Exception? exception)
