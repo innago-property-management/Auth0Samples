@@ -380,7 +380,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             }
 
             Auth0.ManagementApi.Models.User user = users[0];
-            await auth0Client.AddUserToOrganization(user, organizationId, cancellationToken).ConfigureAwait(false);
+            await auth0Client.AddUserToOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
             
             return new OkError(true);
         }
