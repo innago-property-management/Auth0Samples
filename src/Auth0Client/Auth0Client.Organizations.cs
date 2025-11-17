@@ -206,6 +206,28 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    ///     Adds a user to an organization in Auth0.
+    /// </summary>
+    /// <param name="user">The user to add.</param>
+    /// <param name="orgId">The ID of the organization.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public async Task AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken)
+    {
+        OrganizationAddMembersRequest request = new()
+        {
+            Members = [user.UserId],
+        };
+        var org = await client.Organizations.GetByNameAsync(organizationUid, cancellationToken);
+        if(org is null)
+        {
+            return;
+        }
+        await client.Organizations.AddMembersAsync(org.Id, request, cancellationToken).ConfigureAwait(false);
+        return;
+    }
+
     private static Task<OkError> HandleError(Exception? exception)
     {
         return Task.FromResult(new OkError(false, exception?.Message ?? string.Empty));
