@@ -36,19 +36,18 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
-        
+
         // Check if user exists by email
-        IList<Auth0.ManagementApi.Models.User> existingUsers = await auth0Client.ListUsers($"email:\"{request.Email}\"", context.CancellationToken).ConfigureAwait(false) as IList<Auth0.ManagementApi.Models.User> 
-            ?? (await auth0Client.ListUsers($"email:\"{request.Email}\"", context.CancellationToken).ConfigureAwait(false)).ToList();
-        
-        bool userExists = existingUsers != null && existingUsers.Count > 0;
-        
+        Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
+
+        bool userExists = existingUser != null;
+
         // Only create user if they don't exist
         if (!userExists)
         {
             UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
             OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
-            
+
             if (!createResult.OK)
             {
                 return new UserReply
@@ -363,22 +362,15 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         try
         {
             // Get the user by email to obtain the User object needed for AddUserToOrganization
-            IList<Auth0.ManagementApi.Models.User> users = await auth0Client.ListUsers($"email:\"{email}\"", cancellationToken).ConfigureAwait(false) as IList<Auth0.ManagementApi.Models.User> 
-                ?? (await auth0Client.ListUsers($"email:\"{email}\"", cancellationToken).ConfigureAwait(false)).ToList();
-            
-            if (users == null || users.Count == 0)
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(email, cancellationToken);
+
+            if (user == null)
             {
                 return new OkError(false, Error: "User not found after creation");
             }
-            
-            if (users.Count > 1)
-            {
-                return new OkError(false, Error: "Multiple users found with the same email");
-            }
 
-            Auth0.ManagementApi.Models.User user = users[0];
             OkError result = await auth0Client.AddUserToOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
-            
+
             return result;
         }
         catch (Exception ex)
@@ -431,7 +423,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         if (request.IsRoleUpdated)
         {
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
-            if(request.RoleId == "3")
+            if (request.RoleId == "3")
             {
                 AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "system_role_id", request.RoleId);
             }
