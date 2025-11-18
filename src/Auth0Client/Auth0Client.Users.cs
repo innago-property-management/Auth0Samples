@@ -471,7 +471,7 @@ public partial class Auth0Client
     public async ITask<OkError> CreateUserWithResult(UserCreateRequest userCreateRequest, CancellationToken cancellationToken)
     {
         using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(userCreateRequest.Email), userCreateRequest.Email)]);
-        
+
         Result<User?> createResult = await TryHelpers.TryAsync(() => this.CreateUserImplementation(userCreateRequest, cancellationToken)!).ConfigureAwait(false);
 
         return createResult.Map<Result>(_ => Result.Success,
@@ -539,7 +539,7 @@ public partial class Auth0Client
             }
             User user = users![0];  //in case due to an error more than one user is returned, we will update ONLY the first one
             string id = user.UserId;
-            if(!string.IsNullOrEmpty(request.Email))
+            if (!string.IsNullOrEmpty(request.Email))
             {
                 UserUpdateRequest usernameUpdateRequest = new UserUpdateRequest
                 {
@@ -549,7 +549,7 @@ public partial class Auth0Client
                 {
                     await client.Users.UpdateAsync(id, usernameUpdateRequest, cancellationToken);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     logger.Information($"Error updating username for user with identityId {identityId}: {ex.Message}");
                     activity?.AddException(ex);
@@ -1059,7 +1059,7 @@ public partial class Auth0Client
     {
         names = names.Select(name => name.ToLowerInvariant().Trim().SanitizeSearchTerm()).ToList();
 
-        string searchCriteria = names.Aggregate(string.Empty,  (agg, current) =>
+        string searchCriteria = names.Aggregate(string.Empty, (agg, current) =>
         $"{agg}{(!string.IsNullOrEmpty(agg) ? " or " : string.Empty)}" +
         $"{Auth0Client.FirstName}:{current}* or {Auth0Client.LastName}:{current}*");
 
@@ -1135,5 +1135,25 @@ public partial class Auth0Client
         IEnumerable<User> users = await this.ListUsers(searchCriteria, cancellationToken).ConfigureAwait(false);
 
         return users.DistinctBy(user => user.FullName).ToDictionary(user => user.FullName, IReadOnlyDictionary<string, string?>? (user) => MapUserMetadata(user.UserMetadata, keys));
+    }
+    public async Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+        return await getUsersResult.Map(GetUser, GetUsersError)!;
+        static Task<User?> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult<User?>(null);
+        }
+        Task<User?> GetUser(IList<User>? users)
+        {
+            if (users == null || users.Count == 0)
+            {
+                return Task.FromResult<User?>(null);
+            }
+            return Task.FromResult<User?>(users[0]);
+        }
     }
 }
