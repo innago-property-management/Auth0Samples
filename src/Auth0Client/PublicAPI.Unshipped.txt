@@ -33,6 +33,7 @@ Auth0Client.Auth0Client.ListOrganizations(System.Threading.CancellationToken can
 Auth0Client.Auth0Client.ListUsers(string! luceneQuery = "user_id:*", System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<Auth0.ManagementApi.Models.User!>!>!
 Auth0Client.Auth0Client.MarkUserAsFraud(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.MarkUserAsSuspicious(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
+Auth0Client.Auth0Client.RemoveUserFromOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
 Auth0Client.Auth0Client.ResetPassword(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<string?>!
 Auth0Client.Auth0Client.UnblockBruteforceLockedUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.UnblockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!

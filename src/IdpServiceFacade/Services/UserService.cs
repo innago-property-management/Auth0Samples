@@ -355,9 +355,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
         return await externalService.UnblockBruteforceLockedUser(request.Email, context.CancellationToken).ToUserReply();
     }
-
-    #region private methods
-    private async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, CancellationToken cancellationToken)
+    public async Task<OkError> RemoveUserFromOrganizationAsync(string email, string organizationId, CancellationToken cancellationToken)
     {
         try
         {
@@ -366,7 +364,28 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
 
             if (user == null)
             {
-                return new OkError(false, Error: "User not found after creation");
+                return new OkError(false, Error: "User not found");
+            }
+
+            OkError result = await auth0Client.RemoveUserFromOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return new OkError(false, Error: ex.Message);
+        }
+    }
+    public async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            // Get the user by email to obtain the User object needed for AddUserToOrganization
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(email, cancellationToken);
+
+            if (user == null)
+            {
+                return new OkError(false, Error: "User not found");
             }
 
             OkError result = await auth0Client.AddUserToOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
@@ -379,6 +398,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
     }
 
+    #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
