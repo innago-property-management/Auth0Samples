@@ -355,25 +355,31 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
         return await externalService.UnblockBruteforceLockedUser(request.Email, context.CancellationToken).ToUserReply();
     }
-    public async Task<OkError> RemoveUserFromOrganizationAsync(string email, string organizationId, ServerCallContext context)
+    public override async Task<UserReply> RemoveUserFromOrganization(RemoveUserFromOrganizationRequest request, ServerCallContext context)
     {
+        UserReply response = new UserReply();
         try
         {
             // Get the user by email to obtain the User object needed for AddUserToOrganization
-            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(email, context.CancellationToken);
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
 
             if (user == null)
             {
-                return new OkError(false, Error: "User not found");
+                response.Ok = false;
+                response.Error = "User not found";
+                return response;
             }
 
-            OkError result = await auth0Client.RemoveUserFromOrganizationByUid(user, organizationId, context.CancellationToken).ConfigureAwait(false);
-
-            return result;
+            OkError result = await auth0Client.RemoveUserFromOrganizationByUid(user, request.OrganizationId, context.CancellationToken);
+            response.Ok = result.OK;
+            response.Error = result.Error;
+            return response;
         }
         catch (Exception ex)
         {
-            return new OkError(false, Error: ex.Message);
+            response.Ok = false;
+            response.Error = ex.Message;
+            return response;
         }
     }
     public async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, ServerCallContext context)
