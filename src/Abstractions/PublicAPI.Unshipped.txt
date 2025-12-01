@@ -18,12 +18,15 @@ Abstractions.IAuth0Client
 Abstractions.IAuth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.IAuth0Client.GetUsers(string![]! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.List<Auth0.ManagementApi.Models.User!>!>!
 Abstractions.IAuth0Client.HealthCheck(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Abstractions.IAuthService
+Abstractions.IAuthService.GetToken(string! clientId, string! clientSecret, string! audience, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Innago.Shared.TryHelpers.Result<string!>>!
 Abstractions.IOrganizationService
 Abstractions.IOrganizationService.AddUserToOrganization(Auth0.ManagementApi.Models.User! user, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 Abstractions.IOrganizationService.AddUserToOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
 Abstractions.IOrganizationService.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.InviteUser(string! organizationId, string! userEmail, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.ListOrganizations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<System.Collections.Generic.IEnumerable<Abstractions.Org!>!>!
+Abstractions.IOrganizationService.RemoveUserFromOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
 Abstractions.IOrganizationService.UpdateOrganizationByUid(string! organizationUid, Abstractions.OrganizationUpdateInfo! updateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IRoleService
 Abstractions.IRoleService.CreateRole(string! roleName, string? description = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!

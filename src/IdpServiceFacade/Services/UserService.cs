@@ -61,7 +61,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         // Add user to organization if OrganizationId is provided
         if (!string.IsNullOrWhiteSpace(request.OrganizationId))
         {
-            OkError addToOrgResult = await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context.CancellationToken);
+            OkError addToOrgResult = await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context);
 
             return new UserReply
             {
@@ -355,21 +355,46 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
         return await externalService.UnblockBruteforceLockedUser(request.Email, context.CancellationToken).ToUserReply();
     }
+    public override async Task<UserReply> RemoveUserFromOrganization(RemoveUserFromOrganizationRequest request, ServerCallContext context)
+    {
+        UserReply response = new UserReply();
+        try
+        {
+            // Get the user by email to obtain the User object needed for AddUserToOrganization
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
 
-    #region private methods
-    private async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, CancellationToken cancellationToken)
+            if (user == null)
+            {
+                response.Ok = false;
+                response.Error = "User not found";
+                return response;
+            }
+
+            OkError result = await auth0Client.RemoveUserFromOrganizationByUid(user, request.OrganizationId, context.CancellationToken);
+            response.Ok = result.OK;
+            response.Error = result.Error;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Ok = false;
+            response.Error = ex.Message;
+            return response;
+        }
+    }
+    public async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, ServerCallContext context)
     {
         try
         {
             // Get the user by email to obtain the User object needed for AddUserToOrganization
-            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(email, cancellationToken);
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(email, context.CancellationToken);
 
             if (user == null)
             {
-                return new OkError(false, Error: "User not found after creation");
+                return new OkError(false, Error: "User not found");
             }
 
-            OkError result = await auth0Client.AddUserToOrganizationByUid(user, organizationId, cancellationToken).ConfigureAwait(false);
+            OkError result = await auth0Client.AddUserToOrganizationByUid(user, organizationId, context.CancellationToken).ConfigureAwait(false);
 
             return result;
         }
@@ -379,6 +404,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
     }
 
+    #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))

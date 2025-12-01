@@ -426,6 +426,7 @@ override IdpServiceFacade.UsersMetadataByNameOrEmailFragmentAndOrgUidRequest.Get
 override IdpServiceFacade.UsersMetadataByNameOrEmailFragmentRequest.GetHashCode() -> int
 override IdpServiceFacade.UsersMetadataReply.GetHashCode() -> int
 override IdpServiceFacade.UsersSearchRequest.GetHashCode() -> int
+override Innago.Security.IdpServiceFacade.Services.AuthService.GetToken(IdpServiceFacade.GetTokenRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.GetTokenResponse!>!
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.CreateOrganization(IdpServiceFacade.CreateOrganizationRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.CreateOrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.InviteUser(IdpServiceFacade.OrgUserRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.OrganizationReply!>!
 override Innago.Security.IdpServiceFacade.Services.OrganizationService.ListOrganizations(IdpServiceFacade.EmptyRequest! request, Grpc.Core.ServerCallContext! context) -> System.Threading.Tasks.Task<IdpServiceFacade.ListOrganizationReply!>!
