@@ -1,4 +1,5 @@
 namespace Auth0Client;
+
 using Auth0.AuthenticationApi.Models;
 using Auth0.Core.Exceptions;
 
@@ -10,29 +11,32 @@ using System.Threading.Tasks;
 
 public partial class Auth0Client
 {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="clientId"></param>
+    /// <param name="clientSecret"></param>
+    /// <param name="audience"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<Result<string>> GetToken(string clientId, string clientSecret, string audience, CancellationToken cancellationToken = default)
     {
         try
         {
             // 2. Call the GetToken method for the Client Credentials Grant
             AccessTokenResponse response = await authClient.GetTokenAsync(new ClientCredentialsTokenRequest
-            {
-                ClientId = clientId,
-                ClientSecret = clientSecret,
-                Audience = audience
-            }, cancellationToken);
+                {
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                    Audience = audience
+                },
+                cancellationToken);
 
             // 3. Handle Success
             // The SDK handles non-2xx responses and throws an exception, so we only need to check for a valid token.
-            if (!string.IsNullOrEmpty(response.AccessToken))
-            {
-                return new Result<string>(response.AccessToken);
-            }
-            else
-            {
+            return !string.IsNullOrEmpty(response.AccessToken) ? new Result<string>(response.AccessToken) :
                 // This is unlikely if the call succeeds, but good for safety.
-                return new Result<string>(new InvalidOperationException("Auth0 SDK call succeeded but returned an empty access token."));
-            }
+                new Result<string>(new InvalidOperationException("Auth0 SDK call succeeded but returned an empty access token."));
         }
         catch (ApiException apiEx)
         {

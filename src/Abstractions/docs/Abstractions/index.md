@@ -18,6 +18,7 @@
 | Interfaces | |
 | :--- | :--- |
 | [IAuth0Client](IAuth0Client/index.md 'Abstractions\.IAuth0Client') | Represents a client for interacting with Auth0 authentication services\. |
+| [IAuthService](IAuthService/index.md 'Abstractions\.IAuthService') | Defines operations related to role management\. |
 | [IOrganizationService](IOrganizationService/index.md 'Abstractions\.IOrganizationService') | Defines operations for managing organizations\. |
 | [IRoleService](IRoleService/index.md 'Abstractions\.IRoleService') | Defines operations related to role management\. |
 | [IUserService](IUserService/index.md 'Abstractions\.IUserService') | Defines a contract for user\-related operations such as password management, user status updates, and multifactor authentication \(MFA\) toggling\. |

@@ -31,6 +31,7 @@
 | [OrganizationReply](OrganizationReply/index.md 'IdpServiceFacade\.OrganizationReply') | |
 | [OrgRequest](OrgRequest/index.md 'IdpServiceFacade\.OrgRequest') | |
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
+| [RemoveUserFromOrganizationRequest](RemoveUserFromOrganizationRequest/index.md 'IdpServiceFacade\.RemoveUserFromOrganizationRequest') | |
 | [UpdateOrganizationByUidRequest](UpdateOrganizationByUidRequest/index.md 'IdpServiceFacade\.UpdateOrganizationByUidRequest') | |
 | [UpdateRiskStatusWithIdentityIdRequest](UpdateRiskStatusWithIdentityIdRequest/index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |

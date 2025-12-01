@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 /// <summary>
 /// Provides functionality for interacting with Auth0 authentication services.
 /// </summary>
+/// <param name="authClient">The auth client.</param>
 /// <param name="client">The Auth0 management API client.</param>
 /// <param name="settings">The Auth0 configuration settings.</param>
 /// <param name="logger">The logger.</param>

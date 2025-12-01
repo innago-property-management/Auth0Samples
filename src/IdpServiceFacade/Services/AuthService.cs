@@ -12,17 +12,28 @@ using System.Diagnostics;
 
 using Auth = global::IdpServiceFacade.Auth;
 
+/// <summary>
+///
+/// </summary>
+/// <param name="externalService"></param>
+/// <param name="logger"></param>
 public class AuthService(
     IAuthService externalService,
     ILogger<AuthService> logger) : Auth.AuthBase
 {
-
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public override async Task<GetTokenResponse> GetToken(GetTokenRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.ClientId), request.Audience)]);
 
-        Result<string> result = await externalService.GetToken(request.ClientId, request.ClientSecret, request.Audience, context.CancellationToken).ConfigureAwait(false);
+        Result<string> result = await externalService.GetToken(request.ClientId, request.ClientSecret, request.Audience, context.CancellationToken)
+            .ConfigureAwait(false);
 
         result.HasSucceeded.IfFalse(() => logger.Error(new Exception(result)));
 

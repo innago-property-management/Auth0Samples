@@ -24,6 +24,7 @@ public interface IOrganizationService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     Task AddUserToOrganization(User user, string orgId, CancellationToken cancellationToken);
+
     /// <summary>
     ///     Removes a user from an organization.
     /// </summary>
@@ -32,13 +33,14 @@ public interface IOrganizationService
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation with success or error information.</returns>
     Task<OkError> AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken);
+
     /// <summary>
-    ///     Adds a user to an organization in Auth0.
+    ///
     /// </summary>
-    /// <param name="user">The user to add.</param>
-    /// <param name="orgId">The ID of the organization.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
+    /// <param name="user"></param>
+    /// <param name="organizationUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<OkError> RemoveUserFromOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken);
 
     /// <summary>
