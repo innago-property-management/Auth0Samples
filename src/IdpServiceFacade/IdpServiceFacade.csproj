@@ -104,7 +104,7 @@
         <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
         <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.3.1" />
         <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.16.0.128591">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="[10.15.0.120848]">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
