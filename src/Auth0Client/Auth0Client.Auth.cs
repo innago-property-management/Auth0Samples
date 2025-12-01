@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 public partial class Auth0Client
 {
-    public async Task<Result<string>> GetToken(string clientId, string clientSecret, string audience, CancellationToken cancellationToken)
+    public async Task<Result<string>> GetToken(string clientId, string clientSecret, string audience, CancellationToken cancellationToken = default)
     {
         try
         {
