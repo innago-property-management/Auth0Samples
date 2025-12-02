@@ -38,6 +38,7 @@
     <ItemGroup>
         <Protobuf Include="..\IdpServiceFacade\Protos\organization.proto" Link="Protos\organization.proto" GrpcServices="Client" />
         <Protobuf Include="..\IdpServiceFacade\Protos\user.proto" Link="Protos\user.proto" GrpcServices="Client" />
+        <Protobuf Include="..\IdpServiceFacade\Protos\auth.proto" Link="Protos\auth.proto" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>
