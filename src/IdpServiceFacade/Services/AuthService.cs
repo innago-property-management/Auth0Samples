@@ -35,12 +35,15 @@ public class AuthService(
         Result<string> result = await externalService.GetToken(request.ClientId, request.ClientSecret, request.Audience, context.CancellationToken)
             .ConfigureAwait(false);
 
-        result.HasSucceeded.IfFalse(() => logger.Error(new Exception(result)));
+        if (!result.HasSucceeded)
+        {
+            logger.Error(new Exception(result.ToString() ?? "An unknown error occurred while fetching the token."));
+        }
 
         return new GetTokenResponse
         {
             Ok = result.HasSucceeded,
-            Error = !result.HasSucceeded ? result : string.Empty,
+            Error = !result.HasSucceeded ? (result.ToString() ?? "An unknown error occurred.") : string.Empty,
             AccessToken = result.HasSucceeded ? result : string.Empty
         };
     }
