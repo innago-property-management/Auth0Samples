@@ -2,6 +2,7 @@ Auth0Client.Auth0Client
 Auth0Client.Auth0Client.ActivateUser(string! identityId, bool isActivate, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.AddUserToOrganization(Auth0.ManagementApi.Models.User! user, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 Auth0Client.Auth0Client.AddUserToOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
+Auth0Client.Auth0Client.Auth0Client(Auth0.AuthenticationApi.IAuthenticationApiClient! authClient, Auth0.ManagementApi.IManagementApiClient! client, Microsoft.Extensions.Options.IOptions<Abstractions.Auth0Settings!>! settings, Microsoft.Extensions.Logging.ILogger<Auth0Client.Auth0Client!>! logger, System.Net.Http.IHttpClientFactory! httpClientFactory) -> void
 Auth0Client.Auth0Client.BlockUser(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.ChangePassword(string! email, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.ChangePasswordWithIdentityId(string! identityId, string! newPassword, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
@@ -15,6 +16,7 @@ Auth0Client.Auth0Client.DeleteUser(string! identityId, System.Threading.Cancella
 Auth0Client.Auth0Client.DisableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.EnableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0Client.GetRefreshTokenAsyncImplementation(string! refreshToken, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>!>!
+Auth0Client.Auth0Client.GetToken(string! clientId, string! clientSecret, string! audience, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Innago.Shared.TryHelpers.Result<string!>>!
 Auth0Client.Auth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Auth0Client.Auth0Client.GetUserByEmail(string! email, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User?>!
 Auth0Client.Auth0Client.GetUserMetadata(string! email, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>!
@@ -41,5 +43,4 @@ Auth0Client.Auth0Client.UpdateOrganizationByUid(string! organizationUid, Abstrac
 Auth0Client.Auth0Client.UpdateUser(string! identityId, Auth0.ManagementApi.Models.UserUpdateRequest! request, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Auth0Client.Auth0ClientTracer
 static readonly Auth0Client.Auth0ClientTracer.Source -> System.Diagnostics.ActivitySource!
-Auth0Client.Auth0Client.Auth0Client(Auth0.ManagementApi.IManagementApiClient! client, Microsoft.Extensions.Options.IOptions<Abstractions.Auth0Settings!>! settings, Microsoft.Extensions.Logging.ILogger<Auth0Client.Auth0Client!>! logger, System.Net.Http.IHttpClientFactory! httpClientFactory) -> void
 Auth0Client.Auth0Client.GetTokenAsyncImplementation(string! username, string! password, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>!>!

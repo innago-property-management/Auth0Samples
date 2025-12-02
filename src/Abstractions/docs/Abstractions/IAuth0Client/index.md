@@ -6,10 +6,10 @@
 Represents a client for interacting with Auth0 authentication services\.
 
 ```csharp
-public interface IAuth0Client : Abstractions.IUserService, Abstractions.IRoleService, Abstractions.IOrganizationService
+public interface IAuth0Client : Abstractions.IUserService, Abstractions.IRoleService, Abstractions.IOrganizationService, Abstractions.IAuthService
 ```
 
-Implements [IUserService](../IUserService/index.md 'Abstractions\.IUserService'), [IRoleService](../IRoleService/index.md 'Abstractions\.IRoleService'), [IOrganizationService](../IOrganizationService/index.md 'Abstractions\.IOrganizationService')
+Implements [IUserService](../IUserService/index.md 'Abstractions\.IUserService'), [IRoleService](../IRoleService/index.md 'Abstractions\.IRoleService'), [IOrganizationService](../IOrganizationService/index.md 'Abstractions\.IOrganizationService'), [IAuthService](../IAuthService/index.md 'Abstractions\.IAuthService')
 
 | Methods | |
 | :--- | :--- |
