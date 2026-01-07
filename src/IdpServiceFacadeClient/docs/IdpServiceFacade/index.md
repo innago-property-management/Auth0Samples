@@ -3,6 +3,9 @@
 | Classes | |
 | :--- | :--- |
 | [ActivateUserRequest](ActivateUserRequest/index.md 'IdpServiceFacade\.ActivateUserRequest') | |
+| [Auth](Auth/index.md 'IdpServiceFacade\.Auth') | |
+| [Auth\.AuthClient](Auth/AuthClient/index.md 'IdpServiceFacade\.Auth\.AuthClient') | Client for Auth |
+| [AuthReflection](AuthReflection/index.md 'IdpServiceFacade\.AuthReflection') | Holder for reflection information generated from auth\.proto |
 | [ChangePasswordWithIdentityIdRequest](ChangePasswordWithIdentityIdRequest/index.md 'IdpServiceFacade\.ChangePasswordWithIdentityIdRequest') | |
 | [CheckPhoneExistsOnAuth0Request](CheckPhoneExistsOnAuth0Request/index.md 'IdpServiceFacade\.CheckPhoneExistsOnAuth0Request') | |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
@@ -15,6 +18,8 @@
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
+| [GetTokenRequest](GetTokenRequest/index.md 'IdpServiceFacade\.GetTokenRequest') | |
+| [GetTokenResponse](GetTokenResponse/index.md 'IdpServiceFacade\.GetTokenResponse') | |
 | [GetUsersMetadataByEmailAddressesRequest](GetUsersMetadataByEmailAddressesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest') | |
 | [GetUsersMetadataByEmailOrPhoneRequest](GetUsersMetadataByEmailOrPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailOrPhoneRequest') | |
 | [GetUsersMetadataByNameAndEmailAndPhoneRequest](GetUsersMetadataByNameAndEmailAndPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByNameAndEmailAndPhoneRequest') | |
@@ -35,6 +40,7 @@
 | [UpdateOrganizationByUidRequest](UpdateOrganizationByUidRequest/index.md 'IdpServiceFacade\.UpdateOrganizationByUidRequest') | |
 | [UpdateRiskStatusWithIdentityIdRequest](UpdateRiskStatusWithIdentityIdRequest/index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
+| [UpdateUserRoleIdRequest](UpdateUserRoleIdRequest/index.md 'IdpServiceFacade\.UpdateUserRoleIdRequest') | |
 | [UpdateVerifiedPhoneNumberRequest](UpdateVerifiedPhoneNumberRequest/index.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest') | |
 | [UpdateVerifiedUserEmailRequest](UpdateVerifiedUserEmailRequest/index.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |
