@@ -41,4 +41,37 @@ internal static partial class LoggerMessages
 
     [LoggerMessage(LogLevel.Debug, "{Message}")]
     internal static partial void Debug(this ILogger logger, string message);
+
+    // Auth Service Events (2000-2099)
+    [LoggerMessage(
+        LogLevel.Information,
+        EventId = 2001,
+        EventName = nameof(TokenRequestSucceeded),
+        Message = "Token request succeeded for client {ClientId}, audience {Audience}, expires in {ExpiresIn}s")]
+    internal static partial void TokenRequestSucceeded(
+        this ILogger<AuthService> logger,
+        string clientId,
+        string audience,
+        int expiresIn);
+
+    [LoggerMessage(
+        LogLevel.Warning,
+        EventId = 2002,
+        EventName = nameof(TokenRequestFailed),
+        Message = "Token request failed for client {ClientId}, audience {Audience}: {ErrorMessage}")]
+    internal static partial void TokenRequestFailed(
+        this ILogger<AuthService> logger,
+        string clientId,
+        string audience,
+        string? errorMessage);
+
+    [LoggerMessage(
+        LogLevel.Debug,
+        EventId = 2003,
+        EventName = nameof(TokenRequestStarted),
+        Message = "Starting token request for client {ClientId}, audience {Audience}")]
+    internal static partial void TokenRequestStarted(
+        this ILogger<AuthService> logger,
+        string clientId,
+        string audience);
 }

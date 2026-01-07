@@ -1356,3 +1356,19 @@ Innago.Security.IdpServiceFacade.Services.AuthService.AuthService(Abstractions.I
 override IdpServiceFacade.GetTokenRequest.GetHashCode() -> int
 override IdpServiceFacade.GetTokenResponse.GetHashCode() -> int
 override IdpServiceFacade.RemoveUserFromOrganizationRequest.GetHashCode() -> int
+const IdpServiceFacade.GetTokenResponse.TokenTypeFieldNumber = 4 -> int
+const IdpServiceFacade.GetTokenResponse.ExpiresInFieldNumber = 5 -> int
+const IdpServiceFacade.GetTokenResponse.ScopeFieldNumber = 6 -> int
+const IdpServiceFacade.GetTokenResponse.ErrorDescriptionFieldNumber = 7 -> int
+~IdpServiceFacade.GetTokenResponse.TokenType.get -> string
+~IdpServiceFacade.GetTokenResponse.TokenType.set -> void
+IdpServiceFacade.GetTokenResponse.ExpiresIn.get -> int
+IdpServiceFacade.GetTokenResponse.ExpiresIn.set -> void
+~IdpServiceFacade.GetTokenResponse.Scope.get -> string
+~IdpServiceFacade.GetTokenResponse.Scope.set -> void
+IdpServiceFacade.GetTokenResponse.HasScope.get -> bool
+IdpServiceFacade.GetTokenResponse.ClearScope() -> void
+~IdpServiceFacade.GetTokenResponse.ErrorDescription.get -> string
+~IdpServiceFacade.GetTokenResponse.ErrorDescription.set -> void
+IdpServiceFacade.GetTokenResponse.HasErrorDescription.get -> bool
+IdpServiceFacade.GetTokenResponse.ClearErrorDescription() -> void
