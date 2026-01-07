@@ -1,30 +1,31 @@
 namespace Auth0Client;
 
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Options;
-
 using Abstractions;
 
+using Auth0.AuthenticationApi;
 using Auth0.ManagementApi;
 using Auth0.ManagementApi.Models;
 
 using Innago.Shared.TryHelpers;
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Provides functionality for interacting with Auth0 authentication services.
 /// </summary>
+/// <param name="authClient">The auth client.</param>
 /// <param name="client">The Auth0 management API client.</param>
 /// <param name="settings">The Auth0 configuration settings.</param>
 /// <param name="logger">The logger.</param>
 /// <param name="httpClientFactory">The httpClientFactory to create an http client.</param>
 public partial class Auth0Client(
+    IAuthenticationApiClient authClient,
     IManagementApiClient client,
     IOptions<Auth0Settings> settings,
     ILogger<Auth0Client> logger,

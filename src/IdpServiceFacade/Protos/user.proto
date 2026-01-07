@@ -46,6 +46,8 @@ service User {
   rpc ActivateUser (ActivateUserRequest) returns (UserReply);
   rpc DeleteUser (DeleteUserRequest) returns (UserReply);
   rpc UnblockBruteforceLockedUser(UserRequest) returns (UserReply);
+  rpc RemoveUserFromOrganization(RemoveUserFromOrganizationRequest) returns (UserReply);
+  rpc UpdateUserRoleId(UpdateUserRoleIdRequest) returns (UserReply);
 }
 
 message CreateApplicantRequest{
@@ -267,6 +269,7 @@ message CreateUserProfileRequest{
   string roleId = 7;
   bool emailVerified = 8;
   bool verifyEmail = 9;
+  string organizationId = 10;
 }
 
 message UpdateVerifiedPhoneNumberRequest{
@@ -291,4 +294,14 @@ message ActivateUserRequest{
 
 message DeleteUserRequest{
   string identityId = 1;
+}
+
+message RemoveUserFromOrganizationRequest{
+  string email = 1;
+  string organizationId = 2;
+}
+
+message UpdateUserRoleIdRequest{
+  string identityId = 1;
+  string roleId = 2;
 }

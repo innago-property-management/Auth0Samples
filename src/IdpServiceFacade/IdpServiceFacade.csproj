@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -45,6 +45,11 @@
           <OutputDir>obj/Debug/net9.0/</OutputDir>
           <Generator>MSBuild:Compile</Generator>
         </Protobuf>
+        <Protobuf Include="Protos\auth.proto" Access="Public" GrpcServices="Server" ProtoCompile="True">
+          <OutputDir>obj/Debug/net9.0/</OutputDir>
+          <CompileOutputs>True</CompileOutputs>
+          <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
         <Protobuf Include="Protos\role.proto">
           <GrpcServices>Server</GrpcServices>
           <Access>Public</Access>
@@ -64,18 +69,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Auth0.AuthenticationApi" Version="7.42.0" />
-        <PackageReference Include="Auth0.ManagementApi" Version="7.42.0" />
-        <PackageReference Include="Auth0Net.DependencyInjection" Version="5.1.0" />
+        <PackageReference Include="Auth0.AuthenticationApi" Version="7.43.0" />
+        <PackageReference Include="Auth0.ManagementApi" Version="7.43.0" />
+        <PackageReference Include="Auth0Net.DependencyInjection" Version="5.2.0" />
         <PackageReference Include="DefaultDocumentation" Version="1.2.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
-        <PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.71.0" />
-        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.71.0" />
-        <PackageReference Include="Grpc.AspNetCore.Web" Version="2.71.0" />
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.76.0" />
+        <PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.76.0" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.76.0" />
+        <PackageReference Include="Grpc.AspNetCore.Web" Version="2.76.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
         <PackageReference Include="microsoft.codeanalysis.bannedapianalyzers" Version="5.0.0-1.25277.114">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -84,22 +89,22 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.13.1" />
-        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.1" />
-        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.13.1" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.13.0" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.GrpcCore" Version="1.0.0-beta.7" />
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.14.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.14.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.GrpcCore" Version="1.0.0-beta.8" />
         <PackageReference Include="prometheus-net.AspNetCore.Grpc" Version="8.2.1" />
         <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="8.2.1" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
-        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.6.0" />
+        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.8.0" />
         <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
         <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.3.1" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+        <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.3.2" />
         <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="[10.15.0.120848]">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

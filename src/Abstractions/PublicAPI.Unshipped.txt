@@ -14,15 +14,42 @@ Abstractions.Auth0Settings.DatabaseName.get -> string!
 Abstractions.Auth0Settings.DatabaseName.set -> void
 Abstractions.Auth0Settings.Domain.get -> string!
 Abstractions.Auth0Settings.Domain.set -> void
+Abstractions.ClientCredentialsToken
+virtual Abstractions.ClientCredentialsToken.<Clone>$() -> Abstractions.ClientCredentialsToken!
+Abstractions.ClientCredentialsToken.AccessToken.get -> string!
+Abstractions.ClientCredentialsToken.AccessToken.init -> void
+Abstractions.ClientCredentialsToken.ClientCredentialsToken(Abstractions.ClientCredentialsToken! original) -> void
+Abstractions.ClientCredentialsToken.ClientCredentialsToken(string! AccessToken, string! TokenType, int ExpiresIn, string? Scope = null) -> void
+Abstractions.ClientCredentialsToken.Deconstruct(out string! AccessToken, out string! TokenType, out int ExpiresIn, out string? Scope) -> void
+virtual Abstractions.ClientCredentialsToken.Equals(Abstractions.ClientCredentialsToken? other) -> bool
+Abstractions.ClientCredentialsToken.ExpiresIn.get -> int
+Abstractions.ClientCredentialsToken.ExpiresIn.init -> void
+Abstractions.ClientCredentialsToken.Scope.get -> string?
+Abstractions.ClientCredentialsToken.Scope.init -> void
+Abstractions.ClientCredentialsToken.TokenType.get -> string!
+Abstractions.ClientCredentialsToken.TokenType.init -> void
+override Abstractions.ClientCredentialsToken.Equals(object? obj) -> bool
+override Abstractions.ClientCredentialsToken.GetHashCode() -> int
+override Abstractions.ClientCredentialsToken.ToString() -> string!
+static Abstractions.ClientCredentialsToken.operator !=(Abstractions.ClientCredentialsToken? left, Abstractions.ClientCredentialsToken? right) -> bool
+static Abstractions.ClientCredentialsToken.operator ==(Abstractions.ClientCredentialsToken? left, Abstractions.ClientCredentialsToken? right) -> bool
+virtual Abstractions.ClientCredentialsToken.EqualityContract.get -> System.Type!
+virtual Abstractions.ClientCredentialsToken.PrintMembers(System.Text.StringBuilder! builder) -> bool
 Abstractions.IAuth0Client
 Abstractions.IAuth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.IAuth0Client.GetUsers(string![]! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.List<Auth0.ManagementApi.Models.User!>!>!
 Abstractions.IAuth0Client.HealthCheck(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Abstractions.IAuthService
+Abstractions.IAuthService.GetClientCredentialsToken(string! clientId, string! clientSecret, string! audience, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Innago.Shared.TryHelpers.Result<Abstractions.ClientCredentialsToken!>>!
+Abstractions.IAuthService.GetToken(string! clientId, string! clientSecret, string! audience, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Innago.Shared.TryHelpers.Result<string!>>!
 Abstractions.IOrganizationService
 Abstractions.IOrganizationService.AddUserToOrganization(Auth0.ManagementApi.Models.User! user, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Abstractions.IOrganizationService.AddUserToOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
 Abstractions.IOrganizationService.CreateOrganization(Abstractions.OrganizationCreateInfo! organizationCreateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.InviteUser(string! organizationId, string! userEmail, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IOrganizationService.ListOrganizations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<System.Collections.Generic.IEnumerable<Abstractions.Org!>!>!
+Abstractions.IOrganizationService.RemoveUserFromOrganizationByUid(Auth0.ManagementApi.Models.User! user, string! organizationUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Abstractions.OkError!>!
+Abstractions.IOrganizationService.UpdateOrganizationByUid(string! organizationUid, Abstractions.OrganizationUpdateInfo! updateInfo, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IRoleService
 Abstractions.IRoleService.CreateRole(string! roleName, string? description = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService
@@ -39,6 +66,7 @@ Abstractions.IUserService.DisableMfa(string! email, System.Threading.Cancellatio
 Abstractions.IUserService.EnableMfa(string! email, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<Abstractions.OkError!>!
 Abstractions.IUserService.GetRefreshTokenAsyncImplementation(string! refreshToken, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>!>!
 Abstractions.IUserService.GetTokenAsyncImplementation(string! username, string! password, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<TokenResponsePayload<Abstractions.TokenResponse>!>!
+Abstractions.IUserService.GetUserByEmail(string! email, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User?>!
 Abstractions.IUserService.GetUserMetadata(string! email, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>!
 Abstractions.IUserService.GetUsersMetadataByEmailAddresses(System.Collections.Generic.IEnumerable<string!>! emailAddresses, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>?>!
 Abstractions.IUserService.GetUsersMetadataByEmailFragment(string! searchTerm, System.Collections.Generic.IEnumerable<string!>? keys, System.Threading.CancellationToken cancellationToken) -> MorseCode.ITask.ITask<System.Collections.Generic.IReadOnlyDictionary<string!, System.Collections.Generic.IReadOnlyDictionary<string!, string?>?>?>!
@@ -86,6 +114,14 @@ Abstractions.OrganizationCreateInfo.Name.get -> string!
 Abstractions.OrganizationCreateInfo.Name.init -> void
 Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(Abstractions.OrganizationCreateInfo! original) -> void
 Abstractions.OrganizationCreateInfo.OrganizationCreateInfo(string! Name, string? LegacyId = null, string? LegacyUid = null) -> void
+Abstractions.OrganizationUpdateInfo
+Abstractions.OrganizationUpdateInfo.Deconstruct(out string! DisplayName, out System.Collections.Generic.Dictionary<string!, string!>? Metadata) -> void
+Abstractions.OrganizationUpdateInfo.DisplayName.get -> string!
+Abstractions.OrganizationUpdateInfo.DisplayName.init -> void
+Abstractions.OrganizationUpdateInfo.Metadata.get -> System.Collections.Generic.Dictionary<string!, string!>?
+Abstractions.OrganizationUpdateInfo.Metadata.init -> void
+Abstractions.OrganizationUpdateInfo.OrganizationUpdateInfo(Abstractions.OrganizationUpdateInfo! original) -> void
+Abstractions.OrganizationUpdateInfo.OrganizationUpdateInfo(string! DisplayName, System.Collections.Generic.Dictionary<string!, string!>? Metadata = null) -> void
 Abstractions.TokenResponse
 Abstractions.TokenResponse.AccessToken.get -> string?
 Abstractions.TokenResponse.AccessToken.set -> void
@@ -128,6 +164,9 @@ override Abstractions.Org.ToString() -> string!
 override Abstractions.OrganizationCreateInfo.Equals(object? obj) -> bool
 override Abstractions.OrganizationCreateInfo.GetHashCode() -> int
 override Abstractions.OrganizationCreateInfo.ToString() -> string!
+override Abstractions.OrganizationUpdateInfo.Equals(object? obj) -> bool
+override Abstractions.OrganizationUpdateInfo.GetHashCode() -> int
+override Abstractions.OrganizationUpdateInfo.ToString() -> string!
 override Abstractions.TokenResponse.GetHashCode() -> int
 override Abstractions.UserCreateInfo.Equals(object? obj) -> bool
 override Abstractions.UserCreateInfo.GetHashCode() -> int
@@ -139,6 +178,8 @@ static Abstractions.Org.operator !=(Abstractions.Org? left, Abstractions.Org? ri
 static Abstractions.Org.operator ==(Abstractions.Org? left, Abstractions.Org? right) -> bool
 static Abstractions.OrganizationCreateInfo.operator !=(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
 static Abstractions.OrganizationCreateInfo.operator ==(Abstractions.OrganizationCreateInfo? left, Abstractions.OrganizationCreateInfo? right) -> bool
+static Abstractions.OrganizationUpdateInfo.operator !=(Abstractions.OrganizationUpdateInfo? left, Abstractions.OrganizationUpdateInfo? right) -> bool
+static Abstractions.OrganizationUpdateInfo.operator ==(Abstractions.OrganizationUpdateInfo? left, Abstractions.OrganizationUpdateInfo? right) -> bool
 static Abstractions.TokenResponse.operator !=(Abstractions.TokenResponse left, Abstractions.TokenResponse right) -> bool
 static Abstractions.TokenResponse.operator ==(Abstractions.TokenResponse left, Abstractions.TokenResponse right) -> bool
 static Abstractions.UserCreateInfo.operator !=(Abstractions.UserCreateInfo? left, Abstractions.UserCreateInfo? right) -> bool
@@ -151,6 +192,10 @@ virtual Abstractions.OrganizationCreateInfo.<Clone>$() -> Abstractions.Organizat
 virtual Abstractions.OrganizationCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.OrganizationCreateInfo.Equals(Abstractions.OrganizationCreateInfo? other) -> bool
 virtual Abstractions.OrganizationCreateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Abstractions.OrganizationUpdateInfo.<Clone>$() -> Abstractions.OrganizationUpdateInfo!
+virtual Abstractions.OrganizationUpdateInfo.EqualityContract.get -> System.Type!
+virtual Abstractions.OrganizationUpdateInfo.Equals(Abstractions.OrganizationUpdateInfo? other) -> bool
+virtual Abstractions.OrganizationUpdateInfo.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual Abstractions.UserCreateInfo.<Clone>$() -> Abstractions.UserCreateInfo!
 virtual Abstractions.UserCreateInfo.EqualityContract.get -> System.Type!
 virtual Abstractions.UserCreateInfo.Equals(Abstractions.UserCreateInfo? other) -> bool

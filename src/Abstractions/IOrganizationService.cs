@@ -26,6 +26,24 @@ public interface IOrganizationService
     Task AddUserToOrganization(User user, string orgId, CancellationToken cancellationToken);
 
     /// <summary>
+    ///     Removes a user from an organization.
+    /// </summary>
+    /// <param name="user">The user to remove.</param>
+    /// <param name="organizationUid">The name of the organization.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation with success or error information.</returns>
+    Task<OkError> AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken);
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="organizationUid"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<OkError> RemoveUserFromOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken);
+
+    /// <summary>
     ///     Creates a new organization with the provided information.
     /// </summary>
     /// <param name="organizationCreateInfo">The information required for creating the organization.</param>
@@ -57,4 +75,16 @@ public interface IOrganizationService
     ///     representing the organizations.
     /// </returns>
     ITask<IEnumerable<Org>> ListOrganizations(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Updates an organization identified by the provided organization_uid in metadata.
+    /// </summary>
+    /// <param name="organizationUid">The unique identifier (organization_uid) stored in the organization's metadata.</param>
+    /// <param name="updateInfo">The information to update for the organization.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>
+    ///     A task that represents the asynchronous operation, containing the result of the operation as an
+    ///     <see cref="OkError" /> object.
+    /// </returns>
+    ITask<OkError> UpdateOrganizationByUid(string organizationUid, OrganizationUpdateInfo updateInfo, CancellationToken cancellationToken = default);
 }

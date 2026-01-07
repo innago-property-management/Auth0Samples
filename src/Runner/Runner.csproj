@@ -22,19 +22,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Auth0.AuthenticationApi" Version="7.42.0" />
-        <PackageReference Include="Auth0.ManagementApi" Version="7.42.0" />
-        <PackageReference Include="Auth0Net.DependencyInjection" Version="5.1.0" />
+        <PackageReference Include="Auth0.AuthenticationApi" Version="7.43.0" />
+        <PackageReference Include="Auth0.ManagementApi" Version="7.43.0" />
+        <PackageReference Include="Auth0Net.DependencyInjection" Version="5.2.0" />
         <PackageReference Include="Bogus" Version="35.6.5" />
         <PackageReference Include="DotMake.CommandLine" Version="2.8.2" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.10" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.11" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.11" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.11" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
         <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.3.1" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+        <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.3.2" />
     </ItemGroup>
 
     <ItemGroup>

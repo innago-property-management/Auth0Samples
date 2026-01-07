@@ -360,4 +360,11 @@ public interface IUserService
     /// <returns>A task that represents the asynchronous operation. The result indicates whether the unblock action succeeded or
     /// failed.</returns>
     ITask<OkError> UnblockBruteforceLockedUser(string email, CancellationToken cancellationToken);
+    /// <summary>
+    /// Retrives a user by their email address.
+    /// </summary>
+    /// <param name="email">The email address of the user</param>
+    /// <param name="cancellationToken">A cancellation token that can be used to cancel the unblock operation.</param>
+    /// <returns>User data</returns>
+    Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken);
 }

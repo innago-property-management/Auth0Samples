@@ -38,6 +38,7 @@
     <ItemGroup>
         <Protobuf Include="..\IdpServiceFacade\Protos\organization.proto" Link="Protos\organization.proto" GrpcServices="Client" />
         <Protobuf Include="..\IdpServiceFacade\Protos\user.proto" Link="Protos\user.proto" GrpcServices="Client" />
+        <Protobuf Include="..\IdpServiceFacade\Protos\auth.proto" Link="Protos\auth.proto" GrpcServices="Client" />
     </ItemGroup>
 
     <ItemGroup>
@@ -45,13 +46,13 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Google.Protobuf" Version="3.33.0" />
-        <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+        <PackageReference Include="Google.Protobuf" Version="3.33.2" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.76.0" />
         <PackageReference Include="Grpc.Tools" Version="2.76.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
         <PackageReference Include="microsoft.codeanalysis.bannedapianalyzers" Version="5.0.0-1.25277.114">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -60,7 +61,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="[10.15.0.120848]">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

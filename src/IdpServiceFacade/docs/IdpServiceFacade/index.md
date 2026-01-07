@@ -4,6 +4,10 @@
 
 | Classes | |
 | :--- | :--- |
+| [ActivateUserRequest](ActivateUserRequest/index.md 'IdpServiceFacade\.ActivateUserRequest') | |
+| [Auth](Auth/index.md 'IdpServiceFacade\.Auth') | |
+| [Auth\.AuthBase](Auth/AuthBase/index.md 'IdpServiceFacade\.Auth\.AuthBase') | Base class for server\-side implementations of Auth |
+| [AuthReflection](AuthReflection/index.md 'IdpServiceFacade\.AuthReflection') | Holder for reflection information generated from Protos/auth\.proto |
 | [ChangePasswordWithIdentityIdRequest](ChangePasswordWithIdentityIdRequest/index.md 'IdpServiceFacade\.ChangePasswordWithIdentityIdRequest') | |
 | [CheckPhoneExistsOnAuth0Request](CheckPhoneExistsOnAuth0Request/index.md 'IdpServiceFacade\.CheckPhoneExistsOnAuth0Request') | |
 | [CreateApplicantRequest](CreateApplicantRequest/index.md 'IdpServiceFacade\.CreateApplicantRequest') | |
@@ -13,10 +17,13 @@
 | [CreateRoleResponse](CreateRoleResponse/index.md 'IdpServiceFacade\.CreateRoleResponse') | |
 | [CreateUserProfileRequest](CreateUserProfileRequest/index.md 'IdpServiceFacade\.CreateUserProfileRequest') | |
 | [CreateUserRequest](CreateUserRequest/index.md 'IdpServiceFacade\.CreateUserRequest') | |
+| [DeleteUserRequest](DeleteUserRequest/index.md 'IdpServiceFacade\.DeleteUserRequest') | |
 | [GetOrganizationReply](GetOrganizationReply/index.md 'IdpServiceFacade\.GetOrganizationReply') | |
 | [GetRefreshTokenAuthRequest](GetRefreshTokenAuthRequest/index.md 'IdpServiceFacade\.GetRefreshTokenAuthRequest') | |
 | [GetTokenAuthReply](GetTokenAuthReply/index.md 'IdpServiceFacade\.GetTokenAuthReply') | |
 | [GetTokenAuthRequest](GetTokenAuthRequest/index.md 'IdpServiceFacade\.GetTokenAuthRequest') | |
+| [GetTokenRequest](GetTokenRequest/index.md 'IdpServiceFacade\.GetTokenRequest') | |
+| [GetTokenResponse](GetTokenResponse/index.md 'IdpServiceFacade\.GetTokenResponse') | |
 | [GetUsersMetadataByEmailAddressesRequest](GetUsersMetadataByEmailAddressesRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailAddressesRequest') | |
 | [GetUsersMetadataByEmailOrPhoneRequest](GetUsersMetadataByEmailOrPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByEmailOrPhoneRequest') | |
 | [GetUsersMetadataByNameAndEmailAndPhoneRequest](GetUsersMetadataByNameAndEmailAndPhoneRequest/index.md 'IdpServiceFacade\.GetUsersMetadataByNameAndEmailAndPhoneRequest') | |
@@ -33,11 +40,14 @@
 | [OrganizationReply](OrganizationReply/index.md 'IdpServiceFacade\.OrganizationReply') | |
 | [OrgRequest](OrgRequest/index.md 'IdpServiceFacade\.OrgRequest') | |
 | [OrgUserRequest](OrgUserRequest/index.md 'IdpServiceFacade\.OrgUserRequest') | |
+| [RemoveUserFromOrganizationRequest](RemoveUserFromOrganizationRequest/index.md 'IdpServiceFacade\.RemoveUserFromOrganizationRequest') | |
 | [Role](Role/index.md 'IdpServiceFacade\.Role') | |
 | [Role\.RoleBase](Role/RoleBase/index.md 'IdpServiceFacade\.Role\.RoleBase') | Base class for server\-side implementations of Role |
 | [RoleReflection](RoleReflection/index.md 'IdpServiceFacade\.RoleReflection') | Holder for reflection information generated from Protos/role\.proto |
+| [UpdateOrganizationByUidRequest](UpdateOrganizationByUidRequest/index.md 'IdpServiceFacade\.UpdateOrganizationByUidRequest') | |
 | [UpdateRiskStatusWithIdentityIdRequest](UpdateRiskStatusWithIdentityIdRequest/index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
+| [UpdateUserRoleIdRequest](UpdateUserRoleIdRequest/index.md 'IdpServiceFacade\.UpdateUserRoleIdRequest') | |
 | [UpdateVerifiedPhoneNumberRequest](UpdateVerifiedPhoneNumberRequest/index.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest') | |
 | [UpdateVerifiedUserEmailRequest](UpdateVerifiedUserEmailRequest/index.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |

@@ -36,8 +36,45 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
-        UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
-        return await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken).ToUserReply();
+
+        // Check if user exists by email
+        Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
+
+        bool userExists = existingUser != null;
+
+        // Only create user if they don't exist
+        if (!userExists)
+        {
+            UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
+            OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
+
+            if (!createResult.OK)
+            {
+                return new UserReply
+                {
+                    Ok = createResult.OK,
+                    Error = createResult.Error ?? string.Empty,
+                };
+            }
+        }
+
+        // Add user to organization if OrganizationId is provided
+        if (!string.IsNullOrWhiteSpace(request.OrganizationId))
+        {
+            OkError addToOrgResult = await this.AddUserToOrganizationAsync(request.Email, request.OrganizationId, context);
+
+            return new UserReply
+            {
+                Ok = addToOrgResult.OK,
+                Error = addToOrgResult.Error ?? string.Empty,
+            };
+        }
+
+        return new UserReply
+        {
+            Ok = true,
+            Error = string.Empty,
+        };
     }
 
     public override Task<UserReply> DisableMfa(UserRequest request, ServerCallContext context)
@@ -318,6 +355,66 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
         return await externalService.UnblockBruteforceLockedUser(request.Email, context.CancellationToken).ToUserReply();
     }
+    public override async Task<UserReply> RemoveUserFromOrganization(RemoveUserFromOrganizationRequest request, ServerCallContext context)
+    {
+        UserReply response = new UserReply();
+        try
+        {
+            // Get the user by email to obtain the User object needed for AddUserToOrganization
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
+
+            if (user == null)
+            {
+                response.Ok = false;
+                response.Error = "User not found";
+                return response;
+            }
+
+            OkError result = await auth0Client.RemoveUserFromOrganizationByUid(user, request.OrganizationId, context.CancellationToken);
+            response.Ok = result.OK;
+            response.Error = result.Error;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Ok = false;
+            response.Error = ex.Message;
+            return response;
+        }
+    }
+    public async Task<OkError> AddUserToOrganizationAsync(string email, string organizationId, ServerCallContext context)
+    {
+        try
+        {
+            // Get the user by email to obtain the User object needed for AddUserToOrganization
+            Auth0.ManagementApi.Models.User? user = await auth0Client.GetUserByEmail(email, context.CancellationToken);
+
+            if (user == null)
+            {
+                return new OkError(false, Error: "User not found");
+            }
+
+            OkError result = await auth0Client.AddUserToOrganizationByUid(user, organizationId, context.CancellationToken).ConfigureAwait(false);
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return new OkError(false, Error: ex.Message);
+        }
+    }
+
+    public override async Task<UserReply> UpdateUserRoleId(UpdateUserRoleIdRequest request, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+    tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId)]);
+        UserUpdateRequest userUpdateRequest = new()
+        {
+            UserMetadata = new Dictionary<string, object>()
+        };
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
+        return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
+    }
 
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
@@ -364,7 +461,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         if (request.IsRoleUpdated)
         {
             AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
-            if(request.RoleId == "3")
+            if (request.RoleId == "3")
             {
                 AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "system_role_id", request.RoleId);
             }

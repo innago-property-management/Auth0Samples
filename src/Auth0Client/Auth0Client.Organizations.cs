@@ -83,6 +83,60 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    ///     Updates an organization in Auth0 by finding it using the organization_uid in metadata.
+    /// </summary>
+    /// <param name="organizationUid">The unique identifier stored in the organization's metadata.</param>
+    /// <param name="updateInfo">The information to update for the organization.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the update result.</returns>
+    public async ITask<OkError> UpdateOrganizationByUid(string organizationUid, OrganizationUpdateInfo updateInfo, CancellationToken cancellationToken = default)
+    {
+        // First, find the organization by organization_uid in metadata
+        IEnumerable<Org> orgs = await this.ListOrganizations(cancellationToken);
+
+        Org? organization = orgs.FirstOrDefault(org =>
+            org.Metadata != null &&
+            org.Metadata.TryGetValue("organization_uid", out string? uid) &&
+            uid == organizationUid);
+
+        if (organization == null)
+        {
+            return new OkError(false, $"Organization with organization_uid '{organizationUid}' not found");
+        }
+
+        // Prepare the update request
+        OrganizationUpdateRequest request = new()
+        {
+            DisplayName = updateInfo.DisplayName,
+        };
+
+        // Merge existing metadata with new metadata
+        if (updateInfo.Metadata != null)
+        {
+            Dictionary<string, object> mergedMetadata = organization.Metadata?.ToDictionary(
+                pair => pair.Key,
+                pair => (object)pair.Value) ?? [];
+
+            foreach (KeyValuePair<string, string> kvp in updateInfo.Metadata)
+            {
+                mergedMetadata[kvp.Key] = kvp.Value;
+            }
+
+            request.Metadata = mergedMetadata;
+        }
+
+        // Update the organization using Auth0 org ID
+        Result<Organization?> result = await TryHelpers.TryAsync(() =>
+            client.Organizations.UpdateAsync(organization.Id, request, cancellationToken)!).ConfigureAwait(false);
+
+        return new OkError
+        {
+            OK = result.HasSucceeded,
+            Error = ((Exception?)result)?.Message,
+        };
+    }
+
     /// <inheritdoc />
     public async ITask<OkError> InviteUser(string organizationId, string userEmail, CancellationToken cancellationToken = default)
     {
@@ -149,6 +203,90 @@ public partial class Auth0Client
         static void ThrowOnError(Exception? exception)
         {
             throw exception!;
+        }
+    }
+
+    /// <summary>
+    ///     Adds a user to an organization in Auth0.
+    /// </summary>
+    /// <param name="user">The user to add.</param>
+    /// <param name="organizationUid">The ID of the organization.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public async Task<OkError> AddUserToOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken)
+    {
+        Result<Organization?> orgResult = await TryHelpers.TryAsync(() => 
+            client.Organizations.GetByNameAsync(organizationUid, cancellationToken)!).ConfigureAwait(false);
+
+        return await orgResult.Map(OnGetOrgSuccess!, OnGetOrgError)!;
+
+        async Task<OkError> OnGetOrgSuccess(Organization? org)
+        {
+            if (org is null)
+            {
+                return new OkError(false, $"Organization with name '{organizationUid}' not found");
+            }
+
+            OrganizationAddMembersRequest request = new()
+            {
+                Members = [user.UserId],
+            };
+
+            Result addMemberResult = await TryHelpers.TryAsync(() => 
+                client.Organizations.AddMembersAsync(org.Id, request, cancellationToken)).ConfigureAwait(false);
+
+            return new OkError
+            {
+                OK = addMemberResult.HasSucceeded,
+                Error = ((Exception?)addMemberResult)?.Message,
+            };
+        }
+
+        static Task<OkError> OnGetOrgError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(false, exception?.Message ?? "Failed to get organization"));
+        }
+    }
+
+    /// <summary>
+    ///     Deletes members from an organization in Auth0.
+    /// </summary>
+    /// <param name="user">The user to be removed from organization in Auth0.</param>
+    /// <param name="organizationUid">The ID of the organization.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public async Task<OkError> RemoveUserFromOrganizationByUid(User user, string organizationUid, CancellationToken cancellationToken)
+    {
+        Result<Organization?> orgResult = await TryHelpers.TryAsync(() =>
+            client.Organizations.GetByNameAsync(organizationUid, cancellationToken)!).ConfigureAwait(false);
+
+        return await orgResult.Map(OnGetOrgSuccess!, OnGetOrgError)!;
+
+        async Task<OkError> OnGetOrgSuccess(Organization? org)
+        {
+            if (org is null)
+            {
+                return new OkError(false, $"Organization with name '{organizationUid}' not found");
+            }
+
+            OrganizationDeleteMembersRequest request = new()
+            {
+                Members = [user.UserId],
+            };
+
+            Result deleteMemberResult = await TryHelpers.TryAsync(() =>
+                client.Organizations.DeleteMembersAsync(org.Id, request, cancellationToken)).ConfigureAwait(false);
+
+            return new OkError
+            {
+                OK = deleteMemberResult.HasSucceeded,
+                Error = ((Exception?)deleteMemberResult)?.Message,
+            };
+        }
+
+        static Task<OkError> OnGetOrgError(Exception? exception)
+        {
+            return Task.FromResult(new OkError(false, exception?.Message ?? "Failed to get organization"));
         }
     }
 
