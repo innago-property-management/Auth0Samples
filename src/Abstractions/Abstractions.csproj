@@ -21,7 +21,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Auth0.ManagementApi" Version="7.42.0" />
+      <PackageReference Include="Auth0.ManagementApi" Version="7.43.0" />
       <PackageReference Include="DefaultDocumentation" Version="1.2.2">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
