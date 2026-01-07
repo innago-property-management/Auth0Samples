@@ -1,5 +1,7 @@
 namespace Auth0Client;
 
+using Abstractions;
+
 using Auth0.AuthenticationApi.Models;
 using Auth0.Core.Exceptions;
 
@@ -47,6 +49,55 @@ public partial class Auth0Client
         {
             // 5. Handle other exceptions (e.g., network issues)
             return new Result<string>(new InvalidOperationException($"An unexpected error occurred: {ex.Message}", ex));
+        }
+    }
+
+    /// <summary>
+    /// Retrieves an OAuth2 Client Credentials token with full response fields (RFC 6749 Section 4.4).
+    /// </summary>
+    /// <param name="clientId">The client identifier issued to the client.</param>
+    /// <param name="clientSecret">The client secret.</param>
+    /// <param name="audience">The target audience for the token.</param>
+    /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
+    /// <returns>A result containing the full client credentials token response or an error.</returns>
+    public async Task<Result<ClientCredentialsToken>> GetClientCredentialsToken(
+        string clientId,
+        string clientSecret,
+        string audience,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            AccessTokenResponse response = await authClient.GetTokenAsync(
+                new ClientCredentialsTokenRequest
+                {
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                    Audience = audience
+                },
+                cancellationToken);
+
+            if (string.IsNullOrEmpty(response.AccessToken))
+            {
+                return new Result<ClientCredentialsToken>(
+                    new InvalidOperationException("Auth0 SDK call succeeded but returned an empty access token."));
+            }
+
+            return new Result<ClientCredentialsToken>(new ClientCredentialsToken(
+                AccessToken: response.AccessToken,
+                TokenType: response.TokenType ?? "Bearer",
+                ExpiresIn: response.ExpiresIn,
+                Scope: null));
+        }
+        catch (ApiException apiEx)
+        {
+            return new Result<ClientCredentialsToken>(
+                new InvalidOperationException($"Auth0 API Error: {apiEx.Message}"));
+        }
+        catch (Exception ex)
+        {
+            return new Result<ClientCredentialsToken>(
+                new InvalidOperationException($"An unexpected error occurred: {ex.Message}", ex));
         }
     }
 }

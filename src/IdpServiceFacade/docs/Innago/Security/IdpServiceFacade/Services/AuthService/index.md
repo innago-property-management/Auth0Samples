@@ -15,4 +15,4 @@ Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system
 
 | Methods | |
 | :--- | :--- |
-| [GetToken\(GetTokenRequest, ServerCallContext\)](GetToken(GetTokenRequest,ServerCallContext).md 'Innago\.Security\.IdpServiceFacade\.Services\.AuthService\.GetToken\(IdpServiceFacade\.GetTokenRequest, Grpc\.Core\.ServerCallContext\)') | |
+| [GetToken\(GetTokenRequest, ServerCallContext\)](GetToken(GetTokenRequest,ServerCallContext).md 'Innago\.Security\.IdpServiceFacade\.Services\.AuthService\.GetToken\(IdpServiceFacade\.GetTokenRequest, Grpc\.Core\.ServerCallContext\)') | Handles OAuth2 Client Credentials token requests \(RFC 6749 Section 4\.4\)\. |

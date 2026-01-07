@@ -17,5 +17,11 @@ message GetTokenRequest {
 message GetTokenResponse {
   bool ok = 1;
   optional string error = 2;
-  string accessToken = 3;
+  string accessToken = 3;                 // KEEP at field 3 for wire compatibility
+
+  // NEW OAuth2 standard fields
+  string tokenType = 4;                   // Always "Bearer"
+  int32 expiresIn = 5;                    // Seconds until expiration
+  optional string scope = 6;              // Granted scopes (space-separated)
+  optional string errorDescription = 7;   // Human-readable error (no secrets)
 }

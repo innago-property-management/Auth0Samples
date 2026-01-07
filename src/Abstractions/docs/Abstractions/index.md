@@ -5,6 +5,7 @@
 | Classes | |
 | :--- | :--- |
 | [Auth0Settings](Auth0Settings/index.md 'Abstractions\.Auth0Settings') | Contains configuration settings for Auth0 authentication and authorization\. |
+| [ClientCredentialsToken](ClientCredentialsToken/index.md 'Abstractions\.ClientCredentialsToken') | Represents an OAuth2 Client Credentials token response as defined in RFC 6749 Section 4\.4\.3\. |
 | [OkError](OkError/index.md 'Abstractions\.OkError') | Represents a result that indicates success or failure with an optional error message\. |
 | [Org](Org/index.md 'Abstractions\.Org') | Represents an organization with a unique identifier, name, display name, and associated metadata\. |
 | [OrganizationCreateInfo](OrganizationCreateInfo/index.md 'Abstractions\.OrganizationCreateInfo') | Represents the information required to create an organization\. |
