@@ -14,11 +14,33 @@ Abstractions.Auth0Settings.DatabaseName.get -> string!
 Abstractions.Auth0Settings.DatabaseName.set -> void
 Abstractions.Auth0Settings.Domain.get -> string!
 Abstractions.Auth0Settings.Domain.set -> void
+Abstractions.ClientCredentialsToken
+virtual Abstractions.ClientCredentialsToken.<Clone>$() -> Abstractions.ClientCredentialsToken!
+Abstractions.ClientCredentialsToken.AccessToken.get -> string!
+Abstractions.ClientCredentialsToken.AccessToken.init -> void
+Abstractions.ClientCredentialsToken.ClientCredentialsToken(Abstractions.ClientCredentialsToken! original) -> void
+Abstractions.ClientCredentialsToken.ClientCredentialsToken(string! AccessToken, string! TokenType, int ExpiresIn, string? Scope = null) -> void
+Abstractions.ClientCredentialsToken.Deconstruct(out string! AccessToken, out string! TokenType, out int ExpiresIn, out string? Scope) -> void
+virtual Abstractions.ClientCredentialsToken.Equals(Abstractions.ClientCredentialsToken? other) -> bool
+Abstractions.ClientCredentialsToken.ExpiresIn.get -> int
+Abstractions.ClientCredentialsToken.ExpiresIn.init -> void
+Abstractions.ClientCredentialsToken.Scope.get -> string?
+Abstractions.ClientCredentialsToken.Scope.init -> void
+Abstractions.ClientCredentialsToken.TokenType.get -> string!
+Abstractions.ClientCredentialsToken.TokenType.init -> void
+override Abstractions.ClientCredentialsToken.Equals(object? obj) -> bool
+override Abstractions.ClientCredentialsToken.GetHashCode() -> int
+override Abstractions.ClientCredentialsToken.ToString() -> string!
+static Abstractions.ClientCredentialsToken.operator !=(Abstractions.ClientCredentialsToken? left, Abstractions.ClientCredentialsToken? right) -> bool
+static Abstractions.ClientCredentialsToken.operator ==(Abstractions.ClientCredentialsToken? left, Abstractions.ClientCredentialsToken? right) -> bool
+virtual Abstractions.ClientCredentialsToken.EqualityContract.get -> System.Type!
+virtual Abstractions.ClientCredentialsToken.PrintMembers(System.Text.StringBuilder! builder) -> bool
 Abstractions.IAuth0Client
 Abstractions.IAuth0Client.GetUser(string! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Auth0.ManagementApi.Models.User!>!
 Abstractions.IAuth0Client.GetUsers(string![]! oruUid, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.Collections.Generic.List<Auth0.ManagementApi.Models.User!>!>!
 Abstractions.IAuth0Client.HealthCheck(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
 Abstractions.IAuthService
+Abstractions.IAuthService.GetClientCredentialsToken(string! clientId, string! clientSecret, string! audience, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Innago.Shared.TryHelpers.Result<Abstractions.ClientCredentialsToken!>>!
 Abstractions.IAuthService.GetToken(string! clientId, string! clientSecret, string! audience, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Innago.Shared.TryHelpers.Result<string!>>!
 Abstractions.IOrganizationService
 Abstractions.IOrganizationService.AddUserToOrganization(Auth0.ManagementApi.Models.User! user, string! orgId, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
