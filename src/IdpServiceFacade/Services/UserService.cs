@@ -413,6 +413,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             UserMetadata = new Dictionary<string, object>()
         };
         AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "system_role_id", request.RoleId);
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 
