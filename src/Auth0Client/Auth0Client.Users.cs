@@ -1,15 +1,5 @@
 namespace Auth0Client;
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-
 using Abstractions;
 
 using Auth0.ManagementApi.Models;
@@ -24,6 +14,17 @@ using Microsoft.Extensions.Logging;
 using MorseCode.ITask;
 
 using Newtonsoft.Json.Linq;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 public partial class Auth0Client
 {
@@ -1203,5 +1204,35 @@ public partial class Auth0Client
 
             return Task.FromResult<User?>(users[0]);
         }
+    }
+
+    /// <inheritdoc />
+    public async ITask<OkError> HardDeleteUserFromAuth0(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), "user_id", cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(this.DeleteUserFromAuth0, GetUsersError)!;
+
+        static Task<OkError> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult<OkError>(new(false, exception?.Message));
+        }
+    }
+
+    private async Task<OkError> DeleteUserFromAuth0(IList<User>? users)
+    {
+        if (users == null || users.Count == 0)
+        {
+            return new(false, "No Users found");
+        }
+        foreach (var user in users)
+        {
+            var _ = await TryHelpers.TryAsync(() => client.Users.DeleteAsync(user.UserId));   
+        }
+        return new(true);
     }
 }

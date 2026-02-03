@@ -11,6 +11,8 @@ using Innago.Shared.TryHelpers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+using MorseCode.ITask;
+
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -57,4 +59,5 @@ public partial class Auth0Client(
 
         return result.Map(_ => true, _ => false);
     }
+
 }

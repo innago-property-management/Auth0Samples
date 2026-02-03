@@ -367,4 +367,11 @@ public interface IUserService
     /// <param name="cancellationToken">A cancellation token that can be used to cancel the unblock operation.</param>
     /// <returns>User data</returns>
     Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken);
+    /// <summary>
+    /// Permanently deletes a user from Auth0 based on their email address.
+    /// </summary>
+    /// <param name="email">The email address of the user to delete.</param>
+    /// <param name="cancellationToken">A cancellation token that can be used to cancel the delete operation.</param>
+    /// <returns>An <see cref="OkError" /> object indicating success or containing an error message if the operation fails.</returns>
+    ITask<OkError> HardDeleteUserFromAuth0(string email, CancellationToken cancellationToken);
 }
