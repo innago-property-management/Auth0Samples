@@ -404,6 +404,13 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
     }
 
+    public async Task<UserReply> HardDeleteUserFromAuth0(string email, ServerCallContext context)
+    {
+        using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
+            tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+        return await externalService.HardDeleteUserFromAuth0(email, context.CancellationToken).ToUserReply();
+    }
+
     #region private methods
     private static void AddIfNotNullOrEmpty(Dictionary<string, object> dict, string key, string? value)
     {
