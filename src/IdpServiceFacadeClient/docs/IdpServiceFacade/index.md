@@ -40,6 +40,7 @@
 | [UpdateOrganizationByUidRequest](UpdateOrganizationByUidRequest/index.md 'IdpServiceFacade\.UpdateOrganizationByUidRequest') | |
 | [UpdateRiskStatusWithIdentityIdRequest](UpdateRiskStatusWithIdentityIdRequest/index.md 'IdpServiceFacade\.UpdateRiskStatusWithIdentityIdRequest') | |
 | [UpdateUserProfileRequest](UpdateUserProfileRequest/index.md 'IdpServiceFacade\.UpdateUserProfileRequest') | |
+| [UpdateUserRoleIdRequest](UpdateUserRoleIdRequest/index.md 'IdpServiceFacade\.UpdateUserRoleIdRequest') | |
 | [UpdateVerifiedPhoneNumberRequest](UpdateVerifiedPhoneNumberRequest/index.md 'IdpServiceFacade\.UpdateVerifiedPhoneNumberRequest') | |
 | [UpdateVerifiedUserEmailRequest](UpdateVerifiedUserEmailRequest/index.md 'IdpServiceFacade\.UpdateVerifiedUserEmailRequest') | |
 | [User](User/index.md 'IdpServiceFacade\.User') | The user service definition\. |

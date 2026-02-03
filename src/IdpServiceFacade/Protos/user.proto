@@ -47,6 +47,7 @@ service User {
   rpc DeleteUser (DeleteUserRequest) returns (UserReply);
   rpc UnblockBruteforceLockedUser(UserRequest) returns (UserReply);
   rpc RemoveUserFromOrganization(RemoveUserFromOrganizationRequest) returns (UserReply);
+  rpc UpdateUserRoleId(UpdateUserRoleIdRequest) returns (UserReply);
   rpc HardDeleteUserFromAuth0(UserRequest) returns (UserReply);
 }
 
@@ -299,4 +300,9 @@ message DeleteUserRequest{
 message RemoveUserFromOrganizationRequest{
   string email = 1;
   string organizationId = 2;
+}
+
+message UpdateUserRoleIdRequest{
+  string identityId = 1;
+  string roleId = 2;
 }

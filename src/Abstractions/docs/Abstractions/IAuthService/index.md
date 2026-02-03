@@ -14,4 +14,5 @@ Derived
 
 | Methods | |
 | :--- | :--- |
+| [GetClientCredentialsToken\(string, string, string, CancellationToken\)](GetClientCredentialsToken(string,string,string,CancellationToken).md 'Abstractions\.IAuthService\.GetClientCredentialsToken\(string, string, string, System\.Threading\.CancellationToken\)') | Retrieves an OAuth2 Client Credentials token as defined in RFC 6749 Section 4\.4\. |
 | [GetToken\(string, string, string, CancellationToken\)](GetToken(string,string,string,CancellationToken).md 'Abstractions\.IAuthService\.GetToken\(string, string, string, System\.Threading\.CancellationToken\)') | Generate token based on ClientId and ClientSecret |
