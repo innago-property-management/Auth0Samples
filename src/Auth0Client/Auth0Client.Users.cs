@@ -1231,7 +1231,7 @@ public partial class Auth0Client
         }
         foreach (var user in users)
         {
-            var _ = TryHelpers.TryAsync(() => client.Users.DeleteAsync(user.UserId)).ConfigureAwait(false);   
+            var _ = await TryHelpers.TryAsync(() => client.Users.DeleteAsync(user.UserId));   
         }
         return new(true);
     }
