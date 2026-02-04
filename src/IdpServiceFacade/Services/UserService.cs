@@ -417,11 +417,11 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         return await externalService.UpdateUser(request.IdentityId, userUpdateRequest, context.CancellationToken).ToUserReply();
     }
 
-    public async Task<UserReply> HardDeleteUserFromAuth0(string email, ServerCallContext context)
+    public override async Task<UserReply> HardDeleteUserFromAuth0(UserRequest request, ServerCallContext context)
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
-            tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
-        return await externalService.HardDeleteUserFromAuth0(email, context.CancellationToken).ToUserReply();
+            tags: [new KeyValuePair<string, object?>(nameof(request.Email), request.Email)]);
+        return await externalService.HardDeleteUserFromAuth0(request.Email, context.CancellationToken).ToUserReply();
     }
 
     #region private methods
