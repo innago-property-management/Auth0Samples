@@ -271,6 +271,8 @@ message CreateUserProfileRequest{
   bool emailVerified = 8;
   bool verifyEmail = 9;
   string organizationId = 10;
+  bool hasEmailChanged = 11;
+  string existingEmail = 12;
 }
 
 message UpdateVerifiedPhoneNumberRequest{

@@ -37,24 +37,64 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
 
-        // Check if user exists by email
-        Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
-
-        bool userExists = existingUser != null;
-
-        // Only create user if they don't exist
-        if (!userExists)
+        // Check if email has changed
+        if (request.HasEmailChanged)
         {
-            UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
-            OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
+            // Get user by existing (old) email
+            Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.ExistingEmail, context.CancellationToken);
 
-            if (!createResult.OK)
+            if (existingUser != null)
             {
-                return new UserReply
+                // Update existing user with new details
+                UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
+                OkError updateResult = await externalService.UpdateUser(existingUser.UserId, userUpdateRequest, context.CancellationToken);
+
+                if (!updateResult.OK)
                 {
-                    Ok = createResult.OK,
-                    Error = createResult.Error ?? string.Empty,
-                };
+                    return new UserReply
+                    {
+                        Ok = updateResult.OK,
+                        Error = updateResult.Error ?? string.Empty,
+                    };
+                }
+            }
+            else
+            {
+                // Create new user if not found
+                UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
+                OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
+
+                if (!createResult.OK)
+                {
+                    return new UserReply
+                    {
+                        Ok = createResult.OK,
+                        Error = createResult.Error ?? string.Empty,
+                    };
+                }
+            }
+        }
+        else
+        {
+            // Original logic for non-email-change scenario
+            Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.Email, context.CancellationToken);
+
+            bool userExists = existingUser != null;
+
+            // Only create user if they don't exist
+            if (!userExists)
+            {
+                UserCreateRequest userCreateRequest = CreateUserProfileRequest(request);
+                OkError createResult = await externalService.CreateUserWithResult(userCreateRequest, context.CancellationToken);
+
+                if (!createResult.OK)
+                {
+                    return new UserReply
+                    {
+                        Ok = createResult.OK,
+                        Error = createResult.Error ?? string.Empty,
+                    };
+                }
             }
         }
 
@@ -501,6 +541,41 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             userCreateRequest.UserMetadata = new Dictionary<string, object>();
         }
         return userCreateRequest;
+    }
+
+    private static UserUpdateRequest CreateUserUpdateRequestFromCreateRequest(CreateUserProfileRequest request)
+    {
+        UserUpdateRequest userUpdateRequest = new()
+        {
+            Email = request.Email,
+            FullName = $"{request.FirstName} {request.LastName}".Trim(),
+            UserMetadata = new Dictionary<string, object>()
+        };
+
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "full_name", $"{request.FirstName} {request.LastName}".Trim());
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "first_name", request.FirstName);
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "last_name", request.LastName);
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "phone_number", request.PhoneNumber);
+        AddIfNotNullOrEmpty(userUpdateRequest.UserMetadata, "role_id", request.RoleId);
+
+        if (request.EmailVerified)
+        {
+            userUpdateRequest.EmailVerified = true;
+            userUpdateRequest.UserMetadata["is_account_verified"] = true;
+        }
+
+        if (request.Metadata is not null && request.Metadata.Count > 0)
+        {
+            foreach (var kvp in request.Metadata)
+            {
+                if (!userUpdateRequest.UserMetadata.ContainsKey(kvp.Key))
+                {
+                    userUpdateRequest.UserMetadata[kvp.Key] = kvp.Value;
+                }
+            }
+        }
+
+        return userUpdateRequest;
     }
     #endregion
 }
