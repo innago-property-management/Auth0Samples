@@ -21,8 +21,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Auth0.ManagementApi" Version="7.44.0" />
-      <PackageReference Include="DefaultDocumentation" Version="1.2.2">
+      <PackageReference Include="Auth0.ManagementApi" Version="7.45.0" />
+      <PackageReference Include="DefaultDocumentation" Version="1.2.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -33,7 +33,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="MorseCode.ITask" Version="2.0.3" />
-      <PackageReference Include="System.Text.Json" Version="9.0.12" />
+      <PackageReference Include="System.Text.Json" Version="9.0.13" />
     </ItemGroup>
 
     <ItemGroup>
