@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -22,10 +22,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Auth0.AuthenticationApi" Version="7.44.0" />
-        <PackageReference Include="Auth0.ManagementApi" Version="7.44.0" />
+        <PackageReference Include="Auth0.AuthenticationApi" Version="7.45.0" />
+        <PackageReference Include="Auth0.ManagementApi" Version="7.45.0" />
         <PackageReference Include="Auth0Net.DependencyInjection" Version="5.2.0" />
-        <PackageReference Include="DefaultDocumentation" Version="1.2.2">
+        <PackageReference Include="DefaultDocumentation" Version="1.2.3">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
