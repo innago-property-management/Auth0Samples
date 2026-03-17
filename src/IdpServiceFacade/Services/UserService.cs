@@ -10,6 +10,8 @@ using Grpc.Core;
 
 using MorseCode.ITask;
 
+using Newtonsoft.Json;
+
 using System.Diagnostics;
 
 using User = global::IdpServiceFacade.User;
@@ -47,10 +49,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             if (existingUser != null)
             {
                 Console.WriteLine($"Existing user found with email {request.ExistingEmail}. UserId: {existingUser.UserId}. Proceeding to update email to {request.Email}.");
+                Console.WriteLine($"Existing User: {JsonConvert.SerializeObject(existingUser)}");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
-                string? identityId = null;
-                existingUser.UserMetadata?.TryGetValue("identity_id", out identityId);
+                string? identityId = GetMetadataStringValue(existingUser.UserMetadata, "identity_id");
 
                 Console.WriteLine($"Updating user {existingUser.UserId} with IdentityId: {identityId} to new email {request.Email}");
                 OkError updateResult = await externalService.UpdateUser(identityId, userUpdateRequest, context.CancellationToken);
@@ -478,6 +480,24 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         {
             dict[key] = value;
         }
+    }
+
+    private static string? GetMetadataStringValue(IDictionary<string, object>? metadata, string key)
+    {
+        if (metadata == null)
+            return null;
+
+        if (metadata.TryGetValue(key, out var value))
+        {
+            return value switch
+            {
+                null => null,
+                string str => string.IsNullOrWhiteSpace(str) ? null : str,
+                _ => value.ToString()
+            };
+        }
+
+        return null;
     }
 
     private static UserUpdateRequest CreateUserUpdateRequest(UpdateUserProfileRequest request)
