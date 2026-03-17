@@ -10,6 +10,8 @@ using Grpc.Core;
 
 using MorseCode.ITask;
 
+using Newtonsoft.Json;
+
 using System.Diagnostics;
 
 using User = global::IdpServiceFacade.User;
@@ -47,6 +49,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
             if (existingUser != null)
             {
                 Console.WriteLine($"Existing user found with email {request.ExistingEmail}. UserId: {existingUser.UserId}. Proceeding to update email to {request.Email}.");
+                Console.WriteLine($"Existing User: {JsonConvert.SerializeObject(existingUser)}");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
                 string? identityId = null;
