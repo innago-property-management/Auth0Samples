@@ -49,7 +49,10 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
                 Console.WriteLine($"Existing user found with email {request.ExistingEmail}. UserId: {existingUser.UserId}. Proceeding to update email to {request.Email}.");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
-                OkError updateResult = await externalService.UpdateUser(existingUser.UserId, userUpdateRequest, context.CancellationToken);
+                existingUser.UserMetadata.TryGetValue("identity_id", out string? identityId);
+
+                Console.WriteLine($"Updating user {existingUser.UserId} with IdentityId: {identityId} to new email {request.Email}");
+                OkError updateResult = await externalService.UpdateUser(identityId, userUpdateRequest, context.CancellationToken);
 
                 Console.WriteLine($"Update result for user {existingUser.UserId} with new email {request.Email}: OK={updateResult.OK}, Error={updateResult.Error}");
                 if (!updateResult.OK)
