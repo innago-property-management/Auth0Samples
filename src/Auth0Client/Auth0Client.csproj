@@ -23,9 +23,9 @@
 
     <ItemGroup>
         <PackageReference Include="Auth0.AuthenticationApi" Version="7.45.0" />
-        <PackageReference Include="Auth0.ManagementApi" Version="7.45.0" />
+        <PackageReference Include="Auth0.ManagementApi" Version="7.45.1" />
         <PackageReference Include="Auth0Net.DependencyInjection" Version="5.2.0" />
-        <PackageReference Include="DefaultDocumentation" Version="1.2.3">
+        <PackageReference Include="DefaultDocumentation" Version="1.2.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

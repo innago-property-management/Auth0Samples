@@ -36,19 +36,22 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
     {
         using Activity? activity = IdpServiceFacadeTracer.Source.StartActivity(ActivityKind.Client,
             tags: [new KeyValuePair<string, object?>(nameof(request.IdentityId), request.IdentityId), new KeyValuePair<string, object?>(nameof(request.FirstName), request.FirstName), new KeyValuePair<string, object?>(nameof(request.LastName), request.LastName)]);
-
+        Console.WriteLine($"User Create Request {request.Email}, EmailChanged? {request.HasEmailChanged}");
         // Check if email has changed
         if (request.HasEmailChanged)
         {
+            Console.WriteLine($"Email change detected. ExistingEmail: {request.ExistingEmail}, NewEmail: {request.Email}");
             // Get user by existing (old) email
             Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.ExistingEmail, context.CancellationToken);
 
             if (existingUser != null)
             {
+                Console.WriteLine($"Existing user found with email {request.ExistingEmail}. UserId: {existingUser.UserId}. Proceeding to update email to {request.Email}.");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
                 OkError updateResult = await externalService.UpdateUser(existingUser.UserId, userUpdateRequest, context.CancellationToken);
 
+                Console.WriteLine($"Update result for user {existingUser.UserId} with new email {request.Email}: OK={updateResult.OK}, Error={updateResult.Error}");
                 if (!updateResult.OK)
                 {
                     return new UserReply
