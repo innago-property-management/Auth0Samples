@@ -6,7 +6,9 @@ const IdpServiceFacade.CheckPhoneExistsOnAuth0Request.KeysFieldNumber = 2 -> int
 const IdpServiceFacade.CheckPhoneExistsOnAuth0Request.SearchTermFieldNumber = 1 -> int
 const IdpServiceFacade.CreateUserProfileRequest.EmailFieldNumber = 2 -> int
 const IdpServiceFacade.CreateUserProfileRequest.EmailVerifiedFieldNumber = 8 -> int
+const IdpServiceFacade.CreateUserProfileRequest.ExistingEmailFieldNumber = 12 -> int
 const IdpServiceFacade.CreateUserProfileRequest.FirstNameFieldNumber = 3 -> int
+const IdpServiceFacade.CreateUserProfileRequest.HasEmailChangedFieldNumber = 11 -> int
 const IdpServiceFacade.CreateUserProfileRequest.IdentityIdFieldNumber = 1 -> int
 const IdpServiceFacade.CreateUserProfileRequest.LastNameFieldNumber = 4 -> int
 const IdpServiceFacade.CreateUserProfileRequest.MetadataFieldNumber = 6 -> int
@@ -539,6 +541,10 @@ static readonly Innago.Security.IdpServiceFacade.IdpServiceFacadeTracer.Source -
 ~IdpServiceFacade.CreateUserProfileRequest.PhoneNumber.set -> void
 ~IdpServiceFacade.CreateUserProfileRequest.RoleId.get -> string
 ~IdpServiceFacade.CreateUserProfileRequest.RoleId.set -> void
+~IdpServiceFacade.CreateUserProfileRequest.ExistingEmail.get -> string
+~IdpServiceFacade.CreateUserProfileRequest.ExistingEmail.set -> void
+IdpServiceFacade.CreateUserProfileRequest.HasEmailChanged.get -> bool
+IdpServiceFacade.CreateUserProfileRequest.HasEmailChanged.set -> void
 ~IdpServiceFacade.CreateUserProfileRequest.WriteTo(Google.Protobuf.CodedOutputStream output) -> void
 ~IdpServiceFacade.CreateUserRequest.Clone() -> IdpServiceFacade.CreateUserRequest
 ~IdpServiceFacade.CreateUserRequest.CreateUserRequest(IdpServiceFacade.CreateUserRequest other) -> void

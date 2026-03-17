@@ -15,7 +15,9 @@ Implements [Google\.Protobuf\.IMessage&lt;](https://learn.microsoft.com/en-us/do
 | :--- | :--- |
 | [EmailFieldNumber](EmailFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.EmailFieldNumber') | Field number for the "email" field\. |
 | [EmailVerifiedFieldNumber](EmailVerifiedFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.EmailVerifiedFieldNumber') | Field number for the "emailVerified" field\. |
+| [ExistingEmailFieldNumber](ExistingEmailFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.ExistingEmailFieldNumber') | Field number for the "existingEmail" field\. |
 | [FirstNameFieldNumber](FirstNameFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.FirstNameFieldNumber') | Field number for the "firstName" field\. |
+| [HasEmailChangedFieldNumber](HasEmailChangedFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.HasEmailChangedFieldNumber') | Field number for the "hasEmailChanged" field\. |
 | [IdentityIdFieldNumber](IdentityIdFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.IdentityIdFieldNumber') | Field number for the "identityId" field\. |
 | [LastNameFieldNumber](LastNameFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.LastNameFieldNumber') | Field number for the "lastName" field\. |
 | [MetadataFieldNumber](MetadataFieldNumber.md 'IdpServiceFacade\.CreateUserProfileRequest\.MetadataFieldNumber') | Field number for the "metadata" field\. |

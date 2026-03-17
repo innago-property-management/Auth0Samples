@@ -52,7 +52,7 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
                 Console.WriteLine($"Existing User: {JsonConvert.SerializeObject(existingUser)}");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
-                string? identityId = GetMetadataStringValue(existingUser.UserMetadata as IDictionary<string, object>, "identity_id");
+                string? identityId = GetMetadataStringValue(existingUser.UserMetadata, "identity_id");
 
                 if (string.IsNullOrWhiteSpace(identityId))
                 {
@@ -492,19 +492,39 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         }
     }
 
-    private static string? GetMetadataStringValue(IDictionary<string, object>? metadata, string key)
+    private static string? GetMetadataStringValue(object? metadata, string key)
     {
         if (metadata == null)
             return null;
 
-        if (metadata.TryGetValue(key, out var value))
+        // Handle IDictionary<string, object>
+        if (metadata is IDictionary<string, object> dict)
         {
-            return value switch
+            if (dict.TryGetValue(key, out var value))
             {
-                null => null,
-                string str => string.IsNullOrWhiteSpace(str) ? null : str,
-                _ => value.ToString()
-            };
+                return value switch
+                {
+                    null => null,
+                    string str => string.IsNullOrWhiteSpace(str) ? null : str,
+                    _ => value.ToString()
+                };
+            }
+            return null;
+        }
+
+        // Handle JObject or dynamic objects from Auth0
+        try
+        {
+            var json = metadata as Newtonsoft.Json.Linq.JObject;
+            if (json != null && json.TryGetValue(key, out var token))
+            {
+                var strValue = token?.ToString();
+                return string.IsNullOrWhiteSpace(strValue) ? null : strValue;
+            }
+        }
+        catch
+        {
+            // If JSON parsing fails, continue to fallback
         }
 
         return null;
