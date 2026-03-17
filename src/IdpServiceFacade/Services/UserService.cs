@@ -42,14 +42,15 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
         {
             Console.WriteLine($"Email change detected. ExistingEmail: {request.ExistingEmail}, NewEmail: {request.Email}");
             // Get user by existing (old) email
-            Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetUserByEmail(request.ExistingEmail, context.CancellationToken);
+            Auth0.ManagementApi.Models.User? existingUser = await auth0Client.GetDetailUserByEmail(request.ExistingEmail, context.CancellationToken);
 
             if (existingUser != null)
             {
                 Console.WriteLine($"Existing user found with email {request.ExistingEmail}. UserId: {existingUser.UserId}. Proceeding to update email to {request.Email}.");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
-                existingUser.UserMetadata.TryGetValue("identity_id", out string? identityId);
+                string? identityId = null;
+                existingUser.UserMetadata?.TryGetValue("identity_id", out identityId);
 
                 Console.WriteLine($"Updating user {existingUser.UserId} with IdentityId: {identityId} to new email {request.Email}");
                 OkError updateResult = await externalService.UpdateUser(identityId, userUpdateRequest, context.CancellationToken);
