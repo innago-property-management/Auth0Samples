@@ -52,7 +52,17 @@ internal class UserService(IUserService externalService, IAuth0Client auth0Clien
                 Console.WriteLine($"Existing User: {JsonConvert.SerializeObject(existingUser)}");
                 // Update existing user with new details
                 UserUpdateRequest userUpdateRequest = CreateUserUpdateRequestFromCreateRequest(request);
-                string? identityId = GetMetadataStringValue(existingUser.UserMetadata, "identity_id");
+                string? identityId = GetMetadataStringValue(existingUser.UserMetadata as IDictionary<string, object>, "identity_id");
+
+                if (string.IsNullOrWhiteSpace(identityId))
+                {
+                    Console.WriteLine($"Identity ID not found in user metadata for user {existingUser.UserId}. Cannot update user email.");
+                    return new UserReply
+                    {
+                        Ok = false,
+                        Error = "Identity ID not found in user metadata"
+                    };
+                }
 
                 Console.WriteLine($"Updating user {existingUser.UserId} with IdentityId: {identityId} to new email {request.Email}");
                 OkError updateResult = await externalService.UpdateUser(identityId, userUpdateRequest, context.CancellationToken);
