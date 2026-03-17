@@ -1206,6 +1206,38 @@ public partial class Auth0Client
         }
     }
 
+    /// <summary>
+    /// Gets a user by email with detailed information including user metadata.
+    /// </summary>
+    /// <param name="email">The user's email address.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The user with all details including metadata, or null if not found.</returns>
+    public async Task<User?> GetDetailUserByEmail(string email, CancellationToken cancellationToken)
+    {
+        using Activity? activity = Auth0ClientTracer.Source.StartActivity(ActivityKind.Client, tags: [new KeyValuePair<string, object?>(nameof(email), email)]);
+
+        Result<IList<User>?> getUsersResult = await TryHelpers
+            .TryAsync(() => client.Users.GetUsersByEmailAsync(email.ToLowerInvariant(), null!, cancellationToken: cancellationToken)!)
+            .ConfigureAwait(false);
+
+        return await getUsersResult.Map(GetUserInternal, GetUsersError)!;
+
+        static Task<User?> GetUsersError(Exception? exception)
+        {
+            return Task.FromResult<User?>(null);
+        }
+
+        static Task<User?> GetUserInternal(IList<User>? users)
+        {
+            if (users == null || users.Count == 0)
+            {
+                return Task.FromResult<User?>(null);
+            }
+
+            return Task.FromResult<User?>(users[0]);
+        }
+    }
+
     /// <inheritdoc />
     public async ITask<OkError> HardDeleteUserFromAuth0(string email, CancellationToken cancellationToken)
     {

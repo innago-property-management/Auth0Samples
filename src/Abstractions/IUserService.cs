@@ -367,6 +367,15 @@ public interface IUserService
     /// <param name="cancellationToken">A cancellation token that can be used to cancel the unblock operation.</param>
     /// <returns>User data</returns>
     Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrives a user by their email address with all user details including metadata.
+    /// </summary>
+    /// <param name="email">The email address of the user</param>
+    /// <param name="cancellationToken">A cancellation token that can be used to cancel the operation.</param>
+    /// <returns>User data with full details including metadata</returns>
+    Task<User?> GetDetailUserByEmail(string email, CancellationToken cancellationToken);
+
     /// <summary>
     /// Permanently deletes a user from Auth0 based on their email address.
     /// </summary>
